@@ -1,0 +1,63 @@
+@startuml
+
+class House {
+  - myHouse : House
+
+  + getInstance() : House
+  + getCatalog() : Catalog
+  + getDevicesGroupedByRoom() : Map<...>
+}
+
+class Catalog {
+  - functionalities : List<String>
+  + getFunctionalities() : List<String>
+}
+
+class Room {
+  - deviceList : List<Device>
+  + getDeviceList() : List<Device>
+}
+
+class Device {
+  - name : String
+  - type : String
+  - active : boolean
+  - functionalityList : HashSet<String>
+
+  + getName() : String
+  + getType() : String
+  + getFunctionalities() : HashSet<String>
+}
+
+class ControllerUC09 {
+  - house : House
+
+  + ControllerUC09()
+  + getDeviceByFunctionality() : Map<...>
+}
+
+class MapperToGroupDeviceDTO {
+
+    + MapperToGroupDeviceDTO()
+    + groupDevicesByFunctionality(...) : Map<...>
+    - addDeviceToMap(...) : void
+    - deviceToDeviceDTO(...) : DeviceDTO
+}
+
+class DeviceDTO {
+    - name : String
+    - type : String
+    - location : String
+    + getName() : String
+    + getType() : String
+    + getLocation() : String
+}
+
+House "1" <.. "1" ControllerUC09 : uses
+House "1" *-- "1" Catalog : contains
+House "1" *-- "*" Room : contains
+Room "1" *-- "*" Device : contains
+ControllerUC09 "1" ..> "1" MapperToGroupDeviceDTO : uses
+MapperToGroupDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
+
+@enduml

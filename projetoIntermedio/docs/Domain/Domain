@@ -1,0 +1,57 @@
+@startuml
+
+entity House {
+}
+
+entity Location {
+- address : String
+- zipCode : String
+}
+
+entity GPSLocation {
+- latitude : double
+- longitude : double
+}
+
+entity Room {
+- name : String
+- floor : int
+}
+
+entity Dimensions {
+- width : double
+- length : double
+- height : double
+}
+
+entity Device {
+- name : String
+- type : String
+- active : boolean
+}
+
+entity Sensor {
+- name : String
+- value : Value
+}
+
+entity Actuator {
+- name : String
+- type : String
+}
+
+entity SensorType {
+}
+
+House "1" *-- "*" Room : contains
+House "1" *-- "1" Location : contains
+House "1" ..> "*" SensorType : knows
+Location "1" *-- "1" GPSLocation : contains
+Room "1" *-- "*" Device : contains
+Room "1" *-- "1" Dimensions : has
+Device "1" *-- "*" Sensor :  contains
+Device "1" *-- "*" Actuator : contains
+Sensor "*" o-- "1" SensorType : has
+
+
+@enduml

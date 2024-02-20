@@ -1,0 +1,118 @@
+@startuml
+
+class House {
+  - myHouse : House
+
+  + getInstance() : House
+  + getRoomByName(...) : Room
+  + getRoomList() : List<Room>
+}
+
+class ControllerGetRoomList {
+    - house : House
+
+    + ControllerGetRoomList()
+    + getRoomList() : List<RoomDTO>
+}
+
+class ControllerGetDeviceList {
+    - house : House
+
+    + ControllerGetDeviceList()
+    + getDeviceList() : List<DeviceDTO>
+}
+
+class ControllerUC06 {
+    - house : House
+
+    + ControllerUC06()
+    + getRoomList() : List<RoomDTO>
+    + getDeviceList(...) : List<DeviceDTO>
+}
+
+class MapperToRoomDTO {
+
+    + MapperToRoomDTO()
+    + getRoomList(...) : List<RoomDTO>
+    - toRoomDTO(...) : RoomDTO
+}
+
+class MapperToDeviceDTO {
+
+    + MapperToDeviceDTO()
+    + getDeviceList(...) : List<DeviceDTO>
+    - toDeviceDTO(...) : DeviceDTO
+}
+
+class RoomDTO {
+    - name : String
+    - floor : int
+    - width : double
+    - length : double
+    - height : double
+
+    + RoomDTO(...)
+    + getName() : String
+    + getFloor() : int
+    + getWidth() : double
+    + getLength() : double
+    + getHeight() : double
+}
+
+class DeviceDTO {
+    - name : String
+    - type : String
+    - location : String
+
+    + DeviceDTO(...)
+    + getName() : String
+    + getType() : String
+    + getLocation() : String
+}
+
+class Room {
+    - name : String
+    - floor : int
+
+    + Room(...)
+    + getName() : String
+    + getFloor() : int
+    + getDimensions() : Dimensions
+    + getDeviceList() : List<Device>
+    + getDeviceByName(...) : Device
+}
+
+
+class Device {
+    - name : String
+    - type : String
+
+    + getName() : String
+    + getType() : String
+}
+
+
+class Dimensions {
+    - width : double
+    - length : double
+    - height : double
+
+    + getWidth() : double
+    + getLength() : double
+    + getHeight() : double
+}
+
+ControllerUC06 "1" ..> "1" ControllerGetRoomList : uses
+ControllerGetRoomList "1" ...> "1" House : uses
+ControllerGetRoomList "1" ..> "1" MapperToRoomDTO : uses
+MapperToRoomDTO "1" ..> "List<RoomDTO>" RoomDTO : creates
+ControllerUC06 "1" ..> "1" ControllerGetDeviceList : uses
+ControllerGetDeviceList "1" ..> "1" House : uses
+ControllerGetDeviceList "1" ..> "1" Room : uses
+ControllerGetDeviceList "1" ..> "1" MapperToDeviceDTO : uses
+MapperToDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
+Room "1" *-- "1" Dimensions : contains
+House "1" *-- "List<Room>" Room : contains
+Room "1" *-- "List<Device>" Device : contains
+
+@enduml

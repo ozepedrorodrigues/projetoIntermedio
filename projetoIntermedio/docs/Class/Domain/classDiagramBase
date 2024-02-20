@@ -1,0 +1,159 @@
+@startuml
+
+class House {
+  + House (...)
+  + addRoom(...) : boolean
+  + getRoomByName(...) : Room
+  + getRoomList() : List<Room>
+  + getLocation() : Location
+  + configLocation(...) : boolean
+  + getCatalog() : Catalog
+  + getDevicesGroupedByRoom() : Map<String, List<Device>>
+}
+
+class Catalog {
+  - functionalities : List<String>
+  - sensorList : List<String>
+
+  + addSensor() : boolean
+  + getCatalog() : Catalog
+  + getFunctionalities() : List<String>
+}
+
+class Location {
+  - address : String
+  - zipCode : String
+
+  + Location(...)
+  + getAddress() : String
+  + getZipCode() : String
+  + getGPSLocation() : GPSLocation
+}
+
+class GPSLocation {
+  - latitude : double
+  - longitude : double
+
+  + GPSLocation(...)
+  + getLatitude() : double
+  + getLongitude() : double
+}
+
+class Room {
+  - name : String
+  - floor : int
+
+  + Room(...)
+  + getName() : String
+  + getFloor() : int
+  + getDimensions() : Dimensions
+  + addDevice(...) : boolean
+  + createDevice(...) : Device
+  + getDeviceList() : List<Device>
+  + getDeviceByName(...) : Device
+}
+
+class Dimensions {
+  - width : double
+  - length : double
+  - height : double
+
+  + Dimensions(...)
+  + getWidth() : double
+  + getLength() : double
+  + getHeight() : double
+}
+
+class Device {
+  - name : String
+  - type : String
+  - active : boolean
+  - functionalityList : HashSet<String>
+
+  + Device(...)
+  + getName() : String
+  + getType() : String
+  + addSensor(...) : boolean
+  + deactivate() : boolean
+  + getDeviceSensors() : List<Sensor>
+  + getFunctionalities() : HashSet<String>
+}
+
+interface Sensor {
+
+  + getType() : String
+  + getName() : String
+  + getValue() : String
+}
+
+class Actuator {
+  - name : String
+  - type : String
+
+  + Actuator(...)
+  + getName() : String
+  + getType() : String
+}
+
+class SensorOfHumidity {
+  - name : String
+  - type : String
+  - value : Value
+
+  + SensorOfHumidity(...)
+  + getName() : String
+  + getType() : String
+  + getValue() : String
+}
+
+class SensorOfTemperature {
+  - name : String
+  - type : String
+  - value : Value
+
+  + SensorOfTemperature(...)
+  + getName() : String
+  + getType() : String
+  + getValue() : String
+}
+
+class HumidityValue{
+-humidityValue: int
++HumidityValue()
++getValue() : int
++toValue() : String
+}
+
+class TemperatureValue{
+-temperatureValue: double
++TemperatureValue()
++getValue() : double
++toValue() : String
+}
+
+interface Value {
+  + getValue() : double
+}
+
+House "1" *-- "1" Catalog : contains
+House "1" *-- "1" Location : contains
+House "1" *-- "List<Room>" Room : contains
+
+Location "1" *-- "1" GPSLocation : contains
+
+Room "1" *-- "*" Device : contains
+Room "1" *-- "1" Dimensions : contains
+
+Device "1" *-- "1..*" Sensor :  contains
+Device "1" *-- "1..*" Actuator : contains
+
+SensorOfHumidity "*" ..|> "1" Sensor : implements
+SensorOfTemperature "*" ..|> "1" Sensor : implements
+
+TemperatureValue "*" ..|> "1" Value : implements
+HumidityValue "*" ..|> "1" Value : implements
+
+SensorOfHumidity"1" *-- "1"HumidityValue : has
+SensorOfTemperature"1" *-- "1"TemperatureValue : has
+
+@enduml

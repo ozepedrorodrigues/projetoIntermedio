@@ -1,0 +1,36 @@
+@startuml
+
+interface Sensor {
+
+  + getType() : String
+  + getName() : String
+  + getValue() : double
+}
+
+
+class SensorOfHumidity {
+  - name : String
+  - type : String
+  - value : double
+
+  + SensorOfHumidity(...)
+  + getName() : String
+  + getType() : String
+  + getValue() : double
+}
+
+class SensorOfTemperature {
+  - name : String
+  - type : String
+  - value : double
+
+  + SensorOfTemperature(...)
+  + getName() : String
+  + getType() : String
+  + getValue() : double
+}
+
+SensorOfHumidity "*" ..|> "1" Sensor : implements
+SensorOfTemperature "*" ..|> "1" Sensor : implements
+
+@enduml
