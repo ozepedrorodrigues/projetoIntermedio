@@ -25,5 +25,5 @@ public interface Sensor {
      *
      * @return the current reading from the sensor
      */
-    double getValue();
+    Value getValue();
 }

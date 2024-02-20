@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.domain;
+package Domain;
 
 
 /**
@@ -9,7 +9,7 @@ package pt.ipp.isep.dei.project.domain;
  * <p></p>
  *
  * @see Value
- * @see TemperatureSensor
+ * @see SensorOfTemperature
  */
 public class TemperatureValue implements Value {
 

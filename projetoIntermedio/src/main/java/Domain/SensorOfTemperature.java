@@ -1,5 +1,6 @@
 package Domain;
 
+
 /**
  * This class represents a temperature sensor.
  * It implements the Sensor interface and has a name and a type.

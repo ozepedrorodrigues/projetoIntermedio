@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.project.domain;
+package Domain;
 
 /**
  * <p>Represents a humidity value in a sensor system. This class implements
