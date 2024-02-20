@@ -20,7 +20,7 @@ public class SensorOfHumidity implements Sensor {
      *
      * @return the current reading from the sensor
      */
-    private double value;
+    private Value value;
 
     /**
      * Constructs a new SensorOfHumidity with the given name and type.
@@ -28,6 +28,7 @@ public class SensorOfHumidity implements Sensor {
      * @param name the name of the sensor
      */
     public SensorOfHumidity(String name) {
+        this.value = new HumidityValue();
         this.name = name;
     }
 
@@ -54,7 +55,7 @@ public class SensorOfHumidity implements Sensor {
      *
      * @return the current reading from the sensor
      */
-    public double getValue() {
+    public Value getValue() {
         return value;
     }
 
