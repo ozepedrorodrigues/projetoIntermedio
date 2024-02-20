@@ -43,7 +43,7 @@ class RoomDTO {
 class DeactivateDeviceController {
     - house : House
 
-    + DeactivateDeviceController()
+    + DeactivateDeviceController(...)
     + getRoomList() : List<RoomDTO>
     + getDeviceList(...) : List<DeviceDTO>
     + deactivateDevice(...) : boolean
