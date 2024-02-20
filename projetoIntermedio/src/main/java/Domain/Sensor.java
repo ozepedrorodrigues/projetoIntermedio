@@ -1,0 +1,29 @@
+package Domain;
+
+/**
+ * This interface represents a generic sensor.
+ * It has methods to get the type, name, and current reading of the sensor.
+ */
+
+public interface Sensor {
+    /**
+     * Returns the type of the sensor.
+     *
+     * @return the type of the sensor
+     */
+    String getType();
+
+    /**
+     * Returns the name of the sensor.
+     *
+     * @return the name of the sensor
+     */
+    String getName();
+
+    /**
+     * Returns the current reading from the sensor.
+     *
+     * @return the current reading from the sensor
+     */
+    double getValue();
+}
