@@ -1,13 +1,13 @@
 package Controllers;
 
-import DTOs.DeviceDTO;
-import DTOs.RoomDTO;
-import DTOs.SensorDTO;
-import DTOs.SensorTypeDTO;
+import DTO.DeviceDTO;
+import DTO.RoomDTO;
+import DTO.SensorDTO;
+import DTO.SensorTypeDTO;
 import Mappers.MapperSensorTypeDTO;
-import org.domain.Device;
-import org.domain.House;
-import org.domain.Room;
+import Domain.Device;
+import Domain.House;
+import Domain.Room;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * It provides functionality to add a sensor to an existing device in a room.
  * The ControllerUC07 class includes methods to get a list of rooms, choose a room, get a list of devices in the chosen room, and get the sensor types.
  */
-public class ControllerUC07 {
+public class AddSensorToDeviceController {
     /**
      * The house instance to which the room is to be added.
      */
@@ -28,8 +28,8 @@ public class ControllerUC07 {
      * I want to add a Sensor to an Existing Device in a Room
      * This controller will be used to add a sensor to an existing device
      */
-    public ControllerUC07() {
-        this.house = House.getInstance();
+    public AddSensorToDeviceController(House house) {
+        this.house = house;
 
     }
 
@@ -39,21 +39,15 @@ public class ControllerUC07 {
      * @return the list of rooms in the house.
      */
     public List<RoomDTO> getRoomList() {
-        GetRoomListController getRoomListController = new GetRoomListController();
-        return getRoomListController.getRoomList();
-
-    }
+        return new GetRoomListController(house).getRoomList();}
 
     /**
      * Gets the list of devices in a room.
-     *
      * @param roomName the name of the room.
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        GetDeviceListController getDeviceListController = new GetDeviceListController();
-        return getDeviceListController.getDeviceList(roomName);
-    }
+        return new GetDeviceListController(house).getDeviceList(roomName);}
 
     /**
      * Gets the list of sensor types.
@@ -74,10 +68,7 @@ public class ControllerUC07 {
      * @throws IllegalArgumentException if the deviceDTO, sensorDTO, device name, device location, sensor type, or sensor name is null.
      */
     public boolean addSensorToExistingDevice(DeviceDTO deviceDTO, SensorDTO sensorDTO) {
-        if (deviceDTO == null || sensorDTO == null || deviceDTO.getName() == null ||
-                deviceDTO.getLocation() == null || sensorDTO.getTypeOfSensor() == null ||
-                sensorDTO.getSensorName() == null) return false;
-        Room room = this.house.getRoomByName(deviceDTO.getLocation());
+        Room room = this.house.getRoomByName(deviceDTO.getRoomName());
         if (room == null) return false;
         Device device = room.getDeviceByName(deviceDTO.getName());
         if (device == null) return false;

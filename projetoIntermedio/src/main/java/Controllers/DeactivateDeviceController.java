@@ -1,10 +1,10 @@
 package Controllers;
 
-import DTOs.DeviceDTO;
-import DTOs.RoomDTO;
-import org.domain.Device;
-import org.domain.House;
-import org.domain.Room;
+import DTO.DeviceDTO;
+import DTO.RoomDTO;
+import Domain.Device;
+import Domain.House;
+import Domain.Room;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * longer used. Nevertheless, it should be possible to access its configuration and
  * activity log.
  */
-public class ControllerUC08 {
+public class DeactivateDeviceController {
     /**
      * The house instance.
      */
@@ -23,44 +23,33 @@ public class ControllerUC08 {
     /**
      * Constructs a new ControllerUC08 with the given house.
      */
-    public ControllerUC08() {
-        this.house = House.getInstance();
-    }
+    public DeactivateDeviceController(House house) {
+        this.house = house;}
 
     /**
      * Returns a list of all rooms in the house.
      */
     public List<RoomDTO> getRoomList() {
-        GetRoomListController getRoomListController = new GetRoomListController();
-        return getRoomListController.getRoomList();
-    }
+        return new GetRoomListController(house).getRoomList();}
 
     /**
      * Returns a list of all devices in the given room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        GetDeviceListController getDeviceListController = new GetDeviceListController();
-        return getDeviceListController.getDeviceList(roomName);
-    }
+        return new GetDeviceListController(house).getDeviceList(roomName);}
 
     /**
      * Deactivates the given device.
      * Returns true if the device was deactivated successfully.
      */
     public boolean deactivateDevice(DeviceDTO deviceDTO) {
-        if (deviceDTO == null) {
-            throw new IllegalArgumentException("DeviceDTO cannot be null");
-        }
-        String roomName = deviceDTO.getLocation();
+        String roomName = deviceDTO.getRoomName();
         Room room = house.getRoomByName(roomName);
         if (room == null) {
-            throw new IllegalArgumentException("Room not found");
-        }
+            throw new IllegalArgumentException("Room not found");}
         String deviceName = deviceDTO.getName();
         Device device = room.getDeviceByName(deviceName);
         if (device == null) {
-            throw new IllegalArgumentException("Device not found");
-        }
-        return device.deactivate();
-    }
+            throw new IllegalArgumentException("Device not found");}
+        return device.deactivate();}
 }

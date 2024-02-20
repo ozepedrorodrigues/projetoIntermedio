@@ -1,9 +1,9 @@
 package Controllers;
 
-import DTOs.DeviceDTO;
+import DTO.DeviceDTO;
 import Mappers.MapperToGroupDeviceDTO;
-import org.domain.Device;
-import org.domain.House;
+import Domain.Device;
+import Domain.House;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * ControllerUC09 is a controller class for User Story 09.
  * It provides functionality to get a list of all devices in a house, grouped by functionality.
  */
-public class ControllerUC09 {
+public class GetListOfDevicesByFunctionalityController {
     /**
      * The name of the house.
      */
@@ -22,8 +22,8 @@ public class ControllerUC09 {
      * Constructor for ControllerUC09.
      * Initializes the house instance.
      */
-    public ControllerUC09() {
-        this.myHouse = House.getInstance();
+    public GetListOfDevicesByFunctionalityController(House house) {
+        this.myHouse = house;
     }
 
     /**
