@@ -7,16 +7,16 @@ class House {
   + getRoomList() : List<Room>
   + getLocation() : Location
   + configLocation(...) : boolean
-  + getCatalog() : Catalog
+  + getCatalogue() : Catalogue
   + getDevicesGroupedByRoom() : Map<String, List<Device>>
 }
 
-class Catalog {
+class Catalogue {
   - functionalities : List<String>
   - sensorList : List<String>
 
   + addSensor() : boolean
-  + getCatalog() : Catalog
+  + getCatalogue() : Catalogue
   + getFunctionalities() : List<String>
 }
 
@@ -117,25 +117,27 @@ class SensorOfTemperature {
   + getValue() : String
 }
 
-class HumidityValue{
--humidityValue: int
-+HumidityValue()
-+getValue() : int
-+toValue() : String
+class HumidityValue {
+  - humidityValue: int
+
+  + HumidityValue()
+  + getHumidityValue() : int
+  + toValue() : String
 }
 
-class TemperatureValue{
--temperatureValue: double
-+TemperatureValue()
-+getValue() : double
-+toValue() : String
+class TemperatureValue {
+  - temperatureValue: double
+
+  + TemperatureValue()
+  + getTemperatureValue() : double
+  + toValue() : String
 }
 
 interface Value {
-  + getValue() : double
+  + toValue() : String
 }
 
-House "1" *-- "1" Catalog : contains
+House "1" *-- "1" Catalogue : contains
 House "1" *-- "1" Location : contains
 House "1" *-- "List<Room>" Room : contains
 
@@ -153,7 +155,7 @@ SensorOfTemperature "*" ..|> "1" Sensor : implements
 TemperatureValue "*" ..|> "1" Value : implements
 HumidityValue "*" ..|> "1" Value : implements
 
-SensorOfHumidity"1" *-- "1"HumidityValue : has
-SensorOfTemperature"1" *-- "1"TemperatureValue : has
+SensorOfHumidity "1" *-- "1" HumidityValue : has
+SensorOfTemperature "1" *-- "1" TemperatureValue : has
 
 @enduml

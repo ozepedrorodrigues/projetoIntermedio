@@ -42,26 +42,26 @@ class RoomDTO {
     + getName() : String
 }
 
-class ControllerUC08 {
+class DeactivateDeviceController {
     - house : House
-  
-    + ControllerUC08()
+
+    + DeactivateDeviceController()
     + getRoomList() : List<RoomDTO>
     + getDeviceList(...) : List<DeviceDTO>
     + deactivateDevice(...) : boolean
 }
 
-class ControllerGetRoomList {
+class GetRoomListController {
     - house : House
-  
-    + ControllerGetRoomList()
+
+    + GetRoomListController()
     + getRoomList() : List<RoomDTO>
 }
 
-class ControllerGetDeviceList {
+class GetDeviceListController {
     - house : House
-  
-    + ControllerGetDeviceList()
+
+    + GetDeviceListController()
     + getDeviceList(...) : List<DeviceDTO>
 }
 
@@ -79,18 +79,18 @@ class MapperToDeviceDTO {
   - toDeviceDTO(...) : DeviceDTO
 }
 
-ControllerUC08 "1" ..> "1" ControllerGetRoomList : uses
-ControllerGetRoomList "1" ..> "1" MapperToRoomDTO : uses
-MapperToRoomDTO "1" ..> "List<RoomDTO>" RoomDTO : creates
-ControllerGetRoomList "1" ..> "1" House : uses
+DeactivateDeviceController "1" .> "1" GetRoomListController : uses
+GetRoomListController "1" --> "1" MapperToRoomDTO : creates
+MapperToRoomDTO "1" --> "List<RoomDTO>" RoomDTO : creates
+GetRoomListController "1" .> "1" House : uses
 
-ControllerUC08 "1" ..> "1" House : uses
-House "1" *-- "List<Room>" Room : contains
-Room "1" *-- "List<Device>" Device : contains
+DeactivateDeviceController "1".> "1" House : uses
+House "1" --> "List<Room>" Room : contains
+Room "1" --> "List<Device>" Device : contains
 
-ControllerUC08 "1" ..> "1" ControllerGetDeviceList : uses
-ControllerGetDeviceList "1" ..> "1" MapperToDeviceDTO : uses
-MapperToDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
-ControllerGetDeviceList "1" ..> "1" House : uses
+DeactivateDeviceController "1" -.> "1" GetDeviceListController : uses
+GetDeviceListController "1" --> "1" MapperToDeviceDTO : creates
+MapperToDeviceDTO "1" --> "List<DeviceDTO>" DeviceDTO : creates
+GetDeviceListController "1" .> "1" House : uses
 
 @enduml

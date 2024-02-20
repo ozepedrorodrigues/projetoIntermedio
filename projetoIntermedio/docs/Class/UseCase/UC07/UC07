@@ -6,17 +6,17 @@ class House {
   + getInstance() : House
 }
 
-class Catalog {
+class Catalogue {
   - sensorList : List<String>
 
   + addSensorType(...) : boolean
-  + getCatalog() : List<String>
+  + getCatalogue() : List<String>
 }
 
-class ControllerUC07 {
+class AddSensorToDeviceController {
     - house : House
 
-    + ControllerUC07()
+    + AddSensorToDeviceController()
     + getRoomList() : List<RoomDTO>
     + getDeviceList() : List<DeviceDTO>
     + getSensorTypeDTO(...) : SensorTypeDTO
@@ -89,17 +89,17 @@ class MapperToDeviceDTO {
     - toDeviceDTO(...) : DeviceDTO
 }
 
-class ControllerGetRoomList {
+class GetRoomListController {
     - house : House
 
-    + ControllerGetRoomList()
+    + GetRoomListController()
     + getRoomList(...) : List<RoomDTO>
 }
 
-class ControllerGetDeviceList {
+class GetDeviceListController {
     - house : House
 
-    + ControllerGetDeviceList()
+    + GetDeviceListController()
     + getDeviceList(...) : List<DeviceDTO>
 }
 
@@ -156,24 +156,25 @@ class Dimensions {
     + getHeight() : double
 }
 
-House "1" *-- "1" Catalog: contains
-ControllerUC07 "1" ..> "1" House: uses
-ControllerUC07 "1" ..> "1" ControllerGetRoomList: uses
-ControllerGetRoomList "1" ..> "1" MapperToRoomDTO: uses
-ControllerGetRoomList "1" ..> "1" House: uses
-House "1" *-- "List<Room>" Room: contains
-MapperToRoomDTO "1" ..> "List<RoomDTO>" RoomDTO: creates
-ControllerUC07 "1" ..> "1" ControllerGetDeviceList: uses
-ControllerGetDeviceList "1" ..> "1" MapperToDeviceDTO: uses
-MapperToDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO: creates
-ControllerUC07 "1" ..> "1" MapperSensorTypeDTO: uses
-MapperSensorTypeDTO "1" ..> "1" SensorTypeDTO: creates
-Room "1" *-- "List<Device>" Device: contains
-SensorOfTemperature "*" --|> "1" Sensor: implements
-SensorOfHumidity "*" --|> "1" Sensor: implements
-Device "1" *-- "*" Sensor: contains
-ControllerUC07 "1" ..> "1" DeviceDTO: uses
-ControllerUC07 "1" ..> "1" SensorDTO: uses
-Room "1" *-- "1" Dimensions: has
+House "1" *--> "1" Catalogue: has
+AddSensorToDeviceController "1" --> "1" House: uses
+AddSensorToDeviceController "1" --> "1" GetRoomListController: uses
+GetRoomListController "1" --> "1" MapperToRoomDTO: uses
+GetRoomListController "1" --> "1" House: uses
+House "1" *--> "List<Room>" Room: contains
+MapperToRoomDTO "1" --> "List<RoomDTO>" RoomDTO: uses
+AddSensorToDeviceController "1" --> "1" GetDeviceListController: uses
+GetDeviceListController "1" --> "1" MapperToDeviceDTO: uses
+MapperToDeviceDTO "1" --> "List<DeviceDTO>" DeviceDTO: uses
+AddSensorToDeviceController "1" --> "1" MapperSensorTypeDTO: uses
+MapperSensorTypeDTO "1" --> "1" SensorTypeDTO: creates
+Room "1" *--> "List<Device>" Device: contains
+SensorOfTemperature "*" --> "1" Sensor: implements
+SensorOfHumidity "*" --> "1" Sensor: implements
+Device "1" *--> "1" SensorOfTemperature: creates
+Device "1" *--> "1" SensorOfHumidity: creates
+AddSensorToDeviceController "1" --> "1" DeviceDTO: uses
+AddSensorToDeviceController "1" --> "1" SensorDTO: uses
+Room "1" --> "1" Dimensions: has
 
 @enduml

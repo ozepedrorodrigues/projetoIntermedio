@@ -4,11 +4,11 @@ class House {
   - myHouse : House
 
   + getInstance() : House
-  + getCatalog() : Catalog
+  + getCatalogue() : Catalogue
   + getDevicesGroupedByRoom() : Map<...>
 }
 
-class Catalog {
+class Catalogue {
   - functionalities : List<String>
   + getFunctionalities() : List<String>
 }
@@ -29,10 +29,10 @@ class Device {
   + getFunctionalities() : HashSet<String>
 }
 
-class ControllerUC09 {
+class GetListOfDevicesByFunctionalityController {
   - house : House
 
-  + ControllerUC09()
+  + GetListOfDevicesByFunctionalityController()
   + getDeviceByFunctionality() : Map<...>
 }
 
@@ -53,11 +53,11 @@ class DeviceDTO {
     + getLocation() : String
 }
 
-House "1" <.. "1" ControllerUC09 : uses
-House "1" *-- "1" Catalog : contains
-House "1" *-- "*" Room : contains
-Room "1" *-- "*" Device : contains
-ControllerUC09 "1" ..> "1" MapperToGroupDeviceDTO : uses
-MapperToGroupDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
+House "1" <-- "1" GetListOfDevicesByFunctionalityController : uses
+House "1" *--> "1" Catalogue : has
+House "1" *--> "*" Room : contains
+Room "1" *--> "*" Device : contains
+GetListOfDevicesByFunctionalityController "1" --> "1" MapperToGroupDeviceDTO : creates
+MapperToGroupDeviceDTO "1" --> "List<DeviceDTO>" DeviceDTO : creates
 
 @enduml
