@@ -1,7 +1,7 @@
 package Mappers;
 
-import DTOs.RoomDTO;
-import org.domain.Room;
+import DTO.RoomDTO;
+import Domain.Room;
 
 import java.util.ArrayList;
 import java.util.List;

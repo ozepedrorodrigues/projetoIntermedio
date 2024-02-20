@@ -1,7 +1,7 @@
 package Mappers;
 
-import DTOs.DeviceDTO;
-import org.domain.Device;
+import DTO.DeviceDTO;
+import Domain.Device;
 
 import java.util.ArrayList;
 import java.util.List;

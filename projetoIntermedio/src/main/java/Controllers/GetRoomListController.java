@@ -1,9 +1,9 @@
 package Controllers;
 
-import DTOs.RoomDTO;
+import DTO.RoomDTO;
 import Mappers.MapperToRoomDTO;
-import org.domain.House;
-import org.domain.Room;
+import Domain.House;
+import Domain.Room;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class GetRoomListController {
      * Constructor for ControllerGetRoomList.
      * Initializes the house instance.
      */
-    public GetRoomListController() {
-        this.house = House.getInstance();
+    public GetRoomListController(House house) {
+        this.house = house;
     }
 
     /**
