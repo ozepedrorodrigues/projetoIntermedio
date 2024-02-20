@@ -8,7 +8,7 @@ import java.util.List;
  * The Catalog class is used to manage a list of sensors and their functionalities.
  * It provides methods to add new sensors and retrieve the list of sensors and functionalities.
  */
-public class Catalog {
+public class Catalogue {
     /**
      * A list of functionalities provided by the sensors.
      */
@@ -22,7 +22,7 @@ public class Catalog {
     /**
      * Constructs a new Catalog object.
      */
-    public Catalog() {
+    public Catalogue() {
         // Catalog of sensors, Empty constructor
     }
 

@@ -11,10 +11,6 @@ import java.util.Map;
  * GPS location.
  */
 public class House {
-    /**
-     * The house instance
-     */
-    private static House myHouse = null;
 
     /**
      * Location of the house
@@ -29,23 +25,16 @@ public class House {
     /**
      * List of availableSensorTypes in the house
      */
-    private Catalog catalog = new Catalog();
+    private Catalogue catalogue = new Catalogue();
 
     /**
      * Private constructor for the house
      */
-    private House() {
-    }
-
-    /**
-     * Singleton method to get the house instance
-     *
-     * @return the house instance
-     */
-    public static House getInstance() {
-        if (myHouse == null)
-            myHouse = new House();
-        return myHouse;
+    private House(String address, String zipCode, double latitude, double longitude) {
+        try{
+            this.location = new Location(address, zipCode, latitude, longitude);
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());}
     }
 
     /**
@@ -55,7 +44,7 @@ public class House {
      */
     public boolean addRoom(String name, int floor, double width, double length, double height) {
         for (Room r : this.roomList)
-            if (r.getName().equals(name)) return false;
+            if (r.getName().equalsIgnoreCase(name)) return false;
         Room room = new Room(name, floor, width, length, height);
         this.roomList.add(room);
         return true;
@@ -113,8 +102,8 @@ public class House {
      *
      * @return the catalog of the house
      */
-    public Catalog getCatalog() {
-        return catalog;
+    public Catalogue getCatalog() {
+        return catalogue;
     }
 
     /**
