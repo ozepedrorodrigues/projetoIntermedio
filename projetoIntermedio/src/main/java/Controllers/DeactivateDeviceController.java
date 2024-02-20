@@ -9,7 +9,7 @@ import Domain.Room;
 import java.util.List;
 
 /**
- * This class is a controller for UC08: Deactivate Device.
+ * This class is a controller for UC08.puml: Deactivate Device.
  * As a Power User [or Administrator], I want to deactivate a device, so that it is no
  * longer used. Nevertheless, it should be possible to access its configuration and
  * activity log.

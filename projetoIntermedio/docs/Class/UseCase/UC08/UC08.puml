@@ -1,9 +1,7 @@
 @startuml
 
 class House {
-  - myHouse : House
-  
-  + getInstance() : House
+
   + getRoomByName(...) : Room
   + getRoomList() : List<Room>
 }

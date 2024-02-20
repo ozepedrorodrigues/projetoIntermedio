@@ -1,0 +1,47 @@
+ @startuml
+
+class TemperatureSensor {
+}
+interface Value {
+}
+class TemperatureValue  {
+}
+enum TypeOfSensor {
+}
+
+
+interface Sensor {
+
+  + getType() : String
+  + getName() : String
+  + getValue() : String
+}
+
+class TemperatureSensor {
++sensorName : String
++actualType : TypeOfSensor
++currentTemperature : Value
++TemperatureSensor(String)
+-isValidTemperatureSensorName(String) : boolean
++getName() : String
++getTypeOfSensor() : TypeOfSensor
++getReading() : Value
+}
+
+interface Value {
++toValue() : String
+}
+
+class TemperatureValue {
++temperatureValue : double
++TemperatureValue()
++getTemperatureValue() : double
++toValue() : String
+}
+
+Sensor <|.. TemperatureSensor  : implements
+TemperatureSensor"0..* " ---> "1"TemperatureValue : has
+TemperatureValue ..|> Value : implements
+TemperatureSensor"1 " ---> "1"TypeOfSensor : is a
+
+@enduml

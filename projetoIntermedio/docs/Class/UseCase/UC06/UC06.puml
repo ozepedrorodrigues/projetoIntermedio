@@ -1,9 +1,7 @@
 @startuml
 
 class House {
-  - myHouse : House
 
-  + getInstance() : House
   + getRoomByName(...) : Room
   + getRoomList() : List<Room>
 }
@@ -25,7 +23,7 @@ class GetDeviceListController {
 class GetDeviceListFromSpecificRoomController {
     - house : House
 
-    + GetDeviceListFromSpecificRoomController()
+    + GetDeviceListFromSpecificRoomController(...)
     + getRoomList() : List<RoomDTO>
     + getDeviceList(...) : List<DeviceDTO>
 }
