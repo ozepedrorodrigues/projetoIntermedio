@@ -20,7 +20,7 @@ public class SensorOfTemperature implements Sensor {
      *
      * @return the current reading from the sensor
      */
-    private double value;
+    private Value value;
 
     /**
      * Constructs a new SensorOfTemperature with the given name.
@@ -28,6 +28,7 @@ public class SensorOfTemperature implements Sensor {
      * @param name the name of the sensor
      */
     public SensorOfTemperature(String name) {
+        this.value = new TemperatureValue();
         this.name = name;
     }
 
@@ -54,7 +55,7 @@ public class SensorOfTemperature implements Sensor {
      *
      * @return the current reading from the sensor
      */
-    public double getValue() {
+    public Value getValue() {
         return value;
     }
 }
