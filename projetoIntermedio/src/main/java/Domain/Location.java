@@ -1,5 +1,7 @@
 package Domain;
 
+import Factories.GPSLocationFactory;
+
 /**
  * Represents the location of a house.
  * The location includes the address, zip code, and GPS location.
@@ -9,6 +11,8 @@ public class Location {
      * the address of the house (Street, Number, Door)
      */
     private String address;
+
+    private GPSLocationFactory gpsLocationFactory;
     /**
      * the zip code of the house
      */
@@ -24,17 +28,13 @@ public class Location {
      * @param address the address of the house (Street, Number, Door)
      * @param zipCode the zip code of the house
      */
-    public Location(String address, String zipCode, double latitude, double longitude) {
-        if (address.isEmpty() || zipCode.isEmpty())
+    public Location(String address, String zipCode, double latitude, double longitude, GPSLocationFactory gpsLocationFactory) {
+        if (address.isEmpty() || zipCode.isEmpty()|| address == null || zipCode == null)
             throw new IllegalArgumentException("Invalid Address or ZipCode");
         this.address = address;
         this.zipCode = zipCode;
-        try {
-            this.gpsLocation = new GPSLocation(latitude, longitude);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-    }
+        this.gpsLocationFactory = gpsLocationFactory;
+        this.gpsLocation = gpsLocationFactory.createGPSLocation(latitude,longitude);}
 
     /**
      * Getter for the address of the house

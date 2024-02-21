@@ -31,7 +31,6 @@ public class GetDeviceListController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        House house = House.getInstance();
         Room room = house.getRoomByName(roomName);
         if (room == null)
             throw new IllegalArgumentException("Room does not exist.");

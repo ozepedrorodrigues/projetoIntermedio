@@ -1,5 +1,7 @@
 package Domain;
 
+import Factories.GPSLocationFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,10 @@ public class House {
      */
     private Location location;
 
+    private LocationFactory locationFactory;
+
+    private GPSLocationFactory gpsLocationFactory;
+
     /**
      * List of rooms in the house
      */
@@ -30,11 +36,9 @@ public class House {
     /**
      * Private constructor for the house
      */
-    private House(String address, String zipCode, double latitude, double longitude) {
-        try{
-            this.location = new Location(address, zipCode, latitude, longitude);
-        }catch (IllegalArgumentException e){
-            throw new IllegalArgumentException(e.getMessage());}
+    private House(String address, String zipCode, double latitude, double longitude, LocationFactory locationFactory, GPSLocationFactory gpsLocationFactory) {
+            this.location = locationFactory.createLocation(address, zipCode, latitude, longitude, gpsLocationFactory);
+            this.locationFactory = locationFactory;
     }
 
     /**
@@ -90,7 +94,7 @@ public class House {
      */
     public boolean configLocation(String address, String zipCode, double latitude, double longitude) {
         try {
-            this.location = new Location(address, zipCode, latitude, longitude);
+            this.location = this.locationFactory.createLocation(address, zipCode,latitude, longitude, gpsLocationFactory);
             return true;
         } catch (IllegalArgumentException e) {
             return false;
