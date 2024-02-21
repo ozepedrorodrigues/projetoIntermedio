@@ -1,9 +1,7 @@
 @startuml
 
 class House {
-  - myHouse : House
-  
-  + getInstance() : House
+
   + getRoomByName(...) : Room
   + getRoomList() : List<Room>
 }
@@ -45,7 +43,7 @@ class RoomDTO {
 class DeactivateDeviceController {
     - house : House
 
-    + DeactivateDeviceController()
+    + DeactivateDeviceController(...)
     + getRoomList() : List<RoomDTO>
     + getDeviceList(...) : List<DeviceDTO>
     + deactivateDevice(...) : boolean

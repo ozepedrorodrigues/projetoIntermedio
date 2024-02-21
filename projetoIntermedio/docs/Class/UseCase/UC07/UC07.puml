@@ -1,9 +1,10 @@
 @startuml
 
 class House {
-  - myHouse : House
+    + getCatalogue() : Catalogue
+    + getRoomList() : List<Room>
+    + getRoomByName(...) : Room
 
-  + getInstance() : House
 }
 
 class Catalogue {
