@@ -1,56 +1,38 @@
 @startuml
 
 interface Sensor {
-}
-class HumiditySensor {
-}
-interface Value {
-}
-class HumidityValue  {
-}
-enum TypeOfSensor {
+
+  + getType() : String
+  + getName() : String
+  + getValue() : double
 }
 
-enum TypeOfSensor {
--typeOfSensor : String
--measuringUnit : String
-+TypeOfSensor(String, String)
-+getTypeOfSensor() : String
-+getMeasuringUnit() : String
-+getTypeAndMeasuringUnit() : String
-}
+class SensorOfHumidity {
+  - name : String
+  - type : String
+  - value : double
 
-interface Sensor {
-+getName() : String
-+getReading() : Value
-+getTypeOfSensor() : TypeOfSensor
-}
-
-class HumiditySensor {
-+sensorName : String
-+actualType : TypeOfSensor
-+currentRH : Value
-+HumiditySensor(String)
--isValidHumiditySensorName(String) : boolean
-+getName() : String
-+getTypeOfSensor() : TypeOfSensor
-+getReading() : Value
-}
-
-interface Value {
-+toValue() : String
+  + SensorOfHumidity(...)
+  + getName() : String
+  + getType() : String
+  + getValue() : double
 }
 
 class HumidityValue {
-+humidityValue : int
-+HumidityValue()
-+getHumidityValue() : int
-+toValue() : String
+  - humidityValue: int
+
+  + HumidityValue()
+  + getHumidityValue() : int
+  + toValue() : String
 }
 
-Sensor <|.. HumiditySensor : implements
-HumiditySensor"0..* " --> "1"HumidityValue : has
-HumidityValue ..|> Value : implements
-HumiditySensor"1 " --> "1"TypeOfSensor : is a
+interface Value {
+  + toValue() : String
+}
+
+SensorOfHumidity "*" ..|> "1" Sensor : implements
+SensorOfHumidity "1" *-- "1" HumidityValue : has
+
+HumidityValue "*" ..|> "1" Value : implements
 
 @enduml
