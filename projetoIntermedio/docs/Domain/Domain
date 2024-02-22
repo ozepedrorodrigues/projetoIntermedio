@@ -49,7 +49,7 @@ House "1" ..> "*" SensorType : knows
 Location "1" *-- "1" GPSLocation : contains
 Room "1" *-- "*" Device : contains
 Room "1" *-- "1" Dimensions : has
-Device "1" *-- "*" Sensor :  contains
+Device "1" *-- "1..*" Sensor :  contains
 Device "1" *-- "*" Actuator : contains
 Sensor "*" o-- "1" SensorType : has
 

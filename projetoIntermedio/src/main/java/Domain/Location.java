@@ -11,8 +11,6 @@ public class Location {
      * the address of the house (Street, Number, Door)
      */
     private String address;
-
-    private GPSLocationFactory gpsLocationFactory;
     /**
      * the zip code of the house
      */
@@ -29,11 +27,10 @@ public class Location {
      * @param zipCode the zip code of the house
      */
     public Location(String address, String zipCode, double latitude, double longitude, GPSLocationFactory gpsLocationFactory) {
-        if (address.isEmpty() || zipCode.isEmpty()|| address == null || zipCode == null)
+        if (address.isBlank() || zipCode.isBlank())
             throw new IllegalArgumentException("Invalid Address or ZipCode");
         this.address = address;
         this.zipCode = zipCode;
-        this.gpsLocationFactory = gpsLocationFactory;
         this.gpsLocation = gpsLocationFactory.createGPSLocation(latitude,longitude);}
 
     /**

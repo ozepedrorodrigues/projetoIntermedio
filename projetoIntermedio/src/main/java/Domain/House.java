@@ -1,6 +1,9 @@
 package Domain;
 
+import Factories.DimensionsFactory;
 import Factories.GPSLocationFactory;
+import Factories.LocationFactory;
+import Factories.RoomFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,22 +39,30 @@ public class House {
     /**
      * Private constructor for the house
      */
-    private House(String address, String zipCode, double latitude, double longitude, LocationFactory locationFactory, GPSLocationFactory gpsLocationFactory) {
-            this.location = locationFactory.createLocation(address, zipCode, latitude, longitude, gpsLocationFactory);
-            this.locationFactory = locationFactory;
-    }
+    public House(String address, String zipCode, double latitude, double longitude, LocationFactory locationFactory, GPSLocationFactory gpsLocationFactory) {
+            if(locationFactory == null || gpsLocationFactory == null|| address == null || zipCode == null)
+                throw new IllegalArgumentException("Invalid parameters");
+            try{this.location = locationFactory.createLocation(address, zipCode, latitude, longitude, gpsLocationFactory);}
+            catch (IllegalArgumentException e){
+                throw new IllegalArgumentException(e.getMessage());}
+            this.locationFactory = locationFactory;}
 
     /**
      * Method to add a room to the house if it doesn't exist already
      *
      * @return true if the room was successfully added, false otherwise
      */
-    public boolean addRoom(String name, int floor, double width, double length, double height) {
+    public Room addRoom(String name, int floor, double width, double length, double height, RoomFactory roomFactory, DimensionsFactory dimensionsFactory) {
+        if(roomFactory == null || dimensionsFactory == null)
+            throw new IllegalArgumentException("Invalid parameters");
         for (Room r : this.roomList)
-            if (r.getName().equalsIgnoreCase(name)) return false;
-        Room room = new Room(name, floor, width, length, height);
-        this.roomList.add(room);
-        return true;
+            if (r.getName().equalsIgnoreCase(name)) return null;
+        try{
+            Room room = roomFactory.createRoom(name, floor, width, length, height, dimensionsFactory);
+            this.roomList.add(room);
+            return room;}
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());}
     }
 
     /**
@@ -92,12 +103,12 @@ public class House {
     /**
      * Configures the location of the house
      */
-    public boolean configLocation(String address, String zipCode, double latitude, double longitude) {
+    public Location configLocation(String address, String zipCode, double latitude, double longitude) {
         try {
             this.location = this.locationFactory.createLocation(address, zipCode,latitude, longitude, gpsLocationFactory);
-            return true;
+            return location;
         } catch (IllegalArgumentException e) {
-            return false;
+            return null;
         }
     }
 

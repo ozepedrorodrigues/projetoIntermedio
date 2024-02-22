@@ -1,5 +1,7 @@
 package Domain;
 
+import Factories.DimensionsFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +39,11 @@ public class Room {
      * @param width,length,height the dimensions of the room
      * @throws IllegalArgumentException if input parameters are invalid
      */
-    public Room(String name, int floor, double width, double length, double height) {
+    public Room(String name, int floor, double width, double length, double height, DimensionsFactory dimensionsFactory) {
         if (name.isEmpty())
             throw new IllegalArgumentException("Empty name");
         try {
-            this.dimensions = new Dimensions(width, length, height);
+            this.dimensions = dimensionsFactory.createDimensions(width, length, height);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -73,7 +75,7 @@ public class Room {
      * @return the dimensions of the room
      */
     public Dimensions getDimensions() {
-        return new Dimensions(dimensions.getWidth(), dimensions.getLength(), dimensions.getHeight());
+        return dimensions;
     }
 
     /**

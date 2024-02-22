@@ -39,7 +39,7 @@ public class MapperToRoomDTO {
      * @param room the room to be converted.
      * @return the RoomDTO.
      */
-    private RoomDTO roomToDTO(Room room) {
+    public RoomDTO roomToDTO(Room room) {
         return new RoomDTO(room.getName(), room.getFloor(), room.getDimensions().getWidth(), room.getDimensions().getLength(), room.getDimensions().getHeight());
     }
 }
