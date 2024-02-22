@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Participant "_GetRoomList:GetRoomListController" as G
+Participant "_GetDeviceListFromSpecificRoom:GetDeviceListFromSpecificRoomController" as G1
+Participant "_room:Room" as R
+Participant "_mapperToDeviceDTO:MapperToDeviceDTO" as M
+Participant "_listDeviceDTO:List<DeviceDTO>" as L
+
+[o->G : getRoomList()
+activate G
+ref over G : (UseCase03.puml for more details)
+[o<--G : _roomListDTO
+deactivate G
+
+[o->G1 : getDeviceList(String _roomName)
+activate G1
+G1->R : getDeviceList()
+activate R
+R-->G1: _deviceList
+deactivate R
+G1->M : mapToDeviceDTO(_deviceList)
+activate M
+M-->L** : create(_deviceList)
+M-->G1 : _listDeviceDTO
+deactivate M
+[o<--G1 : _listDeviceDTO
+deactivate G1
+
+@enduml

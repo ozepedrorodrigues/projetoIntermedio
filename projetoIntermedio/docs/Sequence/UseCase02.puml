@@ -1,0 +1,28 @@
+@startuml
+
+
+autonumber
+
+participant "_addRoomController:AddRoomController" as ARC
+participant "_house:House" as H
+participant "_roomFactory:RoomFactory" as RF
+participant "_room:Room" as R
+participant "_mapperRoomDTO" as M
+participant "_roomDTO1:RoomDTO" as DTO
+
+[o-> ARC: createRoom(RoomDTO _roomDTO)
+ARC -> H: createRoom(RoomDTO _roomDTO)
+H -> RF: createRoom(_roomDTO)
+RF --> R**: create(RoomDTO _roomDTO)
+R --> RF: _room
+RF --> H: _room
+H --> ARC: _room
+ARC -> M: mapperToRoomDTO(_room)
+M --> DTO**: create(_room)
+M --> ARC: : _roomDTO1
+[o<--ARC: _roomDTO1
+
+
+
+
+@enduml

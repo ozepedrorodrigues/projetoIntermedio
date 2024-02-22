@@ -1,0 +1,33 @@
+@startuml
+
+autonumber
+
+[o-> ":ConfigHouseLocationController" : configHouseLocation(LocationDTO)
+activate ":ConfigHouseLocationController"
+":ConfigHouseLocationController" -> ":House": configLocation(LocationDTO)
+activate ":House"
+":House" -> ":LocationFactoryImp": createLocation(LocationDTO,GPSLocationFactory)
+activate ":LocationFactoryImp"
+":LocationFactoryImp" -->"_location:Location"** : create(LocationDTO,_gpsLocationFactory)
+activate "_location:Location"
+"_location:Location" ->":GPSLocationFactory" : createGPSLocation(double latitude, double longitude)
+activate ":GPSLocationFactory"
+":GPSLocationFactory" -->"_gpslocation:GPSLocation"** : create(double latitude, double longitude)
+":GPSLocationFactory" -->"_location:Location" : _gpslocation
+deactivate ":GPSLocationFactory"
+"_location:Location" -->":LocationFactoryImp" : _location
+deactivate "_location:Location"
+":LocationFactoryImp" -->":House" : _location
+deactivate ":LocationFactoryImp"
+":House" -> ":House" : this.location = _location
+":House" -->":ConfigHouseLocationController" : _location
+deactivate ":House"
+":ConfigHouseLocationController" ->":LocationDTOMapper" : locationToLocationDTO(_location)
+activate ":LocationDTOMapper"
+":LocationDTOMapper" -->"_locationDTO:LocationDTO"** : create(_location)
+":LocationDTOMapper" -->":ConfigHouseLocationController" : _locationDTO
+deactivate ":LocationDTOMapper"
+[o<--":ConfigHouseLocationController" : _locationDTO
+deactivate ":ConfigHouseLocationController"
+
+@enduml

@@ -27,7 +27,7 @@ public class ConfigHouseLocationController {
      * @param locationDTO the location DTO
      * @return true if the location is valid, false otherwise
      */
-    public Location configureHouseLocation(LocationDTO locationDTO, LocationFactory locationFactory) {
+    public Location configureHouseLocation(LocationDTO locationDTO) {
         return house.configLocation(locationDTO.getAddress(), locationDTO.getZipCode(),
                 locationDTO.getLatitude(),
                 locationDTO.getLongitude());}

@@ -1,0 +1,44 @@
+@startuml
+
+autonumber
+
+participant "_getRoomListController:GetRoomListController" as G
+participant "_addDeviceController:AddDeviceToRoomController" as A
+participant "_house:House" as H
+participant "_room:Room" as R
+participant "_deviceFactory:DeviceFactory" as F
+participant "_device:Device" as D
+participant "_mapperDeviceDTO:MapperDeviceDTO" as M
+participant "_deviceDTO:DeviceDTO" as DTO
+
+[o->G : getRoomList()
+activate G
+ref over G : (UseCase03.puml for more details)
+[o<--G : _roomListDTO
+deactivate G
+[o->A : addDeviceToRoom(DeviceDTO _deviceDTO)
+activate A
+A->H : getRoomByName(String _roomName)
+activate H
+H-->A : _room
+deactivate H
+A->R : addDevice(String name, String type)
+activate R
+R->F : createDevice(name, type)
+activate F
+F-->D** : create(name, type)
+F-->R : _device
+deactivate F
+R-->A : _device
+deactivate R
+A->M : mapToDTO(_device)
+activate M
+M-->DTO** : create(_device)
+M-->A : _deviceDTO
+deactivate M
+[o<--A : _deviceDTO
+deactivate A
+
+
+
+@enduml

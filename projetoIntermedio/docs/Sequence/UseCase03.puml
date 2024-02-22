@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "_getRoomListController:GetRoomListController" as C
+participant "_house:House" as H
+participant "_mapperListRoomDTO:MapperListRoomDTO" as M
+participant "_listRoomDTO:List<RoomDTO>" as LRDTO
+
+[o-> C: getRoomList()
+activate C
+C -> H: getRoomList()
+activate H
+H-->C: _roomList
+deactivate H
+C -> M: mapListRoomDTO(_roomList)
+activate M
+M-->LRDTO**:create(_roomList)
+M-->C: _listRoomDTO
+deactivate M
+[o<--C: _listRoomDTO
+
+
+@enduml
