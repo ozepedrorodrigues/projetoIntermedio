@@ -14,12 +14,12 @@ public enum SensorType {
     HUMIDITY("Humidity", "%RH");
 
 
-    private final String typeOfSensor;
+    private final String sensorType;
     private final String measuringUnit;
 
 
-    SensorType(String typeOfSensor, String measuringUnit) {
-        this.typeOfSensor = typeOfSensor;
+    SensorType(String sensorType, String measuringUnit) {
+        this.sensorType = sensorType;
         this.measuringUnit = measuringUnit;
     }
 
@@ -28,8 +28,8 @@ public enum SensorType {
      *
      * @return The type of the sensor.
      */
-    public String getTypeOfSensor() {
-        return typeOfSensor;
+    public String getSensorType() {
+        return sensorType;
     }
 
     /**
@@ -47,6 +47,6 @@ public enum SensorType {
      * @return A string combining the type and measuring unit.
      */
     public String getTypeAndMeasuringUnit() {
-        return typeOfSensor + " (" + measuringUnit + ")";
+        return sensorType + " (" + measuringUnit + ")";
     }
 }
