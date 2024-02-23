@@ -4,12 +4,14 @@ import DTO.DeviceDTO;
 import DTO.RoomDTO;
 import DTO.SensorDTO;
 import DTO.SensorTypeDTO;
+import Domain.Sensor;
 import Mappers.MapperSensorTypeDTO;
 import Domain.Device;
 import Domain.House;
 import Domain.Room;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ControllerUC07 is a controller class for User Story 07.
@@ -21,6 +23,7 @@ public class AddSensorToDeviceController {
      * The house instance to which the room is to be added.
      */
     private House house;
+    private Room room;
 
     /**
      * Constructor for ControllerUC07.
@@ -47,6 +50,7 @@ public class AddSensorToDeviceController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
+        this.room = house.getRoomByName(roomName);
         return new GetDeviceListController(house).getDeviceList(roomName);}
 
     /**
@@ -55,23 +59,20 @@ public class AddSensorToDeviceController {
      * @return the list of sensor types.
      */
     public SensorTypeDTO getSensorTypeDTO() {
-        List<String> sensors = house.getCatalog().getCatalog();
+        List<String> sensors = house.getCatalog().getSensorTypes();
         return new MapperSensorTypeDTO().getSensorTypes(sensors);
     }
 
     /**
      * Adds a sensor to an existing device in a room.
      *
-     * @param deviceDTO the DTO of the device to which the sensor is to be added.
      * @param sensorDTO the DTO of the sensor to be added.
-     * @return true if the sensor was successfully added, false otherwise.
+     * @return Sensor if the sensor was successfully added, null otherwise.
      * @throws IllegalArgumentException if the deviceDTO, sensorDTO, device name, device location, sensor type, or sensor name is null.
      */
-    public boolean addSensorToExistingDevice(DeviceDTO deviceDTO, SensorDTO sensorDTO) {
-        Room room = this.house.getRoomByName(deviceDTO.getRoomName());
-        if (room == null) return false;
-        Device device = room.getDeviceByName(deviceDTO.getName());
-        if (device == null) return false;
-        return device.addSensor(sensorDTO.getSensorName(), sensorDTO.getTypeOfSensor());
+    public SensorDTO addSensorToExistingDevice(String deviceName, SensorDTO sensorDTO) {
+        Sensor sensor = room.getDeviceByName(deviceName).addSensor(sensorDTO.getSensorName(), sensorDTO.getTypeOfSensor());
+        if (sensor == null) {return null;}
+        return sensorDTO;
     }
 }

@@ -3,6 +3,11 @@
 
 autonumber
 
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
 participant "_getRoomList:GetRoomListController" as C1
 participant "_getDeviceList:GetDeviceListFromSpecificRoomController" as C2
 participant "_deactivateDevice:DeactivateDeviceController" as C3
@@ -12,13 +17,17 @@ participant "_device:Device" as D
 participant "_mapperToDeviceDTO:MapperToDeviceDTO" as M1
 participant "_deviceDTO:DeviceDTO" as D2
 
-[o->C1: getRoomList()
+
+[o->C1 : getRoomList()
 activate C1
-activate C2
-ref over C1,C2 : (UseCase06.puml for more details)
-[o<--C1: _deviceListDTO
-deactivate C2
+ref over C1 : (UseCase03.puml for more details)
+[o<--C1 : _roomListDTO
 deactivate C1
+[o->C2 : getDeviceList()
+activate C2
+ref over C2 : (UseCase06.puml for more details)
+[o<--C2 : _deviceListDTO
+deactivate C2
 
 [o->C3: deactivateDevice(String _deviceName)
 activate C3
@@ -37,4 +46,5 @@ deactivate M1
 [o<--C3: _deviceDTO
 deactivate C3
 
+@enduml
 @enduml

@@ -5,6 +5,7 @@ import DTO.RoomDTO;
 import Domain.Device;
 import Domain.House;
 import Domain.Room;
+import Mappers.MapperToDeviceDTO;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class DeactivateDeviceController {
      * The house instance.
      */
     private final House house;
+    private Room room;
 
     /**
      * Constructs a new ControllerUC08 with the given house.
@@ -36,20 +38,14 @@ public class DeactivateDeviceController {
      * Returns a list of all devices in the given room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
+        this.room= house.getRoomByName(roomName);
         return new GetDeviceListController(house).getDeviceList(roomName);}
 
     /**
      * Deactivates the given device.
-     * Returns true if the device was deactivated successfully.
+     * Returns DeviceDTO if the device was deactivated successfully.
      */
-    public boolean deactivateDevice(DeviceDTO deviceDTO) {
-        String roomName = deviceDTO.getRoomName();
-        Room room = house.getRoomByName(roomName);
-        if (room == null) {
-            throw new IllegalArgumentException("Room not found");}
-        String deviceName = deviceDTO.getName();
-        Device device = room.getDeviceByName(deviceName);
-        if (device == null) {
-            throw new IllegalArgumentException("Device not found");}
-        return device.deactivate();}
+    public DeviceDTO deactivateDevice(String _deviceName) {
+        Device device = room.getDeviceByName(_deviceName);
+        return new MapperToDeviceDTO().deviceToDTO(device.getName(),device.getType(), room.getName());}
 }

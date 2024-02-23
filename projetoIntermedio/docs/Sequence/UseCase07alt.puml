@@ -4,7 +4,7 @@
 autonumber
 
 participant "_getRoomList:GetRoomListController" as C
-participant "_getDeviceList:GetDeviceListController" as D
+participant "_getDeviceList:GetDeviceListFromSpecificRoomController" as D
 participant "_getSensorTypeList:GetSensorTypesController" as S
 participant "_addSensorToDeviceController:AddSensorToDeviceController" as C7
 participant "_house:House" as H
@@ -21,9 +21,14 @@ participant "_sensorDTO:SensorDTO" as S2
 
 [o->C : getRoomList()
 activate C
-ref over C,D : (UseCase06.puml for more details)
-[o<--C : _deviceListDTO
+ref over C : (UseCase03.puml for more details)
+[o<--C : _roomListDTO
 deactivate C
+[o->D : getDeviceList()
+activate D
+ref over D : (UseCase06.puml for more details)
+[o<--D : _deviceListDTO
+deactivate D
 [o->S: getSensorTypes()
 activate S
 S->H : getCatalog()
@@ -45,7 +50,7 @@ deactivate S
 
 [o->C7: addSensorToDevice(String _deviceName, SensorDTO _sensorDTO)
 activate C7
-C7->R: getDeviceByName(String _deviceName)
+C7->R: getDeviceByName(_deviceName)
 activate R
 R-->C7: _device
 deactivate R
@@ -67,6 +72,4 @@ M1-->S2**: create(_sensor)
 M1-->C7: _sensorDTO
 deactivate M1
 [o<--C7: _sensorDTO
-
-
 @enduml

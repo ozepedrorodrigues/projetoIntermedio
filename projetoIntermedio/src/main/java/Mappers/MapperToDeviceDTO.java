@@ -41,7 +41,7 @@ public class MapperToDeviceDTO {
      * @param roomName   the room where the device is located.
      * @return the DeviceDTO.
      */
-    private DeviceDTO deviceToDTO(String deviceName, String deviceType, String roomName) {
+    public DeviceDTO deviceToDTO(String deviceName, String deviceType, String roomName) {
         return new DeviceDTO(deviceName, deviceType, roomName);
     }
 }

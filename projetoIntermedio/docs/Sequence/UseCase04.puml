@@ -8,8 +8,6 @@ Participant "_house:House" as H
 Participant "_catalogue:Catalogue" as CAT
 Participant "_listSensorTypes: List<String>" as LST
 Participant "_functionalities: List<String>" as LF
-Participant "_mapperSensorTypeDTO: MapperSensorTypeDTO" as M
-Participant "_sensorTypeDTO: SensorTypeDTO" as DTO
 
 [o->C : addSensorType(String _sensorType)
 activate C
@@ -26,13 +24,7 @@ deactivate LF
 CAT-->H : _sensorType
 deactivate CAT
 H-->C : _sensorType
-deactivate H
-C->M : sensorTypetoDTO(_sensorType)
-activate M
-M-->DTO**:create(_sensorType)
-M-->C : _sensorTypeDTO
-deactivate M
-[o<--C: _sensorTypeDTO
+[o<--C: _sensorType
 
 
 
