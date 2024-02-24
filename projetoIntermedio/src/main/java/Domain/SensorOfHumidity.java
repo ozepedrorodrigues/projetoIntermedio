@@ -10,7 +10,7 @@ import Factories.ValueFactory;
  * The ID can be set using the setID method.
  */
 public class SensorOfHumidity implements Sensor {
-    private Integer id;
+    private int id;
     /**
      * The type of the sensor.
      */
@@ -27,7 +27,7 @@ public class SensorOfHumidity implements Sensor {
     public SensorOfHumidity(ValueFactory valueFactory) {
         this.type = SensorType.HUMIDITY;
         this.value = valueFactory.createHumidityValue(type);
-        this.id = null;
+        this.id = 0;
 
     }
 
@@ -51,11 +51,19 @@ public class SensorOfHumidity implements Sensor {
     }
 
     /**
+     * Returns the ID of the sensor.
+     *
+     * @return the ID of the sensor
+     */
+    public int getId() {
+        return id;
+    }
+    /**
      * Sets the ID of the sensor.
      *
      * @param id the new ID of the sensor
      */
-    public int setID(Integer id) {
+    public int setID(int id) {
         this.id = id;
         return id;
     }
