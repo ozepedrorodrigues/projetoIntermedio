@@ -86,15 +86,6 @@ interface Sensor {
   + getValue() : String
 }
 
-class Actuator {
-  - name : String
-  - type : String
-
-  + Actuator(...)
-  + getName() : String
-  + getType() : String
-}
-
 class SensorOfHumidity {
   - name : String
   - type : String
@@ -147,7 +138,6 @@ Room "1" *-- "*" Device : contains
 Room "1" *-- "1" Dimensions : contains
 
 Device "1" *-- "1..*" Sensor :  contains
-Device "1" *-- "1..*" Actuator : contains
 
 SensorOfHumidity "*" ..|> "1" Sensor : implements
 SensorOfTemperature "*" ..|> "1" Sensor : implements

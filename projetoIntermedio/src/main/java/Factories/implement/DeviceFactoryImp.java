@@ -2,6 +2,7 @@ package Factories.implement;
 
 import Domain.Device;
 import Factories.DeviceFactory;
+import Factories.SensorFactory;
 
 public class DeviceFactoryImp implements DeviceFactory {
     public DeviceFactoryImp() {
