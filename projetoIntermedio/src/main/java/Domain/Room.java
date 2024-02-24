@@ -1,5 +1,6 @@
 package Domain;
 
+import Factories.DeviceFactory;
 import Factories.DimensionsFactory;
 
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class Room {
     private Dimensions dimensions;
 
     /**
+     * The factory to create devices
+     */
+    private DeviceFactory deviceFactory;
+
+    /**
      * The list of devices in the room.
      */
     private List<Device> deviceList = new ArrayList<>();
@@ -37,25 +43,24 @@ public class Room {
      * @param name                the name of the room (must not be null or empty)
      * @param floor               the floor of the room
      * @param width,length,height the dimensions of the room
+     * @param dimensionsFactory   the factory to create dimensions
+     * @param deviceFactory       the factory to create devices
      * @throws IllegalArgumentException if input parameters are invalid
      */
-    public Room(String name, int floor, double width, double length, double height, DimensionsFactory dimensionsFactory) {
-        if (name.isEmpty())
-            throw new IllegalArgumentException("Empty name");
-        try {
-            this.dimensions = dimensionsFactory.createDimensions(width, length, height);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+    public Room(String name, int floor, double width, double length, double height, DimensionsFactory dimensionsFactory, DeviceFactory deviceFactory) throws IllegalArgumentException {
+        if (!validName(name) || !validDimensonsFactory(dimensionsFactory) || !validDeviceFactory(deviceFactory)) {
+            throw new IllegalArgumentException("Invalid parameters.");
         }
+        this.dimensions = dimensionsFactory.createDimensions(width, length, height);
         this.name = name;
         this.floor = floor;
+        this.deviceFactory = deviceFactory;
     }
 
     /**
      * Getter method to retrieve the name of the room.
      */
     public String getName() {
-
         return this.name;
     }
 
@@ -65,7 +70,6 @@ public class Room {
      * @return the floor of the room
      */
     public int getFloor() {
-
         return this.floor;
     }
 
@@ -79,32 +83,36 @@ public class Room {
     }
 
     /**
-     * Method to add a device to room
-     *
-     * @return false if a Device with the same name already exists
-     */
-    private boolean addDevice(Device device) {
-        for (Device devices : deviceList)
-            if (devices.getName().equals(device.getName()))
-                return false;
-        deviceList.add(device);
-        return true;
-    }
-
-    /**
      * Creates a new device and adds it to the room.
      *
      * @param name       the name of the device
      * @param deviceType the type of the device
-     * @return true if the device was successfully added, false otherwise
+     * @return the created device
+     * @throws IllegalArgumentException if the device is invalid
      */
-    public boolean createDevice(String name, String deviceType) {
+    public Device createDevice(String name, String deviceType) {
         try {
-            Device device = new Device(name, deviceType);
-            return addDevice(device);
+            Device device = deviceFactory.createDevice(name, deviceType);
+            addDevice(device);
+            return device;
         } catch (IllegalArgumentException e) {
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         }
+    }
+
+    /**
+     * Method to add a device to room
+     *
+     * @param device the device to be added
+     * @throws IllegalArgumentException if a device with the same name already exists
+     */
+    private void addDevice(Device device) {
+        for (Device devices : deviceList) {
+            if (devices.getName().equals(device.getName())) {
+                throw new IllegalArgumentException("Device with the same name already exists");
+            }
+        }
+        deviceList.add(device);
     }
 
     /**
@@ -113,10 +121,10 @@ public class Room {
      * @return a list of all devices in the room
      */
     public List<Device> getDeviceList() {
-        List<Device> deviceList1 = new ArrayList<>();
+        List<Device> deviceList = new ArrayList<>();
         for (Device device : this.deviceList)
-            deviceList1.add(device);
-        return deviceList1;
+            deviceList.add(device);
+        return deviceList;
     }
 
     /**
@@ -131,5 +139,35 @@ public class Room {
                 return device;
         }
         return null;
+    }
+
+    /**
+     * Checks if the given room name is non-null and not blank.
+     *
+     * @param name
+     * @return true if the name is valid, false otherwise
+     */
+    private boolean validName(String name) {
+        return name != null && !name.isBlank();
+    }
+
+    /**
+     * Checks if the given dimensionsFactory is non-null.
+     *
+     * @param dimensionsFactory
+     * @return true if the dimensionsFactory is valid, false otherwise
+     */
+    private boolean validDimensonsFactory(DimensionsFactory dimensionsFactory) {
+        return dimensionsFactory != null;
+    }
+
+    /**
+     * Checks if the given deviceFactory is non-null.
+     *
+     * @param deviceFactory
+     * @return true if the deviceFactory is valid, false otherwise
+     */
+    private boolean validDeviceFactory(DeviceFactory deviceFactory) {
+        return deviceFactory != null;
     }
 }
