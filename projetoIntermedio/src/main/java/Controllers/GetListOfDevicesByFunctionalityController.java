@@ -31,10 +31,12 @@ public class GetListOfDevicesByFunctionalityController {
      *
      * @return a map of deviceFuncDTOs grouped by functionality
      */
-    public Map<String, List<DeviceDTO>> getDeviceByFunctionality() {
+ /*   public Map<String, List<DeviceDTO>> getDeviceByFunctionality() {
         Map<String, List<Device>> devicesByRoom = myHouse.getDevicesGroupedByRoom();
         MapperToGroupDeviceDTO mapper = new MapperToGroupDeviceDTO();
-        List<String> availableFunctionalities = myHouse.getCatalog().getFunctionalities();
+        List<String> availableFunctionalities = myHouse.getCatalog().getSensorTypeList();
         return mapper.groupDevicesByFunctionality(devicesByRoom, availableFunctionalities);
     }
+
+  */
 }
