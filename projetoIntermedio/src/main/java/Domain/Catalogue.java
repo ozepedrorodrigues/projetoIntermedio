@@ -1,5 +1,10 @@
 package Domain;
 
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,13 +23,26 @@ public class Catalogue {
     /**
      * A list of sensors.
      */
-    private List<String> sensorClassList = new ArrayList<>(Arrays.asList("sensor.SensorOfTemperature", "sensor.SensorOfHumidity"));
+    private List<String> sensorClassList;
 
     /**
      * Constructs a new Catalog object.
      */
-    public Catalogue() {
-        // Catalog of sensors, Empty constructor
+    public Catalogue() throws InstantiationException {
+        String filePathname = "config.properties";
+
+        Configurations configurations = new Configurations();
+
+        try {
+            Configuration configuration = configurations.properties(new File(filePathname));
+
+            String[] arrayStringClassesSensors = configuration.getStringArray("sensor");
+            this.sensorClassList = List.of(arrayStringClassesSensors);
+
+        } catch (ConfigurationException e) {
+            throw new InstantiationException("something went wrong in reading the configuration: " + e.getMessage());
+        }
+
     }
 
     /**
@@ -34,16 +52,23 @@ public class Catalogue {
      * @param sensorType The name of the sensor to add.
      * @return true if the sensor was added successfully, false otherwise.
      */
-    public boolean addSensorType(SensorType sensorType) {
-        return sensorTypeList.add(sensorType);
+    public SensorType addSensorType(SensorType sensorType) {
+        for(SensorType sensorType1 : sensorTypeList){
+            if(sensorType.equals(sensorType1)){
+                return null;
+            }
+        }
+        sensorTypeList.add(sensorType);
+        return sensorType;
     }
+
 
     /**
      * Returns the list of sensors in the catalog.
      *
      * @return A list of sensors.
      */
-    public List<String> getCatalog() {
+    public List<String> getCatalogue() {
         return sensorClassList;
     }
 
@@ -57,7 +82,22 @@ public class Catalogue {
     }
 
     public Sensor getSensor(String sensorClassName) {
+        boolean isValidSensorClassName = isValidSensorClassName(sensorClassName);
 
+        if(isValidSensorClassName) {
+            try {
+                Sensor sensor = (Sensor) Class.forName(sensorClassName).getConstructor().newInstance();
+                return sensor;
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException | ClassNotFoundException e) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isValidSensorClassName(String sensorClassName){
         boolean isValidSensorClassName = false;
 
         for(String catalogSensorClass : sensorClassList) {
@@ -67,16 +107,7 @@ public class Catalogue {
             }
         }
 
-        if(isValidSensorClassName) {
-            try {
-                Sensor sensor = (Sensor) Class.forName(sensorClassName).getConstructor().newInstance();
-                return sensor;
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return null;
+        return isValidSensorClassName;
     }
+
 }
