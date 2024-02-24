@@ -14,13 +14,6 @@ public interface Sensor {
     String getType();
 
     /**
-     * Returns the name of the sensor.
-     *
-     * @return the name of the sensor
-     */
-    String getName();
-
-    /**
      * Returns the current reading from the sensor.
      *
      * @return the current reading from the sensor
