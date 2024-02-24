@@ -1,5 +1,7 @@
 package Domain;
 
+import Factories.ValueFactory;
+
 /**
  * This class represents a humidity sensor.
  * It implements the Sensor interface and has a type.
@@ -8,7 +10,7 @@ package Domain;
  * The ID can be set using the setID method.
  */
 public class SensorOfHumidity implements Sensor {
-    private int id;
+    private Integer id;
     /**
      * The type of the sensor.
      */
@@ -22,9 +24,11 @@ public class SensorOfHumidity implements Sensor {
     /**
      * Constructs a new SensorOfHumidity with a HumidityValue and sets the type to SensorType.HUMIDITY.
      */
-    public SensorOfHumidity() {
-        this.value = new HumidityValue();
+    public SensorOfHumidity(ValueFactory valueFactory) {
         this.type = SensorType.HUMIDITY;
+        this.value = valueFactory.createHumidityValue(type);
+        this.id = null;
+
     }
 
     /**
@@ -51,7 +55,7 @@ public class SensorOfHumidity implements Sensor {
      *
      * @param id the new ID of the sensor
      */
-    public int setID(int id) {
+    public int setID(Integer id) {
         this.id = id;
         return id;
     }
