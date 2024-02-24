@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 class SensorOfTemperatureTest {
 
     ValueFactory valueFactoryDouble;
-    SensorOfTemperature sensorOfTemperatureDouble;
+    Value valueDouble;
 
     /**
      * Sets up mock objects and valid data for testing the SensorOfTemperature class.
@@ -22,7 +22,7 @@ class SensorOfTemperatureTest {
     @BeforeEach
     void setUp() {
         valueFactoryDouble = mock(ValueFactory.class);
-        sensorOfTemperatureDouble = mock(SensorOfTemperature.class);
+        valueDouble = mock(Value.class);
     }
 
 
@@ -34,11 +34,12 @@ class SensorOfTemperatureTest {
     void getId() {
         // Arrange
         int idExpected = 1;
-        when(sensorOfTemperatureDouble.getId()).thenReturn(idExpected);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
-        int result = sensorOfTemperatureDouble.getId();
+        sensorOfTemperature.setId(idExpected);
+        int result = sensorOfTemperature.getId();
         // Assert
-        assertEquals(id, result);
+        assertEquals(idExpected, result);
     }
 
     /**
@@ -48,11 +49,12 @@ class SensorOfTemperatureTest {
     @Test
     void setId() {
         // Arrange
-        when(sensorOfTemperatureDouble.setId(1)).thenReturn(1);
+        int idExpected = 1;
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
-        int result = sensorOfTemperatureDouble.setId(1);
+        int result = sensorOfTemperature.setId(idExpected);
         // Assert
-        assertEquals(1, result);
+        assertEquals(idExpected, result);
     }
 
     /**
@@ -63,9 +65,9 @@ class SensorOfTemperatureTest {
     void getType() {
         // Arrange
         SensorType typeExpected = SensorType.TEMPERATURE;
-        when(sensorOfTemperatureDouble.getType()).thenReturn(typeExpected);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
-        SensorType result = sensorOfTemperatureDouble.getType();
+        SensorType result = sensorOfTemperature.getType();
         // Assert
         assertEquals(typeExpected, result);
     }
@@ -77,11 +79,11 @@ class SensorOfTemperatureTest {
     @Test
     void getValue() {
         // Arrange
-        Value valueExpected = valueFactoryDouble.createTemperatureValue(SensorType.TEMPERATURE);
-        when(sensorOfTemperatureDouble.getValue()).thenReturn(valueExpected);
+        when(valueFactoryDouble.createTemperatureValue(SensorType.TEMPERATURE)).thenReturn(valueDouble);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
-        Value result = sensorOfTemperatureDouble.getValue();
+        Value result = sensorOfTemperature.getValue();
         // Assert
-        assertEquals(valueExpected, result);
+        assertEquals(valueDouble, result);
     }
 }

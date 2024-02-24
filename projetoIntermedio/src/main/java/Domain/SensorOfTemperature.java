@@ -14,7 +14,7 @@ public class SensorOfTemperature implements Sensor {
     /**
      * The ID of the sensor.
      */
-    private Integer id;
+    private int id;
 
     /**
      * The type of the sensor.
@@ -34,7 +34,7 @@ public class SensorOfTemperature implements Sensor {
     public SensorOfTemperature(ValueFactory valueFactory) {
         this.type = SensorType.TEMPERATURE;
         this.value = valueFactory.createTemperatureValue(type);
-        id = null;
+        this.id = 0;
     }
 
     /**
@@ -51,8 +51,8 @@ public class SensorOfTemperature implements Sensor {
      *
      * @param newId the new ID of the sensor
      */
-    public Integer setId (Integer newId) {
-        id = newId;
+    public int setId (int newId) {
+        this.id = newId;
         return id;
     }
 
