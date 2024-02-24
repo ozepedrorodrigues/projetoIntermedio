@@ -92,9 +92,9 @@ class SensorOfHumidityTest {
     void testSetID() {
         // Arrange
         int id = 1;
-        when(sensorOfHumidityDouble.setID(1)).thenReturn(1);
+        when(sensorOfHumidityDouble.setId(1)).thenReturn(1);
         // Act
-        int result = sensorOfHumidityDouble.setID(1);
+        int result = sensorOfHumidityDouble.setId(1);
         // Assert
         assertEquals(1, result);
 
