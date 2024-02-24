@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DimensionsTest {
 
     /**
-     * test to assess the Constructor of Location with valid parameters
+     * Test to assess the Constructor of Location with valid parameters.
      */
     @Test
     void testConstructorValid() {
