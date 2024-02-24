@@ -11,7 +11,7 @@ public interface Sensor {
      *
      * @return the type of the sensor
      */
-    String getType();
+    SensorType getType();
 
     /**
      * Returns the current reading from the sensor.

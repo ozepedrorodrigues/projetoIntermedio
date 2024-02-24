@@ -1,45 +1,59 @@
 package Domain;
 
 
+import Factories.ValueFactory;
+
 /**
  * This class represents a temperature sensor.
- * It implements the Sensor interface and has a name and a type.
+ * It implements the Sensor interface.
+ * The sensor has an ID, a type, and a value.
+ * The type is always SensorType.TEMPERATURE, and the value is a TemperatureValue.
+ * The ID can be set using the setID method.
  */
 public class SensorOfTemperature implements Sensor {
     /**
-     * The name of the sensor.
+     * The ID of the sensor.
      */
-    private String name;
+    private Integer id;
 
     /**
-     * The type of the sensor, which is set to "Temperature" by default.
+     * The type of the sensor.
      */
-    private String type = "Temperature";
+    private SensorType type;
 
     /**
-     * Returns the current reading from the sensor.
-     *
-     * @return the current reading from the sensor
+     * The value of the sensor.
      */
     private Value value;
 
     /**
-     * Constructs a new SensorOfTemperature with the given name.
+     * Constructor
      *
-     * @param name the name of the sensor
+     * @param valueFactory the ValueFactory of the sensor.
      */
-    public SensorOfTemperature(String name) {
-        this.value = new TemperatureValue();
-        this.name = name;
+    public SensorOfTemperature(ValueFactory valueFactory) {
+        this.type = SensorType.TEMPERATURE;
+        this.value = valueFactory.createTemperatureValue(type);
+        id = null;
     }
 
     /**
-     * Returns the name of the sensor.
+     * Returns the ID of the sensor.
      *
-     * @return the name of the sensor
+     * @return the ID of the sensor
      */
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the ID of the sensor.
+     *
+     * @param newId the new ID of the sensor
+     */
+    public Integer setId (Integer newId) {
+        id = newId;
+        return id;
     }
 
     /**
@@ -47,14 +61,14 @@ public class SensorOfTemperature implements Sensor {
      *
      * @return the type of the sensor
      */
-    public String getType() {
+    public SensorType getType() {
         return type;
     }
 
     /**
-     * Returns the current reading from the sensor.
+     * Returns the value from the sensor.
      *
-     * @return the current reading from the sensor
+     * @return the value from the sensor
      */
     public Value getValue() {
         return value;
