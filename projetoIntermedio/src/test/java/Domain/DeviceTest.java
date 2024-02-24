@@ -1,6 +1,5 @@
 package Domain;
 
-import Factories.SensorFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,20 +32,24 @@ class DeviceTest {
     SensorOfTemperature sensorOfTemperature = mock(SensorOfTemperature.class);
 
     /**
-     * A valid sensor name (used to save time and avoid repetition).*/
-    String validSensorName = "Sensor1";
+     * SensorType from type Humidity*/
+    SensorType humidity = SensorType.HUMIDITY;
     /**
-     * 2 valid sensor types (used to save time and avoid repetition).*/
-    String Humidity = "HUMIDITY";
-    String Temperature = "TEMPERATURE";
+     * SensorType from type Temperature*/
+    SensorType Temperature = SensorType.TEMPERATURE;
 
+    /**
+     * A mock of a Catalogue. It is a test double version of a Catalogue, meaning it is an empty object with the same methods
+     * as an actual Catalogue, but all those methods are empty. When executed they will return absolutely nothing and make
+     * no changes.
+     */
     Catalogue catalogue = mock(Catalogue.class);
 
     /**
      * Test designed to evaluate the constructor of the Device Class under normal circumstances.
      * No Exception should be thrown, the device should be created.*/
     @Test
-    void constructorValidShouldNotThrowException() throws IllegalArgumentException,NullPointerException {
+    void constructorValidShouldNotThrowException() throws IllegalArgumentException {
         //Arrange and Act
         new Device(validName,validType);
         //As the constructor does not throw any exception, if the object is created, the test is successful
@@ -54,27 +57,27 @@ class DeviceTest {
     }
 
     /**
-     * Test designed to assess the response of the constructor to a Null Name (should throw NullPointerException).
+     * Test designed to assess the response of the constructor to a Null Name (should throw IllegalArgumentException).
      * The Exception thrown should send a message in a String "Invalid Parameters".*/
     @Test
-    void constructorInvalidNullNameShouldThrowNullPointerException() {
+    void constructorInvalidNullNameShouldThrowIllegalArgumentException() {
         //Arrange and Act
-        NullPointerException exc = assertThrows(NullPointerException.class, () -> new Device(null,validType));
+        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(null,validType));
         //Assert
-        assertEquals("Invalid Parameters", exc.getMessage());}
+        assertEquals("Invalid Parameter(s)", exc.getMessage());}
 
     /**
-     * Test designed to assess the response of the constructor to a Null Type (should throw NullPointerException).
+     * Test designed to assess the response of the constructor to a Null Type (should throw IllegalArgumentException).
      * The Exception thrown should send a message in a String "Invalid Parameters".*/
     @Test
-    void constructorInvalidNullTypeShouldThrowNullPointerException() {
+    void constructorInvalidNullTypeShouldThrowIllegalArgumentException() {
         //Arrange and Act
-        NullPointerException exc = assertThrows(NullPointerException.class, () -> new Device(validName,null));
+        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,null));
         //Assert
-        assertEquals("Invalid Parameters", exc.getMessage());}
+        assertEquals("Invalid Parameter(s)", exc.getMessage());}
     /**
      * Test designed to assess the response of the constructor to an Emptu Name (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Empty parameter(s)".*/
+     * The Exception thrown should send a message in a String "Invalid Parameters".*/
     @Test
     void constructorInvalidEmptyNameShouldThrowIllegalArgumentException() {
         //Arrange
@@ -82,11 +85,11 @@ class DeviceTest {
         //Act
         IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(invalidName,validType));
         //Assert
-        assertEquals("Empty parameter(s)", exc.getMessage());}
+        assertEquals("Invalid Parameter(s)", exc.getMessage());}
 
     /**
      * Test designed to assess the response of the constructor to an Emptu Type (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Empty parameter(s)".
+     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void constructorInvalidEmptyTypeShouldThrowIllegalArgumentException() {
@@ -95,7 +98,7 @@ class DeviceTest {
         //Act
         IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,invalidType));
         //Assert
-        assertEquals("Empty parameter(s)", exc.getMessage());}
+        assertEquals("Invalid Parameter(s)", exc.getMessage());}
 
     /**
      * Test designed to evaluate the response of the getName method under normal circumstances.
@@ -128,15 +131,16 @@ class DeviceTest {
     void addSensorOfHumidityToAnEmptyDevice() {
         //Arrange
         Device device = new Device(validName,validType);
+        String sensorClassName = "SensorOfHumidity";
         //Act
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn(validSensorName);
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result = device.addSensor(validSensorName,Humidity,catalogue);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfHumidity);
+        when(sensorOfHumidity.getId()).thenReturn(1);
+        when(sensorOfHumidity.getType()).thenReturn(humidity);
+        Sensor result = device.addSensor(1,sensorClassName,catalogue);
         //Assert
         assertNotNull(result);
-        assertEquals(validSensorName,result.getName());
-        assertEquals(Humidity,result.getType());
+        assertEquals(1,result.getId());
+        assertEquals(humidity,result.getType());
         assertEquals(1,device.getDeviceSensors().size());
         assertEquals(1,device.getFunctionalities().size());}
 
@@ -147,42 +151,46 @@ class DeviceTest {
     void addSensorOfTemperatureToAnEmptyDevice() {
         //Arrange
         Device device = new Device(validName,validType);
+        String sensorClassName = "SensorOfTemperature";
         //Act
-         when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfTemperature);
-         when(sensorOfTemperature.getName()).thenReturn(validSensorName);
+         when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfTemperature);
+         when(sensorOfTemperature.getId()).thenReturn(1);
          when(sensorOfTemperature.getType()).thenReturn(Temperature);
-         Sensor result = device.addSensor(validSensorName,Temperature,catalogue);
+         Sensor result = device.addSensor(1,sensorClassName,catalogue);
         //Assert
         assertNotNull(result);
-        assertEquals(validSensorName,result.getName());
+        assertEquals(1,result.getId());
         assertEquals(Temperature,result.getType());
         assertEquals(1,device.getDeviceSensors().size());
         assertEquals(1,device.getFunctionalities().size());}
 
     /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor of temperature to a device with a temperature sensor.
-     * The method should return the sensor added, and the device should have 2 sensor and 1 functionality (temperature).
-     */
+     * The method should return the sensor added, and the device should have 2 sensor and 1 functionality (temperature).*/
+
     @Test
     void addSensorOfTemperatureToADeviceWhichAlreadyHasOne() {
         //Arrange
         Device device = new Device(validName,validType);
+        String sensorClassName = "SensorOfTemperature";
         Sensor sensorOfTemperature2 = mock(SensorOfTemperature.class);
         //Act
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getName()).thenReturn(validSensorName);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfTemperature);
+        when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(validSensorName,Temperature,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfTemperature2);
-        when(sensorOfTemperature2.getName()).thenReturn("Sensor2");
+        when(sensorOfTemperature.getValue()).thenReturn(mock(Value.class));
+        Sensor result = device.addSensor(1,sensorClassName,catalogue);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfTemperature2);
+        when(sensorOfTemperature2.getId()).thenReturn(2);
         when(sensorOfTemperature2.getType()).thenReturn(Temperature);
-        Sensor result2 = device.addSensor("Sensor2",Temperature,catalogue);
+        when(sensorOfTemperature2.getValue()).thenReturn(mock(Value.class));
+        Sensor result2 = device.addSensor(2,sensorClassName,catalogue);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
-        assertEquals(validSensorName,result.getName());
+        assertEquals(1,result.getId());
         assertEquals(Temperature,result.getType());
-        assertEquals("Sensor2",result2.getName());
+        assertEquals(2,result2.getId());
         assertEquals(Temperature,result2.getType());
         assertEquals(2,device.getDeviceSensors().size());
         assertEquals(1,device.getFunctionalities().size());}
@@ -194,49 +202,52 @@ class DeviceTest {
     void addSensorOfHumidityToADeviceWhichAlreadyHasOne() {
         //Arrange
         Device device = new Device(validName,validType);
+        String sensorClassName = "SensorOfHumidity";
         Sensor sensor2 = mock(SensorOfHumidity.class);
         //Act
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn(validSensorName);
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result = device.addSensor(validSensorName,Humidity,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensor2);
-        when(sensor2.getName()).thenReturn("Sensor2");
-        when(sensor2.getType()).thenReturn(Humidity);
-        Sensor result2 = device.addSensor("Sensor2",Humidity,catalogue);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfHumidity);
+        when(sensorOfHumidity.getId()).thenReturn(1);
+        when(sensorOfHumidity.getType()).thenReturn(humidity);
+        Sensor result = device.addSensor(1,sensorClassName,catalogue);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensor2);
+        when(sensor2.getId()).thenReturn(2);
+        when(sensor2.getType()).thenReturn(humidity);
+        Sensor result2 = device.addSensor(2,sensorClassName,catalogue);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
-        assertEquals(validSensorName,result.getName());
-        assertEquals(Humidity,result.getType());
-        assertEquals("Sensor2",result2.getName());
-        assertEquals(Humidity,result2.getType());
+        assertEquals(1,result.getId());
+        assertEquals(humidity,result.getType());
+        assertEquals(2,result2.getId());
+        assertEquals(humidity,result2.getType());
         assertEquals(2,device.getDeviceSensors().size());
         assertEquals(1,device.getFunctionalities().size());}
 
     /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor of humidity to a device with a temperature sensor.
-     * The method should return the sensor added, and the device should have 2 sensor and 2 functionality (humidity).*/
+     * The method should return the sensor added, and the device should have 2 sensor and 2 functionality (humidity and temperature).*/
     @Test
     void addSensorOfHumidityToADeviceWhichAlreadyHasOneTemperatureSensor() {
         //Arrange
         Device device = new Device(validName,validType);
+        String sensorClassName = "SensorOfTemperature";
+        String sensorClassName2 = "SensorOfHumidity";
         //Act
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getName()).thenReturn(validSensorName);
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfTemperature);
+        when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(validSensorName,Temperature,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn("Sensor2");
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result2 = device.addSensor("Sensor2",Humidity,catalogue);
+        Sensor result = device.addSensor(1,sensorClassName,catalogue);
+        when(catalogue.getSensor(sensorClassName2)).thenReturn(sensorOfHumidity);
+        when(sensorOfHumidity.getId()).thenReturn(2);
+        when(sensorOfHumidity.getType()).thenReturn(humidity);
+        Sensor result2 = device.addSensor(2,sensorClassName2,catalogue);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
-        assertEquals(validSensorName,result.getName());
+        assertEquals(1,result.getId());
         assertEquals(Temperature,result.getType());
-        assertEquals("Sensor2",result2.getName());
-        assertEquals(Humidity,result2.getType());
+        assertEquals(2,result2.getId());
+        assertEquals(humidity,result2.getType());
         assertEquals(2,device.getDeviceSensors().size());
         assertEquals(2,device.getFunctionalities().size());}
 
@@ -273,14 +284,16 @@ class DeviceTest {
     void getDeviceSensorsReturnsAListWith2Sensors() {
         //Arrange
         Device device = new Device(validName,validType);
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getName()).thenReturn(validSensorName);
+        String sensorClassName = "SensorOfTemperature";
+        String sensorClassName2 = "SensorOfHumidity";
+        when(catalogue.getSensor(sensorClassName)).thenReturn(sensorOfTemperature);
+        when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(validSensorName,Temperature,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn("Sensor2");
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result2 = device.addSensor("Sensor2",Humidity,catalogue);
+        Sensor result = device.addSensor(1,sensorClassName,catalogue);
+        when(catalogue.getSensor(sensorClassName2)).thenReturn(sensorOfHumidity);
+        when(sensorOfHumidity.getId()).thenReturn(2);
+        when(sensorOfHumidity.getType()).thenReturn(humidity);
+        Sensor result2 = device.addSensor(2,sensorClassName2,catalogue);
         //Act
         int size = device.getDeviceSensors().size();
         //Assert
@@ -296,85 +309,6 @@ class DeviceTest {
         //Act
         int size = device.getDeviceSensors().size();
         //Assert
-        assertEquals(0,size);}
-
-    /**
-     * Test designed to evaluate the response of the getFunctionalities method under normal circumstances.
-     * The method should return a list of functionalities of the device (size 1).*/
-    @Test
-    void getFunctionalitiesinADeviceWith2TemperatureSensorsShouldReturn1Functionality() {
-        //Arrange
-        Device device = new Device(validName,validType);
-        Sensor sensorOfTemperature2 = mock(SensorOfTemperature.class);
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getName()).thenReturn(validSensorName);
-        when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(validSensorName,Temperature,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfTemperature2);
-        when(sensorOfTemperature2.getName()).thenReturn("Sensor2");
-        when(sensorOfTemperature2.getType()).thenReturn(Temperature);
-        Sensor result2 = device.addSensor("Sensor2",Temperature,catalogue);
-        //Act
-        int size = device.getFunctionalities().size();
-        //Assert
-        assertEquals(1,size);}
-
-    /**
-     * Test designed to evaluate the response of the getFunctionalities method under normal circumstances.
-     * The method should return a list of functionalities of the device (size 1).*/
-    @Test
-    void getFunctionalitiesinADeviceWith2HumiditySensorsShouldReturn1Functionality() {
-        //Arrange
-        Device device = new Device(validName,validType);
-        Sensor sensorOfHumidity2 = mock(SensorOfHumidity.class);
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn(validSensorName);
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result = device.addSensor(validSensorName,Humidity,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfHumidity2);
-        when(sensorOfHumidity2.getName()).thenReturn("Sensor2");
-        when(sensorOfHumidity2.getType()).thenReturn(Humidity);
-        Sensor result2 = device.addSensor("Sensor2",Humidity,catalogue);
-        //Act
-        int size = device.getFunctionalities().size();
-        //Assert
-        assertEquals(1,size);
-        assertTrue(device.getFunctionalities().contains(Humidity));
-        assertFalse(device.getFunctionalities().contains(Temperature));}
-
-    /**
-     * Test designed to evaluate the response of the getFunctionalities method under normal circumstances.
-     * The method should return a list of functionalities of the device (size 2).
-     */
-    @Test
-    void getFunctionalitiesinADeviceWith1HumidityAnd1TemperatureSensorsShouldReturn2Functionalities() {
-        //Arrange
-        Device device = new Device(validName,validType);
-        when(catalogue.getSensor(validSensorName)).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getName()).thenReturn(validSensorName);
-        when(sensorOfHumidity.getType()).thenReturn(Humidity);
-        Sensor result = device.addSensor(validSensorName,Humidity,catalogue);
-        when(catalogue.getSensor("Sensor2")).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getName()).thenReturn("Sensor2");
-        when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result2 = device.addSensor("Sensor2",Temperature,catalogue);
-        //Act
-        int size = device.getFunctionalities().size();
-        //Assert
-        assertEquals(2,size);
-        assertTrue(device.getFunctionalities().contains(Humidity));
-        assertTrue(device.getFunctionalities().contains(Temperature));}
-
-    /**
-     * Test designed to evaluate the response of the getFunctionalities method when the device has no sensors.
-     * The method should return an empty list.
-     */
-    @Test
-    void getFunctionalitiesinADeviceWithNoSensorsShouldReturn0Functionalities() {
-        //Arrange
-        Device device = new Device(validName,validType);
-        //Act
-        int size = device.getFunctionalities().size();
-        //Assert
-        assertEquals(0,size);}
+        assertEquals(0,size);
+        assertEquals(0,device.getFunctionalities().size());}
 }

@@ -19,4 +19,16 @@ public interface Sensor {
      * @return the current reading from the sensor
      */
     Value getValue();
+
+    /**
+     * Alters the current Id of the sensor.
+     * @return the ID of the sensor
+     */
+    int setId(int newId);
+
+    /**
+     * Returns the ID of the sensor
+     * @return the ID of the sensor
+     */
+    int getId();
 }

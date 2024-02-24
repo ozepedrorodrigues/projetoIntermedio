@@ -6,7 +6,7 @@ import Factories.ValueFactory;
  * This class represents a humidity sensor.
  * It implements the Sensor interface and has a type.
  * The sensor has an ID, a type, and a value.
- * The type is always SensorType.HUMIDITY, and the value is a HumidityValue.
+ * The type is always SensorType. The value is a HumidityValue.
  * The ID can be set using the setID method.
  */
 public class SensorOfHumidity implements Sensor {
@@ -63,8 +63,9 @@ public class SensorOfHumidity implements Sensor {
      *
      * @param id the new ID of the sensor
      */
-    public int setID(int id) {
+    public int setId(int id) {
         this.id = id;
-        return id;
-    }
+        return id;}
+
+
 }
