@@ -133,7 +133,7 @@ class DimensionsTest {
         Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
         String resultMessage = exc.getMessage();
         // Assert
-        assertTrue(resultMessage.contains(expectedMessage));
+        assertEquals(expectedMessage, resultMessage);
     }
 
 }
