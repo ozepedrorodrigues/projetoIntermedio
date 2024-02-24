@@ -1,8 +1,9 @@
 package Factories.implement;
 
 import Domain.Dimensions;
+import Factories.DimensionsFactory;
 
-public class DimensionsFactoryImp {
+public class DimensionsFactoryImp implements DimensionsFactory {
     public DimensionsFactoryImp() {
     }
 
