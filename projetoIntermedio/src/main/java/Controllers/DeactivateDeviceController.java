@@ -31,8 +31,8 @@ public class DeactivateDeviceController {
     /**
      * Returns a list of all rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
-        return new GetRoomListController(house).getRoomList();}
+/*    public List<RoomDTO> getRoomList() {
+        return new GetRoomListController(house).getRoomList();}*/
 
     /**
      * Returns a list of all devices in the given room.
