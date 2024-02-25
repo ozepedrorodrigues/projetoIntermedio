@@ -8,6 +8,8 @@ import Factories.ValueFactory;
  * The sensor has an ID, a type, and a value.
  * The type is always SensorType. The value is a HumidityValue.
  * The ID can be set using the setID method.
+ *
+ *
  */
 public class SensorOfHumidity implements Sensor {
     private int id;
