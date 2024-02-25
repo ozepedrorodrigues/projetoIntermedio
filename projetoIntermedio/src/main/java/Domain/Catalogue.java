@@ -1,5 +1,6 @@
 package Domain;
 
+import Factories.implement.ValueFactoryImp;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -87,7 +88,7 @@ public class Catalogue {
 
         if(isValidSensorClassName) {
             try {
-                Sensor sensor = (Sensor) Class.forName(sensorClassNamePath).getConstructor().newInstance();
+                Sensor sensor = (Sensor) Class.forName(sensorClassNamePath).getConstructor(ValueFactoryImp.class).newInstance(new ValueFactoryImp());
                 return sensor;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
