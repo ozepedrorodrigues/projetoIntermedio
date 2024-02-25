@@ -1,5 +1,7 @@
 package domain;
 
+import factories.SensorFactory;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,20 +17,23 @@ public class Device {
     private boolean active;
     private List<Sensor> sensorList = new ArrayList<>();
     private HashSet<String> functionalityList = new HashSet<>();
+    private SensorFactory sensorFactory;
 
     /**
      * Constructs a new Device with the specified name and type.
      *
      * @param name The name of the device.
      * @param type The type of the device.
-     * @throws NullPointerException if name or type is null.
+     * @param sensorFactory The sensor factory to be used to create sensors for the device.
+     * @throws NullPointerException if name or type or sensorFactory is null.
      * @throws IllegalArgumentException if name or type is empty.
      */
-    public Device(String name, String type) {
-        if (!validName(name)||!validType(type)) throw new IllegalArgumentException("Invalid Parameter(s)");
+    public Device(String name, String type, SensorFactory sensorFactory) {
+        if (!validName(name)||!validType(type)||sensorFactory==null) throw new IllegalArgumentException("Invalid Parameter(s)");
         this.name = name;
         this.type = type;
         this.active = true;
+        this.sensorFactory = sensorFactory;
     }
 
     /**
@@ -69,13 +74,13 @@ public class Device {
      * Adds a sensor to the device.
      *
      * @param sensorId The Id of the sensor to be added.
-     * @param typeOfSensor The type of the sensor to be added.
+     * @param sensorClassName The type of the sensor to be added.
      * @param catalogue The catalogue from which to retrieve the sensor.
      * @return The added Sensor, or null if the sensor cannot be added.
      */
-    public Sensor addSensor(int sensorId, String typeOfSensor, Catalogue catalogue) {
-        if(!validType(typeOfSensor)||catalogue==null) return null;
-        Sensor sensor = catalogue.getSensor(typeOfSensor);
+    public Sensor addSensor(int sensorId, String sensorClassName, Catalogue catalogue) {
+        if(!validType(sensorClassName)||catalogue==null) return null;
+        Sensor sensor = sensorFactory.createSensor(sensorClassName);
         if(sensor == null) return null;
         int id = sensor.setId(sensorId);
         sensorList.add(sensor);
