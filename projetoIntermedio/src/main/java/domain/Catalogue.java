@@ -1,13 +1,10 @@
 package domain;
 
-import factories.ValueFactory;
-import factories.implement.ValueFactoryImp;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +26,7 @@ public class Catalogue {
     /**
      * Constructs a new Catalog object.
      */
-    public Catalogue() throws InstantiationException {
-        String filePathname = "config.properties";
+    public Catalogue(String filePathname) throws InstantiationException {
 
         Configurations configurations = new Configurations();
 
@@ -41,7 +37,7 @@ public class Catalogue {
             this.sensorClassList = List.of(arrayStringClassesSensors);
 
         } catch (ConfigurationException e) {
-            throw new InstantiationException("something went wrong in reading the configuration: " + e.getMessage());
+            throw new InstantiationException("Wrong file path name.");
         }
 
     }
@@ -80,36 +76,6 @@ public class Catalogue {
      */
     public List<SensorType> getSensorTypeList() {
         return sensorTypeList;
-    }
-
-    public Sensor getSensor(String sensorClassName) {
-        String sensorClassNamePath = "domain." + sensorClassName;
-        boolean isValidSensorClassName = isValidSensorClassName(sensorClassNamePath);
-
-        if(isValidSensorClassName) {
-            try {
-                Sensor sensor = (Sensor) Class.forName(sensorClassNamePath).getConstructor(ValueFactory.class).newInstance(new ValueFactoryImp());
-                return sensor;
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException | ClassNotFoundException e) {
-                return null;
-            }
-        }
-
-        return null;
-    }
-
-    private boolean isValidSensorClassName(String sensorClassNamePath){
-        boolean isValidSensorClassName = false;
-
-        for(String catalogueSensorClass : sensorClassList) {
-            if (sensorClassNamePath.equals(catalogueSensorClass)) {
-                isValidSensorClassName = true;
-                break;
-            }
-        }
-
-        return isValidSensorClassName;
     }
 
 }

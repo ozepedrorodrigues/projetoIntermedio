@@ -12,9 +12,21 @@ class CatalogueTest {
      * Test to verify that the constructor does not throw exceptions.
      */
     @Test
-    void catalogueConstructorValidParameters() {
+    void catalogueConstructor_validParameters() {
         //Act + assert
-        assertDoesNotThrow(() -> new Catalogue(), "Should not throw exception.");
+        assertDoesNotThrow(() -> new Catalogue("config.properties"), "Should not throw exception.");
+    }
+
+    /**
+     * Test to verify that the constructor throws an exception.
+     */
+    @Test
+    void catalogueConstructor_invalidPath() {
+        //Arrange
+        String expectedMessage = "Wrong file path name.";
+        //Act + assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new Catalogue("config.house"));
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     /**
@@ -23,7 +35,7 @@ class CatalogueTest {
     @Test
     void addSensorType() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         SensorType expected = SensorType.HUMIDITY;
         //Act
         SensorType result = catalogue.addSensorType(SensorType.HUMIDITY);
@@ -37,7 +49,7 @@ class CatalogueTest {
     @Test
     void addSensorType_repeatedSensorType() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
         //Act
         SensorType result = catalogue.addSensorType(SensorType.HUMIDITY);
@@ -51,7 +63,7 @@ class CatalogueTest {
     @Test
     void getCatalogue() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 2;
         //Act
         List<String> result = catalogue.getCatalogue();
@@ -65,7 +77,7 @@ class CatalogueTest {
     @Test
     void getSensorTypeList_listOfUniqueSensorType() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
         int expectedSize = 1;
         SensorType expected = SensorType.HUMIDITY;
@@ -82,7 +94,7 @@ class CatalogueTest {
     @Test
     void getSensorTypeList_listOfTwoSensorTypes() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
         catalogue.addSensorType(SensorType.TEMPERATURE);
         int expectedSize = 2;
@@ -102,7 +114,7 @@ class CatalogueTest {
     @Test
     void getSensorTypeList_emptyList() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue();
+        Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 0;
         //Act
         List<SensorType> result = catalogue.getSensorTypeList();
@@ -110,46 +122,5 @@ class CatalogueTest {
         assertEquals(expectedSize, result.size());
     }
 
-    /**
-     * Test to verify that the getSensor method returns a sensor with the correct sensor type.
-     */
-    @Test
-    void getSensor_SensorOfTemperature() throws InstantiationException {
-        //Arrange
-        Catalogue catalogue = new Catalogue();
-        SensorType expected = SensorType.TEMPERATURE;
-        //Act
-        Sensor result = catalogue.getSensor("SensorOfTemperature");
-        //Assert
-        assertNotNull(result);
-        assertEquals(expected, result.getType());
-    }
 
-    /**
-     * Test to verify that the getSensor method returns a sensor with the correct sensor type.
-     */
-    @Test
-    void getSensor_SensorOfHumidity() throws InstantiationException {
-        //Arrange
-        Catalogue catalogue = new Catalogue();
-        SensorType expected = SensorType.HUMIDITY;
-        //Act
-        Sensor result = catalogue.getSensor("SensorOfHumidity");
-        //Assert
-        assertNotNull(result);
-        assertEquals(expected, result.getType());
-    }
-
-    /**
-     * Test to verify that the getSensor method returns null when sensor class name does not exist.
-     */
-    @Test
-    void getSensor_SensorClassNameDoesNotExist() throws InstantiationException {
-        //Arrange
-        Catalogue catalogue = new Catalogue();
-        //Act
-        Sensor result = catalogue.getSensor("domain.SensorOfMove");
-        //Assert
-        assertNull(result);
-    }
 }
