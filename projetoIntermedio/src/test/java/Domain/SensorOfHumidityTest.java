@@ -27,18 +27,20 @@ class SensorOfHumidityTest {
 
     /**
      * Test to verify that the constructor of SensorOfHumidity class works as expected.
-     * It asserts that the type of the sensor created is SensorType.HUMIDITY.
+     * It asserts that the constructor throws an IllegalArgumentException when given an invalid value factory.
+     * The value factory is invalid if it is null.
      */
     @Test
     void testConstructorValid() {
         // Arrange
-        when(valueFactoryDouble.createHumidityValue(SensorType.HUMIDITY)).thenReturn(new HumidityValue());
-        //Act
-        SensorOfHumidity sensor = new SensorOfHumidity(valueFactoryDouble);
-        // Assert
-        assertEquals(SensorType.HUMIDITY, sensor.getType());
+        ValueFactory invalidValueFactory = null;
+        String expectedMessage = "Invalid parameters";
+        // Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorOfHumidity(invalidValueFactory));
+        String resultMessage = exception.getMessage();
+        //Assert
+        assertEquals(expectedMessage, resultMessage);
     }
-
     /**
      * Test to verify that the getType method of SensorOfHumidity class works as expected.
      * It asserts that the type of the sensor is SensorType.HUMIDITY.
