@@ -37,7 +37,7 @@ public class SensorOfTemperature implements Sensor {
             throw new IllegalArgumentException("Invalid parameters");
         } else {
             this.type = SensorType.TEMPERATURE;
-            this.value = valueFactory.createTemperatureValue(type);
+            this.value = valueFactory.createTemperatureValue();
             this.id = 0;
         }
     }

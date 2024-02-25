@@ -63,7 +63,7 @@ class SensorOfHumidityTest {
     @Test
     void testGetValue() {
         // Arrange
-        Value valueExpected = valueFactoryDouble.createHumidityValue(SensorType.HUMIDITY);
+        Value valueExpected = valueFactoryDouble.createHumidityValue();
         when(sensorOfHumidityDouble.getValue()).thenReturn(valueExpected);
         // Act
         Value value = sensorOfHumidityDouble.getValue();

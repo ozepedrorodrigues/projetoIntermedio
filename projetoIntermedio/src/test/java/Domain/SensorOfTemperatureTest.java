@@ -96,7 +96,7 @@ class SensorOfTemperatureTest {
     @Test
     void getValue() {
         // Arrange
-        when(valueFactoryDouble.createTemperatureValue(SensorType.TEMPERATURE)).thenReturn(valueDouble);
+        when(valueFactoryDouble.createTemperatureValue()).thenReturn(valueDouble);
         SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
         Value result = sensorOfTemperature.getValue();

@@ -10,11 +10,11 @@ public class ValueFactoryImp implements ValueFactory {
     public ValueFactoryImp() {}
 
     @Override
-    public Value createHumidityValue(SensorType type) {
+    public Value createHumidityValue() {
         return new HumidityValue();
     }
     @Override
-    public Value createTemperatureValue(SensorType type) {
+    public Value createTemperatureValue() {
         return new TemperatureValue();
     }
 }

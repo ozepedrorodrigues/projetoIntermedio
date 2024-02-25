@@ -33,7 +33,7 @@ public class SensorOfHumidity implements Sensor {
             throw new IllegalArgumentException("Invalid parameters");
         } else {
             this.type = SensorType.HUMIDITY;
-            this.value = valueFactory.createHumidityValue(type);
+            this.value = valueFactory.createHumidityValue();
             this.id = 0;
 
         }
