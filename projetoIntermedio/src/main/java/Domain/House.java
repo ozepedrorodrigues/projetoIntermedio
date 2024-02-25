@@ -17,6 +17,7 @@ public class House {
 
     private Location location;
     private LocationFactory locationFactory;
+    private RoomFactory roomFactory;
     private List<Room> rooms;
 
     /**
@@ -36,21 +37,44 @@ public class House {
     }
 
     /**
-     * Defines the location of the house using the specified location factory.
+     * Constructs a new House object with the specified location factory and room factory.
      *
      * @param locationFactory the factory for creating locations
-     * @param address         the address of the house
-     * @param zipCode         the zip code of the house
-     * @param latitude        the latitude of the house
-     * @param longitude       the longitude of the house
+     * @param roomFactory the factory for creating rooms
      */
-    public void defineLocation(LocationFactory locationFactory, String address, String zipCode, double latitude, double longitude) {
+    public House(LocationFactory locationFactory, RoomFactory roomFactory) {
+        this.locationFactory = locationFactory;
+        this.roomFactory = roomFactory;
+        this.rooms = new ArrayList<>();
+    }
+
+    /**
+     * Defines the location of the house using the provided LocationFactory and location details.
+     * Attempts to create a new Location object using the specified address, zip code, latitude, and longitude
+     * parameters through the provided LocationFactory. If successful, updates the current location of the house
+     * and the associated LocationFactory. If the creation process fails due to invalid parameters or other issues,
+     * an error message is printed, and no changes to the house's state are made.
+     *
+     * @param locationFactory the LocationFactory instance responsible for creating Location objects.
+     * @param address the address of the location.
+     * @param zipCode the zip code of the location.
+     * @param latitude the latitude coordinate of the location.
+     * @param longitude the longitude coordinate of the location.
+     * @return the newly created Location object if the creation process is successful, or null if creation fails.
+     */
+    public Location defineLocation(LocationFactory locationFactory, String address, String zipCode, double latitude, double longitude) {
+        Location newLocation = null;
         try {
-            this.location = locationFactory.createLocation(address, zipCode, latitude, longitude);
+            newLocation = locationFactory.createLocation(address, zipCode, latitude, longitude);
         } catch (IllegalArgumentException e) {
             System.err.println("Failed to define location: " + e.getMessage());
         }
-        this.locationFactory = locationFactory;
+        // Update the current location only if the creation was successful
+        if (newLocation != null) {
+            this.location = newLocation;
+            this.locationFactory = locationFactory;
+        }
+        return newLocation;
     }
 
     /**
