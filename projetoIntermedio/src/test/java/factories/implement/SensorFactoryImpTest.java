@@ -11,12 +11,19 @@ import static org.mockito.Mockito.mock;
 
 class SensorFactoryImpTest {
     ValueFactory valueFactory = mock(ValueFactory.class);
+
+    /**
+     * Test to verify that the constructor does not throw exceptions.
+     */
     @Test
     void SensorFactoryConstructor() {
         //Act + assert
         assertDoesNotThrow(() -> new SensorFactoryImp("config.properties",valueFactory), "Should not throw exception.");
     }
 
+    /**
+     * Test to verify that the constructor throws an exception.
+     */
     @Test
     void SensorFactoryConstructor_invalidPath() {
         //Arrange
@@ -26,8 +33,11 @@ class SensorFactoryImpTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    /**
+     * Test to verify that the createSensor method returns a sensor when sensor class name exists.
+     */
     @Test
-    void getSensor_SensorOfTemperature() throws InstantiationException {
+    void createSensor_SensorOfTemperature() throws InstantiationException {
         //Arrange
         SensorFactory sensorFactory = new SensorFactoryImp("config.properties",valueFactory);
         SensorType expected = SensorType.TEMPERATURE;
@@ -38,8 +48,11 @@ class SensorFactoryImpTest {
         assertEquals(expected, result.getType());
     }
 
+    /**
+     * Test to verify that the createSensor method returns a sensor when sensor class name exists.
+     */
     @Test
-    void getSensor_SensorOfHumidity() throws InstantiationException {
+    void createSensor_SensorOfHumidity() throws InstantiationException {
         //Arrange
         SensorFactory sensorFactory = new SensorFactoryImp("config.properties",valueFactory);
         SensorType expected = SensorType.HUMIDITY;
@@ -50,8 +63,11 @@ class SensorFactoryImpTest {
         assertEquals(expected, result.getType());
     }
 
+    /**
+     * Test to verify that the createSensor method returns null when sensor class name does not exist.
+     */
     @Test
-    void getSensor_SensorClassNameDoesNotExist() throws InstantiationException {
+    void createSensor_SensorClassNameDoesNotExist() throws InstantiationException {
         //Arrange
         SensorFactory sensorFactory = new SensorFactoryImp("config.properties",valueFactory);
         //Act
