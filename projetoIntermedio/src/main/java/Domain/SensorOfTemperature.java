@@ -1,6 +1,7 @@
 package Domain;
 
 
+import Factories.GPSLocationFactory;
 import Factories.ValueFactory;
 
 /**
@@ -32,9 +33,13 @@ public class SensorOfTemperature implements Sensor {
      * @param valueFactory the ValueFactory of the sensor.
      */
     public SensorOfTemperature(ValueFactory valueFactory) {
-        this.type = SensorType.TEMPERATURE;
-        this.value = valueFactory.createTemperatureValue(type);
-        this.id = 0;
+        if (!validValueFactory(valueFactory)) {
+            throw new IllegalArgumentException("Invalid parameters");
+        } else {
+            this.type = SensorType.TEMPERATURE;
+            this.value = valueFactory.createTemperatureValue(type);
+            this.id = 0;
+        }
     }
 
     /**
@@ -72,5 +77,9 @@ public class SensorOfTemperature implements Sensor {
      */
     public Value getValue() {
         return value;
+    }
+
+    private boolean validValueFactory(ValueFactory valueFactory) {
+        return valueFactory != null;
     }
 }

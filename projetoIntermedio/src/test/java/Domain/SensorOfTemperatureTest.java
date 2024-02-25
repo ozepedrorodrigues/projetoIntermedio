@@ -27,6 +27,23 @@ class SensorOfTemperatureTest {
 
 
     /**
+     * Tests the valid construction of the SensorOfTemperature class by giving it a invalid value factory.
+     * Verifies that the constructor throws an IllegalArgumentException when given an invalid value factory.
+     * The value factory is invalid if it is null.
+     */
+    @Test
+    void testConstructorValid() {
+        // Arrange
+        ValueFactory invalidValueFactory = null;
+        String expectedMessage = "Invalid parameters";
+        // Act
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorOfTemperature(invalidValueFactory));
+        String resultMessage = exception.getMessage();
+        //Assert
+        assertEquals(expectedMessage, resultMessage);
+    }
+
+    /**
      * Tests the getId method of the SensorOfTemperature class.
      * Verifies that the method returns the ID of the sensor correctly.
      */
