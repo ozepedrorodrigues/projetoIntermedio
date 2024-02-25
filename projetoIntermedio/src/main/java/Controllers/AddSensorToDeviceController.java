@@ -41,8 +41,8 @@ public class AddSensorToDeviceController {
      *
      * @return the list of rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
-        return new GetRoomListController(house).getRoomList();}
+/*    public List<RoomDTO> getRoomList() {
+        return new GetRoomListController(house).getRoomList();}*/
 
     /**
      * Gets the list of devices in a room.
@@ -58,10 +58,10 @@ public class AddSensorToDeviceController {
      *
      * @return the list of sensor types.
      */
-    public SensorTypeDTO getSensorTypeDTO() {
+/*    public SensorTypeDTO getSensorTypeDTO() {
         List<String> sensors = house.getCatalog().getSensorTypes();
         return new MapperSensorTypeDTO().getSensorTypes(sensors);
-    }
+    }*/
 
     /**
      * Adds a sensor to an existing device in a room.
@@ -70,9 +70,9 @@ public class AddSensorToDeviceController {
      * @return Sensor if the sensor was successfully added, null otherwise.
      * @throws IllegalArgumentException if the deviceDTO, sensorDTO, device name, device location, sensor type, or sensor name is null.
      */
-    public SensorDTO addSensorToExistingDevice(String deviceName, SensorDTO sensorDTO) {
+/*    public SensorDTO addSensorToExistingDevice(String deviceName, SensorDTO sensorDTO) {
         Sensor sensor = room.getDeviceByName(deviceName).addSensor(sensorDTO.getSensorName(), sensorDTO.getTypeOfSensor());
         if (sensor == null) {return null;}
         return sensorDTO;
-    }
+    }*/
 }

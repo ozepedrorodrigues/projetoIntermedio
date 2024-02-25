@@ -39,8 +39,8 @@ public class AddRomController {
      * @param roomDTO the data transfer object containing the details of the room to be added
      * @return true if the room is successfully added to the house, false otherwise
      */
-    public RoomDTO addNewRoomToHouse(RoomDTO roomDTO) {
+/*    public RoomDTO addNewRoomToHouse(RoomDTO roomDTO) {
         Room room = house.addRoom(roomDTO.getName(), roomDTO.getFloor(), roomDTO.getWidth(), roomDTO.getLength(), roomDTO.getHeight(),roomFactory,dimensionsFactory);
         return new MapperToRoomDTO().roomToDTO(room);
-    }
+    }*/
 }

@@ -30,8 +30,8 @@ public class GetRoomListController {
      *
      * @return the list of rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
+/*    public List<RoomDTO> getRoomList() {
         List<Room> roomList = house.getRoomList();
         return new MapperToRoomDTO().getRoomList(roomList);
-    }
+    }*/
 }
