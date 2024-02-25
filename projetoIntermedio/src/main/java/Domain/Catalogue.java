@@ -82,11 +82,12 @@ public class Catalogue {
     }
 
     public Sensor getSensor(String sensorClassName) {
-        boolean isValidSensorClassName = isValidSensorClassName(sensorClassName);
+        String sensorClassNamePath = "domain." + sensorClassName;
+        boolean isValidSensorClassName = isValidSensorClassName(sensorClassNamePath);
 
         if(isValidSensorClassName) {
             try {
-                Sensor sensor = (Sensor) Class.forName(sensorClassName).getConstructor().newInstance();
+                Sensor sensor = (Sensor) Class.forName(sensorClassNamePath).getConstructor().newInstance();
                 return sensor;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
@@ -97,11 +98,11 @@ public class Catalogue {
         return null;
     }
 
-    private boolean isValidSensorClassName(String sensorClassName){
+    private boolean isValidSensorClassName(String sensorClassNamePath){
         boolean isValidSensorClassName = false;
 
-        for(String catalogSensorClass : sensorClassList) {
-            if (sensorClassName.equals(catalogSensorClass)) {
+        for(String catalogueSensorClass : sensorClassList) {
+            if (sensorClassNamePath.equals(catalogueSensorClass)) {
                 isValidSensorClassName = true;
                 break;
             }

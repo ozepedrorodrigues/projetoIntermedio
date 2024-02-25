@@ -90,7 +90,7 @@ class CatalogueTest {
         Catalogue catalogue = new Catalogue();
         SensorType expected = SensorType.TEMPERATURE;
         //Act
-        Sensor result = catalogue.getSensor("domain.SensorOfTemperature");
+        Sensor result = catalogue.getSensor("SensorOfTemperature");
         //Assert
         assertNotNull(result);
         assertEquals(expected, result.getType());
@@ -102,7 +102,7 @@ class CatalogueTest {
         Catalogue catalogue = new Catalogue();
         SensorType expected = SensorType.HUMIDITY;
         //Act
-        Sensor result = catalogue.getSensor("domain.SensorOfHumidity");
+        Sensor result = catalogue.getSensor("SensorOfHumidity");
         //Assert
         assertNotNull(result);
         assertEquals(expected, result.getType());
