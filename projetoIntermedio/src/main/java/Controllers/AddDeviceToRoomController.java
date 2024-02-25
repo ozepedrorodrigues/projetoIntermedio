@@ -31,17 +31,17 @@ public class AddDeviceToRoomController {
      *
      * @return a list of RoomDTO objects representing the rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
+/*    public List<RoomDTO> getRoomList() {
         return new GetRoomListController(house).getRoomList();
-    }
+    }*/
 
     /**
      * method to add a device to a room.
      *
      * @return true if the device was added to the room, false otherwise
      */
-    public boolean addDeviceToRoom(DeviceDTO deviceDTO) {
+/*    public boolean addDeviceToRoom(DeviceDTO deviceDTO) {
         Room room = house.getRoomByName(deviceDTO.getRoomName());
         if (room == null) return false;
-        return room.createDevice(deviceDTO.getName(), deviceDTO.getType());}
+        return room.createDevice(deviceDTO.getName(), deviceDTO.getType());}*/
 }
