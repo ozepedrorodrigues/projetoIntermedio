@@ -21,7 +21,7 @@ public class GPSLocation {
      * @param longitude the longitude of the GPS location of the house
      * @throws IllegalArgumentException if the latitude or longitude is invalid
      */
-    public GPSLocation(double latitude, double longitude) {
+    public GPSLocation(double latitude, double longitude) throws IllegalArgumentException{
         if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
             throw new IllegalArgumentException("Invalid GPS Location");
         this.latitude = latitude;
