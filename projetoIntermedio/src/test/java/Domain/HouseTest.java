@@ -42,7 +42,7 @@ class HouseTest {
         when(location.getGpsLocation()).thenReturn(gpsLocation);
         when(gpsLocation.getLatitude()).thenReturn(validLatitude);
         when(gpsLocation.getLongitude()).thenReturn(validLongitude);
-        when(room.getName()).thenReturn(validRoomname);
+        when(room.getRoomName()).thenReturn(validRoomname);
         validHouse = new House(validAddress, validZipCode, validLatitude, validLongitude, locationFactory, gpsLocationFactoy);
     }
 
@@ -266,7 +266,7 @@ class HouseTest {
     @Test
     void getRoomByNameValidShouldReturnRoom() {
         //Arrange
-        when(room.getName()).thenReturn(validRoomname);
+        when(room.getRoomName()).thenReturn(validRoomname);
         //Act
         Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
         Room room2 = validHouse.getRoomByName(validRoomname);
@@ -276,7 +276,7 @@ class HouseTest {
     @Test
     void getRoomByNameDoesNotExistShouldReturnNull(){
         //Arrange
-        when(room.getName()).thenReturn(validRoomname);
+        when(room.getRoomName()).thenReturn(validRoomname);
         //Act
         Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
         Room room2 = validHouse.getRoomByName("Cozinha");

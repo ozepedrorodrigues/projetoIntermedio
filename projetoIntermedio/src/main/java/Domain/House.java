@@ -1,7 +1,5 @@
 package Domain;
 
-import Factories.DimensionsFactory;
-import Factories.GPSLocationFactory;
 import Factories.LocationFactory;
 import Factories.RoomFactory;
 
@@ -17,108 +15,118 @@ import java.util.Map;
  */
 public class House {
 
-    /**
-     * Location of the house
-     */
     private Location location;
-
     private LocationFactory locationFactory;
-
-    private GPSLocationFactory gpsLocationFactory;
-
-    /**
-     * List of rooms in the house
-     */
-    private List<Room> roomList = new ArrayList<>();
+    private List<Room> rooms;
 
     /**
-     * List of availableSensorTypes in the house
+     * Constructs a new House object with an empty list of rooms.
      */
-    private Catalogue catalogue = new Catalogue();
-
-    /**
-     * Private constructor for the house
-     */
-    public House(String address, String zipCode, double latitude, double longitude, LocationFactory locationFactory, GPSLocationFactory gpsLocationFactory) {
-            if(locationFactory == null || gpsLocationFactory == null|| address == null || zipCode == null)
-                throw new IllegalArgumentException("Invalid parameters");
-            try{this.location = locationFactory.createLocation(address, zipCode, latitude, longitude, gpsLocationFactory);}
-            catch (IllegalArgumentException e){
-                throw new IllegalArgumentException(e.getMessage());}
-            this.locationFactory = locationFactory;}
-
-    /**
-     * Method to add a room to the house if it doesn't exist already
-     *
-     * @return true if the room was successfully added, false otherwise
-     */
-    public Room addRoom(String name, int floor, double width, double length, double height, RoomFactory roomFactory, DimensionsFactory dimensionsFactory) {
-        if(roomFactory == null || dimensionsFactory == null)
-            throw new IllegalArgumentException("Invalid parameters");
-        for (Room r : this.roomList)
-            if (r.getName().equalsIgnoreCase(name)) return null;
-        try{
-            Room room = roomFactory.createRoom(name, floor, width, length, height, dimensionsFactory);
-            this.roomList.add(room);
-            return room;}
-        catch (IllegalArgumentException e){
-            throw new IllegalArgumentException(e.getMessage());}
+    public House() {
+        this.rooms = new ArrayList<>();
     }
 
     /**
-     * Method to get room in the house by its name
+     * Constructs a new House object with the specified location factory.
      *
-     * @param name of the room to be returned
-     * @return the room with the given name
+     * @param locationFactory the factory for creating locations
      */
-    public Room getRoomByName(String name) {
-        for (Room room : roomList) {
-            if (room.getName().equals(name))
-                return room;
+    public House(LocationFactory locationFactory) {
+        this.locationFactory = locationFactory;
+    }
+
+    /**
+     * Defines the location of the house using the specified location factory.
+     *
+     * @param locationFactory the factory for creating locations
+     * @param address         the address of the house
+     * @param zipCode         the zip code of the house
+     * @param latitude        the latitude of the house
+     * @param longitude       the longitude of the house
+     */
+    public void defineLocation(LocationFactory locationFactory, String address, String zipCode, double latitude, double longitude) {
+        try {
+            this.location = locationFactory.createLocation(address, zipCode, latitude, longitude);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Failed to define location: " + e.getMessage());
         }
-        return null;
+        this.locationFactory = locationFactory;
     }
 
     /**
-     * Method to get a list of all rooms in the house
-     *
-     * @return a list of all rooms in the house
-     */
-    public List<Room> getRoomList() {
-        List<Room> roomListCopy = new ArrayList<>();
-        for (Room room : this.roomList)
-            roomListCopy.add(room);
-        return roomListCopy;
-    }
-
-    /**
-     * Getter for the location of the house
+     * Retrieves the location of the house.
      *
      * @return the location of the house
      */
     public Location getLocation() {
-        return location;
+        return this.location;
     }
 
     /**
-     * Configures the location of the house
+     * Adds a new room to the house using the provided room factory and room parameters.
+     *
+     * @param roomFactory the factory for creating rooms
+     * @param roomName    the name of the room
+     * @param floor       the floor number of the room
+     * @param width       the width of the room
+     * @param length      the length of the room
+     * @param height      the height of the room
+     * @return the added room, or null if addition fails
      */
-    public Location configLocation(String address, String zipCode, double latitude, double longitude) {
+    public Room addRoom(RoomFactory roomFactory, String roomName, int floor, double width, double length, double height) {
+        if (roomNameAlreadyExists(roomName)) {
+            System.err.println("Failed to add room: Room with the name '" + roomName + "' already exists");
+            // throw new IllegalArgumentException("Invalid room name");
+            return null;
+        }
         try {
-            this.location = this.locationFactory.createLocation(address, zipCode,latitude, longitude, gpsLocationFactory);
-            return location;
+            Room room = roomFactory.createRoom(roomName, floor, width, length, height);
+            this.rooms.add(room);
+            return room;
         } catch (IllegalArgumentException e) {
+            System.err.println("Failed to add room: " + e.getMessage());
+            // throw new IllegalArgumentException("Failed to add room: " + e.getMessage());
             return null;
         }
     }
 
     /**
-     * Getter for the catalog of the house
+     * Checks if a room with the given name already exists in the house.
      *
-     * @return the catalog of the house
+     * @param roomName the name of the room to check
+     * @return true if a room with the given name exists, false otherwise
      */
-    public Catalogue getCatalog() {
-        return catalogue;
+    private boolean roomNameAlreadyExists(String roomName) {
+        for (Room room : this.rooms) {
+            if (room.getRoomName().equalsIgnoreCase(roomName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieves the list of rooms in the house.
+     *
+     * @return the list of rooms in the house
+     */
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    /**
+     * Retrieves a room from the house by its name.
+     *
+     * @param roomName the name of the room to retrieve
+     * @return the room with the given name, or null if not found
+     */
+    public Room getRoomByName(String roomName) {
+        for (Room room : rooms) {
+            if (roomName.equals(room.getRoomName())) {
+                return room;
+            }
+        }
+        return null;
     }
 
     /**
@@ -128,9 +136,9 @@ public class House {
      */
     public Map<String, List<Device>> getDevicesGroupedByRoom() {
         Map<String, List<Device>> devicesPerRoom = new HashMap<>();
-        for (Room room : roomList) {
+        for (Room room : rooms) {
             List<Device> deviceList = room.getDeviceList();
-            devicesPerRoom.put(room.getName(), deviceList);
+            devicesPerRoom.put(room.getRoomName(), deviceList);
         }
         return devicesPerRoom;
     }

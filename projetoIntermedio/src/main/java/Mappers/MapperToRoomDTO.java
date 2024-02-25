@@ -40,6 +40,6 @@ public class MapperToRoomDTO {
      * @return the RoomDTO.
      */
     public RoomDTO roomToDTO(Room room) {
-        return new RoomDTO(room.getName(), room.getFloor(), room.getDimensions().getWidth(), room.getDimensions().getLength(), room.getDimensions().getHeight());
+        return new RoomDTO(room.getRoomName(), room.getFloor(), room.getDimensions().getWidth(), room.getDimensions().getLength(), room.getDimensions().getHeight());
     }
 }

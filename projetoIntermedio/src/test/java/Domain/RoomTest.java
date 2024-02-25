@@ -117,7 +117,7 @@ class RoomTest {
         // Arrange
         String expected = "Living Room";
         // Act
-        String result = validRoom.getName();
+        String result = validRoom.getRoomName();
         // Assert
         assertEquals(expected, result);
     }

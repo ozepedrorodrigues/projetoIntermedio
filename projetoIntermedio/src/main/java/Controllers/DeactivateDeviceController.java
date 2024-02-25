@@ -47,5 +47,5 @@ public class DeactivateDeviceController {
      */
     public DeviceDTO deactivateDevice(String _deviceName) {
         Device device = room.getDeviceByName(_deviceName);
-        return new MapperToDeviceDTO().deviceToDTO(device.getName(),device.getType(), room.getName());}
+        return new MapperToDeviceDTO().deviceToDTO(device.getName(),device.getType(), room.getRoomName());}
 }

@@ -60,7 +60,7 @@ public class Room {
     /**
      * Getter method to retrieve the name of the room.
      */
-    public String getName() {
+    public String getRoomName() {
         return this.name;
     }
 
