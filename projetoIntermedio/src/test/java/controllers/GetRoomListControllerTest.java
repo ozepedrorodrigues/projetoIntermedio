@@ -4,6 +4,8 @@ import domain.Dimensions;
 import domain.House;
 import domain.Room;
 import dto.RoomDTO;
+import factories.*;
+import factories.implement.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +27,7 @@ class GetRoomListControllerTest {
      * This method sets up the testing environment before each test.
      */
     @BeforeEach
-    void setUp() {
+    void setUp() throws InstantiationException {
         house = mock(House.class);
         room1 = mock(Room.class);
         rooms = new ArrayList<>();
@@ -43,7 +45,7 @@ class GetRoomListControllerTest {
      * Test to check if the constructor of the GetRoomListController class is not null.
      */
     @Test
-    void constructor() {
+    void constructor() throws InstantiationException {
        //Act
         GetRoomListController result = new GetRoomListController(house);
        //Assert
@@ -55,7 +57,7 @@ class GetRoomListControllerTest {
      * Test to check if the getRoomList method returns an empty list.
      */
     @Test
-    void getRoomList_emptyList() {
+    void getRoomList_emptyList() throws InstantiationException {
         //Arrange
         House house1 = mock(House.class);
         GetRoomListController getRoomListController = new GetRoomListController(house1);
@@ -72,6 +74,86 @@ class GetRoomListControllerTest {
     @Test
     void getRoomList() {
         //Arrange
+        int expected = 1;
+        //Act
+        List<RoomDTO> result = getRoomListController.getRoomList();
+        //Assert
+        assertEquals(expected, result.size());
+
+    }
+
+    // --------------------Integration----------------------
+
+    GPSFactory gpsFactory;
+    LocationFactory locationFactory;
+    ValueFactory valueFactory;
+    String filePathName;
+    SensorFactory sensorFactory;
+    DeviceFactory deviceFactory;
+    DimensionsFactory dimensionsFactory;
+    RoomFactory roomFactory;
+    House house2;
+    GetRoomListController getRoomListController1;
+
+    @BeforeEach
+    void setUpIntegration() throws InstantiationException {
+        gpsFactory = new GPSFactoryImp();
+        locationFactory = new LocationFactoryImp(gpsFactory);
+        valueFactory = new ValueFactoryImp();
+        filePathName = "config.properties";
+        sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        dimensionsFactory = new DimensionsFactoryImp();
+        roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
+        house2 = new House(locationFactory, roomFactory);
+        getRoomListController1 = new GetRoomListController(house2);
+    }
+
+    /**
+     * Test to check if the constructor of the GetRoomListController class is not null.
+     */
+    @Test
+    void constructor_integration() throws InstantiationException {
+        //Act
+        GetRoomListController result = new GetRoomListController(house2);
+        //Assert
+        assertNotNull(result);
+
+    }
+
+    /**
+     * Test to check that when the constructor of the GetRoomListController class is null an exception is throw.
+     */
+    @Test
+    void constructor_houseIsNull_integration() {
+        //Arrange
+        String expected = "House can not be null.";
+        //Act + assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null));
+        assertEquals(expected, exception.getMessage());
+
+    }
+
+    /**
+     * Test to check if the getRoomList method returns an empty list.
+     */
+    @Test
+    void getRoomList_emptyList_integration() {
+        //Arrange
+        int expected = 0;
+        //Act
+        List<RoomDTO> result = getRoomListController.getRoomList();
+        //Assert
+        assertEquals(expected, result.size());
+    }
+
+    /**
+     * Test to check if the getRoomList method returns a list of rooms.
+     */
+    @Test
+    void getRoomList_integration() {
+        //Arrange
+        house2.addRoom("roomName", 0, 10, 10, 10);
         int expected = 1;
         //Act
         List<RoomDTO> result = getRoomListController.getRoomList();

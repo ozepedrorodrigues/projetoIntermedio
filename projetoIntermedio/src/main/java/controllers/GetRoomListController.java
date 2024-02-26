@@ -25,7 +25,10 @@ public class GetRoomListController {
      * Constructor for ControllerGetRoomList.
      * Initializes the house and mapperToRoomDTO instance.
      */
-    public GetRoomListController(House house) {
+    public GetRoomListController(House house) throws InstantiationException {
+        if(house == null){
+            throw new InstantiationException("House can not be null.");
+        }
         this.house = house;
         this.mapperToRoomDTO = new MapperToRoomDTO();
     }

@@ -5,16 +5,16 @@ autonumber
 
 participant "_getRoomListController:GetRoomListController" as C
 participant "_house:House" as H
-participant "_mapperListRoomDTO:MapperListRoomDTO" as M
+participant "_mapperToRoomDTO:MapperToRoomDTO" as M
 participant "_listRoomDTO:List<RoomDTO>" as LRDTO
 
 [o-> C: getRoomList()
 activate C
-C -> H: getRoomList()
+C -> H: getRooms()
 activate H
 H-->C: _roomList
 deactivate H
-C -> M: mapListRoomDTO(_roomList)
+C -> M: getRoomList(_roomList)
 activate M
 M-->LRDTO**:create(_roomList)
 M-->C: _listRoomDTO
