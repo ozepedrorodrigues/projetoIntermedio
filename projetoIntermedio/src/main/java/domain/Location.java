@@ -44,7 +44,7 @@ public class Location {
         this.address = address;
         this.zipCode = zipCode;
         this.gpsFactory = gpsFactory;
-        this.gps = this.gpsFactory.createGPSLocation(latitude, longitude);
+        this.gps = this.gpsFactory.createGPS(latitude, longitude);
     }
 
     /**

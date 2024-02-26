@@ -49,30 +49,27 @@ public class House {
     }
 
     /**
-     * Defines the location of the house using the provided LocationFactory and location details.
-     * Attempts to create a new Location object using the specified address, zip code, latitude, and longitude
-     * parameters through the provided LocationFactory. If successful, updates the current location of the house
-     * and the associated LocationFactory. If the creation process fails due to invalid parameters or other issues,
+     * Defines the location of the house using the injected LocationFactory and location details.
+     * Attempts to create a new Location object using the injected LocationFactory and the specified
+     * address, zip code, latitude, and longitude parameters. If successful, updates the current location
+     * of the house. If the creation process fails due to invalid parameters or other issues,
      * an error message is printed, and no changes to the house's state are made.
      *
-     * @param locationFactory the LocationFactory instance responsible for creating Location objects.
      * @param address the address of the location.
      * @param zipCode the zip code of the location.
      * @param latitude the latitude coordinate of the location.
      * @param longitude the longitude coordinate of the location.
      * @return the newly created Location object if the creation process is successful, or null if creation fails.
      */
-    public Location defineLocation(LocationFactory locationFactory, String address, String zipCode, double latitude, double longitude) {
+    public Location defineLocation(String address, String zipCode, double latitude, double longitude) {
         Location newLocation = null;
         try {
             newLocation = locationFactory.createLocation(address, zipCode, latitude, longitude);
+            if (newLocation != null) {
+                this.location = newLocation;
+            }
         } catch (IllegalArgumentException e) {
             System.err.println("Failed to define location: " + e.getMessage());
-        }
-        // Update the current location only if the creation was successful
-        if (newLocation != null) {
-            this.location = newLocation;
-            this.locationFactory = locationFactory;
         }
         return newLocation;
     }
@@ -87,29 +84,34 @@ public class House {
     }
 
     /**
-     * Adds a new room to the house using the provided room factory and room parameters.
+     * Adds a new room to the house using the injected RoomFactory and room details.
+     * Attempts to create a new Room object using the injected RoomFactory and the specified
+     * room name, floor, width, length, and height parameters. If successful, adds the room
+     * to the list of rooms in the house. If a room with the same name already exists,
+     * returns null without adding the room. If the creation process fails due to invalid
+     * parameters or other issues, an error message is printed, and no changes to the
+     * house's state are made.
      *
-     * @param roomFactory the factory for creating rooms
-     * @param roomName    the name of the room
-     * @param floor       the floor number of the room
-     * @param width       the width of the room
-     * @param length      the length of the room
-     * @param height      the height of the room
-     * @return the added room, or null if addition fails
+     * @param roomName the name of the room.
+     * @param floor the floor of the room.
+     * @param width the width of the room.
+     * @param length the length of the room.
+     * @param height the height of the room.
+     * @return the newly created Room object if the creation process is successful, or null if creation fails.
      */
-    public Room addRoom(RoomFactory roomFactory, String roomName, int floor, double width, double length, double height) {
+    public Room addRoom(String roomName, int floor, double width, double length, double height) {
         if (roomNameAlreadyExists(roomName)) {
             System.err.println("Failed to add room: Room with the name '" + roomName + "' already exists");
-            // throw new IllegalArgumentException("Invalid room name");
             return null;
         }
         try {
             Room room = roomFactory.createRoom(roomName, floor, width, length, height);
-            this.rooms.add(room);
+            if (room != null) {
+                this.rooms.add(room);
+            }
             return room;
         } catch (IllegalArgumentException e) {
             System.err.println("Failed to add room: " + e.getMessage());
-            // throw new IllegalArgumentException("Failed to add room: " + e.getMessage());
             return null;
         }
     }
@@ -130,12 +132,15 @@ public class House {
     }
 
     /**
-     * Retrieves the list of rooms in the house.
+     * Retrieves a list of all rooms in the house.
      *
-     * @return the list of rooms in the house
+     * @return a copy of the list of all rooms in the house
      */
     public List<Room> getRooms() {
-        return rooms;
+        List<Room> roomListCopy = new ArrayList<>();
+        for (Room room : this.rooms)
+            roomListCopy.add(room);
+        return roomListCopy;
     }
 
     /**

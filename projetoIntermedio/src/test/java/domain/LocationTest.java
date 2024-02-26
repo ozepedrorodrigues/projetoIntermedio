@@ -41,7 +41,7 @@ class LocationTest {
     @Test
     void testConstructorValid() {
         // Arrange
-        when(gpsFactoryDouble.createGPSLocation(validLatitude, validLongitude)).thenReturn(gpsDouble);
+        when(gpsFactoryDouble.createGPS(validLatitude, validLongitude)).thenReturn(gpsDouble);
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
@@ -141,7 +141,7 @@ class LocationTest {
      */
     @Test
     void getGpsLocation() {
-        when(gpsFactoryDouble.createGPSLocation(validLatitude, validLongitude)).thenReturn(gpsDouble);
+        when(gpsFactoryDouble.createGPS(validLatitude, validLongitude)).thenReturn(gpsDouble);
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
