@@ -1,7 +1,9 @@
-package domain;
+package sensors;
 
 
+import domain.SensorType;
 import factories.ValueFactory;
+import values.Value;
 
 /**
  * This class represents a temperature sensor.

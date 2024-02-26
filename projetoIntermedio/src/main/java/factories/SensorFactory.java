@@ -1,7 +1,7 @@
 package factories;
 
-import domain.Sensor;
+import sensors.Sensor;
 
 public interface SensorFactory {
-    public Sensor createSensor(String sensorClassName);
+    Sensor createSensor(String sensorClassName);
 }

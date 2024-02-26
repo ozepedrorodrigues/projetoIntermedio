@@ -1,6 +1,6 @@
 package factories.implement;
 
-import domain.Sensor;
+import sensors.Sensor;
 import domain.SensorType;
 import factories.SensorFactory;
 import factories.ValueFactory;

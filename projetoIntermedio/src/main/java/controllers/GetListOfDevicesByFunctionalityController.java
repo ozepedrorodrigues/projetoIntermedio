@@ -1,6 +1,14 @@
 package controllers;
 
+import domain.Device;
 import domain.House;
+import domain.SensorType;
+import dto.DeviceDTO;
+import mappers.MapperToGroupDeviceDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ControllerUC09 is a controller class for User Story 09.
@@ -25,12 +33,15 @@ public class GetListOfDevicesByFunctionalityController {
      *
      * @return a map of deviceFuncDTOs grouped by functionality
      */
- /*   public Map<String, List<DeviceDTO>> getDeviceByFunctionality() {
+   public Map<String, List<DeviceDTO>> getDeviceByFunctionality() {
         Map<String, List<Device>> devicesByRoom = myHouse.getDevicesGroupedByRoom();
         MapperToGroupDeviceDTO mapper = new MapperToGroupDeviceDTO();
-        List<String> availableFunctionalities = myHouse.getCatalog().getSensorTypeList();
-        return mapper.groupDevicesByFunctionality(devicesByRoom, availableFunctionalities);
+        SensorType[]  sensorTypes = SensorType.values();
+        List<String>  functionalities = new ArrayList<>();
+        for (SensorType sensorType : sensorTypes) {
+            functionalities.add(sensorType.getSensorType());}
+        return mapper.groupDevicesByFunctionality(devicesByRoom, functionalities);
     }
 
-  */
+
 }

@@ -7,6 +7,8 @@ import factories.RoomFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -44,159 +46,81 @@ class HouseTest {
         //validHouse = new House(validAddress, validZipCode, validLatitude, validLongitude, locationFactory, gpsFactory);
     }
 
-    /*@Test
+    @Test
     void constructorValidParametersShouldNotThrowException() throws IllegalArgumentException{
         // Arrange Act and Assert
-        new House(validAddress, validZipCode, validLatitude, validLongitude, locationFactory, gpsFactory);
+        new House(locationFactory, roomFactory);
         // No exception is thrown, so the test passes
     }
 
     @Test
-    void constructorBorderParametersLatitude90ShouldNotThrowException() throws IllegalArgumentException{
-        // Arrange Act and Assert
-        new House(validAddress, validZipCode, 90, validLongitude, locationFactory, gpsFactory);
-        // No exception is thrown, so the test passes
-    }
-
-    @Test
-    void constructorBorderParametersLatitudeMinus90ShouldNotThrowException() throws IllegalArgumentException{
+    void constructorNullLocationFactoryShouldThrowIllegalArgumentException() {
         // Arrange
-        when(locationFactory.createLocation(validAddress,validZipCode,-90,validLongitude, gpsFactory)).thenReturn(location);
-        // Act and Assert
-        new House(validAddress, validZipCode, -90, validLongitude, locationFactory, gpsFactory);
-        // No exception is thrown, so the test passes
-    }
-
-    @Test
-    void constructorBorderParametersLongitude180ShouldNotThrowException() throws IllegalArgumentException{
-        // Arrange, Act and Assert
-        new House(validAddress, validZipCode, validLatitude, 180, locationFactory, gpsFactory);
-        // No exception is thrown, so the test passes
-    }
-
-    @Test
-    void constructorBorderParametersLongitudeMinus180ShouldNotThrowException() throws IllegalArgumentException{
-        when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,-180, gpsFactory)).thenReturn(location);
-        // Act and Assert
-        new House(validAddress, validZipCode, validLatitude, -180, locationFactory, gpsFactory);
-        // No exception is thrown, so the test passes
-    }
-
-    @Test
-    void constructorInvalidParametersEmptyAddressShouldThrowException() {
-        // Arrange
-        String address = "";
-        when(locationFactory.createLocation(address,validZipCode,validLatitude,validLongitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid Address or ZipCode"));        // Act and Assert
-        //Act
-        String expectedMessage = "Invalid Address or ZipCode";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(address, validZipCode, validLatitude, validLongitude, locationFactory, gpsFactory));
-        //Assert
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersEmptyZipCodeShouldThrowException() {
-        // Arrange
-        String zipCode = "";
-        when(locationFactory.createLocation(validAddress,zipCode,validLatitude,validLongitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid Address or ZipCode"));
+        String expectedMessage = "Invalid parameters";
         // Act
-        String expectedMessage = "Invalid Address or ZipCode";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, zipCode, validLatitude, validLongitude, locationFactory, gpsFactory));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(null, roomFactory));
         // Assert
         assertEquals(expectedMessage, e.getMessage());}
 
     @Test
-    void constructorInvalidParametersLatitudeOver90ShouldThrowException(){
+    void constructorNullRoomFactoryShouldThrowIllegalArgumentException() {
+        // Arrange
+        String expectedMessage = "Invalid parameters";
+        // Act
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(locationFactory, null));
+        // Assert
+        assertEquals(expectedMessage, e.getMessage());}
+
+
+
+    @Test
+    void constructorBorderParametersLongitudeMinus180ShouldNotThrowException() throws IllegalArgumentException{
+        when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,-180)).thenReturn(location);
+        // Act and Assert
+        new House(locationFactory, roomFactory);
+        // No exception is thrown, so the test passes
+    }
+
+    @Test
+    void defineLocationInvalidParametersLatitudeOver90ShouldThrowException(){
         // Arrange
         double latitude = 91.0;
-        when(locationFactory.createLocation(validAddress,validZipCode,latitude,validLongitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid GPS Location"));
+        when(locationFactory.createLocation(validAddress,validZipCode,latitude,validLongitude)).thenThrow(new IllegalArgumentException("Invalid GPS Location"));
         // Act and Assert
         String expectedMessage = "Invalid GPS Location";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, latitude, validLongitude, locationFactory, gpsFactory));
+        House house = new House(locationFactory, roomFactory);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> house.defineLocation(validAddress, validZipCode, latitude, validLongitude));
         assertEquals(expectedMessage, e.getMessage());}
 
-    @Test
-    void constructorInvalidParametersLatitudeUnderMinus90ShouldThrowException(){
+@Test
+void defineLocationEmptyAddressShouldThrowException(){
         // Arrange
-        double latitude = -91.0;
-        when(locationFactory.createLocation(validAddress,validZipCode,latitude,validLongitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid GPS Location"));
-        // Act and Assert
-        String expectedMessage = "Invalid GPS Location";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, latitude, validLongitude, locationFactory, gpsFactory));
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersLongitudeOver180ShouldThrowException(){
-        // Arrange
-        double longitude = 181.0;
-        when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,longitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid GPS Location"));
-        // Act and Assert
-        String expectedMessage = "Invalid GPS Location";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, validLatitude, longitude, locationFactory, gpsFactory));
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersLongitudeUnderMinus180ShouldThrowException(){
-        // Arrange
-        double longitude = -181.0;
-        when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,longitude, gpsFactory)).thenThrow(new IllegalArgumentException("Invalid GPS Location"));
-        // Act and Assert
-        String expectedMessage = "Invalid GPS Location";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, validLatitude, longitude, locationFactory, gpsFactory));
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersNullvalidAddress(){
-        // Arrange
+        String address = "";
         String expectedMessage = "Invalid parameters";
-        //Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(null, validZipCode, validLatitude, validLongitude, locationFactory, gpsFactory));
-        //Assert
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersNullZipCode(){
-        // Arrange
-        String expectedMessage = "Invalid parameters";
-        // Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress,null , validLatitude, validLongitude, locationFactory, gpsFactory));
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersNullLocationFactory(){
-        // Arrange
-        String expectedMessage = "Invalid parameters";
+        when(locationFactory.createLocation(address,validZipCode,validLatitude,validLongitude)).thenThrow(new IllegalArgumentException("Invalid parameters"));
         // Act and Assert
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, validLatitude, validLongitude, null, gpsFactory));
+        House house = new House(locationFactory, roomFactory);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> house.defineLocation(address, validZipCode, validLatitude, validLongitude));
         assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void constructorInvalidParametersNullGPSLocationFactory(){
-        // Arrange
-        String expectedMessage = "Invalid parameters";
-        // Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new House(validAddress, validZipCode, validLatitude, validLongitude, locationFactory, null));
-        //Assert
-        assertEquals(expectedMessage, e.getMessage());}
-
 
     @Test
     void addRoomValidInputShouldNotThrowException() {
         //Arrange and Assert
-        assertFalse(validHouse.getRoomList().contains(room));
+        assertFalse(validHouse.getRooms().contains(room));
         //Act
-        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
+        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
         //Assert
         assertEquals(room1,room);
-        assertTrue(validHouse.getRoomList().contains(room1));}
+        assertTrue(validHouse.getRooms().contains(room1));}
 
     @Test
     void addRoomEmptyNameShouldThrowIllegalArgumentException(){
         //Arrange
         String name = "";
-        when(roomFactory.createRoom(name, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, dimensionsFactory)).thenThrow(new IllegalArgumentException("Empty name"));
+        when(roomFactory.createRoom(name, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight)).thenThrow(new IllegalArgumentException("Empty name"));
         //Act
         String expectedMessage = "Empty name";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(name, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(name, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight));
         //Assert
         assertEquals(expectedMessage, e.getMessage());}
 
@@ -204,10 +128,10 @@ class HouseTest {
     void addRoomInvalidWidthShouldThrowIllegalArgumentException(){
         //Arrange
         double width = -1.0;
-        when(roomFactory.createRoom(validRoomname, validRoomfloor, width, validRoomLength, validRoomHeight, dimensionsFactory)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
+        when(roomFactory.createRoom(validRoomname, validRoomfloor, width, validRoomLength, validRoomHeight)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
         //Act
         String expectedMessage = "Invalid dimensions";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, width, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, width, validRoomLength, validRoomHeight));
         //Assert
         assertEquals(expectedMessage, e.getMessage());}
 
@@ -215,10 +139,10 @@ class HouseTest {
     void addRoomInvalidLengthShouldThrowIllegalArgumentException(){
         //Arrange
         double length = -1.0;
-        when(roomFactory.createRoom(validRoomname, validRoomfloor, validRoomWidth, length, validRoomHeight, dimensionsFactory)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
+        when(roomFactory.createRoom(validRoomname, validRoomfloor, validRoomWidth, length, validRoomHeight)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
         //Act
         String expectedMessage = "Invalid dimensions";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, length, validRoomHeight, roomFactory, dimensionsFactory));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, length, validRoomHeight));
         //Assert
         assertEquals(expectedMessage, e.getMessage());}
 
@@ -226,10 +150,10 @@ class HouseTest {
     void addRoomInvaLidHeightShouldThrowIllegalArgumentException(){
         //Arrange
         double height = -1.0;
-        when(roomFactory.createRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, height, dimensionsFactory)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
+        when(roomFactory.createRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, height)).thenThrow(new IllegalArgumentException("Invalid dimensions"));
         //Act
         String expectedMessage = "Invalid dimensions";
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, height, roomFactory, dimensionsFactory));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, height));
         //Assert
         assertEquals(expectedMessage, e.getMessage());}
 
@@ -238,35 +162,26 @@ class HouseTest {
         //Arrange
         String expectedMessage = "Invalid parameters";
         //Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, null, dimensionsFactory));
-        //Assert
-        assertEquals(expectedMessage, e.getMessage());}
-
-    @Test
-    void addRoomNullDimensionsFactoryShouldThrowIllegalArgumentException(){
-        //Arrange
-        String expectedMessage = "Invalid parameters";
-        //Act
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, null));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight));
         //Assert
         assertEquals(expectedMessage, e.getMessage());}
 
     @Test
     void addRoomARoomWithTheSameNameAlreadyExistsShouldReturnNull() {
         //Arrange and Act
-        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
-        Room room2 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
+        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Room room2 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
         //Assert
         assertNotEquals(room1, room2);
         assertNull(room2);
-        assertFalse(validHouse.getRoomList().contains(room2));}
+        assertFalse(validHouse.getRooms().contains(room2));}
 
     @Test
     void getRoomByNameValidShouldReturnRoom() {
         //Arrange
         when(room.getRoomName()).thenReturn(validRoomname);
         //Act
-        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
+        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
         Room room2 = validHouse.getRoomByName(validRoomname);
         //Assert
         assertEquals(room1, room2);}
@@ -276,7 +191,7 @@ class HouseTest {
         //Arrange
         when(room.getRoomName()).thenReturn(validRoomname);
         //Act
-        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
+        Room room1 = validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
         Room room2 = validHouse.getRoomByName("Cozinha");
         //Assert
         assertNull(room2);}
@@ -286,17 +201,17 @@ class HouseTest {
         //Arrange
         int expectedSize = 0;
         //Act
-        int result = validHouse.getRoomList().size();
+        int result = validHouse.getRooms().size();
         //Assert
         assertEquals(expectedSize, result);}
 
     @Test
     void getRoomListOneRoomShouldReturn1(){
         //Arrange and Act
-        validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight, roomFactory, dimensionsFactory);
-        List<Room> result = validHouse.getRoomList();
+        validHouse.addRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight);
+        List<Room> result = validHouse.getRooms();
         //Assert
-        assertEquals(1, result.size());}*/
+        assertEquals(1, result.size());}
     @Test
     void getLocation() {
         //Arrange

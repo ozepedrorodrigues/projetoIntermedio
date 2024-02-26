@@ -2,6 +2,10 @@ package domain;
 
 import factories.SensorFactory;
 import org.junit.jupiter.api.Test;
+import sensors.Sensor;
+import sensors.SensorOfHumidity;
+import sensors.SensorOfTemperature;
+import values.Value;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

@@ -21,28 +21,14 @@ public class House {
     private List<Room> rooms;
 
     /**
-     * Constructs a new House object with an empty list of rooms.
-     */
-    public House() {
-        this.rooms = new ArrayList<>();
-    }
-
-    /**
-     * Constructs a new House object with the specified location factory.
-     *
-     * @param locationFactory the factory for creating locations
-     */
-    public House(LocationFactory locationFactory) {
-        this.locationFactory = locationFactory;
-    }
-
-    /**
      * Constructs a new House object with the specified location factory and room factory.
      *
      * @param locationFactory the factory for creating locations
      * @param roomFactory the factory for creating rooms
      */
     public House(LocationFactory locationFactory, RoomFactory roomFactory) {
+        if(!validFactory(locationFactory) || !validFactory(roomFactory)) {
+            throw new IllegalArgumentException("Invalid parameters");}
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
         this.rooms = new ArrayList<>();
@@ -62,17 +48,18 @@ public class House {
      * @return the newly created Location object if the creation process is successful, or null if creation fails.
      */
     public Location defineLocation(String address, String zipCode, double latitude, double longitude) {
-        Location newLocation = null;
+        Location newLocation;
         try {
             newLocation = locationFactory.createLocation(address, zipCode, latitude, longitude);
-            if (newLocation != null) {
-                this.location = newLocation;
-            }
+            this.location = newLocation;
         } catch (IllegalArgumentException e) {
-            System.err.println("Failed to define location: " + e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
         return newLocation;
     }
+
+    private boolean validFactory(Object factory) {
+        return factory != null;}
 
     /**
      * Retrieves the location of the house.
@@ -138,8 +125,7 @@ public class House {
      */
     public List<Room> getRooms() {
         List<Room> roomListCopy = new ArrayList<>();
-        for (Room room : this.rooms)
-            roomListCopy.add(room);
+        roomListCopy.addAll(this.rooms);
         return roomListCopy;
     }
 

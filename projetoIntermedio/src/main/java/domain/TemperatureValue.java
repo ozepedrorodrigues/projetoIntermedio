@@ -1,6 +1,9 @@
 package domain;
 
 
+import sensors.SensorOfTemperature;
+import values.Value;
+
 /**
  * <p>Represents a specific value for temperature readings. Instances of this class
  * encapsulate a temperature value and provide methods to retrieve and represent

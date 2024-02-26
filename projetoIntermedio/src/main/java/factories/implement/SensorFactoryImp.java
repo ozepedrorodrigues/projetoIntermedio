@@ -2,7 +2,7 @@ package factories.implement;
 
 
 import domain.Catalogue;
-import domain.Sensor;
+import sensors.Sensor;
 import factories.SensorFactory;
 import factories.ValueFactory;
 

@@ -1,6 +1,9 @@
 package mappers;
 
+import domain.Device;
 import dto.DeviceDTO;
+
+import java.util.*;
 
 /**
  * The MapperToGroupDeviceDTO class is used to map devices to a dto (Data Transfer Object) format and group them by functionality.
@@ -21,7 +24,7 @@ public class MapperToGroupDeviceDTO {
      * @param functionalities the list of functionalities available in the house.
      * @return a map of devicesDTO (including roomName) grouped by functionality.
      */
-/*    public Map<String, List<DeviceDTO>> groupDevicesByFunctionality(Map<String, List<Device>> devices, List<String> functionalities) {
+   public Map<String, List<DeviceDTO>> groupDevicesByFunctionality(Map<String, List<Device>> devices, List<String> functionalities) {
         Map<String, List<DeviceDTO>> devicesPerFunctionality = new HashMap<>();
         for (String functionality : functionalities) {
             devicesPerFunctionality.put(functionality, new ArrayList<>());
@@ -34,7 +37,7 @@ public class MapperToGroupDeviceDTO {
             }
         }
         return devicesPerFunctionality;
-    }*/
+    }
 
     /**
      * Adds a device to the map.
@@ -43,7 +46,7 @@ public class MapperToGroupDeviceDTO {
      * @param roomName                the room where the device is located.
      * @param devicesPerFunctionality the map of devices grouped by functionality.
      */
-/*    private void addDeviceToMap(Device device, String roomName, Map<String, List<DeviceDTO>> devicesPerFunctionality) {
+    private void addDeviceToMap(Device device, String roomName, Map<String, List<DeviceDTO>> devicesPerFunctionality) {
         HashSet<String> functionalityTypes = device.getFunctionalities();
         DeviceDTO deviceDTO = deviceToDeviceDTO(device.getName(), device.getType(), roomName);
         for (String functionalityType : functionalityTypes) {
@@ -52,7 +55,7 @@ public class MapperToGroupDeviceDTO {
                 deviceList.add(deviceDTO);
             }
         }
-    }*/
+    }
 
     /**
      * @param deviceName the name of the device.

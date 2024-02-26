@@ -1,4 +1,7 @@
-package domain;
+package sensors;
+
+import domain.SensorType;
+import values.Value;
 
 /**
  * This interface represents a generic sensor.

@@ -2,8 +2,10 @@ package factories.implement;
 
 import domain.HumidityValue;
 import domain.TemperatureValue;
-import domain.Value;
+import values.OnOffValue;
+import values.Value;
 import factories.ValueFactory;
+import values.ApertureValue;
 
 public class ValueFactoryImp implements ValueFactory {
     public ValueFactoryImp() {}
@@ -16,4 +18,9 @@ public class ValueFactoryImp implements ValueFactory {
     public Value createTemperatureValue() {
         return new TemperatureValue();
     }
+    @Override
+    public Value createApertureValue() { return new ApertureValue();}
+    @Override
+    public Value createOnOffValue() { return new OnOffValue();}
+
 }

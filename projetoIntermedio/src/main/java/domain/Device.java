@@ -1,6 +1,9 @@
 package domain;
 
 import factories.SensorFactory;
+import sensors.Sensor;
+import sensors.SensorOfHumidity;
+import sensors.SensorOfTemperature;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -118,7 +121,7 @@ public class Device {
      *
      * @return A list of functionalities.
      */
-    public List<String> getFunctionalities() {
-        return new ArrayList<>(functionalityList);
+    public HashSet<String> getFunctionalities() {
+        return new HashSet<>(functionalityList);
     }
 }

@@ -1,7 +1,5 @@
 package values;
 
-import values.Value;
-
 public class ApertureValue implements Value {
     private float apertureValue;
     public ApertureValue() {

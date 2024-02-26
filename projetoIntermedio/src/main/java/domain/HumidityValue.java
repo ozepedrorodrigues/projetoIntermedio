@@ -1,5 +1,7 @@
 package domain;
 
+import values.Value;
+
 /**
  * <p>Represents a humidity value in a sensor system. This class implements
  * the Value interface, providing methods to convert the humidity value

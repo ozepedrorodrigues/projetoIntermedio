@@ -3,6 +3,8 @@ package domain;
 import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sensors.SensorOfHumidity;
+import values.Value;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;

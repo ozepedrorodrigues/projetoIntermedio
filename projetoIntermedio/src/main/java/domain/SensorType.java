@@ -11,7 +11,8 @@ public enum SensorType {
 
 
     TEMPERATURE("Temperature", "ºC"),
-    HUMIDITY("Humidity", "%RH");
+    HUMIDITY("Humidity", "%RH"),
+    APERTURE("Aperture", "%AP");
 
 
     private final String sensorType;
