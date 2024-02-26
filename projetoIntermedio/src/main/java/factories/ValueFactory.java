@@ -1,9 +1,8 @@
 package factories;
 
-import domain.Value;
+import values.Value;
 
 public interface ValueFactory {
-    Value createHumidityValue();
-    Value createTemperatureValue();
+    Value createValue();
 
 }
