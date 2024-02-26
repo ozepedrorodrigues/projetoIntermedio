@@ -64,18 +64,19 @@ public class Catalogue {
     /**
      * Returns the list of sensors in the catalogue.
      *
-     * @return A list of sensors.
+     * @return immutable list of sensors.
      */
     public List<String> getCatalogue() {
-        return sensorClassList;
+        return List.copyOf(sensorClassList);
     }
 
     /**
      * Returns the available sensor types in the catalogue.
-     * @return The available sensor types in the catalogue.
+     *
+     * @return immutable list of available sensor types in the catalogue.
      */
     public List<SensorType> getSensorTypeList() {
-        return sensorTypeList;
+        return List.copyOf(sensorTypeList);
     }
 
 }
