@@ -43,9 +43,9 @@ public class AddSensorToDeviceController {
      */
     public AddSensorToDeviceController(House house, Catalogue catalogue, MapperSensorDTO mapperSensorDTO,
                                        GetRoomListController getRoomListController, GetDeviceListController getDeviceListController)
-            throws InstantiationException {
+            throws IllegalArgumentException {
         if (!validParameters(house, getDeviceListController, getRoomListController, catalogue, mapperSensorDTO)) {
-            throw new InstantiationException("Invalid parameters");
+            throw new IllegalArgumentException("Invalid parameters");
         }
         this.house = house;
         this.catalogue = catalogue;
@@ -69,6 +69,8 @@ public class AddSensorToDeviceController {
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
         this.room = house.getRoomByName(roomName);
+        if(this.room == null)
+            return null;
         return this.getDeviceListController.getDeviceList(roomName);
     }
 
@@ -86,8 +88,6 @@ public class AddSensorToDeviceController {
      *
      * @return the sensor DTO.
      */
-
-
     public SensorDTO addSensorToExistingDevice(String deviceName, String sensorModel) {
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel, catalogue);
