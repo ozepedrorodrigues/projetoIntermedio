@@ -36,7 +36,7 @@ class HumidityValueTest {
         HumidityValue currentReading = new HumidityValue();
         String expected = "0";    // No external setting of value, assuming a valid default value
         // Act
-        String result = currentReading.toValue();
+        String result = currentReading.valueToString();
         // Assert
         assertEquals(expected, result);
     }

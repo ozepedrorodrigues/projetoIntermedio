@@ -1,0 +1,34 @@
+package values;
+
+public class ScalePercentageValue implements Value {
+
+    /**
+     * The value of the sensor.
+     */
+    private int percentageValue;
+
+    /**
+     * Constructor for the ScalePercentageValue class.
+     */
+    public ScalePercentageValue() {
+        this.percentageValue = percentageValue;
+    }
+
+
+    /**
+     * Returns the percentage value of the sensor.
+     */
+    public int getPercentageValue() {
+        return percentageValue;
+    }
+
+    /**
+     * Converts the value to a string representation.
+     *
+     * @return A string representation of the value.
+     */
+    @Override
+    public String valueToString () {
+        return String.valueOf(percentageValue);
+    }
+}

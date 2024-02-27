@@ -2,7 +2,6 @@ package values;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import values.TemperatureValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +40,7 @@ class TemperatureValueTest {
         TemperatureValue currentReading = new TemperatureValue();
         String expected = "0.0";    // No external setting of value, assuming a valid default value
         // Act
-        String result = currentReading.toValue();
+        String result = currentReading.valueToString();
         // Assert
         assertEquals(expected, result);
     }

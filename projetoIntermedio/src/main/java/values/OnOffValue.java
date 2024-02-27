@@ -13,7 +13,7 @@ public class OnOffValue implements Value {
         return onOffValue;}
 
     @Override
-    public String toValue() {
+    public String valueToString() {
         String value = "On";
         if (onOffValue == 0) {value = "Off";}
         return "OnOffValue{" +

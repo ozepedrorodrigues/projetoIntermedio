@@ -12,7 +12,7 @@ public class PositionScaleValue implements Value{
     }
 
     @Override
-    public String toValue() {
+    public String valueToString() {
         return "Position Value{" + "value=" + positionScaleValue + "%}";
     }
 }

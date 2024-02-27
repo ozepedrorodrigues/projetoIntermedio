@@ -13,5 +13,5 @@ public interface Value {
      *
      * @return A string representation of the value.
      */
-    String toValue();
+    String valueToString();
 }

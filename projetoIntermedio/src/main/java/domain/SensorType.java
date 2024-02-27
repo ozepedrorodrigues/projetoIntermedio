@@ -13,7 +13,8 @@ public enum SensorType {
     TEMPERATURE("Temperature", "ºC"),
     HUMIDITY("Humidity", "%RH"),
     APERTURE("Aperture", "%AP"),
-    AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W");
+    AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W"),
+    SCALE_PERCENTAGE(   "Scale Percentage", "%");
 
 
     private final String sensorType;

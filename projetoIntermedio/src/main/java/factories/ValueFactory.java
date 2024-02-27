@@ -9,6 +9,7 @@ public interface ValueFactory {
     Value createApertureValue();
     Value createOnOffValue();
     Value createAveragePowerValue();
+    Value createScalePercentageValue();
 
 
-}
+    }

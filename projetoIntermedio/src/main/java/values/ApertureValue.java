@@ -9,7 +9,7 @@ public class ApertureValue implements Value {
         return apertureValue;}
 
     @Override
-    public String toValue() {
+    public String valueToString() {
         return "ApertureValue{"+ "value=" + "}";
     }
 }

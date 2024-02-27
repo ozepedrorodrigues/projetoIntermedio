@@ -7,7 +7,7 @@ public class AveragePowerValue implements Value{
     public double getAveragePowerValue() {
         return averagePowerValue;}
     @Override
-    public String toValue() {
+    public String valueToString() {
         return "AveragePowerValue{" + "value=" + averagePowerValue +"W}";}
 
 }

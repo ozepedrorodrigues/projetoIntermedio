@@ -14,7 +14,7 @@ public class AirSpeedValue implements Value {
     }
 
     @Override
-    public String toValue() {
+    public String valueToString() {
         return "AirSpeedValue{" +
                 "value=" + airSpeedValue +
                 "km/h}";}

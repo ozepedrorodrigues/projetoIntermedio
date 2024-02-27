@@ -65,5 +65,9 @@ public class ValueFactoryImp implements ValueFactory {
     public Value createAveragePowerValue() {
         return new AveragePowerValue();
     }
+    @Override
+    public Value createScalePercentageValue() {
+        return new ScalePercentageValue();
+    }
 }
 
