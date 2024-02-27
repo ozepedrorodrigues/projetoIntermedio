@@ -3,7 +3,7 @@ package dto;
 /**
  * This class is a Data Transfer Object (dto) for Device.
  * It is used to transfer data about a device between processes or layers in an application.
- * The DeviceDTO class includes fields for the name, type and location of a device.
+ * It encapsulates information about a device, including its name, type and location (room).
  */
 public class DeviceDTO {
     /**

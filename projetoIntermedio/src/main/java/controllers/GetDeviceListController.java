@@ -6,6 +6,7 @@ import domain.Room;
 import dto.DeviceDTO;
 import mappers.MapperToDeviceDTO;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,14 +17,16 @@ public class GetDeviceListController {
     /**
      * The house object.
      */
-    private House house;
-
+    private House matryoshka;
+    /**
+     * The mapper to convert devices to DTOs.
+     */
     private MapperToDeviceDTO mapperToDeviceDTO;
     /**
      * Constructor for ControllerGetDeviceList.
      */
-    public GetDeviceListController(House house, MapperToDeviceDTO mapperToDeviceDTO) {
-        this.house = house;
+    public GetDeviceListController(House ourHouse, MapperToDeviceDTO mapperToDeviceDTO) {
+        this.matryoshka = ourHouse;
         this.mapperToDeviceDTO = mapperToDeviceDTO;
     }
 
@@ -31,13 +34,14 @@ public class GetDeviceListController {
      * Gets the list of devices in a room.
      *
      * @param roomName the name of the room.
-     * @return the list of devices in the room.
+     * @return the list of devices in the room, or an empty list if the room does not exist.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        Room room = house.getRoomByName(roomName);
-        if (room == null)
-            throw new IllegalArgumentException("Room does not exist.");
+        Room room = matryoshka.getRoomByName(roomName);
+        if (room == null) {
+            return Collections.emptyList();
+        }
         List<Device> devices = room.getDeviceList();
-        return new MapperToDeviceDTO().getDevices(devices, roomName);
+        return mapperToDeviceDTO.devicesToDTO(devices, roomName);
     }
 }

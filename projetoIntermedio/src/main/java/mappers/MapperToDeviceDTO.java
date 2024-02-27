@@ -19,29 +19,34 @@ public class MapperToDeviceDTO {
     }
 
     /**
-     * Converts a list of devices to a list of DeviceDTO objects.
+     * Converts a Device object to its corresponding DeviceDTO.
      *
-     * @param roomName the room where the devices are located.
-     * @return the list of DeviceDTOs.
+     * @param device    The Device object to be converted.
+     * @param roomName  The room where the device is located.
+     * @return A DeviceDTO representing the converted device information.
      */
-    public List<DeviceDTO> getDevices(List<Device> devices, String roomName) {
-        List<DeviceDTO> devicesDTO = new ArrayList<>(); // Create a new list each time
-        for (int i = 0; i < devices.size(); i++) {
-            DeviceDTO myDeviceDTO = deviceToDTO(devices.get(i).getName(), devices.get(i).getType(), roomName);
-            devicesDTO.add(myDeviceDTO);
-        }
-        return devicesDTO;
+    public DeviceDTO deviceToDTO(Device device, String roomName) {
+        return new DeviceDTO(device.getName(), device.getType(), roomName);
     }
 
     /**
-     * Converts a device to a DeviceDTO object.
+     * This method takes a list of Device objects and a roomName parameter, and converts each device to a
+     * corresponding DeviceDTO. The resulting list of DeviceDTO objects is associated with the specified room.
      *
-     * @param deviceName the name of the device.
-     * @param deviceType the type of the device.
-     * @param roomName   the room where the device is located.
-     * @return the DeviceDTO.
+     * If the provided list of devices is empty, the method returns an empty list.
+     *
+     * @param roomDevices the list of Device objects to be converted to DeviceDTO.
+     * @param roomName    the name of the room where the devices are located.
+     * @return a list of DeviceDTO objects associated with the specified room.
      */
-    public DeviceDTO deviceToDTO(String deviceName, String deviceType, String roomName) {
-        return new DeviceDTO(deviceName, deviceType, roomName);
+    public List<DeviceDTO> devicesToDTO(List<Device> roomDevices, String roomName) {
+        List<DeviceDTO> roomDevicesDTO = new ArrayList<>();
+        if (!roomDevices.isEmpty()) {
+            for (Device device : roomDevices) {
+                roomDevicesDTO.add(deviceToDTO(device, roomName));
+            }
+        }
+        return roomDevicesDTO;
     }
+
 }

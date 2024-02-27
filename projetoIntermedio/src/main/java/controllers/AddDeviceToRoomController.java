@@ -95,6 +95,6 @@ public class AddDeviceToRoomController {
         if (device == null) {
             return null;
         }
-        return mapperToDeviceDTO.deviceToDTO(device.getName(), device.getType(), room.getRoomName());
+        return mapperToDeviceDTO.deviceToDTO(device, room.getRoomName());
     }
 }
