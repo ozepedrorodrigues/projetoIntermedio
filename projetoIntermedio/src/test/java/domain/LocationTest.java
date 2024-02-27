@@ -66,9 +66,11 @@ class LocationTest {
         // Arrange
         String invalidAddress = "";
         String expectedMessage = "Invalid parameters";
+
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(invalidAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble));
         String resultMessage = e.getMessage();
+
         //Assert
         assertEquals(expectedMessage, resultMessage);
     }
@@ -82,9 +84,11 @@ class LocationTest {
         // Arrange
         String invalidZipCode = "";
         String expectedMessage = "Invalid parameters";
+
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(validAddress, invalidZipCode, validLatitude, validLongitude, gpsFactoryDouble));
         String resultMessage = e.getMessage();
+
         //Assert
         assertEquals(expectedMessage, resultMessage);
     }
@@ -98,10 +102,12 @@ class LocationTest {
         // Arrange
         GPSFactory invalidGpsFactory = null;
         String expectedMessage = "Invalid parameters";
+
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(validAddress, validZipCode, validLatitude, validLongitude, invalidGpsFactory));
         String resultMessage = e.getMessage();
-        //Assert
+
+        // Assert
         assertEquals(expectedMessage, resultMessage);
     }
 
@@ -111,12 +117,13 @@ class LocationTest {
      */
     @Test
     void getAddress() {
+        // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
         String result = location.getAddress();
 
-        //Assert
+        // Assert
         assertEquals(validAddress, result);
     }
 
@@ -126,12 +133,13 @@ class LocationTest {
      */
     @Test
     void getZipCode() {
+        // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
         String result = location.getZipCode();
 
-        //Assert
+        // Assert
         assertEquals(validZipCode, result);
     }
 
@@ -141,13 +149,14 @@ class LocationTest {
      */
     @Test
     void getGpsLocation() {
+        // Arrange
         when(gpsFactoryDouble.createGPS(validLatitude, validLongitude)).thenReturn(gpsDouble);
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
         GPS result = location.getGps();
 
-        //Assert
+        // Assert
         assertEquals(gpsDouble, result);
     }
 
@@ -157,12 +166,13 @@ class LocationTest {
      */
     @Test
     void getGpsLocationFactory() {
+        // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
         GPSFactory result = location.getGpsLocationFactory();
 
-        //Assert
+        // Assert
         assertEquals(gpsFactoryDouble, result);
     }
 }

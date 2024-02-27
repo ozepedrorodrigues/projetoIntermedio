@@ -12,10 +12,10 @@ public class LocationFactoryImp implements LocationFactory {
         this.gpsFactory = gpsFactory;
     }
 
-    public Location createLocation(String address, String zipCode, double latitude, double longitude) {
-        ;
+    public Location createLocation(String address, String zipCode, double latitude, double longitude) throws IllegalArgumentException {
         try {
             return new Location(address, zipCode, latitude, longitude, gpsFactory);
+
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
