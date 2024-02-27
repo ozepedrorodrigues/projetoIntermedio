@@ -69,16 +69,20 @@ public class DeactivateDeviceController {
     }
 
     /**
-     * Deactivates a device in a room.
-     * It interacts with the House domain object to deactivate the device.
-     * @param roomName the name of the room.
-     * @param deviceName the name of the device.
-     * @return the deactivated device.
+     * Deactivates the device.
+     * If the device is already deactivated, returns false.
+     *
+     * @param deviceDTO the device to be deactivated.
+     * @return true if the device was deactivated successfully, false otherwise.
      */
-    public DeviceDTO deactivateDevice(String roomName, String deviceName) {
+
+    public boolean deactivateDevice(DeviceDTO deviceDTO) {
+        if (deviceDTO == null) return false;
+        String roomName = deviceDTO.getRoomName();
         Room room = house.getRoomByName(roomName);
+        String deviceName = deviceDTO.getName();
         Device device = room.getDeviceByName(deviceName);
-        device.deactivate();
-        return mapperToDeviceDTO.deviceToDTO(device.getName(), device.getType(), room.getRoomName());
+
+        return device.deactivate();
     }
 }
