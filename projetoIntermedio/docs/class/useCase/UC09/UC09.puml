@@ -17,6 +17,7 @@ class Device {
 
 class GetListOfDevicesByFunctionalityController {
   - house : House
+  - mapper : MapperToGroupDeviceDTO
   + GetListOfDevicesByFunctionalityController(...)
   + getDeviceByFunctionality() : Map<String,List<DeviceDTO>
 }
@@ -46,7 +47,7 @@ House "1" <.. "1" GetListOfDevicesByFunctionalityController : uses
 House "1" *-- "*" Room : contains
 Room "1" *-- "*" Device : contains
 
-GetListOfDevicesByFunctionalityController "1" ..> "1" MapperToGroupDeviceDTO : creates
+GetListOfDevicesByFunctionalityController "1" ..> "1" MapperToGroupDeviceDTO : uses
 GetListOfDevicesByFunctionalityController "1" ..> "1..*" SensorType : uses"
 MapperToGroupDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
 

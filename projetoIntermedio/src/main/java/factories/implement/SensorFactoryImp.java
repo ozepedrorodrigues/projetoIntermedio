@@ -53,7 +53,7 @@ public class SensorFactoryImp implements SensorFactory {
                 return (Sensor) Class.forName(sensorClassNamePath).getConstructor(ValueFactory.class).newInstance(valueFactory);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
-                return null;
+                System.out.println("Error creating the sensor: " + e.getMessage());
             }
         }
 
