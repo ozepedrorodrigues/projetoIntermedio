@@ -18,6 +18,19 @@ public class DimensionDTO {
     private double height;
 
 
+    /**
+     * DimensionDTO constructor with width, length and height.
+     *
+     * @param width the width of the room
+     * @param length the length of the room
+     * @param height the height of the room
+     */
+    public DimensionDTO(double width, double length, double height) {
+        this.width = width;
+        this.length = length;
+        this.height = height;
+    }
+
 
     /**
      * Returns the width of the room.
