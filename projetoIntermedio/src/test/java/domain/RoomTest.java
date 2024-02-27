@@ -113,7 +113,7 @@ class RoomTest {
      * Test to verify that the getName method returns the correct name of the room.
      */
     @Test
-    void testGetName() {
+    void getNameValid() {
         // Arrange
         String expected = "Living Room";
         // Act
@@ -126,7 +126,7 @@ class RoomTest {
      * Test to verify that the getFloor method returns the correct floor of the room.
      */
     @Test
-    void testGetFloorValid() {
+    void getFloorValid() {
         // Arrange
         int expected = 1;
         // Act
@@ -140,7 +140,7 @@ class RoomTest {
      * Test to verify that the getDimensions method returns the correct dimensions of the room.
      */
     @Test
-    void testGetDimensions() {
+    void getDimensionsValid() {
         // Act
         dimensionsMock = validRoom.getDimensions();
         int expectedWidth = 10;
@@ -156,7 +156,7 @@ class RoomTest {
      * Test to verify that the createDevice method of the Room class returns the correct device when valid parameters are used.
      */
     @Test
-    void testCreateDevice() {
+    void addNewDeviceValid() {
         // Act
         Device device = validRoom.addNewDevice(validDeviceName, validDeviceType);
         String expectedName = deviceMock.getName();
@@ -167,10 +167,23 @@ class RoomTest {
     }
 
     /**
+     * Test to verify that the addNewDevice method of the Room class returns null when the device name already exists.
+     */
+    @Test
+    void addNewDeviceNameAlreadyExists() {
+        // Arrange
+        validRoom.addNewDevice(validDeviceName, validDeviceType);
+        // Act
+        Device result = validRoom.addNewDevice(validDeviceName, validDeviceType);
+        // Assert
+        assertNull(result);
+    }
+
+    /**
      * Test to verify that the createDevice method of the Room class throws an IllegalArgumentException when the parameters are empty.
      */
     @Test
-    void testCreateDeviceDeviceEmptyParameters() {
+    void addNewDeviceDeviceEmptyParameters() {
         // Arrange
         String deviceName = "";
         String deviceType = "";
@@ -185,9 +198,9 @@ class RoomTest {
      * Test to verify that the createDevice method of the Room class throws an IllegalArgumentException when the parameters are null.
      */
     @Test
-    void testCreateDeviceDeviceNullParameters() {
+    void addNewDeviceDeviceNullParameters() {
         // Arrange
-        when(deviceFactoryMock.createDevice(null, null)).thenReturn(null);
+        when(deviceFactoryMock.createDevice(null, null)).thenThrow(IllegalArgumentException.class);
         // Act
         Device result = validRoom.addNewDevice(null, null);
         // Assert

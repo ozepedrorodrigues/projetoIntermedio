@@ -97,10 +97,14 @@ public class Room {
      * @throws IllegalArgumentException if the device is invalid
      */
     public Device addNewDevice(String name, String deviceType) {
+        if (!validDeviceName(name)) {
+            return null;
+        }
         try {
             Device device = deviceFactory.createDevice(name, deviceType);
-            validDeviceName(device);
-            deviceList.add(device);
+            if (device != null) {
+                this.deviceList.add(device);
+            }
             return device;
         } catch (IllegalArgumentException e) {
             return null;
@@ -110,17 +114,13 @@ public class Room {
     /**
      * Method to add a device to room
      *
-     * @param device the device to be added
-     * @throws IllegalArgumentException if a device with the same name already exists
+     * @param deviceName the name of the device to be added
      */
-    private boolean validDeviceName(Device device) {
+    private boolean validDeviceName(String deviceName) {
         for (Device devices : deviceList) {
-            if (devices.getName().equals(device.getName())) {
-                throw new IllegalArgumentException("Device with the same name already exists");
-            }
-        }
-        return true;
-    }
+            if (devices.getName().equalsIgnoreCase(deviceName)) {
+                return false;}}
+        return true;}
 
     /**
      * Returns a list of all devices in the room.
@@ -143,8 +143,7 @@ public class Room {
     public Device getDeviceByName(String name) {
         for (Device device : deviceList) {
             if (device.getName().equals(name))
-                return device;
-        }
+                return device;}
         return null;
     }
 
