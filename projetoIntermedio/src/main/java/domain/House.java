@@ -89,7 +89,6 @@ public class House {
      */
     public Room addRoom(String roomName, int floor, double width, double length, double height) {
         if (roomNameAlreadyExists(roomName)) {
-            System.err.println("Failed to add room: Room with the name '" + roomName + "' already exists");
             return null;
         }
         try {
@@ -99,7 +98,6 @@ public class House {
             }
             return room;
         } catch (IllegalArgumentException e) {
-            System.err.println("Failed to add room: " + e.getMessage());
             return null;
         }
     }
@@ -125,9 +123,7 @@ public class House {
      * @return a copy of the list of all rooms in the house
      */
     public List<Room> getRooms() {
-        List<Room> roomListCopy = new ArrayList<>();
-        roomListCopy.addAll(this.rooms);
-        return roomListCopy;
+        return List.copyOf(this.rooms);
     }
 
     /**

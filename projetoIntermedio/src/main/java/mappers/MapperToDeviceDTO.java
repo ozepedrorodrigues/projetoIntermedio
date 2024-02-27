@@ -24,7 +24,7 @@ public class MapperToDeviceDTO {
      * @param roomName the room where the devices are located.
      * @return the list of DeviceDTOs.
      */
-    public List<DeviceDTO> getDeviceList(List<Device> devices, String roomName) {
+    public List<DeviceDTO> getDevices(List<Device> devices, String roomName) {
         List<DeviceDTO> devicesDTO = new ArrayList<>(); // Create a new list each time
         for (int i = 0; i < devices.size(); i++) {
             DeviceDTO myDeviceDTO = deviceToDTO(devices.get(i).getName(), devices.get(i).getType(), roomName);

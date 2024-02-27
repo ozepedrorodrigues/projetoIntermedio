@@ -14,18 +14,21 @@ public class GPS {
      */
     private double longitude;
 
-    /**
-     * Constructor
-     *
-     * @param latitude  the latitude of the GPS location of the house
-     * @param longitude the longitude of the GPS location of the house
-     * @throws IllegalArgumentException if the latitude or longitude is invalid
-     */
+
     public GPS(double latitude, double longitude) throws IllegalArgumentException {
-        if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
+        if (!validLatitude(latitude) || !validLongitude(longitude))
             throw new IllegalArgumentException("Invalid GPS Location");
+
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    private boolean validLongitude(double longitude) {
+        return longitude >= -180 && longitude <= 180;
+    }
+
+    private boolean validLatitude(double latitude) {
+        return latitude >= -90 && latitude <= 90;
     }
 
     /**

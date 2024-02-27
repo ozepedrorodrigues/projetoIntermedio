@@ -35,6 +35,6 @@ public class GetDeviceListController {
         if (room == null)
             throw new IllegalArgumentException("Room does not exist.");
         List<Device> devices = room.getDeviceList();
-        return new MapperToDeviceDTO().getDeviceList(devices, roomName);
+        return new MapperToDeviceDTO().getDevices(devices, roomName);
     }
 }
