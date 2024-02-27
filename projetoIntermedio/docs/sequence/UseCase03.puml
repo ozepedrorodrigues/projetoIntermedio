@@ -12,14 +12,14 @@ participant "_listRoomDTO:List<RoomDTO>" as LRDTO
 activate C
 C -> H: getRooms()
 activate H
-H-->C: _roomList
+H-->C: _roomListCopy
 deactivate H
 C -> M: getRoomList(_roomList)
 activate M
 M-->LRDTO**:create(_roomList)
-M-->C: _listRoomDTO
+M-->C: _roomsDTO
 deactivate M
-[o<--C: _listRoomDTO
+[o<--C: _roomsDTO
 
 
 @enduml
