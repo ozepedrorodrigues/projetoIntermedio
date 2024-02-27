@@ -1,38 +1,50 @@
- @startuml
-
+@startuml
 interface Sensor {
-
-  + getType() : String
-  + getName() : String
-  + getValue() : String
+    + getType() : SensorType
+    + getValue() : Value
+    + getId() : int
+    + setId(...): int
 }
 
 class SensorOfTemperature {
-  - name : String
-  - type : String
-  - value : double
+    - id : int
+    - type : SensorType
+    - value : TemperatureValue
 
-  + SensorOfTemperature(...)
-  + getName() : String
-  + getType() : String
-  + getValue() : double
+   + SensorOfTemperature(...)
+   + getId() : int
+   + setId(int newId) : int
+   + getType() : SensorType
+   + getValue() : Value
+   - validValueFactory() : boolean
 }
 
 class TemperatureValue {
-  - temperatureValue : double
+   - temperatureValue : double
 
-  + TemperatureValue()
-  + getTemperatureValue() : double
-  + toValue() : String
+   + TemperatureValue()
+   + getTemperatureValue() : double
+   + toValue() : String
 }
 
 interface Value {
-  + toValue() : String
+   + toValue() : String
 }
 
-SensorOfTemperature "*" ..|> "1" Sensor : implements
-SensorOfTemperature "1" *-- "1" TemperatureValue : has
+interface ValueFactory {
+   + createTemperatureValue() : Value
+}
 
-TemperatureValue "*" ..|> "1" Value : implements
+class ValueFactoryImp {
+    + ValueFactoryImp()
+    + createTemperatureValue() : Value
+}
+
+SensorOfTemperature ..|> Sensor : implements
+SensorOfTemperature "1" *-- "1" TemperatureValue : has
+TemperatureValue --|> Value : implements
+ValueFactoryImp ..|> ValueFactory : implements
+ValueFactoryImp ..> TemperatureValue : creates
+SensorOfTemperature ..> ValueFactoryImp : uses
 
 @enduml

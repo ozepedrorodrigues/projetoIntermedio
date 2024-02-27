@@ -1,38 +1,50 @@
 @startuml
-
 interface Sensor {
-
-  + getType() : String
-  + getName() : String
-  + getValue() : double
+    + getType() : SensorType
+    + getValue() : Value
+    + getId() : int
+    + setId(...): int
 }
 
 class SensorOfHumidity {
-  - name : String
-  - type : String
-  - value : double
+    - id : int
+    - type : SensorType
+    - value : HumidityValue
 
-  + SensorOfHumidity(...)
-  + getName() : String
-  + getType() : String
-  + getValue() : double
+   + SensorOfHumidity(...)
+   + getId() : int
+   + setId(...) : int
+   + getType() : SensorType
+   + getValue() : Value
+   - validValueFactory() : boolean
 }
 
 class HumidityValue {
-  - humidityValue: int
+   - humidityValue : double
 
-  + HumidityValue()
-  + getHumidityValue() : int
-  + toValue() : String
+   + HumidityValue()
+   + getHumidityValue() : double
+   + toValue() : String
 }
 
 interface Value {
-  + toValue() : String
+   + toValue() : String
 }
 
-SensorOfHumidity "*" ..|> "1" Sensor : implements
-SensorOfHumidity "1" *-- "1" HumidityValue : has
+interface ValueFactory {
+   + createHumidityValue() : Value
+}
 
-HumidityValue "*" ..|> "1" Value : implements
+class ValueFactoryImp {
+    + ValueFactoryImp()
+    + createHumidityValue() : Value
+}
+
+SensorOfHumidity ..|> Sensor : implements
+SensorOfHumidity"1" *-- "1" HumidityValue : has
+HumidityValue --|> Value : implements
+ValueFactoryImp ..|> ValueFactory : implements
+ValueFactoryImp ..> HumidityValue : creates
+SensorOfHumidity ..> ValueFactoryImp : uses
 
 @enduml
