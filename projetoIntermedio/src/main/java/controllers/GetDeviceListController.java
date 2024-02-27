@@ -1,10 +1,10 @@
 package controllers;
 
-import dto.DeviceDTO;
-import mappers.MapperToDeviceDTO;
 import domain.Device;
 import domain.House;
 import domain.Room;
+import dto.DeviceDTO;
+import mappers.MapperToDeviceDTO;
 
 import java.util.List;
 
@@ -17,11 +17,14 @@ public class GetDeviceListController {
      * The house object.
      */
     private House house;
+
+    private MapperToDeviceDTO mapperToDeviceDTO;
     /**
      * Constructor for ControllerGetDeviceList.
      */
-    public GetDeviceListController(House house) {
+    public GetDeviceListController(House house, MapperToDeviceDTO mapperToDeviceDTO) {
         this.house = house;
+        this.mapperToDeviceDTO = mapperToDeviceDTO;
     }
 
     /**
