@@ -41,51 +41,51 @@ public class SensorOfHumidity implements Sensor {
         }
     }
 
-        /**
-         * Returns the type of the sensor.
-         *
-         * @return the type of the sensor
-         */
-        public SensorType getType () {
-            return type;
+    /**
+     * Returns the ID of the sensor.
+     *
+     * @return the ID of the sensor
+     */
+    public int getId () {
+        return id;
+    }
+    /**
+     * Sets the ID of the sensor.
+     *
+     * @param id the new ID of the sensor
+     */
+    public int setId ( int id){
+        this.id = id;
+        return id;
+    }
 
-        }
-
-        /**
-         * Returns the current reading from the sensor.
-         *
-         * @return the current reading from the sensor
-         */
-        public Value getValue () {
-            return value;
-        }
-
-        /**
-         * Returns the ID of the sensor.
-         *
-         * @return the ID of the sensor
-         */
-        public int getId () {
-            return id;
-        }
-        /**
-         * Sets the ID of the sensor.
-         *
-         * @param id the new ID of the sensor
-         */
-        public int setId ( int id){
-            this.id = id;
-            return id;
-        }
-
-        /**
-         * Validates the value factory of the sensor.
-         *
-         * @param valueFactory the value factory of the sensor
-         * @return true if the value factory is not null, false otherwise
-         */
-        private boolean validValueFactory (ValueFactory valueFactory){
-            return valueFactory != null;
-        }
+    /**
+     * Returns the type of the sensor.
+     *
+     * @return the type of the sensor
+     */
+    public SensorType getType () {
+        return type;
 
     }
+
+    /**
+     * Returns the current reading from the sensor.
+     *
+     * @return the current reading from the sensor
+     */
+    public Value getValue () {
+        return value;
+    }
+
+    /**
+     * Validates the value factory of the sensor.
+     *
+     * @param valueFactory the value factory of the sensor
+     * @return true if the value factory is not null, false otherwise
+     */
+    private boolean validValueFactory (ValueFactory valueFactory){
+        return valueFactory != null;
+    }
+
+}
