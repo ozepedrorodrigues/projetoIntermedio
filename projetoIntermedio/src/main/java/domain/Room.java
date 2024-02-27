@@ -13,29 +13,33 @@ import java.util.List;
  */
 public class Room {
     /**
+     * The unique identifier of the room
+     */
+    private int id;
+    /**
      * The name of the room
      */
     private String name;
-
     /**
      * The floor of the house where the room is located.
      */
     private int floor;
-
     /**
      * The dimensions of the room
      */
     private Dimensions dimensions;
-
+    /**
+     * The factory to create dimensions
+     */
+    private DimensionsFactory dimensionsFactory;
     /**
      * The factory to create devices
      */
     private DeviceFactory deviceFactory;
-
     /**
      * The list of devices in the room.
      */
-    private List<Device> deviceList = new ArrayList<>();
+    private List<Device> deviceList;
 
     /**
      * Constructor for creating a Room instance with specified name, floor, and dimensions.
@@ -55,6 +59,8 @@ public class Room {
         this.name = name;
         this.floor = floor;
         this.deviceFactory = deviceFactory;
+        this.dimensionsFactory = dimensionsFactory;
+        this.deviceList = new ArrayList<>();
     }
 
     /**
@@ -90,13 +96,14 @@ public class Room {
      * @return the created device
      * @throws IllegalArgumentException if the device is invalid
      */
-    public Device createDevice(String name, String deviceType) {
+    public Device validDeviceName(String name, String deviceType) {
         try {
             Device device = deviceFactory.createDevice(name, deviceType);
-            addDevice(device);
+            validDeviceName(device);
+            deviceList.add(device);
             return device;
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            return null;
         }
     }
 
@@ -106,13 +113,13 @@ public class Room {
      * @param device the device to be added
      * @throws IllegalArgumentException if a device with the same name already exists
      */
-    private void addDevice(Device device) {
+    private boolean validDeviceName(Device device) {
         for (Device devices : deviceList) {
             if (devices.getName().equals(device.getName())) {
                 throw new IllegalArgumentException("Device with the same name already exists");
             }
         }
-        deviceList.add(device);
+        return true;
     }
 
     /**

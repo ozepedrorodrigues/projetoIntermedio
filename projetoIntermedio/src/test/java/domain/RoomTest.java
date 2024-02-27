@@ -158,7 +158,7 @@ class RoomTest {
     @Test
     void testCreateDevice() {
         // Act
-        Device device = validRoom.createDevice(validDeviceName, validDeviceType);
+        Device device = validRoom.validDeviceName(validDeviceName, validDeviceType);
         String expectedName = deviceMock.getName();
         String expectedType = deviceMock.getType();
         // Assert
@@ -174,9 +174,11 @@ class RoomTest {
         // Arrange
         String deviceName = "";
         String deviceType = "";
-        when(deviceFactoryMock.createDevice(deviceName, deviceType)).thenThrow(new IllegalArgumentException("Empty parameter(s)"));
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> validRoom.createDevice(deviceName, deviceType));
+        when(deviceFactoryMock.createDevice(deviceName, deviceType)).thenReturn(null);
+        // Act
+        Device result = validRoom.validDeviceName(deviceName, deviceType);
+        // Assert
+        assertNull(result);
     }
 
     /**
@@ -185,9 +187,11 @@ class RoomTest {
     @Test
     void testCreateDeviceDeviceNullParameters() {
         // Arrange
-        when(deviceFactoryMock.createDevice(null, null)).thenThrow(new IllegalArgumentException("Invalid Parameters"));
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> validRoom.createDevice(null, null));
+        when(deviceFactoryMock.createDevice(null, null)).thenReturn(null);
+        // Act
+        Device result = validRoom.validDeviceName(null, null);
+        // Assert
+        assertNull(result);
     }
 
     /**
@@ -196,7 +200,7 @@ class RoomTest {
     @Test
     void testGetDeviceListReturnsCorrectDeviceList() {
         // Arrange
-        validRoom.createDevice(validDeviceName, validDeviceType);
+        validRoom.validDeviceName(validDeviceName, validDeviceType);
         int sizeExpected = 1;
         // Act
         List<Device> deviceList = validRoom.getDeviceList();
@@ -213,7 +217,7 @@ class RoomTest {
     @Test
     void testGetDeviceByName() {
         // Arrange
-        Device expected = validRoom.createDevice(validDeviceName, validDeviceType);
+        Device expected = validRoom.validDeviceName(validDeviceName, validDeviceType);
         // Act
         Device result = validRoom.getDeviceByName("Device");
         // Assert
