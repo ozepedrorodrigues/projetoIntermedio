@@ -158,7 +158,7 @@ class RoomTest {
     @Test
     void testCreateDevice() {
         // Act
-        Device device = validRoom.validDeviceName(validDeviceName, validDeviceType);
+        Device device = validRoom.addNewDevice(validDeviceName, validDeviceType);
         String expectedName = deviceMock.getName();
         String expectedType = deviceMock.getType();
         // Assert
@@ -176,7 +176,7 @@ class RoomTest {
         String deviceType = "";
         when(deviceFactoryMock.createDevice(deviceName, deviceType)).thenReturn(null);
         // Act
-        Device result = validRoom.validDeviceName(deviceName, deviceType);
+        Device result = validRoom.addNewDevice(deviceName, deviceType);
         // Assert
         assertNull(result);
     }
@@ -189,7 +189,7 @@ class RoomTest {
         // Arrange
         when(deviceFactoryMock.createDevice(null, null)).thenReturn(null);
         // Act
-        Device result = validRoom.validDeviceName(null, null);
+        Device result = validRoom.addNewDevice(null, null);
         // Assert
         assertNull(result);
     }
@@ -200,7 +200,7 @@ class RoomTest {
     @Test
     void testGetDeviceListReturnsCorrectDeviceList() {
         // Arrange
-        validRoom.validDeviceName(validDeviceName, validDeviceType);
+        validRoom.addNewDevice(validDeviceName, validDeviceType);
         int sizeExpected = 1;
         // Act
         List<Device> deviceList = validRoom.getDeviceList();
@@ -217,7 +217,7 @@ class RoomTest {
     @Test
     void testGetDeviceByName() {
         // Arrange
-        Device expected = validRoom.validDeviceName(validDeviceName, validDeviceType);
+        Device expected = validRoom.addNewDevice(validDeviceName, validDeviceType);
         // Act
         Device result = validRoom.getDeviceByName("Device");
         // Assert

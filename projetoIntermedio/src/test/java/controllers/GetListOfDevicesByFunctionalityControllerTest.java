@@ -64,7 +64,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House2Rooms1Device1Functionality() {
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
@@ -82,7 +82,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House2Rooms1Device2Functionalities() {
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor(13,"SensorOfHumidity",catalogue);
         //Act
@@ -103,9 +103,9 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House1Room2Devices1FunctionalityTotal(){
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
-        Device device2 = room1.createDevice("Device2", "Sensor2");
+        Device device2 = room1.addNewDevice("Device2", "Sensor2");
         Sensor sensor2 = device2.addSensor(13,"SensorOfTemperature",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
@@ -124,10 +124,10 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House1Room2Devices2FunctionalitiesTotal(){
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor(13,"SensorOfHumidity",catalogue);
-        Device device2 = room1.createDevice("Device2", "Sensor2");
+        Device device2 = room1.addNewDevice("Device2", "Sensor2");
         Sensor sensor3 = device2.addSensor(14,"SensorOfTemperature",catalogue);
         Sensor sensor4 = device2.addSensor(15,"SensorOfHumidity",catalogue);
         //Act
@@ -149,11 +149,11 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House2Rooms3Devices1FunctionalityEach(){
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
-        Device device2 = room2.createDevice("Device2", "Sensor2");
+        Device device2 = room2.addNewDevice("Device2", "Sensor2");
         Sensor sensor2 = device2.addSensor(13,"SensorOfHumidity",catalogue);
-        Device device3 = room2.createDevice("Device3", "Sensor3");
+        Device device3 = room2.addNewDevice("Device3", "Sensor3");
         Sensor sensor3 = device3.addSensor(14,"SensorOfAperture",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
@@ -173,7 +173,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House2Rooms1Device3FunctionalitiesInsideIt(){
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor(13,"SensorOfHumidity",catalogue);
         Sensor sensor3 = device1.addSensor(14,"SensorOfAperture",catalogue);
@@ -192,10 +192,10 @@ class GetListOfDevicesByFunctionalityControllerTest {
     @Test
     void getDeviceByFunctionality1House2Rooms2Devices4Functionalities2InEach(){
         //Arrange
-        Device device1 = room1.createDevice("Device1", "Sensor1");
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor(12,"SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor(13,"SensorOfHumidity",catalogue);
-        Device device2 = room2.createDevice("Device2", "Sensor2");
+        Device device2 = room2.addNewDevice("Device2", "Sensor2");
         Sensor sensor3 = device2.addSensor(14,"SensorOfAperture",catalogue);
         Sensor sensor4 = device2.addSensor(15,"SensorOfAveragePowerConsumption",catalogue);
         //Act

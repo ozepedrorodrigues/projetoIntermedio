@@ -96,7 +96,7 @@ public class Room {
      * @return the created device
      * @throws IllegalArgumentException if the device is invalid
      */
-    public Device validDeviceName(String name, String deviceType) {
+    public Device addNewDevice(String name, String deviceType) {
         try {
             Device device = deviceFactory.createDevice(name, deviceType);
             validDeviceName(device);
