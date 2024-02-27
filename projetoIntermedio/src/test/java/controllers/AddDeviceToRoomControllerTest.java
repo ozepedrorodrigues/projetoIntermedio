@@ -25,6 +25,7 @@ public class AddDeviceToRoomControllerTest {
     House house;
     GetRoomListController getRoomListController;
     MapperToDeviceDTO mapperToDeviceDTO;
+    MapperToRoomDTO mapperToRoomDTO;
     AddDeviceToRoomController addDeviceToRoomController;
     AddRoomController addRoomController;
 
@@ -39,10 +40,11 @@ public class AddDeviceToRoomControllerTest {
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
-        getRoomListController = new GetRoomListController(house, new MapperToRoomDTO());
+        mapperToRoomDTO = new MapperToRoomDTO();
+        getRoomListController = new GetRoomListController(house, mapperToRoomDTO);
         mapperToDeviceDTO = new MapperToDeviceDTO();
         addDeviceToRoomController = new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController);
-        addRoomController = new AddRoomController(house, new MapperToRoomDTO());
+        addRoomController = new AddRoomController(house, mapperToRoomDTO);
     }
 
     @Test
