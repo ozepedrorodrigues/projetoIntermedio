@@ -87,6 +87,7 @@ public class AddSensorToDeviceController {
      * @return the sensor DTO.
      */
 
+
     public SensorDTO addSensorToExistingDevice(String deviceName, String sensorModel) {
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel, catalogue);
