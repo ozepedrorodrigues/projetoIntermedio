@@ -31,10 +31,10 @@ public class Location {
     /**
      * Constructor
      *
-     * @param address            the address of the house (Street, Number, Door)
-     * @param zipCode            the zip code of the house
-     * @param latitude           the latitude of the GPS location of the house
-     * @param longitude          the longitude of the GPS location of the house
+     * @param address    the address of the house (Street, Number, Door)
+     * @param zipCode    the zip code of the house
+     * @param latitude   the latitude of the GPS location of the house
+     * @param longitude  the longitude of the GPS location of the house
      * @param gpsFactory the GPSFactory of the location
      */
     public Location(String address, String zipCode, double latitude, double longitude, GPSFactory gpsFactory) throws IllegalArgumentException {
