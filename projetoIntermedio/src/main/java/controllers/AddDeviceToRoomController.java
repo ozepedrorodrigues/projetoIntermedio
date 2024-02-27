@@ -76,7 +76,7 @@ public class AddDeviceToRoomController {
      *
      * @return a list of RoomDTO objects representing the rooms in the house.
      */
-    public List<RoomDTO> getRoomList() throws InstantiationException {
+    public List<RoomDTO> getRoomList() {
         return getRoomListController.getRoomList();
     }
 
