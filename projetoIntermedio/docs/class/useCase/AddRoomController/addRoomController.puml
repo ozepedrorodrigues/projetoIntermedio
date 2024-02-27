@@ -26,10 +26,16 @@ interface RoomFactory {
 interface DimensionFactory {
   + createDimensions(...) : Dimensions
 }
+interface DeviceFactory {
+}
 
+class DeviceFactoryImp {
+  + DeviceFactoryImp(...)
+}
 
 
 class House {
+  + House(...)
   + addRoom(...) : boolean
 }
 
@@ -83,6 +89,7 @@ Room "1".left.>"1" DimensionFactory : uses
 DimensionFactory "1" <.. "1" DimensionFactoryImp : implements
 DimensionFactoryImp "1" --> "1" Dimensions : creates
 House "1"..>"1" RoomFactory : uses
+DeviceFactory "1" <.right. "1" DeviceFactoryImp : implements
 
 
 @enduml
