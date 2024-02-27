@@ -106,7 +106,7 @@ class AddRomControllerTest {
     void addRoomSameName() {
         //Arrange
         String name = "Gaming Room";
-        int floor = -1;
+        int floor = 1;
         RoomDTO newRoom1 = new RoomDTO (name, floor, width, length, height);
         RoomDTO newRoom2 = new RoomDTO (name, floor, width, length, height);
         RoomDTO newRoom2Expected = null;
@@ -149,6 +149,22 @@ class AddRomControllerTest {
     void addRoomNameNull() {
         //Arrange
         String name = null;
+        int floor = -1;
+        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        RoomDTO roomExpected = null;
+        //Act
+        RoomDTO newRoomResult = addRomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(roomExpected, newRoomResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the room name is empty.
+     */
+    @Test
+    void addRoomEmptyName() {
+        //Arrange
+        String name = "";
         int floor = -1;
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
         RoomDTO roomExpected = null;
