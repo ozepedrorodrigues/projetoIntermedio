@@ -39,7 +39,7 @@ class HouseTest {
         when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,validLongitude)).thenReturn(location);
         when(location.getAddress()).thenReturn(validAddress);
         when(location.getZipCode()).thenReturn(validZipCode);
-        when(location.getGpsLocation()).thenReturn(gps);
+        when(location.getGps()).thenReturn(gps);
         when(gps.getLatitude()).thenReturn(validLatitude);
         when(gps.getLongitude()).thenReturn(validLongitude);
         when(room.getRoomName()).thenReturn(validRoomname);

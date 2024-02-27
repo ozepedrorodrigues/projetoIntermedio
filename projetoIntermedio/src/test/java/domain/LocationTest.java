@@ -47,7 +47,7 @@ class LocationTest {
         // Act
         String resultAddress = location.getAddress();
         String resultZipCode = location.getZipCode();
-        GPS resultGps = location.getGpsLocation();
+        GPS resultGps = location.getGps();
         GPSFactory resultGpsFactory = location.getGpsLocationFactory();
 
         //Assert
@@ -145,7 +145,7 @@ class LocationTest {
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
         // Act
-        GPS result = location.getGpsLocation();
+        GPS result = location.getGps();
 
         //Assert
         assertEquals(gpsDouble, result);

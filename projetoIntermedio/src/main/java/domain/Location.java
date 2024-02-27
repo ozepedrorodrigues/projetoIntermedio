@@ -37,7 +37,7 @@ public class Location {
      * @param longitude          the longitude of the GPS location of the house
      * @param gpsFactory the GPSFactory of the location
      */
-    public Location(String address, String zipCode, double latitude, double longitude, GPSFactory gpsFactory) {
+    public Location(String address, String zipCode, double latitude, double longitude, GPSFactory gpsFactory) throws IllegalArgumentException {
         if (!validAddress(address) || !validZipCode(zipCode) || !validGpsFactory(gpsFactory)) {
             throw new IllegalArgumentException("Invalid parameters");
         }
@@ -70,7 +70,7 @@ public class Location {
      *
      * @return the GPS location of the house
      */
-    public GPS getGpsLocation() {
+    public GPS getGps() {
         return gps;
     }
 
