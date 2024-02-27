@@ -1,8 +1,6 @@
 package controllers;
 
-import domain.Dimensions;
 import domain.House;
-import dto.DimensionDTO;
 import dto.RoomDTO;
 import factories.*;
 import factories.implement.*;
@@ -15,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class is responsible for testing the AddRomController class.
  */
-class AddRomControllerTest {
+class AddRoomControllerTest {
 
-    AddRomController addRomController;
-    AddRomController addRomController2;
+    AddRoomController addRoomController;
+    AddRoomController addRoomController2;
     House house;
     MapperToRoomDTO mapperToRoomDTO;
     LocationFactory locationFactory;
@@ -52,8 +50,8 @@ class AddRomControllerTest {
         this.length = 15.2;
         this.height = 4.5;
         this.house = new House(locationFactory, roomFactory);
-        this.addRomController = new AddRomController(house, mapperToRoomDTO);
-        this.addRomController2 = new AddRomController(house, mapperToRoomDTO);
+        this.addRoomController = new AddRoomController(house, mapperToRoomDTO);
+        this.addRoomController2 = new AddRoomController(house, mapperToRoomDTO);
     }
 
     /**
@@ -65,7 +63,7 @@ class AddRomControllerTest {
         House invalidHouse = null;
         String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRomController(invalidHouse, mapperToRoomDTO));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, mapperToRoomDTO));
         assertEquals(expected, exception.getMessage());
     }
 
@@ -78,7 +76,7 @@ class AddRomControllerTest {
         MapperToRoomDTO invalidMapper = null;
         String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRomController(house, invalidMapper));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(house, invalidMapper));
         assertEquals(expected, exception.getMessage());
     }
 
@@ -94,7 +92,7 @@ class AddRomControllerTest {
         int floor = -1;
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
         //Act
-        RoomDTO newRoomResult = addRomController.addNewRoomToHouse(newRoomExpected);
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
         assertEquals(newRoomExpected.getName(), newRoomResult.getName());
     }
@@ -113,8 +111,8 @@ class AddRomControllerTest {
         int roomListSizeBefore = 0;
         int roomListSizeAfter = 1;
         //Act
-        RoomDTO newRoom1Result = addRomController.addNewRoomToHouse(newRoom1);
-        RoomDTO newRoom2Result = addRomController2.addNewRoomToHouse(newRoom2);
+        RoomDTO newRoom1Result = addRoomController.addNewRoomToHouse(newRoom1);
+        RoomDTO newRoom2Result = addRoomController2.addNewRoomToHouse(newRoom2);
         //Assert
         assertEquals(newRoom2Expected, newRoom2Result);
     }
@@ -134,8 +132,8 @@ class AddRomControllerTest {
         int roomListSizeBefore = 0;
         int roomListSizeAfter = 1;
         //Act
-        RoomDTO newRoom1Result = addRomController.addNewRoomToHouse(newRoom1);
-        RoomDTO newRoom2Result = addRomController2.addNewRoomToHouse(newRoom2);
+        RoomDTO newRoom1Result = addRoomController.addNewRoomToHouse(newRoom1);
+        RoomDTO newRoom2Result = addRoomController2.addNewRoomToHouse(newRoom2);
         String nameResult = newRoom1Result.getName();
         //Assert
         assertEquals(newRoom2Expected, newRoom2Result);
@@ -153,7 +151,7 @@ class AddRomControllerTest {
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
         RoomDTO roomExpected = null;
         //Act
-        RoomDTO newRoomResult = addRomController.addNewRoomToHouse(newRoomExpected);
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
         assertEquals(roomExpected, newRoomResult);
     }
@@ -169,7 +167,7 @@ class AddRomControllerTest {
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
         RoomDTO roomExpected = null;
         //Act
-        RoomDTO newRoomResult = addRomController.addNewRoomToHouse(newRoomExpected);
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
         assertEquals(roomExpected, newRoomResult);
     }

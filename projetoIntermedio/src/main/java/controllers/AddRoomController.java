@@ -9,7 +9,7 @@ import mappers.MapperToRoomDTO;
  * This class represents the controller for adding a room to a house.
  * It is used to add a room to a house and return the room as a RoomDTO.
  */
-public class AddRomController {
+public class AddRoomController {
 
     /**
      * The house instance to which the room is to be added.
@@ -27,7 +27,7 @@ public class AddRomController {
      *
      * @param house the house to which the room is to be added
      */
-    public AddRomController(House house, MapperToRoomDTO mapperToRoomDTO) throws InstantiationException {
+    public AddRoomController(House house, MapperToRoomDTO mapperToRoomDTO) throws InstantiationException {
         if(!isValidConstructorsArguments(house, mapperToRoomDTO)) {
             throw new InstantiationException("House can not be null.");
         }
