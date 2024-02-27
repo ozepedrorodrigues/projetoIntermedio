@@ -3,24 +3,25 @@
 
 autonumber
 
-participant "_addRoomController:AddRoomController" as ARC
-participant "_house:House" as H
-participant "_roomFactory:RoomFactory" as RF
-participant "_room:Room" as R
-participant "_mapperRoomDTO" as M
-participant "_roomDTO1:RoomDTO" as DTO
+participant "addRoomController:AddRoomController" as ARC
+participant "house:House" as H
+participant "roomFactory:RoomFactory" as RF
+participant "room:Room" as R
+participant "mapperRoomDTO" as M
+participant "roomDTO:RoomDTO" as DTO
 
-[o-> ARC: createRoom(RoomDTO _roomDTO)
-ARC -> H: createRoom(RoomDTO _roomDTO)
-H -> RF: createRoom(_roomDTO)
-RF --> R**: create(RoomDTO _roomDTO)
-R --> RF: _room
-RF --> H: _room
-H --> ARC: _room
-ARC -> M: mapperToRoomDTO(_room)
-M --> DTO**: create(_room)
-M --> ARC: : _roomDTO1
-[o<--ARC: _roomDTO1
+[o-> ARC: addNewRoomToHouse(roomDTO)
+ARC -> H: addNewRoomToHouse(roomName, floor, width, length, height)
+H -> RF: createRoom(roomName, floor, width, length, height)
+RF --> R**: <creates>(roomName, floor, width, length, height)
+H <-- RF: room
+
+
+H --> ARC: room
+ARC -> M: mapperToRoomDTO(room)
+M --> DTO**: <creates>(room)
+M --> ARC: : roomDTO
+[o<--ARC: roomDTO
 
 
 
