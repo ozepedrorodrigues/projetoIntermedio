@@ -71,7 +71,7 @@ class LocationTest {
         Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(invalidAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble));
         String resultMessage = e.getMessage();
 
-        //Assert
+        //vAssert
         assertEquals(expectedMessage, resultMessage);
     }
 
@@ -89,7 +89,7 @@ class LocationTest {
         Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(validAddress, invalidZipCode, validLatitude, validLongitude, gpsFactoryDouble));
         String resultMessage = e.getMessage();
 
-        //Assert
+        // Assert
         assertEquals(expectedMessage, resultMessage);
     }
 

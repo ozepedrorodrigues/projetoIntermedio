@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class is responsible for testing the DefineHouseLocationController class.
+ */
 class DefineHouseLocationControllerTest {
 
     private House house;
@@ -23,6 +26,9 @@ class DefineHouseLocationControllerTest {
     private double validLatitude = 10.0;
     private double validLongitude = 10.0;
 
+    /**
+     * Sets up valid data for testing the DefineHouseLocationController class.
+     */
     @BeforeEach
     void setUp() throws InstantiationException {
         house = new House(
@@ -35,6 +41,9 @@ class DefineHouseLocationControllerTest {
         defineHouseLocationController = new DefineHouseLocationController(house, mapperLocationDTO);
     }
 
+    /**
+     * Test the constructor of the DefineHouseLocationController class with invalid House.
+     */
     @Test
     void testConstructorInvalidHouse() {
         // Arrange
@@ -50,6 +59,9 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedMessage, resultMessage);
     }
 
+    /**
+     * Test the constructor of the DefineHouseLocationController class with invalid MapperLocationDTO.
+     */
     @Test
     void testConstructorInvalidMapper() {
         // Arrange
@@ -65,6 +77,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedMessage, resultMessage);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is the one expected.
+     */
     @Test
     void testDefineLocationValid() {
         // Arrange
@@ -80,7 +96,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(resultDTO.getLongitude(), validLongitude);
     }
 
-
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid address(null) is used.
+     */
     @Test
     void testDefineLocationNullAddress() {
         // Arrange
@@ -96,6 +115,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid address(blank) is used.
+     */
     @Test
     void testDefineLocationBlankAddress() {
         // Arrange
@@ -111,6 +134,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid zipcode(null) is used.
+     */
     @Test
     void testDefineLocationNullZipCode() {
         // Arrange
@@ -126,6 +153,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid zipcode(blank) is used.
+     */
     @Test
     void testDefineLocationBlankZipCode() {
         // Arrange
@@ -141,6 +172,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid latitude(under 90) is used.
+     */
     @Test
     void testDefineLocationInvalidLatitudeLowerLimit() {
         // Arrange
@@ -156,6 +191,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid latitude(above 90) is used.
+     */
     @Test
     void testDefineLocationInvalidLatitudeUpperLimit() {
         // Arrange
@@ -171,6 +210,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid longitude(under 180) is used.
+     */
     @Test
     void testDefineLocationInvalidLongitudeLowerLimit() {
         // Arrange
@@ -186,6 +229,10 @@ class DefineHouseLocationControllerTest {
         assertEquals(expectedDTO, resultDTO);
     }
 
+    /**
+     * Test the defineHouseLocation method.
+     * Test if the LocationDTO returned is null when an invalid longitude(above 180) is used.
+     */
     @Test
     void testDefineLocationInvalidLongitudeUpperLimit() {
         // Arrange
