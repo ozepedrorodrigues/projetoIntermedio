@@ -38,8 +38,6 @@ public class TemperatureValue implements Value {
      */
     @Override
     public String toValue() {
-        return "TemperatureValue{" +
-                "value=" + temperatureValue +
-                '}';
+        return String.valueOf(temperatureValue);
     }
 }

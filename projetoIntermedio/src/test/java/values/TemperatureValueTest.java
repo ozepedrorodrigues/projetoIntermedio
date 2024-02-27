@@ -39,7 +39,7 @@ class TemperatureValueTest {
     void toValue_Valid() {
         // Arrange
         TemperatureValue currentReading = new TemperatureValue();
-        String expected = "TemperatureValue{value=0.0}";    // No external setting of value, assuming a valid default value
+        String expected = "0.0";    // No external setting of value, assuming a valid default value
         // Act
         String result = currentReading.toValue();
         // Assert
