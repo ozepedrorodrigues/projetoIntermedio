@@ -1,43 +1,72 @@
 package controllers;
 
 import domain.House;
-import factories.DimensionsFactory;
-import factories.RoomFactory;
-import factories.implement.DimensionsFactoryImp;
+import domain.Room;
+import dto.DimensionDTO;
+import dto.RoomDTO;
+import mappers.MapperToRoomDTO;
 
 /**
- * ControllerUS02 is responsible for adding a new room to a house.
- * It validates the input parameters and creates a new Room object.
- * The Room object is then added to the House object.
+ * This class represents the controller for adding a room to a house.
+ * It is used to add a room to a house and return the room as a RoomDTO.
  */
 public class AddRomController {
+
     /**
      * The house instance to which the room is to be added.
      */
     private House house;
-    private DimensionsFactoryImp dimensions;
-    private RoomFactory roomFactory;
 
-    private DimensionsFactory dimensionsFactory;
+    /**
+     * The mapperToRoomDTO instance.
+     */
+    private MapperToRoomDTO mapperToRoomDTO;
 
 
     /**
-     * Constructor for ControllerUC02.
+     * Constructs a new AddRomController with the specified house.
+     *
+     * @param house the house to which the room is to be added
      */
-    public AddRomController(House house, RoomFactory roomFactory, DimensionsFactory dimensionsFactory) {
+    public AddRomController(House house) throws InstantiationException {
+        if(!isValidConstructorsArguments(house)) {
+            throw new InstantiationException("House can not be null.");
+        }
         this.house = house;
-        this.roomFactory = roomFactory;
-        this.dimensionsFactory = dimensionsFactory;
+        this.mapperToRoomDTO = new MapperToRoomDTO();
     }
 
     /**
-     * Adds a new room to a house.
+     * Checks if the arguments passed to the constructor are valid.
      *
-     * @param roomDTO the data transfer object containing the details of the room to be added
-     * @return true if the room is successfully added to the house, false otherwise
+     * @param house the house to be checked
+     * @return true if the house is not null, false otherwise
      */
-/*    public RoomDTO addNewRoomToHouse(RoomDTO roomDTO) {
-        Room room = house.addRoom(roomDTO.getName(), roomDTO.getFloor(), roomDTO.getWidth(), roomDTO.getLength(), roomDTO.getHeight(),roomFactory,dimensionsFactory);
-        return new MapperToRoomDTO().roomToDTO(room);
-    }*/
+    private boolean isValidConstructorsArguments(House house) {
+        return house != null;
+    }
+
+    /**
+     * Adds a new room to the house with the specified name, floor, and dimensions.
+     *
+     * @param roomDTO the room to be added
+     * @param dimensionDTO the dimensions of the room to be added
+     * @return the added room as a RoomDTO
+     */
+    public RoomDTO addNewRoomToHouse(RoomDTO roomDTO) {
+        Room newRoom = house.addRoom(
+                roomDTO.getName(), roomDTO.getFloor(),
+                roomDTO.getWidth(), roomDTO.getLength(), roomDTO.getHeight());
+
+        RoomDTO newRoomDTO;
+        if (newRoom == null) {
+            newRoomDTO = null;
+            return newRoomDTO;
+        } else {
+            newRoomDTO = mapperToRoomDTO.roomToDTO(newRoom);
+            return newRoomDTO;
+        }
+    }
+
+
 }
