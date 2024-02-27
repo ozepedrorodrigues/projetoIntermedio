@@ -142,7 +142,7 @@ class GetRoomListControllerTest {
         //Arrange
         int expected = 0;
         //Act
-        List<RoomDTO> result = getRoomListController.getRoomList();
+        List<RoomDTO> result = getRoomListController1.getRoomList();
         //Assert
         assertEquals(expected, result.size());
     }
