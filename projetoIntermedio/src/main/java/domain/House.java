@@ -24,11 +24,12 @@ public class House {
      * Constructs a new House object with the specified location factory and room factory.
      *
      * @param locationFactory the factory for creating locations
-     * @param roomFactory the factory for creating rooms
+     * @param roomFactory     the factory for creating rooms
      */
     public House(LocationFactory locationFactory, RoomFactory roomFactory) {
-        if(!validFactory(locationFactory) || !validFactory(roomFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");}
+        if (!validFactory(locationFactory) || !validFactory(roomFactory)) {
+            throw new IllegalArgumentException("Invalid parameters");
+        }
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
         this.rooms = new ArrayList<>();
@@ -41,25 +42,25 @@ public class House {
      * of the house. If the creation process fails due to invalid parameters or other issues,
      * an error message is printed, and no changes to the house's state are made.
      *
-     * @param address the address of the location.
-     * @param zipCode the zip code of the location.
-     * @param latitude the latitude coordinate of the location.
+     * @param address   the address of the location.
+     * @param zipCode   the zip code of the location.
+     * @param latitude  the latitude coordinate of the location.
      * @param longitude the longitude coordinate of the location.
      * @return the newly created Location object if the creation process is successful, or null if creation fails.
      */
     public Location defineLocation(String address, String zipCode, double latitude, double longitude) {
-        Location newLocation;
         try {
-            newLocation = locationFactory.createLocation(address, zipCode, latitude, longitude);
-            this.location = newLocation;
+            this.location = locationFactory.createLocation(address, zipCode, latitude, longitude);
+            return this.location;
+
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
+            return null;
         }
-        return newLocation;
     }
 
     private boolean validFactory(Object factory) {
-        return factory != null;}
+        return factory != null;
+    }
 
     /**
      * Retrieves the location of the house.
@@ -80,10 +81,10 @@ public class House {
      * house's state are made.
      *
      * @param roomName the name of the room.
-     * @param floor the floor of the room.
-     * @param width the width of the room.
-     * @param length the length of the room.
-     * @param height the height of the room.
+     * @param floor    the floor of the room.
+     * @param width    the width of the room.
+     * @param length   the length of the room.
+     * @param height   the height of the room.
      * @return the newly created Room object if the creation process is successful, or null if creation fails.
      */
     public Room addRoom(String roomName, int floor, double width, double length, double height) {
