@@ -53,7 +53,8 @@ class GPSTest {
         double longitude = 181;
         String expectedMessage = "Invalid GPS Location";
         // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GPS(latitude, longitude));
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> new GPS(latitude, longitude));
         String result = exception.getMessage();
         // Assert
         assertEquals(expectedMessage, result);
