@@ -19,6 +19,7 @@ public class House {
     private LocationFactory locationFactory;
     private RoomFactory roomFactory;
     private List<Room> rooms;
+    private IdGenerator idGenerator;
 
     /**
      * Constructs a new House object with the specified location factory and room factory.
@@ -33,6 +34,7 @@ public class House {
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
         this.rooms = new ArrayList<>();
+        this.idGenerator = new IdGenerator();
     }
 
     /**
