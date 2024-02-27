@@ -6,6 +6,7 @@ import domain.Room;
 import dto.RoomDTO;
 import factories.*;
 import factories.implement.*;
+import mappers.MapperToRoomDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +23,14 @@ class GetRoomListControllerTest {
     List<Room> rooms;
     Dimensions dimensions;
     GetRoomListController getRoomListController;
+    MapperToRoomDTO mapperToRoomDTO;
 
     /**
      * This method sets up the testing environment before each test.
      */
     @BeforeEach
     void setUp() throws InstantiationException {
+        mapperToRoomDTO = new MapperToRoomDTO();
         house = mock(House.class);
         room1 = mock(Room.class);
         rooms = new ArrayList<>();
@@ -38,7 +41,7 @@ class GetRoomListControllerTest {
         when(dimensions.getLength()).thenReturn(10.9);
         when(dimensions.getLength()).thenReturn(10.9);
         when(room1.getDimensions()).thenReturn(dimensions);
-        getRoomListController = new GetRoomListController(house);
+        getRoomListController = new GetRoomListController(house, mapperToRoomDTO);
     }
 
     /**
@@ -47,7 +50,7 @@ class GetRoomListControllerTest {
     @Test
     void constructor() throws InstantiationException {
        //Act
-        GetRoomListController result = new GetRoomListController(house);
+        GetRoomListController result = new GetRoomListController(house, mapperToRoomDTO);
        //Assert
         assertNotNull(result);
 
@@ -60,7 +63,7 @@ class GetRoomListControllerTest {
     void getRoomList_emptyList() throws InstantiationException {
         //Arrange
         House house1 = mock(House.class);
-        GetRoomListController getRoomListController = new GetRoomListController(house1);
+        GetRoomListController getRoomListController = new GetRoomListController(house1,mapperToRoomDTO);
         int expected = 0;
         //Act
         List<RoomDTO> result = getRoomListController.getRoomList();
@@ -94,9 +97,11 @@ class GetRoomListControllerTest {
     RoomFactory roomFactory;
     House house2;
     GetRoomListController getRoomListController1;
+    MapperToRoomDTO mapperToRoomDTO1;
 
     @BeforeEach
     void setUpIntegration() throws InstantiationException {
+        mapperToRoomDTO1 = new MapperToRoomDTO();
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
         valueFactory = new ValueFactoryImp();
@@ -106,7 +111,7 @@ class GetRoomListControllerTest {
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house2 = new House(locationFactory, roomFactory);
-        getRoomListController1 = new GetRoomListController(house2);
+        getRoomListController1 = new GetRoomListController(house2, mapperToRoomDTO1);
     }
 
     /**
@@ -115,7 +120,7 @@ class GetRoomListControllerTest {
     @Test
     void constructor_integration() throws InstantiationException {
         //Act
-        GetRoomListController result = new GetRoomListController(house2);
+        GetRoomListController result = new GetRoomListController(house2, mapperToRoomDTO1);
         //Assert
         assertNotNull(result);
 
@@ -129,7 +134,7 @@ class GetRoomListControllerTest {
         //Arrange
         String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null));
+        Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null, mapperToRoomDTO1));
         assertEquals(expected, exception.getMessage());
 
     }
