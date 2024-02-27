@@ -36,8 +36,6 @@ public class HumidityValue implements Value {
      */
     @Override
     public String toValue() {
-        return "HumidityValue{" +
-                "value=" + humidityValue +
-                '}';
+        return String.valueOf(humidityValue);
     }
 }
