@@ -1,5 +1,4 @@
 @startuml
-
 class AddRoomController {
   - house : House
   + AddRoomController(...)
@@ -20,6 +19,14 @@ class DimensionFactoryImp {
   + DimensionFactoryImp()
   + createDimensions(...) : Dimensions
 }
+
+interface RoomFactory {
+  + createRoom(...) : Room
+}
+interface DimensionFactory {
+  + createDimensions(...) : Dimensions
+}
+
 
 
 class House {
@@ -61,20 +68,21 @@ class RoomDTO {
   + getHeight() : double
 }
 
-AddRoomController "1" ..> "1" MapperToRoomDTO : uses
+AddRoomController "1" .left.> "1" MapperToRoomDTO : uses
 MapperToRoomDTO "1" --> "1  " RoomDTO : create
 MapperToRoomDTO "1" ..> "1" Room : uses
-
+RoomFactory "1" <.. "1" RoomFactoryImp : implements
 Room "1" *-- "1" Dimensions : contains
 Room "1" *-- "1" DeviceFactory: contains
 RoomFactoryImp "1" --> "1" Room : creates
 
-House "1" *-- "List<Room>" Room : contains
-AddRoomController "1" ..> "1" House : uses
+House "1" *--"1 List<Room>" Room : contains
+AddRoomController "1" .right.> "1" House : uses
 AddRoomController "1" ..> "1" RoomDTO : uses
-Room ..> DimensionFactoryImp : uses
+Room "1".left.>"1" DimensionFactory : uses
+DimensionFactory "1" <.. "1" DimensionFactoryImp : implements
 DimensionFactoryImp "1" --> "1" Dimensions : creates
-House ..> RoomFactoryImp : uses
+House "1"..>"1" RoomFactory : uses
 
 
 @enduml
