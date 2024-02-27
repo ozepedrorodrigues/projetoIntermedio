@@ -1,20 +1,20 @@
 @startuml
 
 class House {
-  + getRoomList() : List<Room>
+  + getRooms : List<Room>
 }
 
 class GetRoomListController {
     - house : House
+    - mapperToRoomDTO : MapperToRoomDTO
     + GetRoomListController(...)
     + getRoomList() : List<RoomDTO>
 }
 
 class MapperToRoomDTO {
-    - rooms : List<Room>
     + MapperToRoomDTO(...)
     + getRoomList(...) : List<RoomDTO>
-    - toRoomDTO(...) : RoomDTO
+    - roomToDTO(...) : RoomDTO
 }
 
 class RoomDTO {
