@@ -2,9 +2,6 @@ package domain;
 
 import factories.SensorFactory;
 import sensors.Sensor;
-import sensors.SensorOfAperture;
-import sensors.SensorOfHumidity;
-import sensors.SensorOfTemperature;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -88,12 +85,7 @@ public class Device {
         if(sensor == null) return null;
         int id = sensor.setId(sensorId);
         sensorList.add(sensor);
-        if(sensor instanceof SensorOfTemperature)
-            functionalityList.add("Temperature");
-        if(sensor instanceof SensorOfHumidity)
-            functionalityList.add("Humidity");
-        if(sensor instanceof SensorOfAperture)
-            functionalityList.add("Aperture");
+        functionalityList.add(sensor.getType().getSensorType());
         return sensor;
     }
 
