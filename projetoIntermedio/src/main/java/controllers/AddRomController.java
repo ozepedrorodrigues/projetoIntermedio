@@ -2,7 +2,6 @@ package controllers;
 
 import domain.House;
 import domain.Room;
-import dto.DimensionDTO;
 import dto.RoomDTO;
 import mappers.MapperToRoomDTO;
 
@@ -28,12 +27,12 @@ public class AddRomController {
      *
      * @param house the house to which the room is to be added
      */
-    public AddRomController(House house) throws InstantiationException {
-        if(!isValidConstructorsArguments(house)) {
+    public AddRomController(House house, MapperToRoomDTO mapperToRoomDTO) throws InstantiationException {
+        if(!isValidConstructorsArguments(house, mapperToRoomDTO)) {
             throw new InstantiationException("House can not be null.");
         }
         this.house = house;
-        this.mapperToRoomDTO = new MapperToRoomDTO();
+        this.mapperToRoomDTO = mapperToRoomDTO;
     }
 
     /**
@@ -42,15 +41,17 @@ public class AddRomController {
      * @param house the house to be checked
      * @return true if the house is not null, false otherwise
      */
-    private boolean isValidConstructorsArguments(House house) {
-        return house != null;
+    private boolean isValidConstructorsArguments(House house, MapperToRoomDTO mapperToRoomDTO) {
+        if (house == null || mapperToRoomDTO == null) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * Adds a new room to the house with the specified name, floor, and dimensions.
      *
      * @param roomDTO the room to be added
-     * @param dimensionDTO the dimensions of the room to be added
      * @return the added room as a RoomDTO
      */
     public RoomDTO addNewRoomToHouse(RoomDTO roomDTO) {

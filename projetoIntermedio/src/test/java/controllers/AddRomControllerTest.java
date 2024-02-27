@@ -20,6 +20,7 @@ class AddRomControllerTest {
     AddRomController addRomController;
     AddRomController addRomController2;
     House house;
+    MapperToRoomDTO mapperToRoomDTO;
     LocationFactory locationFactory;
     GPSFactory gpsFactory;
     RoomFactory roomFactory;
@@ -46,21 +47,38 @@ class AddRomControllerTest {
         this.sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         this.roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
+        this.mapperToRoomDTO = new MapperToRoomDTO();
         this.width = 14.3;
         this.length = 15.2;
         this.height = 4.5;
         this.house = new House(locationFactory, roomFactory);
-        this.addRomController = new AddRomController(house);
-        this.addRomController2 = new AddRomController(house);
+        this.addRomController = new AddRomController(house, mapperToRoomDTO);
+        this.addRomController2 = new AddRomController(house, mapperToRoomDTO);
     }
 
+    /**
+     * Test the constructor of the AddRomController class with invalid House.
+     */
     @Test
-    void constructorTest() {
+    void constructorInvalidHouse() {
         //Arrange
         House invalidHouse = null;
         String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRomController(null));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddRomController(invalidHouse, mapperToRoomDTO));
+        assertEquals(expected, exception.getMessage());
+    }
+
+    /**
+     * Test the constructor of the AddRomController class with invalid MapperToRoomDTO.
+     */
+    @Test
+    void constructorInvalidMapperToRoomDTO() {
+        //Arrange
+        MapperToRoomDTO invalidMapper = null;
+        String expected = "House can not be null.";
+        //Act + assert
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddRomController(house, invalidMapper));
         assertEquals(expected, exception.getMessage());
     }
 
@@ -108,7 +126,7 @@ class AddRomControllerTest {
     void addRoomSameNameIgnoreCase() {
         //Arrange
         String nameExpected = "Bathroom";
-        String name2 = "bathroom";
+        String name2 = "baThroOm";
         int floor = -1;
         RoomDTO newRoom1 = new RoomDTO (nameExpected, floor, width, length, height);
         RoomDTO newRoom2 = new RoomDTO (name2, floor, width, length, height);
