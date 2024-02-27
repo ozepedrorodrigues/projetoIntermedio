@@ -1,4 +1,4 @@
-package domain;
+package values;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,4 +45,5 @@ class TemperatureValueTest {
         // Assert
         assertEquals(expected, result);
     }
+
 }
