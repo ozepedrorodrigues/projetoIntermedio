@@ -25,12 +25,12 @@ public class MapperToRoomDTO {
      * @return the list of RoomDTOs.
      */
     public List<RoomDTO> getRoomList(List<Room> roomList) {
-        List<RoomDTO> rooms = new ArrayList<>(); // Create a new list each time
+        List<RoomDTO> roomsDTO = new ArrayList<>(); // Create a new list each time
         for (Room room : roomList) {
             RoomDTO myRoomDTO = roomToDTO(room);
-            rooms.add(myRoomDTO);
+            roomsDTO.add(myRoomDTO);
         }
-        return rooms;
+        return roomsDTO;
     }
 
     /**
