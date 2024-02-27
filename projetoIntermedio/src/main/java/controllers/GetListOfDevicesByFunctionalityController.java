@@ -4,7 +4,6 @@ import domain.House;
 import domain.SensorType;
 import dto.DeviceDTO;
 import mappers.MapperToGroupDeviceDTO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,14 +14,16 @@ import java.util.Map;
 public class GetListOfDevicesByFunctionalityController {
 
     private House myHouse;
+    private MapperToGroupDeviceDTO mapper;
 
     /**
      * Constructs a new GetListOfDevicesByFunctionalityController with a specified House.
      *
      * @param house The House instance this controller will operate on to fetch devices.
      */
-    public GetListOfDevicesByFunctionalityController(House house) {
+    public GetListOfDevicesByFunctionalityController(House house,MapperToGroupDeviceDTO mapperToGroupDeviceDTO) {
         this.myHouse = house;
+        this.mapper = mapperToGroupDeviceDTO;
     }
 
     /**
@@ -34,15 +35,9 @@ public class GetListOfDevicesByFunctionalityController {
     public Map<String, List<DeviceDTO>> getDeviceByFunctionality() {
         // Group devices by room using a method provided by the House domain model.
         Map<String, List<Device>> devicesByRoom = myHouse.getDevicesGroupedByRoom();
-        // Initialize the mapper used to translate between domain models and DTOs.
-        MapperToGroupDeviceDTO mapper = new MapperToGroupDeviceDTO();
         // Retrieve all possible sensor types to be used for grouping functionalities.
         SensorType[]  sensorTypes = SensorType.values();
-        // Prepare a list to hold all functionalities as strings.
-        List<String>  functionalities = new ArrayList<>();
-        // Populate the functionalities list with the sensor types available.
-        for (SensorType sensorType : sensorTypes) {functionalities.add(sensorType.getSensorType());}
         // Use the mapper to group devices by functionality and return the result.
-        return mapper.groupDevicesByFunctionality(devicesByRoom, functionalities);
+        return mapper.groupDevicesByFunctionality(devicesByRoom, sensorTypes);
     }
 }
