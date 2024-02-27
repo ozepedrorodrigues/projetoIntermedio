@@ -87,9 +87,10 @@ public class AddSensorToDeviceController {
      * @return the sensor DTO.
      */
 
-    public SensorDTO addSensorToExistingDevice(String deviceName, String sensorModel, int id) {
+
+    public SensorDTO addSensorToExistingDevice(String deviceName, String sensorModel) {
         Device device = room.getDeviceByName(deviceName);
-        Sensor sensor = device.addSensor(id, sensorModel, catalogue);
+        Sensor sensor = device.addSensor(sensorModel, catalogue);
 
         return mapperSensorDTO.getSensorDTO(sensor);
     }

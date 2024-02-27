@@ -74,16 +74,15 @@ public class Device {
     /**
      * Adds a sensor to the device.
      *
-     * @param sensorId The Id of the sensor to be added.
      * @param sensorClassName The type of the sensor to be added.
      * @param catalogue The catalogue from which to retrieve the sensor.
      * @return The added Sensor, or null if the sensor cannot be added.
      */
-    public Sensor addSensor(int sensorId, String sensorClassName, Catalogue catalogue) {
+    public Sensor addSensor(String sensorClassName, Catalogue catalogue) {
         if(!validType(sensorClassName)||catalogue==null) return null;
         Sensor sensor = sensorFactory.createSensor(sensorClassName);
         if(sensor == null) return null;
-        int id = sensor.setId(sensorId);
+        sensor.setId(IdGenerator.generateSensorId());
         sensorList.add(sensor);
         functionalityList.add(sensor.getType().getSensorType());
         return sensor;
