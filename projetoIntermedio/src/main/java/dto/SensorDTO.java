@@ -1,5 +1,7 @@
 package dto;
 
+import domain.SensorType;
+
 /**
  * This class is a Data Transfer Object (dto) for Sensor.
  * It is used to transfer data about a sensor between processes or layers in an application.
@@ -7,33 +9,34 @@ package dto;
  */
 public class SensorDTO {
     /**
-     * The name of the sensor.
+     * The Id of the sensor.
      */
-    private String sensorName;
+    private int sensorId;
 
     /**
      * The type of the sensor.
      */
-    private String sensorType;
+    private SensorType sensorType;
+
 
     /**
      * Constructs a new SensorDTO with the given sensor name and type of sensor.
      *
-     * @param sensorName   the name of the sensor
+     * @param sensorId   the Id of the sensor
      * @param typeOfSensor the type of the sensor
      */
-    public SensorDTO(String sensorName, String typeOfSensor) {
-        this.sensorName = sensorName;
+    public SensorDTO(int sensorId, SensorType typeOfSensor) {
+        this.sensorId = sensorId;
         this.sensorType = typeOfSensor;
     }
 
     /**
-     * Returns the name of the sensor.
+     * Returns the Id of the sensor.
      *
      * @return the name of the sensor
      */
-    public String getSensorName() {
-        return sensorName;
+    public int getSensorId() {
+        return sensorId;
     }
 
     /**
@@ -41,7 +44,7 @@ public class SensorDTO {
      *
      * @return the type of the sensor
      */
-    public String getTypeOfSensor() {
+    public SensorType getTypeOfSensor() {
         return sensorType;
     }
 }
