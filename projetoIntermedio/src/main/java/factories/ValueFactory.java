@@ -8,6 +8,7 @@ public interface ValueFactory {
     Value createHumidityValue();
     Value createApertureValue();
     Value createOnOffValue();
+    Value createAveragePowerValue();
 
 
 }

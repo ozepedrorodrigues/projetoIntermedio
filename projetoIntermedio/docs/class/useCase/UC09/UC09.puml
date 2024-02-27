@@ -1,63 +1,53 @@
 @startuml
 
 class House {
-  - myHouse : House
-
-  + getInstance() : House
-  + getCatalogue() : Catalogue
   + getDevicesGroupedByRoom() : Map<...>
-}
-
-class Catalogue {
-  - functionalities : List<String>
-  + getFunctionalities() : List<String>
 }
 
 class Room {
   - deviceList : List<Device>
+  + getRoomName() : String
   + getDeviceList() : List<Device>
 }
 
 class Device {
-  - name : String
-  - type : String
-  - active : boolean
   - functionalityList : HashSet<String>
-
-  + getName() : String
-  + getType() : String
   + getFunctionalities() : HashSet<String>
 }
 
 class GetListOfDevicesByFunctionalityController {
   - house : House
-
-  + GetListOfDevicesByFunctionalityController()
-  + getDeviceByFunctionality() : Map<...>
+  + GetListOfDevicesByFunctionalityController(...)
+  + getDeviceByFunctionality() : Map<String,List<DeviceDTO>
 }
 
 class MapperToGroupDeviceDTO {
-
     + MapperToGroupDeviceDTO()
-    + groupDevicesByFunctionality(...) : Map<...>
-    - addDeviceToMap(...) : void
-    - deviceToDeviceDTO(...) : DeviceDTO
+    + groupDevicesByFunctionality(...) : Map<String,List<DeviceDTO>>
 }
 
 class DeviceDTO {
     - name : String
     - type : String
-    - location : String
+    - roomName : String
     + getName() : String
     + getType() : String
-    + getLocation() : String
+    + getRoomName() : String
 }
 
-House "1" <-- "1" GetListOfDevicesByFunctionalityController : uses
-House "1" *--> "1" Catalogue : has
-House "1" *--> "*" Room : contains
-Room "1" *--> "*" Device : contains
-GetListOfDevicesByFunctionalityController "1" --> "1" MapperToGroupDeviceDTO : creates
-MapperToGroupDeviceDTO "1" --> "List<DeviceDTO>" DeviceDTO : creates
+enum SensorType {
+- String sensorType
+- String measuringUnit
++ SensorType(...)
++values() : SensorType[]
+}
+
+House "1" <.. "1" GetListOfDevicesByFunctionalityController : uses
+House "1" *-- "*" Room : contains
+Room "1" *-- "*" Device : contains
+
+GetListOfDevicesByFunctionalityController "1" ..> "1" MapperToGroupDeviceDTO : creates
+GetListOfDevicesByFunctionalityController "1" ..> "1..*" SensorType : uses"
+MapperToGroupDeviceDTO "1" ..> "List<DeviceDTO>" DeviceDTO : creates
 
 @enduml

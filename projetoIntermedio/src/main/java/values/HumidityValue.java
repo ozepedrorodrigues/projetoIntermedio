@@ -1,6 +1,5 @@
-package domain;
+package values;
 
-import values.Value;
 
 /**
  * <p>Represents a humidity value in a sensor system. This class implements

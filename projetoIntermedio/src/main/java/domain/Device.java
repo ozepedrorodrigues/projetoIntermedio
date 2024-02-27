@@ -2,6 +2,7 @@ package domain;
 
 import factories.SensorFactory;
 import sensors.Sensor;
+import sensors.SensorOfAperture;
 import sensors.SensorOfHumidity;
 import sensors.SensorOfTemperature;
 
@@ -88,9 +89,11 @@ public class Device {
         int id = sensor.setId(sensorId);
         sensorList.add(sensor);
         if(sensor instanceof SensorOfTemperature)
-            functionalityList.add("TEMPERATURE");
+            functionalityList.add("Temperature");
         if(sensor instanceof SensorOfHumidity)
-            functionalityList.add("HUMIDITY");
+            functionalityList.add("Humidity");
+        if(sensor instanceof SensorOfAperture)
+            functionalityList.add("Aperture");
         return sensor;
     }
 

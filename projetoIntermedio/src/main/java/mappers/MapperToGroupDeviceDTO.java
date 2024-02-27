@@ -26,44 +26,20 @@ public class MapperToGroupDeviceDTO {
      */
    public Map<String, List<DeviceDTO>> groupDevicesByFunctionality(Map<String, List<Device>> devices, List<String> functionalities) {
         Map<String, List<DeviceDTO>> devicesPerFunctionality = new HashMap<>();
-        for (String functionality : functionalities) {
-            devicesPerFunctionality.put(functionality, new ArrayList<>());
-        }
+        for (String functionality : functionalities) devicesPerFunctionality.put(functionality, new ArrayList<>());
         for (Map.Entry<String, List<Device>> entry : devices.entrySet()) {
             String roomName = entry.getKey();
-            List<Device> deviceList = entry.getValue();
-            for (Device device : deviceList) {
-                addDeviceToMap(device, roomName, devicesPerFunctionality);
+            for (Device device : entry.getValue()) {
+                for (String functionality : device.getFunctionalities()) {
+                    DeviceDTO deviceDTO = new DeviceDTO(device.getName(), device.getType(), roomName);
+                    devicesPerFunctionality.get(functionality).add(deviceDTO);
+                }
             }
         }
-        return devicesPerFunctionality;
-    }
 
-    /**
-     * Adds a device to the map.
-     *
-     * @param device                  the device to add.
-     * @param roomName                the room where the device is located.
-     * @param devicesPerFunctionality the map of devices grouped by functionality.
-     */
-    private void addDeviceToMap(Device device, String roomName, Map<String, List<DeviceDTO>> devicesPerFunctionality) {
-        HashSet<String> functionalityTypes = device.getFunctionalities();
-        DeviceDTO deviceDTO = deviceToDeviceDTO(device.getName(), device.getType(), roomName);
-        for (String functionalityType : functionalityTypes) {
-            List<DeviceDTO> deviceList = devicesPerFunctionality.get(functionalityType);
-            if (!deviceList.contains(deviceDTO)) {
-                deviceList.add(deviceDTO);
-            }
-        }
-    }
+        return devicesPerFunctionality;}
 
-    /**
-     * @param deviceName the name of the device.
-     * @param deviceType the type of the device.
-     * @param roomName   the room where the device is located.
-     * @return the DeviceDTO.
-     */
-    private DeviceDTO deviceToDeviceDTO(String deviceName, String deviceType, String roomName) {
-        return new DeviceDTO(deviceName, deviceType, roomName);
-    }
+
+
+
 }

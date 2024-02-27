@@ -9,11 +9,10 @@ autonumber
 
 participant "_getDevices:GetListOfDevicesByFunctionalityController" as C
 participant ":House" as H
-participant "devicesByRoom:Map<String, List<Device>>" as DBR
+participant "_devicesByRoom:Map<String, List<Device>>" as DBR
+participant "SensorType" as ST
 participant ":Room" as R
-participant ":Catalog" as Cat
-participant ":MapperToGroupDeviceDTO" as M
-participant ":DeviceDTO" as DDTO
+participant "_mapper:MapperToGroupDeviceDTO" as M
 participant "_myMap:Hashmap" as HM
 
 
@@ -22,48 +21,18 @@ activate C
 C -> H : getDevicesGroupedByRoom()
 activate H
 H-->DBR** : create()
-loop for each room
-H -> R : getDeviceList()
-activate R
-R -> H : _deviceList
-deactivate R
-H -> DBR : devicesByRoom.put(roomName, _deviceList)
-activate DBR
-deactivate DBR
-end
-H --> C : devicesByRoom
+H --> C : _devicesByRoom
 deactivate H
-
-
-
-C -> H : getCatalog()
-activate H
-H --> C : _catalog
-deactivate H
-C -> Cat : getFunctionalities()
-activate Cat
-Cat --> C : _availableFunctionalities
-deactivate Cat
+C->ST : values()
+activate ST
+ST --> C : _sensorTypes
+deactivate ST
 C -> M : groupDevicesByFunctionality(devicesByRoom, _availableFunctionalities)
 activate M
-M --> HM** : create Hashmap<> _myMap
-Loop for each availableFunctionality
-M -> HM : devicesPerFunctionality.put(functionality, new ArrayList<>());
-activate HM
-deactivate HM
-end
-Loop for each device
-M -> M : getFunctionalities()
-M -> DDTO** : create DeviceDTO _deviceDTO
-Loop for each functionality
-M -> HM : get(functionality).add(device)
-activate HM
-deactivate HM
-end
-end
-M -> C : _myMap
+M-->HM** : create(_availableFunctionalities, _devicesByRoom)
+M --> C : _myMap
 deactivate M
-[o<- C : _myMap
+[o<-- C : _myMap
 deactivate C
 
 

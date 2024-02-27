@@ -45,7 +45,7 @@ public class SensorFactoryImp implements SensorFactory {
      * during the creation of the sensor and catalogue consultation.
      */
     public Sensor createSensor(String sensorClassName) {
-        String sensorClassNamePath = "domain." + sensorClassName;
+        String sensorClassNamePath = "sensors." + sensorClassName;
         boolean isValidSensorClassName = isValidSensorClassName(sensorClassNamePath);
 
         if(isValidSensorClassName) {
