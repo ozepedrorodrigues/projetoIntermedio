@@ -10,6 +10,5 @@ public interface ValueFactory {
     Value createOnOffValue();
     Value createAveragePowerValue();
     Value createScalePercentageValue();
-
-
-    }
+    Value createEnergyConsumptionValue();
+}
