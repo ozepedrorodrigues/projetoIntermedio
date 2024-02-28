@@ -82,7 +82,7 @@ public class ValueFactoryImp implements ValueFactory {
 
     @Override
     public Value createSunriseValue(LocalDateTime date) {
-        return null;
+        return new SunriseValue(date);
     }
 }
 
