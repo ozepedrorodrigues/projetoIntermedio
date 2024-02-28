@@ -18,7 +18,7 @@ public enum SensorType {
     ON_OFF("On/Off", "Boolean"),
     ENERGY_CONSUMPTION("Energy Consumption", "kWh"),
     POWER_CONSUMPTION("Power Consumption","W"),
-    SUNRISE("Sunrise", "H");
+    SUNRISE("Sunrise", "H"),
     SUNSET("Sunset", "H");
 
 
