@@ -1,17 +1,15 @@
 package values;
 import sensors.SensorOfTemperature;
 /**
- * <p>Represents a specific value for temperature readings. Instances of this class
+ * Represents a specific value for temperature readings. Instances of this class
  * encapsulate a temperature value and provide methods to retrieve and represent
- * the temperature.</p>
- *
- * <p></p>
- *
- * @see Value
- * @see SensorOfTemperature
+ * the temperature.
  */
 public class TemperatureValue implements Value {
 
+    /**
+     * The value of the sensor.
+     */
     private double temperatureValue;
 
     /**

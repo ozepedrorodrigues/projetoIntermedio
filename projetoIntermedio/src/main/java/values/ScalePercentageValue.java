@@ -1,5 +1,10 @@
 package values;
 
+/**
+ * Represents a specific value for scale percentage readings. Instances of this class
+ * encapsulate a scale percentage value and provide methods to retrieve and represent
+ * the scale percentage.
+ */
 public class ScalePercentageValue implements Value {
 
     /**

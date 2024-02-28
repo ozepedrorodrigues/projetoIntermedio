@@ -32,6 +32,7 @@ public class SensorOfTemperature implements Sensor {
      * Constructor
      *
      * @param valueFactory the ValueFactory of the sensor.
+     * @throws IllegalArgumentException if the valueFactory is invalid.
      */
     public SensorOfTemperature(ValueFactory valueFactory) {
         if (!validValueFactory(valueFactory)) {
