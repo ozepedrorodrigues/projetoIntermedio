@@ -15,7 +15,7 @@ public enum SensorType {
     APERTURE("Aperture", "%AP"),
     AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W"),
     SCALE_PERCENTAGE(   "Scale Percentage", "%"),
-    ON_OFF("On/Off", "Boolean");
+    ON_OFF("On/Off", "N/A");
 
 
     private final String sensorType;
