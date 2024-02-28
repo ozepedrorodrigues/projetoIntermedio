@@ -50,9 +50,9 @@ class DeactivateDeviceControllerTest {
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
         mapperToRoomDTO = new MapperToRoomDTO();
+        mapperToDeviceDTO = new MapperToDeviceDTO();
         getRoomListController = new GetRoomListController(house, mapperToRoomDTO);
         getDeviceListController = new GetDeviceListController(house, mapperToDeviceDTO);
-        mapperToDeviceDTO = new MapperToDeviceDTO();
         addDeviceToRoomController = new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController);
         addRoomController = new AddRoomController(house, mapperToRoomDTO);
         deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, mapperToDeviceDTO);
