@@ -31,6 +31,28 @@ public class SensorOfOnOff implements Sensor {
     }
 
     /**
+     * Retrieves the ID of the sensor.
+     *
+     * @return The current ID of the sensor.
+     */
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the ID of the sensor to the specified value.
+     *
+     * @param newId The new ID to set for the sensor.
+     * @return The updated ID after the operation.
+     */
+    @Override
+    public int setId(int newId) {
+        this.id = newId;
+        return this.id;
+    }
+
+    /**
      * Retrieves the type of the sensor, which is ON_OFF.
      *
      * @return The SensorType.ON_OFF enumeration representing the sensor type.
@@ -49,28 +71,6 @@ public class SensorOfOnOff implements Sensor {
     public Value getValue() {
         this.value = valueFactory.createOnOffValue(true);
         return this.value;
-    }
-
-    /**
-     * Sets the ID of the sensor to the specified value.
-     *
-     * @param newId The new ID to set for the sensor.
-     * @return The updated ID after the operation.
-     */
-    @Override
-    public int setId(int newId) {
-        this.id = newId;
-        return this.id;
-    }
-
-    /**
-     * Retrieves the ID of the sensor.
-     *
-     * @return The current ID of the sensor.
-     */
-    @Override
-    public int getId() {
-        return this.id;
     }
 
     /**

@@ -1,5 +1,6 @@
-package domain;
+package sensors;
 
+import domain.SensorType;
 import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
