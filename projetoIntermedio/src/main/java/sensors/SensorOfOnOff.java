@@ -11,7 +11,9 @@ public class SensorOfOnOff implements Sensor {
 
     private int id;
     private SensorType type;
+
     private Value value;
+    private ValueFactory valueFactory;
 
     /**
      * Constructs a SensorOfOnOff instance using the provided ValueFactory.
@@ -23,8 +25,9 @@ public class SensorOfOnOff implements Sensor {
         if (!validValueFactory(valueFactory)) {
             throw new IllegalArgumentException("Invalid parameters");
         }
+
         this.type = SensorType.ON_OFF;
-        this.value = valueFactory.createOnOffValue();
+        this.valueFactory = valueFactory;
     }
 
     /**
@@ -44,6 +47,7 @@ public class SensorOfOnOff implements Sensor {
      */
     @Override
     public Value getValue() {
+        this.value = valueFactory.createOnOffValue(true);
         return this.value;
     }
 

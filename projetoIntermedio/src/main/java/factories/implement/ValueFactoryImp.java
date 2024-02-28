@@ -54,8 +54,8 @@ public class ValueFactoryImp implements ValueFactory {
      * @return A new instance of {@link OnOffValue} representing an on/off state.
      */
     @Override
-    public Value createOnOffValue() {
-        return new OnOffValue();
+    public Value createOnOffValue(boolean value) {
+        return new OnOffValue(value);
     }
 
     /**
@@ -83,6 +83,11 @@ public class ValueFactoryImp implements ValueFactory {
     @Override
     public Value createSunriseValue(LocalDateTime date) {
         return new SunriseValue(date);
+    }
+
+    @Override
+    public Value createSunsetValue(LocalDateTime date) {
+        return null;
     }
 }
 

@@ -9,7 +9,7 @@ public interface ValueFactory {
     Value createTemperatureValue();
     Value createHumidityValue();
     Value createApertureValue();
-    Value createOnOffValue();
+    Value createOnOffValue(boolean value);
     Value createAveragePowerValue();
     Value createScalePercentageValue();
     Value createEnergyConsumptionValue();
