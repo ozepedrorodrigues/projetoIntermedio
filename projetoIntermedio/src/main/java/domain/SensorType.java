@@ -16,7 +16,8 @@ public enum SensorType {
     AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W"),
     SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     ON_OFF("On/Off", "Boolean"),
-    ENERGY_CONSUMPTION("Energy Consumption", "kWh");
+    ENERGY_CONSUMPTION("Energy Consumption", "kWh"),
+    POWER_CONSUMPTION("Power Consumption","W");
 
 
     private final String sensorType;

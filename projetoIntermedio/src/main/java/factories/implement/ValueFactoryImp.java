@@ -1,7 +1,7 @@
 package factories.implement;
 
-import values.*;
 import factories.ValueFactory;
+import values.*;
 
 /**
  * Implements the {@link ValueFactory} interface, providing concrete implementations
@@ -71,6 +71,11 @@ public class ValueFactoryImp implements ValueFactory {
     }
     @Override
     public Value createEnergyConsumptionValue() { return new EnergyConsumptionValue();
+    }
+
+    @Override
+    public Value createPowerConsumptionValue() {
+        return new PowerConsumptionValue();
     }
 }
 
