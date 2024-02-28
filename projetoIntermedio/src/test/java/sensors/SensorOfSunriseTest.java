@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import values.SunriseValue;
 import values.Value;
@@ -16,10 +17,17 @@ import static org.mockito.Mockito.when;
 
 class SensorOfSunriseTest {
 
+    ValueFactory valueFactoryMock;
+    SensorOfSunrise sensorOfSunrise;
+
+    @BeforeEach
+    void setUp () {
+        valueFactoryMock = mock(ValueFactory.class);
+        sensorOfSunrise = new SensorOfSunrise(valueFactoryMock);
+    }
+
     @Test
     void constructor() {
-        //Arrange
-        ValueFactory valueFactoryMock = mock(ValueFactory.class);
         //Act
         SensorOfSunrise result = new SensorOfSunrise(valueFactoryMock);
         //Assert
@@ -29,18 +37,16 @@ class SensorOfSunriseTest {
     @Test
     void constructor_nullValueFactory() {
         //Arrange
-        ValueFactory valueFactory = null;
+        ValueFactory valueFactory1 = null;
         String expectedException = "Invalid parameters";
         //Act + assert
-        Exception result = assertThrows(IllegalArgumentException.class, () -> new SensorOfSunrise(valueFactory));
+        Exception result = assertThrows(IllegalArgumentException.class, () -> new SensorOfSunrise(valueFactory1));
         assertEquals(expectedException, result.getMessage());
     }
 
     @Test
     void getId() {
         //Arrange
-        ValueFactory valueFactory = mock(ValueFactory.class);
-        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise(valueFactory);
         int expected = 0;
         //Act
         int result = sensorOfSunrise.getId();
@@ -51,8 +57,6 @@ class SensorOfSunriseTest {
     @Test
     void setId() {
         //Arrange
-        ValueFactory valueFactory = mock(ValueFactory.class);
-        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise(valueFactory);
         int expected = 10;
         //Act
         int result = sensorOfSunrise.setId(10);
@@ -63,8 +67,6 @@ class SensorOfSunriseTest {
     @Test
     void getType() {
         //Arrange
-        ValueFactory valueFactory = mock(ValueFactory.class);
-        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise(valueFactory);
         SensorType expected = SensorType.SUNRISE;
         //Act
         SensorType result = sensorOfSunrise.getType();
@@ -101,10 +103,8 @@ class SensorOfSunriseTest {
 
         LocalDateTime localDateTime = LocalDateTime.of(localDate, LocalTime.of(10,0));
 
-        ValueFactory valueFactory = mock(ValueFactory.class);
-        when(valueFactory.createSunriseValue(localDateTime)).thenReturn(sunriseValueMock);
+        when(valueFactoryMock.createSunriseValue(localDateTime)).thenReturn(sunriseValueMock);
 
-        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise(valueFactory);
         LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
         //Act
         Value result = sensorOfSunrise.getValue(localDate);
