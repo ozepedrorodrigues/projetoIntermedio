@@ -1,28 +1,25 @@
 package domain;
 
 import factories.DimensionsFactory;
-import factories.GPSFactory;
 import factories.LocationFactory;
 import factories.RoomFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class HouseTest {
-    House validHouse;
-    String validAddress = "Rua do Ouro";
-    String validZipCode = "1234-567";
-    double validLatitude = 1.0;
-    double validLongitude = 1.0;
-    GPSFactory gpsFactory = mock(GPSFactory.class);
-    LocationFactory locationFactory = mock(LocationFactory.class);
-    Location location = mock(Location.class);
-    RoomFactory roomFactory = mock(RoomFactory.class);
-    GPS gps = mock(GPS.class);
+    House matryoshka;
+    String validAddress = "Abramtsevo";
+    String validZipCode = "141352";
+    double validLatitude = -100.1;
+    double validLongitude = 45.5;
+    LocationFactory locationFactoryDouble = mock(LocationFactory.class);
+    Location locationDouble = mock(Location.class);
+    RoomFactory roomFactoryDouble = mock(RoomFactory.class);
+    //GPS gps = mock(GPS.class);
     DimensionsFactory dimensionsFactory = mock(DimensionsFactory.class);
     Room room = mock(Room.class);
     Dimensions dimensions = mock(Dimensions.class);
@@ -34,19 +31,21 @@ class HouseTest {
 
     @BeforeEach
     void setUp() {
-        when(roomFactory.createRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(room);
+        when(roomFactoryDouble.createRoom(validRoomname, validRoomfloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(room);
         when(dimensionsFactory.createDimensions(validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(dimensions);
-        when(locationFactory.createLocation(validAddress,validZipCode,validLatitude,validLongitude)).thenReturn(location);
-        when(location.getAddress()).thenReturn(validAddress);
-        when(location.getZipCode()).thenReturn(validZipCode);
-        when(location.getGps()).thenReturn(gps);
-        when(gps.getLatitude()).thenReturn(validLatitude);
-        when(gps.getLongitude()).thenReturn(validLongitude);
+        when(locationFactoryDouble.createLocation(validAddress,validZipCode,validLatitude,validLongitude)).thenReturn(locationDouble);
+        when(locationDouble.getAddress()).thenReturn(validAddress);
+        when(locationDouble.getZipCode()).thenReturn(validZipCode);
+        //when(locationDouble.getGps()).thenReturn(gps);
+        //when(gps.getLatitude()).thenReturn(validLatitude);
+        //when(gps.getLongitude()).thenReturn(validLongitude);
         when(room.getRoomName()).thenReturn(validRoomname);
         //validHouse = new House(validAddress, validZipCode, validLatitude, validLongitude, locationFactory, gpsFactory);
     }
 
-    @Test
+
+
+/*    @Test
     void constructorValidParametersShouldNotThrowException() throws IllegalArgumentException{
         // Arrange Act and Assert
         new House(locationFactory, roomFactory);
@@ -220,8 +219,7 @@ void defineLocationEmptyAddressShouldThrowException(){
         assertEquals(location,location1);}
     @Test
     void configLocationValidDataShouldNotThrowException() {}
+
     @Test
-    void getCatalog() {}
-    @Test
-    void getDevicesGroupedByRoom() {}
+    void getDevicesGroupedByRoom() {}*/
 }

@@ -90,7 +90,7 @@ public class House {
      * @return the newly created Room object if the creation process is successful, or null if creation fails.
      */
     public Room addRoom(String roomName, int floor, double width, double length, double height) {
-        if (roomNameAlreadyExists(roomName)) {
+        if (!validRoomName(roomName)) {
             return null;
         }
         try {
@@ -110,13 +110,13 @@ public class House {
      * @param roomName the name of the room to check
      * @return true if a room with the given name exists, false otherwise
      */
-    private boolean roomNameAlreadyExists(String roomName) {
+    private boolean validRoomName(String roomName) {
         for (Room room : this.rooms) {
             if (room.getRoomName().equalsIgnoreCase(roomName)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

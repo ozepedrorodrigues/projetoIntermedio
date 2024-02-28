@@ -36,7 +36,7 @@ public class GetDeviceListController {
      * @param roomName the name of the room.
      * @return the list of devices in the room, or an empty list if the room does not exist.
      */
-    public List<DeviceDTO> getDeviceList(String roomName) {
+    public List<DeviceDTO> getDevicesInRoom(String roomName) {
         Room room = matryoshka.getRoomByName(roomName);
         if (room == null) {
             return Collections.emptyList();

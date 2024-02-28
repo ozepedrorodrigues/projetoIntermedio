@@ -4,16 +4,9 @@ import domain.*;
 import dto.DeviceDTO;
 import dto.RoomDTO;
 import dto.SensorDTO;
-import dto.SensorTypeDTO;
-import factories.SensorFactory;
-import factories.ValueFactory;
-import factories.implement.SensorFactoryImp;
-import factories.implement.ValueFactoryImp;
 import mappers.MapperSensorDTO;
-import mappers.MapperSensorTypeDTO;
 import sensors.Sensor;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -71,7 +64,7 @@ public class AddSensorToDeviceController {
         this.room = house.getRoomByName(roomName);
         if(this.room == null)
             return null;
-        return this.getDeviceListController.getDeviceList(roomName);
+        return this.getDeviceListController.getDevicesInRoom(roomName);
     }
 
     /**

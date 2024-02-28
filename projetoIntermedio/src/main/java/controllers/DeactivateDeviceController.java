@@ -65,7 +65,7 @@ public class DeactivateDeviceController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        return getDeviceListController.getDeviceList(roomName);
+        return getDeviceListController.getDevicesInRoom(roomName);
     }
 
     /**
