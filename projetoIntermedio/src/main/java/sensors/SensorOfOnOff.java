@@ -9,6 +9,8 @@ import values.Value;
  */
 public class SensorOfOnOff implements Sensor {
 
+    private final boolean ON = true;
+
     private int id;
     private SensorType type;
 
@@ -69,7 +71,7 @@ public class SensorOfOnOff implements Sensor {
      */
     @Override
     public Value getValue() {
-        this.value = valueFactory.createOnOffValue(true);
+        this.value = valueFactory.createOnOffValue(ON);
         return this.value;
     }
 
