@@ -17,7 +17,8 @@ public enum SensorType {
     SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     ON_OFF("On/Off", "Boolean"),
     ENERGY_CONSUMPTION("Energy Consumption", "kWh"),
-    POWER_CONSUMPTION("Power Consumption","W");
+    POWER_CONSUMPTION("Power Consumption","W"),
+    SUNRISE("Sunrise", "H");
 
 
     private final String sensorType;
