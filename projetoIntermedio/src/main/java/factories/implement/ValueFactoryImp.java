@@ -69,5 +69,8 @@ public class ValueFactoryImp implements ValueFactory {
     public Value createScalePercentageValue() {
         return new ScalePercentageValue();
     }
+    @Override
+    public Value createEnergyConsumptionValue() { return new EnergyConsumptionValue();
+    }
 }
 
