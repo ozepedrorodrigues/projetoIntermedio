@@ -64,7 +64,7 @@ class CatalogueTest {
     void getCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 4;
+        int expectedSize = 9;
         //Act
         List<String> result = catalogue.getCatalogue();
         //Assert
