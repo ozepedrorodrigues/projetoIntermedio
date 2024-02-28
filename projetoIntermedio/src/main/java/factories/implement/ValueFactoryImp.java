@@ -3,6 +3,8 @@ package factories.implement;
 import factories.ValueFactory;
 import values.*;
 
+import java.time.LocalDateTime;
+
 /**
  * Implements the {@link ValueFactory} interface, providing concrete implementations
  * for creating different types of {@link Value} objects. This factory is responsible
@@ -76,6 +78,11 @@ public class ValueFactoryImp implements ValueFactory {
     @Override
     public Value createPowerConsumptionValue() {
         return new PowerConsumptionValue();
+    }
+
+    @Override
+    public Value createSunriseValue(LocalDateTime date) {
+        return null;
     }
 }
 
