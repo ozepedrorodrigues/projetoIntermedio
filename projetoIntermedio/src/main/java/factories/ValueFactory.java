@@ -3,6 +3,8 @@ package factories;
 
 import values.Value;
 
+import java.time.LocalDateTime;
+
 public interface ValueFactory {
     Value createTemperatureValue();
     Value createHumidityValue();
@@ -12,4 +14,5 @@ public interface ValueFactory {
     Value createScalePercentageValue();
     Value createEnergyConsumptionValue();
     Value createPowerConsumptionValue();
+    Value createSunriseValue(LocalDateTime date);
 }
