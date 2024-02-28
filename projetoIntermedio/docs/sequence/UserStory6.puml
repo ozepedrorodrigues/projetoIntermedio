@@ -11,26 +11,27 @@ devices in a room, so that I can configure them.
 
 Participant "GetRoomList:GetRoomListController" as G
 Participant "GetDeviceList:GetDeviceListController" as G1
+Participant "House:House" as H
 Participant "room:Room" as R
 Participant "mapperToDeviceDTO:MapperToDeviceDTO" as M
-Participant "roomDevicesDTO:List<DeviceDTO>" as L
 
 [o->G : getRoomList()
 activate G
 ref over G : (UseCase3.puml for more details)
 [o<--G : _roomListDTO
 deactivate G
-
-[o->G1 : getDeviceListByRoom(String roomName)
+[o->G1 : getDeviceListByRoom(roomName)
 activate G1
-G1->G1 : this.room = this.house.getRoomByName(roomName)
-G1->R : getDevicesInRoom(String roomName)
+G1->H : getRoomByName(roomName)
+activate H
+H-->G1: room
+deactivate H
+G1->R : getDevicesInRoom(roomName)
 activate R
 R-->G1: devicesInRoom
 deactivate R
-G1->M : devicesToDTO(List<Device> roomDevices, String roomName)
+G1->M : devicesToDTO(device, roomName)
 activate M
-M-->L** : create(roomDeviceList)
 M-->G1 : roomDevicesDTO
 deactivate M
 [o<--G1 : roomDevicesDTO
