@@ -20,7 +20,9 @@ public enum SensorType {
     POWER_CONSUMPTION("Power Consumption","W"),
     SUNRISE("Sunrise", "H"),
     SUNSET("Sunset", "H"),
-    SOLAR_IRRADIANCE("Solar Irradiance", "W/m²");
+    WIND_SPEED("WindSpeed", "km/h"),
+    WIND_DIRECTION("WindDirection", "radian");
+
 
 
     private final String sensorType;

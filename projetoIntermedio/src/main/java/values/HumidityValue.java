@@ -17,7 +17,7 @@ public class HumidityValue implements Value {
      * with the humidity value initialized to an undefined state.
      */
     public HumidityValue() {
-        this.humidityValue = humidityValue;
+        this.humidityValue = 50; // 50% humidity, for now is a default value.
     }
 
     /**
