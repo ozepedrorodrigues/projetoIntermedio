@@ -1,28 +1,19 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
+import values.PowerConsumptionValue;
 import values.Value;
 
 public class SensorOfPowerConsumption implements Sensor {
 
     private SensorType type;
     private int id;
-    private Value value;
+    private Value DEFAULT = new PowerConsumptionValue(1);
 
-    public SensorOfPowerConsumption(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
-            this.type = SensorType.POWER_CONSUMPTION;
-            this.value = valueFactory.createPowerConsumptionValue();
-            this.id = 0;
+    public SensorOfPowerConsumption() {
+                   this.type = SensorType.POWER_CONSUMPTION;
         }
-    }
 
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
-    }
 
     @Override
     public int getId() {
@@ -41,6 +32,6 @@ public class SensorOfPowerConsumption implements Sensor {
 
     @Override
     public Value getValue() {
-        return value;
+        return this.DEFAULT;
     }
 }

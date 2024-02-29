@@ -6,22 +6,18 @@ package values;
  * to a string representation and perform equality checks.
  */
 public class PowerConsumptionValue implements Value {
-    private int powerConsumptionValue;
+    private double powerConsumptionValue;
 
     /**
      * Constructs a new instance of the PowerConsumptionValue class.
      * with the power consumption value initialized to an undefined state.
      */
-    public PowerConsumptionValue() {
+    public PowerConsumptionValue(double powerConsumptionValue) {
         this.powerConsumptionValue = powerConsumptionValue;
     }
 
-    /**
-     * Gets the power consumption value as an integer.
-     *
-     * @return The power consumption value.
-     */
-    public int getPowerConsumptionValue() {
+    @Override
+    public Double getValue() {
         return powerConsumptionValue;
     }
 
