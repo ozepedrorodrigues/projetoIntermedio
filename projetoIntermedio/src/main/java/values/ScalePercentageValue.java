@@ -23,7 +23,8 @@ public class ScalePercentageValue implements Value {
     /**
      * Returns the percentage value of the sensor.
      */
-    public int getPercentageValue() {
+    @Override
+    public Integer getValue() {
         return percentageValue;
     }
 
