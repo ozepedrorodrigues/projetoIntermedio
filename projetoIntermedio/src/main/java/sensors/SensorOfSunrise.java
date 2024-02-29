@@ -27,14 +27,12 @@ public class SensorOfSunrise implements Sensor{
     private Value value;
 
 
-
     /**
      * Constructor
      *
-     * @param valueFactory the ValueFactory of the sensor.
      * @throws IllegalArgumentException if the valueFactory is invalid.
      */
-    public SensorOfSunrise(ValueFactory valueFactory) {
+    public SensorOfSunrise() {
         this.type = SensorType.SUNRISE;
     }
 

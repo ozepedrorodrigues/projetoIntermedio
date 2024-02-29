@@ -19,21 +19,15 @@ public class SensorFactoryImp implements SensorFactory {
      */
     private Catalogue catalogue;
 
-    /**
-     * ValueFactory - creates Value instances (parameter of Sensors).
-     */
-    private ValueFactory valueFactory;
 
     /**
      * Constructs a new SensorFactoryImp with the specified filePathname and valueFactory.
      *
      * @param filePathname The path of the file containing the available sensors' path.
-     * @param valueFactory The value factory to be used to create Value instances for the sensors.
      * @throws InstantiationException if the file containing the catalogue of sensors is not found.
      */
-    public SensorFactoryImp(String filePathname,ValueFactory valueFactory) throws InstantiationException {
+    public SensorFactoryImp(String filePathname) throws InstantiationException {
         catalogue = new Catalogue(filePathname);
-        this.valueFactory = valueFactory;
         //filePathname = "config.properties";
     }
 
@@ -50,7 +44,7 @@ public class SensorFactoryImp implements SensorFactory {
 
         if(isValidSensorClassName) {
             try {
-                return (Sensor) Class.forName(sensorClassNamePath).getConstructor(ValueFactory.class).newInstance(valueFactory);
+                return (Sensor) Class.forName(sensorClassNamePath).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
                 System.out.println("Error creating the sensor: " + e.getMessage());

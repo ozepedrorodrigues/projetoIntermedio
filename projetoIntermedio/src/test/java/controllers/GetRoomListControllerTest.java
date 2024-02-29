@@ -89,7 +89,6 @@ class GetRoomListControllerTest {
 
     GPSFactory gpsFactory;
     LocationFactory locationFactory;
-    ValueFactory valueFactory;
     String filePathName;
     SensorFactory sensorFactory;
     DeviceFactory deviceFactory;
@@ -104,9 +103,8 @@ class GetRoomListControllerTest {
         mapperToRoomDTO1 = new MapperToRoomDTO();
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
-        valueFactory = new ValueFactoryImp();
         filePathName = "config.properties";
-        sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        sensorFactory = new SensorFactoryImp(filePathName);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
