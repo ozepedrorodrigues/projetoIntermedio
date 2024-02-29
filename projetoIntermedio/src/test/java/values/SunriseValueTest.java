@@ -33,7 +33,7 @@ class SunriseValueTest {
         SunriseValue sunriseValue = new SunriseValue(localDateTime);
         LocalDateTime expected = localDateTime;
         //Act
-        LocalDateTime result = sunriseValue.getSunriseValue();
+        LocalDateTime result = sunriseValue.getValue();
         //Assert
         assertEquals(expected, result);
 

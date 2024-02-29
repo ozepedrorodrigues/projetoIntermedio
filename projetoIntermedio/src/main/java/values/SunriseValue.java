@@ -2,7 +2,7 @@ package values;
 
 import java.time.LocalDateTime;
 
-public class SunriseValue implements Value{
+public class SunriseValue implements Value<LocalDateTime>{
 
     private LocalDateTime sunriseValue;
 

@@ -4,45 +4,35 @@ import domain.SensorType;
 import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import values.SunriseValue;
 import values.Value;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SensorOfSunriseTest {
 
-    ValueFactory valueFactoryMock;
     SensorOfSunrise sensorOfSunrise;
 
     @BeforeEach
     void setUp () {
-        valueFactoryMock = mock(ValueFactory.class);
-        sensorOfSunrise = new SensorOfSunrise(valueFactoryMock);
+        sensorOfSunrise = new SensorOfSunrise();
     }
 
     @Test
     void constructor() {
         //Act
-        SensorOfSunrise result = new SensorOfSunrise(valueFactoryMock);
+        SensorOfSunrise result = new SensorOfSunrise();
         //Assert
         assertNotNull(result);
     }
 
-    @Test
-    void constructor_nullValueFactory() {
-        //Arrange
-        ValueFactory valueFactory1 = null;
-        String expectedException = "Invalid parameters";
-        //Act + assert
-        Exception result = assertThrows(IllegalArgumentException.class, () -> new SensorOfSunrise(valueFactory1));
-        assertEquals(expectedException, result.getMessage());
-    }
 
     @Test
     void getId() {
@@ -83,10 +73,7 @@ class SensorOfSunriseTest {
 
         LocalDateTime localDateTime = LocalDateTime.of(localDate, LocalTime.of(10,0));
 
-        ValueFactory valueFactory = mock(ValueFactory.class);
-        when(valueFactory.createSunriseValue(localDateTime)).thenReturn(sunriseValueMock);
-
-        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise(valueFactory);
+        SensorOfSunrise sensorOfSunrise = new SensorOfSunrise();
         LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
         //Act
         Value result = sensorOfSunrise.getValue();
@@ -101,14 +88,23 @@ class SensorOfSunriseTest {
         SunriseValue sunriseValueMock = mock(SunriseValue.class);
         when(sunriseValueMock.valueToString()).thenReturn("2023-01-10T10:00");
 
-        LocalDateTime localDateTime = LocalDateTime.of(localDate, LocalTime.of(10,0));
+        try(MockedConstruction<Value> valueDouble = mockConstruction(Value.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(sunriseValueMock);
+        })) {
+            LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
 
-        when(valueFactoryMock.createSunriseValue(localDateTime)).thenReturn(sunriseValueMock);
+            SensorOfSunrise sensorOfSunrise1 = new SensorOfSunrise();
 
-        LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
-        //Act
-        Value result = sensorOfSunrise.getValue(localDate);
-        //Assert
-        assertEquals(expected.toString(), result.valueToString());
+            //Act
+            Value result = sensorOfSunrise1.getValue(localDate);
+            //Assert
+            List<Value> values = valueDouble.constructed();
+            assertEquals(1, values.size());
+            assertEquals(expected.toString(), valueDouble.constructed().get(0).getValue().toString());
+            assertEquals(expected.toString(), result.valueToString());
+
+        }
+
+
     }
 }

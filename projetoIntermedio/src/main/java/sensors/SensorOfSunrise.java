@@ -24,13 +24,12 @@ public class SensorOfSunrise implements Sensor{
     /**
      * The value of the sensor.
      */
-    private Value value;
+    private Value<LocalDateTime> value;
 
 
     /**
      * Constructor
      *
-     * @throws IllegalArgumentException if the valueFactory is invalid.
      */
     public SensorOfSunrise() {
         this.type = SensorType.SUNRISE;
@@ -65,7 +64,7 @@ public class SensorOfSunrise implements Sensor{
     }
 
 
-    public Value getValue() {
+    public Value<LocalDateTime> getValue() {
         LocalDate dateDate = LocalDate.now();
         return getValue(dateDate);
     }
@@ -75,7 +74,7 @@ public class SensorOfSunrise implements Sensor{
      *
      * @return the value from the sensor
      */
-    public Value getValue(LocalDate date) {
+    public Value<LocalDateTime> getValue(LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(10,0));
         this.value = new SunriseValue(dateTime);
         return this.value;
