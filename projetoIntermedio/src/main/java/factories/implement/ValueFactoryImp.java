@@ -94,6 +94,10 @@ public class ValueFactoryImp implements ValueFactory {
         return new SunsetValue(date);
     }
 
+    @Override
+    public Value createWindSpeedValue() {return new WindSpeedValue();}
 
+    @Override
+    public Value createWindDirectionValue() {return new WindDirectionValue();}
 }
 
