@@ -21,7 +21,9 @@ public enum SensorType {
     SUNRISE("Sunrise", "H"),
     SUNSET("Sunset", "H"),
     WIND_SPEED("WindSpeed", "km/h"),
-    WIND_DIRECTION("WindDirection", "radian");
+    WIND_DIRECTION("WindDirection", "radian"),
+    SOLAR_IRRADIANCE("Solar Irradiance", "W/m²");
+
 
 
 
