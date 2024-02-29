@@ -18,9 +18,10 @@ class ScalePercentageValueTest {
     /**
      * Initializes the scalePercentageValue object for the tests.
      */
+
     @BeforeEach
     void setUp() {
-        scalePercentageValue = new ScalePercentageValue();
+        scalePercentageValue = new ScalePercentageValue(50);
     }
 
 
@@ -30,9 +31,9 @@ class ScalePercentageValueTest {
     @Test
     void defaultConstructor_getScalePercentageValue() {
         // Arrange
-        int expected = 0;    // 0% by default, for now.
+        int expected = 50;
         // Act
-        int result = scalePercentageValue.getPercentageValue();
+        int result = scalePercentageValue.getValue();
         // Assert
         assertEquals(expected, result, 0.01);
     }
@@ -44,8 +45,8 @@ class ScalePercentageValueTest {
     @Test
     void toValue_Valid() {
         // Arrange
-        ScalePercentageValue currentReading = new ScalePercentageValue();
-        String expected = "0";    // 0% by default, for now.
+        ScalePercentageValue currentReading = new ScalePercentageValue(50);
+        String expected = "50";
         // Act
         String result = currentReading.valueToString();
         // Assert
