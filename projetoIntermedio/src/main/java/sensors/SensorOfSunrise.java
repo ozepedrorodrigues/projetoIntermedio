@@ -83,7 +83,4 @@ public class SensorOfSunrise implements Sensor{
         return this.value;
     }
 
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
-    }
 }
