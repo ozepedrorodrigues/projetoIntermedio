@@ -10,14 +10,14 @@ package values;
  */
 public class HumidityValue implements Value {
 
-    private int humidityValue;
+    private double humidityValue;
 
     /**
      * Constructs a new instance of the HumidityValue class.
      * with the humidity value initialized to an undefined state.
      */
-    public HumidityValue() {
-        this.humidityValue = 50; // 50% humidity, for now is a default value.
+    public HumidityValue(double humidityValue) {
+        this.humidityValue = humidityValue;
     }
 
     /**
@@ -25,7 +25,9 @@ public class HumidityValue implements Value {
      *
      * @return The humidity value.
      */
-    public int getHumidityValue() {
+
+    @Override
+    public Double getValue() {
         return humidityValue;
     }
 

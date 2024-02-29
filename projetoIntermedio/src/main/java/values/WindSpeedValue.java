@@ -3,10 +3,11 @@ package values;
 public class WindSpeedValue implements Value {
     private  double windSpeed;
 
-    public WindSpeedValue() {
-        this.windSpeed = 0; // default value
+    public WindSpeedValue(double windSpeed) {
+        this.windSpeed = windSpeed; // default value
     }
-    public double getWindSpeed() {
+    @Override
+    public Double getValue() {
         return windSpeed;
     }
 

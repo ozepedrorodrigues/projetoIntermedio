@@ -1,28 +1,20 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.Value;
+import values.WindDirectionValue;
 
 public class SensorOfWindDirection implements Sensor {
 
     private SensorType type;
     private int id;
-    private Value value;
-    private ValueFactory valueFactory;
+    private Value DEFAULT = new WindDirectionValue(50.0);
 
-    public SensorOfWindDirection(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
+    public SensorOfWindDirection() {
             this.type = SensorType.WIND_DIRECTION;
-            this.value = valueFactory.createWindDirectionValue();
         }
-    }
-
     public SensorType getType() {
-        return type;
-    }
+        this.type = SensorType.WIND_DIRECTION;}
 
     public int getId() {
         return id;
@@ -33,12 +25,7 @@ public class SensorOfWindDirection implements Sensor {
     }
 
     public Value getValue() {
-        this.value = valueFactory.createWindDirectionValue();
-        return value;
-    }
-
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
+       return this.DEFAULT; // for now is a default value.
     }
 }
 

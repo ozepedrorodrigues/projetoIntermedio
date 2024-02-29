@@ -3,21 +3,16 @@ package sensors;
 import domain.SensorType;
 import factories.ValueFactory;
 import values.Value;
+import values.WindSpeedValue;
 
 public class SensorOfWindSpeed implements Sensor {
 
     private SensorType type;
     private int id;
-    private Value value;
-    private ValueFactory valueFactory;
+    private Value DEFAULT = new WindSpeedValue(25.0);
 
     public SensorOfWindSpeed(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
-            this.type = SensorType.WIND_SPEED;
-            this.value = valueFactory.createWindSpeedValue();
-        }
+        this.type = SensorType.WIND_SPEED;
     }
 
     public SensorType getType() {
@@ -33,12 +28,9 @@ public class SensorOfWindSpeed implements Sensor {
     }
 
     public Value getValue() {
-        this.value = valueFactory.createWindSpeedValue();
-        return value;
+        ;
+        return this.DEFAULT;
     }
 
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
-    }
 }
 

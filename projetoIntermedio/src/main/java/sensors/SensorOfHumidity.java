@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.HumidityValue;
 import values.Value;
 
 /**
@@ -23,22 +24,14 @@ public class SensorOfHumidity implements Sensor {
     /**
      * The current reading from the sensor.
      */
-    private Value value;
-    private ValueFactory valueFactory;
+
+    private Value DEFAULT = new HumidityValue(25.0);
 
     /**
      * Constructs a new SensorOfHumidity with a HumidityValue and sets the type to SensorType.HUMIDITY.
-     * @param valueFactory the ValueFactory of the sensor.
-     * If the valueFactory is null, an IllegalArgumentException is thrown.
      */
-    public SensorOfHumidity(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
+    public SensorOfHumidity() {
             this.type = SensorType.HUMIDITY;
-            this.value = valueFactory.createHumidityValue();
-
-        }
     }
 
     /**
@@ -75,18 +68,6 @@ public class SensorOfHumidity implements Sensor {
      * @return the current reading from the sensor
      */
     public Value getValue () {
-        this.value= valueFactory.createHumidityValue();
-        return value;
+        return this.DEFAULT;
     }
-
-    /**
-     * Validates the value factory of the sensor.
-     *
-     * @param valueFactory the value factory of the sensor
-     * @return true if the value factory is not null, false otherwise
-     */
-    private boolean validValueFactory (ValueFactory valueFactory){
-        return valueFactory != null;
-    }
-
 }

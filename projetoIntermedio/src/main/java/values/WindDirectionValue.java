@@ -3,10 +3,12 @@ package values;
 public class WindDirectionValue implements Value {
     private  double windDirection;
 
-    public WindDirectionValue() {
-        this.windDirection = 0; // default value
+    public WindDirectionValue(double windDirection) {
+        this.windDirection = windDirection; // default value
     }
-    public double getWindDirection() {
+
+    @Override
+    public Double getValue() {
         return windDirection;
     }
 
