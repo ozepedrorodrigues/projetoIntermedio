@@ -4,6 +4,8 @@ import domain.*;
 import dto.DeviceDTO;
 import dto.RoomDTO;
 import dto.SensorDTO;
+import factories.ValueFactory;
+import factories.implement.ValueFactoryImp;
 import mappers.MapperSensorDTO;
 import sensors.Sensor;
 
@@ -17,11 +19,11 @@ import java.util.List;
 public class AddSensorToDeviceController {
 
     private House house;
-    private Room room;
     private Catalogue catalogue;
     private MapperSensorDTO mapperSensorDTO;
     private GetRoomListController getRoomListController;
     private GetDeviceListController getDeviceListController;
+    private ValueFactory valueFactory;
 
     /**
      * Constructor for AddSensorToDeviceController.
@@ -45,6 +47,7 @@ public class AddSensorToDeviceController {
         this.mapperSensorDTO = mapperSensorDTO;
         this.getRoomListController = getRoomListController;
         this.getDeviceListController = getDeviceListController;
+        this.valueFactory = new ValueFactoryImp();
     }
 
     /**
@@ -61,9 +64,6 @@ public class AddSensorToDeviceController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        this.room = house.getRoomByName(roomName);
-        if(this.room == null)
-            return null;
         return this.getDeviceListController.getDevicesInRoom(roomName);
     }
 
@@ -75,13 +75,15 @@ public class AddSensorToDeviceController {
     public List<String> getSensorModel() {
         return catalogue.getCatalogue();
     }
+    //Esse metodo só pode ser testado no final ou a lista de sensores está sempre sendo atualizada
 
     /**
      * Adds a sensor to an existing device in a room.
      *
      * @return the sensor DTO.
      */
-    public SensorDTO addSensorToExistingDevice(String deviceName, String sensorModel) {
+    public SensorDTO addSensorToExistingDevice(String roomName, String deviceName, String sensorModel) {
+        Room room = house.getRoomByName(roomName);
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel, catalogue);
 
