@@ -29,18 +29,22 @@ public class SensorOfTemperature implements Sensor {
     private Value value;
 
     /**
+     * The value factory of the sensor.
+     */
+    private ValueFactory valueFactory;
+
+    /**
      * Constructor
      *
      * @param valueFactory the ValueFactory of the sensor.
      * @throws IllegalArgumentException if the valueFactory is invalid.
      */
-    public SensorOfTemperature(ValueFactory valueFactory) {
+    public SensorOfTemperature(ValueFactory valueFactory) throws IllegalArgumentException {
         if (!validValueFactory(valueFactory)) {
             throw new IllegalArgumentException("Invalid parameters");
         } else {
             this.type = SensorType.TEMPERATURE;
-            this.value = valueFactory.createTemperatureValue();
-            this.id = 0;
+            this.valueFactory = valueFactory;
         }
     }
 
@@ -73,14 +77,21 @@ public class SensorOfTemperature implements Sensor {
     }
 
     /**
-     * Returns the value from the sensor.
+     * Returns the value of the sensor.
      *
-     * @return the value from the sensor
+     * @return the value of the sensor
      */
     public Value getValue() {
+        this.value = valueFactory.createTemperatureValue();
         return value;
     }
 
+    /**
+     * Verifies if the value factory is valid.
+     *
+     * @param valueFactory the value factory to verify
+     * @return true if the value factory is valid, false otherwise
+     */
     private boolean validValueFactory(ValueFactory valueFactory) {
         return valueFactory != null;
     }

@@ -23,7 +23,7 @@ class TemperatureValueTest {
     @Test
     void defaultConstructor_getTemperatureValue() {
         // Arrange
-        double expected = 0.0;    // No external setting of value, assuming a valid default value
+        double expected = 25;    // 25 degrees Celsius, for now is a default value.
         // Act
         double result = temperatureValue.getTemperatureValue();
         // Assert
@@ -38,7 +38,7 @@ class TemperatureValueTest {
     void toValue_Valid() {
         // Arrange
         TemperatureValue currentReading = new TemperatureValue();
-        String expected = "0.0";    // No external setting of value, assuming a valid default value
+        String expected = "25.0";    // 25 degrees Celsius, for now is a default value.
         // Act
         String result = currentReading.valueToString();
         // Assert

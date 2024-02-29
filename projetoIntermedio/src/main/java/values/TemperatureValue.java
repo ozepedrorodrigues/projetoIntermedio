@@ -17,7 +17,7 @@ public class TemperatureValue implements Value {
      * with the temperature value initialized to an undefined state.
      */
     public TemperatureValue() {
-        this.temperatureValue = temperatureValue;
+        this.temperatureValue = 25; // 25 degrees Celsius, for now is a default value.
     }
 
     /**

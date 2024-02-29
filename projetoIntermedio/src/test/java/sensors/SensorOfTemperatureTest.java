@@ -16,7 +16,13 @@ import static org.mockito.Mockito.when;
  */
 class SensorOfTemperatureTest {
 
+    /**
+     * The ValueFactory to be treated as a double.
+     */
     ValueFactory valueFactoryDouble;
+    /**
+     * The Value to be treated as a double.
+     */
     Value valueDouble;
 
     /**
@@ -51,12 +57,11 @@ class SensorOfTemperatureTest {
      * Verifies that the method returns the ID of the sensor correctly.
      */
     @Test
-    void getId() {
+    void getIdDefault() {
         // Arrange
-        int idExpected = 1;
+        int idExpected = 0;
         SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
         // Act
-        sensorOfTemperature.setId(idExpected);
         int result = sensorOfTemperature.getId();
         // Assert
         assertEquals(idExpected, result);
