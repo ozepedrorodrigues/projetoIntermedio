@@ -9,7 +9,7 @@ import values.Value;
  */
 public class SensorOfOnOff implements Sensor {
 
-    private final boolean ON = true;
+    private final boolean DEFAULT = true;
 
     private int id;
     private SensorType type;
@@ -71,11 +71,11 @@ public class SensorOfOnOff implements Sensor {
      */
     @Override
     public Value getValue() {
-        this.value = valueFactory.createOnOffValue(ON);
+        this.value = valueFactory.createOnOffValue(DEFAULT);
         return this.value;
     }
 
-    /**
+    /** .
      * Checks if the provided ValueFactory is not null.
      *
      * @param valueFactory The ValueFactory to validate.
