@@ -24,6 +24,7 @@ public class SensorOfHumidity implements Sensor {
      * The current reading from the sensor.
      */
     private Value value;
+    private ValueFactory valueFactory;
 
     /**
      * Constructs a new SensorOfHumidity with a HumidityValue and sets the type to SensorType.HUMIDITY.
@@ -36,7 +37,6 @@ public class SensorOfHumidity implements Sensor {
         } else {
             this.type = SensorType.HUMIDITY;
             this.value = valueFactory.createHumidityValue();
-            this.id = 0;
 
         }
     }
@@ -75,6 +75,7 @@ public class SensorOfHumidity implements Sensor {
      * @return the current reading from the sensor
      */
     public Value getValue () {
+        this.value= valueFactory.createHumidityValue();
         return value;
     }
 
