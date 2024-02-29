@@ -99,5 +99,10 @@ public class ValueFactoryImp implements ValueFactory {
 
     @Override
     public Value createWindDirectionValue() {return new WindDirectionValue();}
+
+    @Override
+    public Value createSolarIrradianceValue(double value){
+        return new SolarIrradianceValue(value);
+    }
 }
 
