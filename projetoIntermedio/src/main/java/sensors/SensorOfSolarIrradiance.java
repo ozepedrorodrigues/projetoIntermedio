@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.SolarIrradianceValue;
 import values.Value;
 
 /**
@@ -13,9 +14,9 @@ public class SensorOfSolarIrradiance {
 
     private SensorType type;
 
-    private Value value;
+    private final Value DEFAULT = new SolarIrradianceValue(1200.0);
 
-    private ValueFactory valueFactory;
+
 
     /**
      * Constructor for the SensorOfSolarIrradiance class.
@@ -23,13 +24,7 @@ public class SensorOfSolarIrradiance {
      * @throws IllegalArgumentException If the provided valueFactory is null.
      */
     public SensorOfSolarIrradiance(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
-            this.type = SensorType.SOLAR_IRRADIANCE;
-            this.valueFactory = valueFactory;
-            this.id = 0;
-        }
+        this.type = SensorType.SOLAR_IRRADIANCE;
     }
 
     /**
@@ -69,7 +64,7 @@ public class SensorOfSolarIrradiance {
      * @return the value of the sensor.
      */
     public Value getValue() {
-        return value;
+        return this.DEFAULT;
     }
 
 }
