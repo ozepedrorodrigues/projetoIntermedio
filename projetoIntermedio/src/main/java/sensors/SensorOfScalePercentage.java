@@ -28,6 +28,12 @@ public class SensorOfScalePercentage implements Sensor {
     private Value value;
 
     /**
+     * The ValueFactory of the sensor.
+     */
+    private ValueFactory valueFactory;
+
+
+    /**
      * Constructor for the SensorOfScalePercentage class.
      *
      * @param valueFactory the ValueFactory of the sensor.
@@ -37,9 +43,8 @@ public class SensorOfScalePercentage implements Sensor {
         if(!isValidValueFactory(valueFactory)){
             throw new IllegalArgumentException("Invalid parameters");
         } else {
-            this.id = 0;
             this.type = SensorType.SCALE_PERCENTAGE;
-            this.value = valueFactory.createScalePercentageValue();
+            this.valueFactory = valueFactory;
         }
     }
 
@@ -71,6 +76,7 @@ public class SensorOfScalePercentage implements Sensor {
      */
     @Override
     public Value getValue() {
+        this.value = valueFactory.createScalePercentageValue();
         return value;
     }
 

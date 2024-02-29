@@ -16,7 +16,7 @@ public class ScalePercentageValue implements Value {
      * Constructor for the ScalePercentageValue class.
      */
     public ScalePercentageValue() {
-        this.percentageValue = percentageValue;
+        this.percentageValue = 0;       // 0% by default, for now.
     }
 
 
