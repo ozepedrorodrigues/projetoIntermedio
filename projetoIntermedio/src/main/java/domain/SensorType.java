@@ -19,7 +19,8 @@ public enum SensorType {
     ENERGY_CONSUMPTION("Energy Consumption", "kWh"),
     POWER_CONSUMPTION("Power Consumption","W"),
     SUNRISE("Sunrise", "H"),
-    SUNSET("Sunset", "H");
+    SUNSET("Sunset", "H"),
+    SOLAR_IRRADIANCE("Solar Irradiance", "W/m²");
 
 
     private final String sensorType;
