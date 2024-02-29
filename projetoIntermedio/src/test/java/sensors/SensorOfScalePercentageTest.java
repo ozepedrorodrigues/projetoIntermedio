@@ -4,21 +4,20 @@ import domain.SensorType;
 import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import values.Value;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * This class contains unit tests for the SensorOfScalePercentage class.
  */
 class SensorOfScalePercentageTest {
 
-    /**
-     * The ValueFactory to be treated as a double.
-     */
-    ValueFactory valueFactoryDouble;
+
     /**
      * The Value to be treated as a double.
      */
@@ -29,7 +28,6 @@ class SensorOfScalePercentageTest {
      */
     @BeforeEach
     void setUp() {
-        valueFactoryDouble = mock(ValueFactory.class);
         valueDouble = mock(Value.class);
     }
 
@@ -39,15 +37,11 @@ class SensorOfScalePercentageTest {
      * The value factory is invalid if it is null.
      */
     @Test
-    void testConstructorValid() {
-        // Arrange
-        ValueFactory invalidValueFactory = null;
-        String expectedMessage = "Invalid parameters";
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorOfScalePercentage(invalidValueFactory));
-        String resultMessage = exception.getMessage();
+    void testConstructor() {
+        // Arrange + Act
+        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
         //Assert
-        assertEquals(expectedMessage, resultMessage);
+        assertNotNull(sensorOfScalePercentage);
     }
 
     /**
@@ -57,8 +51,8 @@ class SensorOfScalePercentageTest {
     @Test
     void getIdDefault() {
         // Arrange
-        int idExpected = 0;     // This is the default value of the id
-        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage(valueFactoryDouble);
+        int idExpected = 50;
+        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
         // Act
         int result = sensorOfScalePercentage.getId();
         // Assert
@@ -73,7 +67,7 @@ class SensorOfScalePercentageTest {
     void setId() {
         // Arrange
         int idExpected = 10;
-        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage(valueFactoryDouble);
+        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
         // Act
         int result = sensorOfScalePercentage.setId(idExpected);
         // Assert
@@ -88,7 +82,7 @@ class SensorOfScalePercentageTest {
     void getType() {
         // Arrange
         SensorType typeExpected = SensorType.SCALE_PERCENTAGE;
-        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage(valueFactoryDouble);
+        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
         // Act
         SensorType result = sensorOfScalePercentage.getType();
         // Assert
@@ -102,11 +96,16 @@ class SensorOfScalePercentageTest {
     @Test
     void getValue() {
         // Arrange
-        when(valueFactoryDouble.createScalePercentageValue()).thenReturn(valueDouble);
-        SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage(valueFactoryDouble);
-        // Act
-        Value result = sensorOfScalePercentage.getValue();
-        // Assert
-        assertEquals(valueDouble, result);
+        try (MockedConstruction<Value> value2 = mockConstruction(Value.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(25.0);
+        })) {
+            SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
+            // Act
+            Value result = sensorOfScalePercentage.getValue();
+            List<Value> values = value2.constructed();
+            // Assert
+            assertEquals(1, values.size());
+            assertEquals(25.0, result.getValue());
+        }
     }
 }

@@ -50,6 +50,7 @@ public class SensorOfTemperature implements Sensor {
      * Sets the ID of the sensor.
      *
      * @param newId the new ID of the sensor
+     * @return the ID of the sensor
      */
     public int setId (int newId) {
         this.id = newId;
