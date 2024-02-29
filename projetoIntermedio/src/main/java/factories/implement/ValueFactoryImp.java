@@ -16,7 +16,8 @@ public class ValueFactoryImp implements ValueFactory {
     /**
      * Constructs a new instance of {@code ValueFactoryImp}.
      */
-    public ValueFactoryImp() {}
+    public ValueFactoryImp() {
+    }
 
     /**
      * Creates a new {@link HumidityValue} object.
@@ -67,12 +68,15 @@ public class ValueFactoryImp implements ValueFactory {
     public Value createAveragePowerValue() {
         return new AveragePowerValue();
     }
+
     @Override
     public Value createScalePercentageValue() {
         return new ScalePercentageValue();
     }
+
     @Override
-    public Value createEnergyConsumptionValue() { return new EnergyConsumptionValue();
+    public Value createEnergyConsumptionValue() {
+        return new EnergyConsumptionValue();
     }
 
     @Override
@@ -87,7 +91,7 @@ public class ValueFactoryImp implements ValueFactory {
 
     @Override
     public Value createSunsetValue(LocalDateTime date) {
-        return null;
+        return new SunsetValue(date);
     }
 }
 
