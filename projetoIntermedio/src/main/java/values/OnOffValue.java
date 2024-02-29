@@ -15,13 +15,9 @@ public class OnOffValue implements Value {
         this.onOffValue = onOffValue;
     }
 
-    /**
-     * Retrieves the boolean ON/OFF state of the value.
-     *
-     * @return true if the value represents ON, false if it represents OFF.
-     */
-    public boolean getOnOffValue() {
-        return this.onOffValue;
+    @Override
+    public Boolean getValue() {
+        return onOffValue;
     }
 
     /**

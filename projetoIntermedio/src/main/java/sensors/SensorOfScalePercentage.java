@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.ScalePercentageValue;
 import values.Value;
 
 /**
@@ -25,12 +26,8 @@ public class SensorOfScalePercentage implements Sensor {
     /**
      * The value of the sensor.
      */
-    private Value value;
+    private Value DEFAULT = new ScalePercentageValue(50);
 
-    /**
-     * The ValueFactory of the sensor.
-     */
-    private ValueFactory valueFactory;
 
 
     /**
@@ -39,25 +36,10 @@ public class SensorOfScalePercentage implements Sensor {
      * @param valueFactory the ValueFactory of the sensor.
      * @throws IllegalArgumentException if the valueFactory is invalid.
      */
-    public SensorOfScalePercentage(ValueFactory valueFactory) throws IllegalArgumentException {
-        if(!isValidValueFactory(valueFactory)){
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
+    public SensorOfScalePercentage() {
             this.type = SensorType.SCALE_PERCENTAGE;
-            this.valueFactory = valueFactory;
-        }
     }
 
-
-    /**
-     * Checks if the valueFactory is valid.
-     *
-     * @param valueFactory the valueFactory to be checked
-     * @return true if the valueFactory is valid, false otherwise
-     */
-    private boolean isValidValueFactory (ValueFactory valueFactory){
-        return valueFactory != null;
-    }
 
     /**
      * Returns the type of the sensor.
@@ -67,17 +49,6 @@ public class SensorOfScalePercentage implements Sensor {
     @Override
     public SensorType getType() {
         return type;
-    }
-
-    /**
-     * Returns the current reading from the sensor.
-     *
-     * @return the current reading from the sensor
-     */
-    @Override
-    public Value getValue() {
-        this.value = valueFactory.createScalePercentageValue();
-        return value;
     }
 
     /**
@@ -100,5 +71,15 @@ public class SensorOfScalePercentage implements Sensor {
     @Override
     public int getId() {
         return id;
+    }
+
+    /**
+     * Returns the current reading from the sensor.
+     *
+     * @return the current reading from the sensor
+     */
+    @Override
+    public Value getValue() {
+        return this.DEFAULT;
     }
 }

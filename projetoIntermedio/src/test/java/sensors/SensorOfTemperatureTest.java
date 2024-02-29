@@ -18,10 +18,7 @@ import static org.mockito.Mockito.*;
  */
 class SensorOfTemperatureTest {
 
-    /**
-     * The ValueFactory to be treated as a double.
-     */
-    ValueFactory valueFactoryDouble;
+
     /**
      * The Value to be treated as a double.
      */
@@ -32,7 +29,6 @@ class SensorOfTemperatureTest {
      */
     @BeforeEach
     void setUp() {
-        valueFactoryDouble = mock(ValueFactory.class);
         valueDouble = mock(Value.class);
     }
 
@@ -115,3 +111,4 @@ class SensorOfTemperatureTest {
             assertEquals(25.0, result.getValue());
         }
     }
+}

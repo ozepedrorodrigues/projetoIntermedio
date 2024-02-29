@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.OnOffValue;
 import values.Value;
 
 /**
@@ -9,27 +10,16 @@ import values.Value;
  */
 public class SensorOfOnOff implements Sensor {
 
-    private final boolean DEFAULT = true;
-
     private int id;
     private SensorType type;
 
-    private Value value;
-    private ValueFactory valueFactory;
+    private final Value DEFAULT = new OnOffValue(true);
 
     /**
      * Constructs a SensorOfOnOff instance using the provided ValueFactory.
-     *
-     * @param valueFactory The ValueFactory used to create the initial ON/OFF value for the sensor.
-     * @throws IllegalArgumentException If the provided ValueFactory is null.
      */
-    public SensorOfOnOff(ValueFactory valueFactory) throws IllegalArgumentException {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        }
-
+    public SensorOfOnOff() {
         this.type = SensorType.ON_OFF;
-        this.valueFactory = valueFactory;
     }
 
     /**
@@ -71,17 +61,6 @@ public class SensorOfOnOff implements Sensor {
      */
     @Override
     public Value getValue() {
-        this.value = valueFactory.createOnOffValue(DEFAULT);
-        return this.value;
-    }
-
-    /** .
-     * Checks if the provided ValueFactory is not null.
-     *
-     * @param valueFactory The ValueFactory to validate.
-     * @return true if the ValueFactory is not null, false otherwise.
-     */
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
+        return this.DEFAULT;
     }
 }

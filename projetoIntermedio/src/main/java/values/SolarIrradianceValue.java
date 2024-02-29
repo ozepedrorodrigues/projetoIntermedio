@@ -21,7 +21,8 @@ public class SolarIrradianceValue implements Value {
     /**
      * @return the solar irradiance value.
      */
-    public double getValue() {
+    @Override
+    public Double getValue() {
         return solarIrradianceValue;
     }
 

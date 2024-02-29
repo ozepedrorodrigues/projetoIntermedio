@@ -2,6 +2,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.SunriseValue;
 import values.Value;
 
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class SensorOfSunrise implements Sensor{
      * The value of the sensor.
      */
     private Value value;
-    private ValueFactory valueFactory;
+
 
 
     /**
@@ -34,13 +35,7 @@ public class SensorOfSunrise implements Sensor{
      * @throws IllegalArgumentException if the valueFactory is invalid.
      */
     public SensorOfSunrise(ValueFactory valueFactory) {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
-            this.type = SensorType.SUNRISE;
-            this.valueFactory = valueFactory;
-            this.id = 0;
-        }
+        this.type = SensorType.SUNRISE;
     }
 
     /**
@@ -84,7 +79,7 @@ public class SensorOfSunrise implements Sensor{
      */
     public Value getValue(LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(10,0));
-        this.value = valueFactory.createSunriseValue(dateTime);
+        this.value = new SunriseValue(dateTime);
         return this.value;
     }
 

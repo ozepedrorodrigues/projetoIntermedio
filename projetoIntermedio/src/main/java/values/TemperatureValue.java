@@ -15,6 +15,8 @@ public class TemperatureValue implements Value {
     /**
      * Constructs a new instance of the TemperatureValue class
      * with the temperature value initialized to an undefined state.
+     *
+     * @param temperatureValue The temperature value.
      */
     public TemperatureValue(double temperatureValue) {
         this.temperatureValue = temperatureValue;

@@ -10,7 +10,7 @@ public class SunriseValue implements Value{
         this.sunriseValue = sunriseValue;
     }
 
-    public LocalDateTime getSunriseValue() {
+    public LocalDateTime getValue() {
         return sunriseValue;
     }
 
