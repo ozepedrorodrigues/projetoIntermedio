@@ -7,11 +7,21 @@ package values;
  *
  */
 
-public interface Value {
+public interface Value<T> {
+
+    /**
+     * Retrieves the value of the sensor.
+     *
+     * @return The value of the sensor.
+     */
+    T getValue();
+
+
     /**
      * Converts the value to a string representation.
      *
      * @return A string representation of the value.
      */
     String valueToString();
+
 }

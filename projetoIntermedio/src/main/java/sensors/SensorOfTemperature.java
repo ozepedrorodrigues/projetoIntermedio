@@ -3,6 +3,7 @@ package sensors;
 
 import domain.SensorType;
 import factories.ValueFactory;
+import values.TemperatureValue;
 import values.Value;
 
 /**
@@ -24,28 +25,16 @@ public class SensorOfTemperature implements Sensor {
     private SensorType type;
 
     /**
-     * The value of the sensor.
+     * The default value of the sensor.
      */
-    private Value value;
+    private Value DEFAULT = new TemperatureValue(25.0);
+
 
     /**
-     * The value factory of the sensor.
+     * Constructor for the SensorOfTemperature class.
      */
-    private ValueFactory valueFactory;
-
-    /**
-     * Constructor
-     *
-     * @param valueFactory the ValueFactory of the sensor.
-     * @throws IllegalArgumentException if the valueFactory is invalid.
-     */
-    public SensorOfTemperature(ValueFactory valueFactory) throws IllegalArgumentException {
-        if (!validValueFactory(valueFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
-        } else {
+    public SensorOfTemperature() {
             this.type = SensorType.TEMPERATURE;
-            this.valueFactory = valueFactory;
-        }
     }
 
     /**
@@ -82,17 +71,7 @@ public class SensorOfTemperature implements Sensor {
      * @return the value of the sensor
      */
     public Value getValue() {
-        this.value = valueFactory.createTemperatureValue();
-        return value;
+        return this.DEFAULT; // for now is a default value.
     }
 
-    /**
-     * Verifies if the value factory is valid.
-     *
-     * @param valueFactory the value factory to verify
-     * @return true if the value factory is valid, false otherwise
-     */
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
-    }
 }

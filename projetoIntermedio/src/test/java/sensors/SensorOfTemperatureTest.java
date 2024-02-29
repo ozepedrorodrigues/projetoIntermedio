@@ -4,12 +4,14 @@ import domain.SensorType;
 import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 import sensors.SensorOfTemperature;
 import values.Value;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * This class contains unit tests for the SensorOfTemperature class.
@@ -41,15 +43,11 @@ class SensorOfTemperatureTest {
      * The value factory is invalid if it is null.
      */
     @Test
-    void testConstructorValid() {
-        // Arrange
-        ValueFactory invalidValueFactory = null;
-        String expectedMessage = "Invalid parameters";
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new SensorOfTemperature(invalidValueFactory));
-        String resultMessage = exception.getMessage();
+    void testConstructor() {
+        // Arrange + Act
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
         //Assert
-        assertEquals(expectedMessage, resultMessage);
+        assertNotNull(sensorOfTemperature);
     }
 
     /**
@@ -60,7 +58,7 @@ class SensorOfTemperatureTest {
     void getIdDefault() {
         // Arrange
         int idExpected = 0;
-        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
         // Act
         int result = sensorOfTemperature.getId();
         // Assert
@@ -75,7 +73,7 @@ class SensorOfTemperatureTest {
     void setId() {
         // Arrange
         int idExpected = 1;
-        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
         // Act
         int result = sensorOfTemperature.setId(idExpected);
         // Assert
@@ -90,7 +88,7 @@ class SensorOfTemperatureTest {
     void getType() {
         // Arrange
         SensorType typeExpected = SensorType.TEMPERATURE;
-        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
+        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
         // Act
         SensorType result = sensorOfTemperature.getType();
         // Assert
@@ -104,11 +102,16 @@ class SensorOfTemperatureTest {
     @Test
     void getValue() {
         // Arrange
-        when(valueFactoryDouble.createTemperatureValue()).thenReturn(valueDouble);
-        SensorOfTemperature sensorOfTemperature = new SensorOfTemperature(valueFactoryDouble);
-        // Act
-        Value result = sensorOfTemperature.getValue();
-        // Assert
-        assertEquals(valueDouble, result);
+
+        try (MockedConstruction<Value> value2 = mockConstruction(Value.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(25.0);
+        })) {
+            SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
+            // Act
+            Value result = sensorOfTemperature.getValue();
+            List<Value> values = value2.constructed();
+            // Assert
+            assertEquals(1, values.size());
+            assertEquals(25.0, result.getValue());
+        }
     }
-}

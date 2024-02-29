@@ -16,8 +16,8 @@ public class TemperatureValue implements Value {
      * Constructs a new instance of the TemperatureValue class
      * with the temperature value initialized to an undefined state.
      */
-    public TemperatureValue() {
-        this.temperatureValue = 25; // 25 degrees Celsius, for now is a default value.
+    public TemperatureValue(double temperatureValue) {
+        this.temperatureValue = temperatureValue;
     }
 
     /**
@@ -25,7 +25,8 @@ public class TemperatureValue implements Value {
      *
      * @return The current temperature value.
      */
-    public double getTemperatureValue() {
+    @Override
+    public Double getValue() {
         return temperatureValue;
     }
 
