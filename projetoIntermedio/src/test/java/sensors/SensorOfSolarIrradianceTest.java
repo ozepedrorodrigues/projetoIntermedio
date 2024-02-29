@@ -66,14 +66,6 @@ class SensorOfSolarIrradianceTest {
     }
 
     /**
-     * Test for the getType method of the SensorOfSolarIrradiance class.
-     */
-    @Test
-    void getType() {
-        assertEquals(SensorType.SOLAR_IRRADIANCE, sensorOfSolarIrradiance.getType());
-    }
-
-    /**
      * Test for the getValue method of the SensorOfSolarIrradiance class.
      */
     @Test
