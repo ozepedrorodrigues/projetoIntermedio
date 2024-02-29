@@ -93,5 +93,15 @@ public class ValueFactoryImp implements ValueFactory {
     public Value createSunsetValue(LocalDateTime date) {
         return new SunsetValue(date);
     }
+
+    /**
+     * Creates a new {@link SolarIrradianceValue} object.
+     * @param solarIrradianceValue The solar irradiance value to set.
+     * @return A new instance of {@link SolarIrradianceValue} representing a solar irradiance measurement.
+     */
+    @Override
+    public Value createSolarIrradianceValue(double solarIrradianceValue) {
+        return new SolarIrradianceValue(solarIrradianceValue);
+    }
 }
 

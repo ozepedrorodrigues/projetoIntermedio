@@ -16,4 +16,5 @@ public interface ValueFactory {
     Value createPowerConsumptionValue();
     Value createSunriseValue(LocalDateTime date);
     Value createSunsetValue(LocalDateTime date);
+    Value createSolarIrradianceValue(double solarIrradianceValue);
 }
