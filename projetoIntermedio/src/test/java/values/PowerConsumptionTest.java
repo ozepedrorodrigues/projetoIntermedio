@@ -10,13 +10,13 @@ public class PowerConsumptionTest {
 
     @BeforeEach
     void setUp() {
-        powerConsumptionValue = new PowerConsumptionValue();
+        powerConsumptionValue = new PowerConsumptionValue(1);
     }
 
     @Test
     void defaultConstructor_getPowerConsumptionValue() {
         // Arrange
-        int expected = 0;
+        int expected = 1;
         // Act
         double result = powerConsumptionValue.getValue();
         // Assert
@@ -27,7 +27,7 @@ public class PowerConsumptionTest {
     void toValue_Valid() {
         // Arrange
         PowerConsumptionValue currentReading = new PowerConsumptionValue(0);
-        String expected = "0";
+        String expected = "1.0";
         // Act
         String result = currentReading.valueToString();
         // Assert
