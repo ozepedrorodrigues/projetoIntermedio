@@ -288,5 +288,5 @@ class AddSensorToDeviceControllerTest {
         assertThrows(NullPointerException.class, () ->
                 controller.addSensorToExistingDevice(invalidRoomName, invalidDeviceName, invalidSensorModel));
     }
-
 }
+
