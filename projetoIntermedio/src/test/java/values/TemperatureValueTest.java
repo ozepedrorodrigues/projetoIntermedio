@@ -12,7 +12,7 @@ class TemperatureValueTest {
 
     @BeforeEach
     void setUp() {
-        temperatureValue = new TemperatureValue();
+        temperatureValue = new TemperatureValue(25);
     }
 
 
@@ -23,9 +23,9 @@ class TemperatureValueTest {
     @Test
     void defaultConstructor_getTemperatureValue() {
         // Arrange
-        double expected = 25;    // 25 degrees Celsius, for now is a default value.
+        double expected = 25;
         // Act
-        double result = temperatureValue.getTemperatureValue();
+        double result = temperatureValue.getValue();
         // Assert
         assertEquals(expected, result, 0.01);
     }
@@ -37,10 +37,9 @@ class TemperatureValueTest {
     @Test
     void toValue_Valid() {
         // Arrange
-        TemperatureValue currentReading = new TemperatureValue();
-        String expected = "25.0";    // 25 degrees Celsius, for now is a default value.
+        String expected = "25.0";
         // Act
-        String result = currentReading.valueToString();
+        String result = temperatureValue.valueToString();
         // Assert
         assertEquals(expected, result);
     }

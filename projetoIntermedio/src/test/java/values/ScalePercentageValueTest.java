@@ -45,10 +45,9 @@ class ScalePercentageValueTest {
     @Test
     void toValue_Valid() {
         // Arrange
-        ScalePercentageValue currentReading = new ScalePercentageValue(50);
         String expected = "50";
         // Act
-        String result = currentReading.valueToString();
+        String result = scalePercentageValue.valueToString();
         // Assert
         assertEquals(expected, result);
     }
