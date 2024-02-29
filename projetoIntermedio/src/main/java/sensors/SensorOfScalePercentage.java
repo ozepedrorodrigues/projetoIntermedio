@@ -33,7 +33,6 @@ public class SensorOfScalePercentage implements Sensor {
     /**
      * Constructor for the SensorOfScalePercentage class.
      *
-     * @param valueFactory the ValueFactory of the sensor.
      * @throws IllegalArgumentException if the valueFactory is invalid.
      */
     public SensorOfScalePercentage() {
