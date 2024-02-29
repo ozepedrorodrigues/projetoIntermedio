@@ -25,10 +25,10 @@ class SensorOfOnOffTest {
         valueFactoryDouble = mock(ValueFactory.class);
     }
 
-    /**
+  /*  *//**
      * Tests the behavior of the SensorOfOnOff constructor when provided with an invalid ValueFactory.
      * Verifies that an IllegalArgumentException is thrown with the expected error message.
-     */
+     *//*
     @Test
     void testConstructorInvalidValueFactory() {
         // Arrange
@@ -41,7 +41,7 @@ class SensorOfOnOffTest {
 
         // Assert
         assertEquals(expectedMessage, resultMessage);
-    }
+    }*/
 
     /**
      * Tests the behavior of the getType method of SensorOfOnOff class.
@@ -51,7 +51,7 @@ class SensorOfOnOffTest {
     void testGetType() {
         // Arrange
         SensorType expected = SensorType.ON_OFF;
-        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff(valueFactoryDouble);
+        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
 
         // Act
         SensorType result = sensorOfOnOff.getType();
@@ -68,7 +68,7 @@ class SensorOfOnOffTest {
     void testGetDefaultId() {
         // Arrange
         int expected = 0;
-        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff(valueFactoryDouble);
+        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
 
         // Act;
         int result = sensorOfOnOff.getId();
@@ -85,7 +85,7 @@ class SensorOfOnOffTest {
     void testGetIdAndSetId() {
         // Arrange
         int expected = 10;
-        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff(valueFactoryDouble);
+        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
 
         // Act;
         sensorOfOnOff.setId(expected);
@@ -102,7 +102,7 @@ class SensorOfOnOffTest {
     @Test
     void testGetValue() {
         // Arrange
-        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff(valueFactoryDouble);
+        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
         Value valueDouble = mock(Value.class);
         boolean defaultValue = true;
 
@@ -123,7 +123,7 @@ class SensorOfOnOffTest {
     @Test
     void testGetValueWithValueToString() {
         // Arrange
-        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff(valueFactoryDouble);
+        SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
         Value valueDouble = mock(Value.class);
         boolean defaultValue = true;
         String expected = "mock string";

@@ -21,7 +21,7 @@ class OnOffValueTest {
         OnOffValue onOffValue = new OnOffValue(expected);
 
         // Act
-        boolean result = onOffValue.getOnOffValue();
+        boolean result = onOffValue.getValue();
 
         // Assert
         assertEquals(expected, result);
