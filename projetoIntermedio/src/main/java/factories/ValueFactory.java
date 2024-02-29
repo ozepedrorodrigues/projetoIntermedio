@@ -18,4 +18,5 @@ public interface ValueFactory {
     Value createSunsetValue(LocalDateTime date);
     Value createWindSpeedValue();
     Value createWindDirectionValue();
+    Value createSolarIrradianceValue();
 }
