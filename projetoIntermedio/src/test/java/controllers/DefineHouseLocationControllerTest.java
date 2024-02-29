@@ -35,7 +35,7 @@ class DefineHouseLocationControllerTest {
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(
                         new DimensionsFactoryImp(),
-                        new DeviceFactoryImp(new SensorFactoryImp(filepath, new ValueFactoryImp()))));
+                        new DeviceFactoryImp(new SensorFactoryImp(filepath))));
 
         mapperLocationDTO = new MapperLocationDTO();
         defineHouseLocationController = new DefineHouseLocationController(house, mapperLocationDTO);
