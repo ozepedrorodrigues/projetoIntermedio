@@ -1,16 +1,42 @@
 package values;
 
-public class WindDirectionValue implements Value {
-    private  double windDirection;
+/**
+ * Representes a specific value of wind direction. Instances of this class
+ * encapsulate a wind direction value and provide methods to retrieve and represent
+ * the wind direction.
+ */
 
-    public WindDirectionValue(double windDirection) {
+public class WindDirectionValue implements Value {
+
+    /**
+     * The value of the sensor.
+     */
+    private  int windDirection;
+
+    /**
+     * Constructs a new instance of the WindDirectionValue class
+     * with
+     * the wind direction value initialized to an undefined state.
+     * @param windDirection The wind direction value.
+     */
+    public WindDirectionValue(int windDirection) {
         this.windDirection = windDirection; // default value
     }
 
+    /**
+     * Gets the current wind direction value.
+     *
+     * @return The current wind direction value.
+     */
     @Override
-    public Double getValue() {
+    public Integer getValue() {
         return windDirection;
     }
+
+    /**
+    * Converts the wind direction value to a string representation.
+    * @return A string representation of the wind direction value.
+     */
 
     public String valueToString() {
         return String.valueOf(windDirection);
