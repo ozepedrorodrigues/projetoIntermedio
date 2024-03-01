@@ -1,7 +1,6 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -76,7 +75,7 @@ class SensorOfSunriseTest {
         SensorOfSunrise sensorOfSunrise = new SensorOfSunrise();
         LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
         //Act
-        Value result = sensorOfSunrise.getValue();
+        Value<LocalDateTime> result = sensorOfSunrise.getValue();
         //Assert
         assertEquals(expected.toString(), result.valueToString());
     }
@@ -96,7 +95,7 @@ class SensorOfSunriseTest {
             SensorOfSunrise sensorOfSunrise1 = new SensorOfSunrise();
 
             //Act
-            Value result = sensorOfSunrise1.getValue(localDate);
+            Value<LocalDateTime> result = sensorOfSunrise1.getValue(localDate);
             //Assert
             List<Value> values = valueDouble.constructed();
             assertEquals(1, values.size());
