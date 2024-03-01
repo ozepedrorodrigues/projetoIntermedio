@@ -89,10 +89,10 @@ class CatalogueTest {
     }
 
     /**
-     * Test to verify that the getSensorCatalogue method returns a list with the same size of the one in config.properties.
+     * Test to verify that the getSensorsCatalogue method returns a list with the same size of the one in config.properties.
      */
     @Test
-    void getSensorCatalogue() throws InstantiationException {
+    void getSensorsCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 10;
@@ -103,15 +103,15 @@ class CatalogueTest {
     }
 
     /**
-     * Test to verify that the getActuatorCatalogue method returns a list with the same size of the one in config.properties.
+     * Test to verify that the getActuatorsCatalogue method returns a list with the same size of the one in config.properties.
      */
     @Test
-    void getActuatorCatalogue() throws InstantiationException {
+    void getActuatorsCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 10;
+        int expectedSize = 0;
         //Act
-        List<String> result = catalogue.getActuatorCatalogue();
+        List<String> result = catalogue.getActuatorsCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
     }
@@ -166,6 +166,57 @@ class CatalogueTest {
         //Assert
         assertEquals(expectedSize, result.size());
     }
+    /**
+     * Test to verify that the getActuatorTypeList method returns list of unique actuator type.
+     */
+    @Test
+    void getActuatorTypeslistOfUniqueSensorType() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        catalogue.addActuatorType(ActuatorType.LIMITER);
+        int expectedSize = 1;
+        ActuatorType expected = ActuatorType.LIMITER;
+        //Act
+        List<ActuatorType> result = catalogue.getActuatorTypes();
+        //Assert
+        assertEquals(expectedSize, result.size());
+        assertEquals(expected, result.get(0));
+    }
+
+    /**
+     * Test to verify that the getActuatorTypeList method returns list of two actuator types.
+     */
+    @Test
+    void getActuatorTypesListOfTwoSensorTypes() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        catalogue.addActuatorType(ActuatorType.ONOFFSWITCH);
+        catalogue.addActuatorType(ActuatorType.BLINDSMANAGER);
+        int expectedSize = 2;
+        ActuatorType expected0 = ActuatorType.ONOFFSWITCH;
+        ActuatorType expected1 = ActuatorType.BLINDSMANAGER;
+        //Act
+        List<ActuatorType> result = catalogue.getActuatorTypes();
+        //Assert
+        assertEquals(expectedSize, result.size());
+        assertEquals(expected0, result.get(0));
+        assertEquals(expected1, result.get(1));
+    }
+
+    /**
+     * Test to verify that the getActuatorTypeList method returns an empty list when is empty.
+     */
+    @Test
+    void getActuatorTypesEmptyList() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        int expectedSize = 0;
+        //Act
+        List<ActuatorType> result = catalogue.getActuatorTypes();
+        //Assert
+        assertEquals(expectedSize, result.size());
+    }
+
 
 
 }

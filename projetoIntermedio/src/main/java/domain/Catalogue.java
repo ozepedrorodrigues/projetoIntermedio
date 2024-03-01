@@ -9,14 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Catalog class is used to manage a list of sensors and available sensor types.
+ * The Catalog class is used to manage a list of sensors and actuators, and available sensor and actuator types.
  */
 public class Catalogue {
+
     /**
      * A list of sensor types.
      */
     private List<SensorType> sensorTypes = new ArrayList<>();
 
+    /**
+     * A list of actuator types.
+     */
     private List<ActuatorType> actuatorTypes = new ArrayList<>();
 
     /**
@@ -25,6 +29,10 @@ public class Catalogue {
      */
     private List<String> sensorClassList;
 
+    /**
+     * The list of configured actuators in config.properties file.
+     * This is the list of actuators available to be used in runtime.
+     */
     private List<String> actuatorClassList;
 
     /**
@@ -44,7 +52,7 @@ public class Catalogue {
             this.sensorClassList = List.of(arrayStringClassesSensors);
 
             String[] arrayStringClassesActuators = configuration.getStringArray("actuator");
-            this.actuatorClassList = List.of(arrayStringClassesSensors);
+            this.actuatorClassList = List.of(arrayStringClassesActuators);
 
         } catch (ConfigurationException e) {
             throw new InstantiationException("Wrong file path name.");
@@ -67,6 +75,11 @@ public class Catalogue {
         return sensorType;
     }
 
+    /**
+     * Method to add actuator type to the catalogue
+     * @param actuatorType The actuator type to add
+     * @return The added actuator type. Null if none is added.
+     */
     public ActuatorType addActuatorType(ActuatorType actuatorType) {
         for(ActuatorType actuatorType1 : actuatorTypes){
             if(actuatorType.equals(actuatorType1)){
@@ -87,6 +100,11 @@ public class Catalogue {
         return List.copyOf(sensorClassList);
     }
 
+    /**
+     * Returns the list of actuators in the catalogue.
+     *
+     * @return immutable list of actuators.
+     */
     public List<String> getActuatorsCatalogue() {
         return List.copyOf(actuatorClassList);
     }
@@ -100,6 +118,11 @@ public class Catalogue {
         return List.copyOf(sensorTypes);
     }
 
+    /**
+     * Returns the available actuator types in the catalogue.
+     *
+     * @return immutable list of available actuator types in the catalogue.
+     */
     public List<ActuatorType> getActuatorTypes() {
         return List.copyOf(actuatorTypes);
     }
