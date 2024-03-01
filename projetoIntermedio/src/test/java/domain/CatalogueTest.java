@@ -6,6 +6,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This Test class represents a group of tests to the class Catalogue.
+ */
 class CatalogueTest {
 
     /**

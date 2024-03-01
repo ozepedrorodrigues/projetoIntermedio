@@ -8,6 +8,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * This class represents a sunrise sensor.
+ * It implements the Sensor interface.
+ * The sensor has an ID, a type, and a value.
+ * The type is always SensorType.SUNRISE, and the value is a SunriseValue.
+ * The ID can be set using the setID method.
+ */
 public class SensorOfSunrise implements Sensor {
 
     /**
@@ -28,7 +35,6 @@ public class SensorOfSunrise implements Sensor {
 
     /**
      * Constructor
-     *
      */
     public SensorOfSunrise() {
         this.type = SensorType.SUNRISE;
@@ -62,14 +68,18 @@ public class SensorOfSunrise implements Sensor {
         return type;
     }
 
-
+    /**
+     * Returns the value from the sensor for today.
+     *
+     * @return the value from the sensor
+     */
     public Value getValue() {
         LocalDate dateDate = LocalDate.now();
         return getValue(dateDate);
     }
 
     /**
-     * Returns the value from the sensor.
+     * Returns the value from the sensor for a specified date.
      *
      * @return the value from the sensor
      */
