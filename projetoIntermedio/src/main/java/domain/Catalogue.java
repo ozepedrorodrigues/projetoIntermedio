@@ -15,7 +15,7 @@ public class Catalogue {
     /**
      * A list of sensor types.
      */
-    private List<SensorType> sensorTypeList = new ArrayList<>();
+    private List<SensorType> sensorTypes = new ArrayList<>();
 
     /**
      * The list of configured sensors in config.properties file.
@@ -51,12 +51,12 @@ public class Catalogue {
      * @return The added sensor type. Null if none is added.
      */
     public SensorType addSensorType(SensorType sensorType) {
-        for(SensorType sensorType1 : sensorTypeList){
+        for(SensorType sensorType1 : sensorTypes){
             if(sensorType.equals(sensorType1)){
                 return null;
             }
         }
-        sensorTypeList.add(sensorType);
+        sensorTypes.add(sensorType);
         return sensorType;
     }
 
@@ -75,8 +75,8 @@ public class Catalogue {
      *
      * @return immutable list of available sensor types in the catalogue.
      */
-    public List<SensorType> getSensorTypeList() {
-        return List.copyOf(sensorTypeList);
+    public List<SensorType> getSensorTypes() {
+        return List.copyOf(sensorTypes);
     }
 
 }
