@@ -15,15 +15,24 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * This class contains unit tests for the SensorOfSunrise class.
+ */
 class SensorOfSunriseTest {
 
     SensorOfSunrise sensorOfSunrise;
 
+    /**
+     * This method sets up the testing environment before each test.
+     */
     @BeforeEach
     void setUp () {
         sensorOfSunrise = new SensorOfSunrise();
     }
 
+    /**
+     * Test to check if the constructor of the SensorOfSunrise class is not null.
+     */
     @Test
     void constructor() {
         //Act
@@ -32,7 +41,9 @@ class SensorOfSunriseTest {
         assertNotNull(result);
     }
 
-
+    /**
+     * Test to verify that the getId method returns the correct id of the sensor of sunrise.
+     */
     @Test
     void getId() {
         //Arrange
@@ -43,6 +54,9 @@ class SensorOfSunriseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test to verify that the method sets the ID of the sensor correctly.
+     */
     @Test
     void setId() {
         //Arrange
@@ -53,6 +67,9 @@ class SensorOfSunriseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test to verify that the getType method returns the correct type of the sensor of sunrise.
+     */
     @Test
     void getType() {
         //Arrange
@@ -63,6 +80,9 @@ class SensorOfSunriseTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test to verify that the getValue method returns the correct value for today.
+     */
     @Test
     void getValueCurrentDate() {
         //Arrange
@@ -80,15 +100,18 @@ class SensorOfSunriseTest {
         assertEquals(expected.toString(), result.valueToString());
     }
 
+    /**
+     * Test to verify that the getValue method returns the correct value for a specified date.
+     */
     @Test
     void getValueGivenCalendarDate() {
         //Arrange
+        int expectedSize = 1;
+        String defaultValue = "2023-01-10T10:00";
         LocalDate localDate = LocalDate.of(2023,1,10);
-        SunriseValue sunriseValueMock = mock(SunriseValue.class);
-        when(sunriseValueMock.valueToString()).thenReturn("2023-01-10T10:00");
 
         try(MockedConstruction<SunriseValue> valueDouble = mockConstruction(SunriseValue.class, (mock, context) -> {
-            when(mock.valueToString()).thenReturn(String.valueOf(sunriseValueMock));
+            when(mock.valueToString()).thenReturn(defaultValue);
         })) {
             LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
 
@@ -98,7 +121,7 @@ class SensorOfSunriseTest {
             Value result = sensorOfSunrise1.getValue(localDate);
             //Assert
             List<SunriseValue> values = valueDouble.constructed();
-            assertEquals(1, values.size());
+            assertEquals(expectedSize, values.size());
             assertEquals(expected.toString(), valueDouble.constructed().get(0).valueToString());
             assertEquals(expected.toString(), result.valueToString());
 
