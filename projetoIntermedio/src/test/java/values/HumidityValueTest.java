@@ -11,18 +11,19 @@ class HumidityValueTest {
 
     @BeforeEach
     void setUp() {
-        humidityValue = new HumidityValue();
+        humidityValue = new HumidityValue(50);
     }
 
     /**
-     * Verifies that the getHumidityValue method returns the expected humidity value.
+     * Verifies the HumidityValue constructor sets the value correctly.
+     * Verifies the getValue method returns the expected humidity value.
      */
     @Test
     void defaultConstructor_getHumidityValue() {
         // Arrange
-        double expected = 0.0;    // No external setting of value, assuming a valid default value
+        double expected = 50;
         // Act
-        double result = humidityValue.getHumidityValue();
+        double result = humidityValue.getValue();
         // Assert
         assertEquals(expected, result, 0.01);
     }
@@ -33,10 +34,9 @@ class HumidityValueTest {
     @Test
     void toValue_Valid() {
         // Arrange
-        HumidityValue currentReading = new HumidityValue();
-        String expected = "0";    // No external setting of value, assuming a valid default value
+        String expected = "50.0";
         // Act
-        String result = currentReading.valueToString();
+        String result = humidityValue.valueToString();
         // Assert
         assertEquals(expected, result);
     }
