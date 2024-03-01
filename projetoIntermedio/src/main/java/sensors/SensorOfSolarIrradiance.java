@@ -7,6 +7,10 @@ import values.Value;
 
 /**
  * This class represents a sensor of solar irradiance.
+ * It implements the Sensor interface.
+ * The sensor has an ID, a type, and a value.
+ * The type is always SensorType.SOLAR_IRRADIANCE, and the value is a SolarIrradianceValue.
+ * The ID can be set using the setID method.
  */
 public class SensorOfSolarIrradiance {
 
@@ -14,26 +18,14 @@ public class SensorOfSolarIrradiance {
 
     private SensorType type;
 
-    private final Value DEFAULT = new SolarIrradianceValue(1200.0);
-
+    private Value DEFAULT = new SolarIrradianceValue(1200.0);
 
 
     /**
      * Constructor for the SensorOfSolarIrradiance class.
-     * @param valueFactory The ValueFactory instance used to create values for this sensor.
-     * @throws IllegalArgumentException If the provided valueFactory is null.
      */
-    public SensorOfSolarIrradiance(ValueFactory valueFactory) {
+    public SensorOfSolarIrradiance() {
         this.type = SensorType.SOLAR_IRRADIANCE;
-    }
-
-    /**
-     * Checks if the provided ValueFactory instance is valid.
-     * @param valueFactory The ValueFactory instance to check.
-     * @return true if the provided ValueFactory instance is not null, false otherwise.
-     */
-    private boolean validValueFactory(ValueFactory valueFactory) {
-        return valueFactory != null;
     }
 
 
@@ -47,10 +39,11 @@ public class SensorOfSolarIrradiance {
     /**
      * Sets the ID of the sensor.
      * @param newId The new ID to set.
-     * @return the updated ID of the sensor.
+     * @return the ID of the sensor.
      */
     public int setId(int newId) {
-        return id = newId;
+        this.id = newId;
+        return id;
     }
 
     /**
