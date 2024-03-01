@@ -2,7 +2,6 @@ package sensors;
 
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.TemperatureValue;
 import values.Value;
 
@@ -28,7 +27,6 @@ public class SensorOfTemperature implements Sensor {
      * The default value of the sensor.
      */
     private Value DEFAULT = new TemperatureValue(25.0);
-
 
     /**
      * Constructor for the SensorOfTemperature class.

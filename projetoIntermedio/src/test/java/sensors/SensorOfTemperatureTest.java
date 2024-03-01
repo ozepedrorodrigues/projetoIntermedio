@@ -1,15 +1,12 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import sensors.SensorOfTemperature;
+import values.TemperatureValue;
 import values.Value;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -34,9 +31,7 @@ class SensorOfTemperatureTest {
 
 
     /**
-     * Tests the valid construction of the SensorOfTemperature class by giving it a invalid value factory.
-     * Verifies that the constructor throws an IllegalArgumentException when given an invalid value factory.
-     * The value factory is invalid if it is null.
+     * Tests the valid construction of the SensorOfTemperature class.
      */
     @Test
     void testConstructor() {
@@ -92,23 +87,26 @@ class SensorOfTemperatureTest {
     }
 
     /**
-     * Tests the getValue method of the SensorOfTemperature class.
-     * Verifies that the method returns the value from the sensor correctly.
+     * Tests the behavior of the getValue method of SensorOfTemperature class.
+     * Verifies that the method returns the current temperature value of the sensor.
      */
     @Test
-    void getValue() {
+    void testGetValue() {
         // Arrange
+        int expectedSize = 1;
+        double defaultValue = 25.0;
+        try (MockedConstruction<TemperatureValue> valueDouble = mockConstruction(TemperatureValue.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(defaultValue);})) {
 
-        try (MockedConstruction<Value> value2 = mockConstruction(Value.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(25.0);
-        })) {
             SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
+
             // Act
             Value result = sensorOfTemperature.getValue();
-            List<Value> values = value2.constructed();
+
             // Assert
-            assertEquals(1, values.size());
-            assertEquals(25.0, result.getValue());
+            List<TemperatureValue> values = valueDouble.constructed();
+            assertEquals(expectedSize, values.size());
+            assertEquals(defaultValue, result.getValue());
         }
     }
 }

@@ -1,14 +1,12 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
+import values.ScalePercentageValue;
 import values.Value;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -32,9 +30,7 @@ class SensorOfScalePercentageTest {
     }
 
     /**
-     * Tests the valid construction of the SensorOfScalePercentage class by giving it an invalid value factory.
-     * Verifies that the constructor throws an IllegalArgumentException when given an invalid value factory.
-     * The value factory is invalid if it is null.
+     * Tests the valid construction of the SensorOfScalePercentage class.
      */
     @Test
     void testConstructor() {
@@ -51,7 +47,7 @@ class SensorOfScalePercentageTest {
     @Test
     void getIdDefault() {
         // Arrange
-        int idExpected = 50;
+        int idExpected = 0;
         SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
         // Act
         int result = sensorOfScalePercentage.getId();
@@ -94,18 +90,22 @@ class SensorOfScalePercentageTest {
      * Verifies that the method returns the value of the sensor correctly.
      */
     @Test
-    void getValue() {
+    void testGetValue() {
         // Arrange
-        try (MockedConstruction<Value> value2 = mockConstruction(Value.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(25.0);
-        })) {
+        int expectedSize = 1;
+        int defaultValue = 50;
+        try (MockedConstruction<ScalePercentageValue> valueDouble = mockConstruction(ScalePercentageValue.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(defaultValue);})) {
+
             SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
+
             // Act
             Value result = sensorOfScalePercentage.getValue();
-            List<Value> values = value2.constructed();
+
             // Assert
-            assertEquals(1, values.size());
-            assertEquals(25.0, result.getValue());
+            List<ScalePercentageValue> values = valueDouble.constructed();
+            assertEquals(expectedSize, values.size());
+            assertEquals(defaultValue, result.getValue());
         }
     }
 }

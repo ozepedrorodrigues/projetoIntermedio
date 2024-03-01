@@ -1,7 +1,6 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.ScalePercentageValue;
 import values.Value;
 
@@ -27,7 +26,6 @@ public class SensorOfScalePercentage implements Sensor {
      * The value of the sensor.
      */
     private Value DEFAULT = new ScalePercentageValue(50);
-
 
 
     /**

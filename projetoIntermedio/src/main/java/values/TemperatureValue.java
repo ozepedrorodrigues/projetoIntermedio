@@ -1,5 +1,4 @@
 package values;
-import sensors.SensorOfTemperature;
 /**
  * Represents a specific value for temperature readings. Instances of this class
  * encapsulate a temperature value and provide methods to retrieve and represent

@@ -18,15 +18,14 @@ class ScalePercentageValueTest {
     /**
      * Initializes the scalePercentageValue object for the tests.
      */
-
     @BeforeEach
     void setUp() {
         scalePercentageValue = new ScalePercentageValue(50);
     }
 
-
     /**
-     * Verifies that the getScalePercentageValue method returns the expected scale percentage value.
+     * Verifies the ScalePercentageValue constructor sets the value correctly.
+     * Verifies the getValue method returns the expected scale percentage value.
      */
     @Test
     void defaultConstructor_getScalePercentageValue() {
@@ -38,9 +37,8 @@ class ScalePercentageValueTest {
         assertEquals(expected, result, 0.01);
     }
 
-
     /**
-     * Verifies that the toValue method generates the correct string representation with valid input.
+     * Verifies that the toValue method generates the correct string representation.
      */
     @Test
     void toValue_Valid() {
