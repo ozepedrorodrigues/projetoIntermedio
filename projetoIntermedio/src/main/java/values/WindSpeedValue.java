@@ -6,6 +6,7 @@ package values;
  * the wind speed.
  */
 
+
 public class WindSpeedValue implements Value {
 
     /**
