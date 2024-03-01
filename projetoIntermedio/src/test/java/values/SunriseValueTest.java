@@ -28,18 +28,6 @@ class SunriseValueTest {
     }
 
     @Test
-    void getSunriseValue() {
-        //Arrange
-        SunriseValue sunriseValue = new SunriseValue(localDateTime);
-        LocalDateTime expected = localDateTime;
-        //Act
-        String result = sunriseValue.valueToString();
-        //Assert
-        assertEquals(expected, result);
-
-    }
-
-    @Test
     void valueToString() {
         //Arrange
         SunriseValue sunriseValue = new SunriseValue(localDateTime);
