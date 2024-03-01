@@ -9,12 +9,13 @@ import values.Value;
  * This class represents a humidity sensor.
  * It implements the Sensor interface and has a type.
  * The sensor has an ID, a type, and a value.
- * The type is always SensorType. The value is a HumidityValue.
+ * The type is always SensorType.HUMIDITY. The value is a HumidityValue.
  * The ID can be set using the setID method.
- *
- *
  */
 public class SensorOfHumidity implements Sensor {
+    /**
+     * The ID of the sensor.
+     */
     private int id;
     /**
      * The type of the sensor.
@@ -22,7 +23,7 @@ public class SensorOfHumidity implements Sensor {
     private SensorType type;
 
     /**
-     * The current reading from the sensor.
+     * The default value of the sensor.
      */
 
     private Value DEFAULT = new HumidityValue(25.0);
@@ -31,7 +32,7 @@ public class SensorOfHumidity implements Sensor {
      * Constructs a new SensorOfHumidity with a HumidityValue and sets the type to SensorType.HUMIDITY.
      */
     public SensorOfHumidity() {
-            this.type = SensorType.HUMIDITY;
+        this.type = SensorType.HUMIDITY;
     }
 
     /**
@@ -39,16 +40,17 @@ public class SensorOfHumidity implements Sensor {
      *
      * @return the ID of the sensor
      */
-    public int getId () {
+    public int getId() {
         return id;
     }
+
     /**
      * Sets the ID of the sensor.
      *
-     * @param id the new ID of the sensor
+     * @param newId the new ID of the sensor
      */
-    public int setId ( int id){
-        this.id = id;
+    public int setId(int newId) {
+        this.id = newId;
         return id;
     }
 
@@ -57,7 +59,7 @@ public class SensorOfHumidity implements Sensor {
      *
      * @return the type of the sensor
      */
-    public SensorType getType () {
+    public SensorType getType() {
         return type;
 
     }
@@ -67,7 +69,7 @@ public class SensorOfHumidity implements Sensor {
      *
      * @return the current reading from the sensor
      */
-    public Value getValue () {
-        return this.DEFAULT;
+    public Value getValue() {
+        return this.DEFAULT; // for now is a default value.
     }
 }

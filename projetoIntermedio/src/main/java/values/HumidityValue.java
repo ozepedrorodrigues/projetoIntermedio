@@ -10,11 +10,17 @@ package values;
  */
 public class HumidityValue implements Value {
 
+    /**
+     * The value of the sensor.
+     */
+
     private double humidityValue;
 
     /**
-     * Constructs a new instance of the HumidityValue class.
+     * Constructs a new instance of the HumidityValue class
      * with the humidity value initialized to an undefined state.
+     *
+     * @param humidityValue The humidity value.
      */
     public HumidityValue(double humidityValue) {
         this.humidityValue = humidityValue;
