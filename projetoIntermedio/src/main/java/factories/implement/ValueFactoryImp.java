@@ -40,16 +40,6 @@ public class ValueFactoryImp implements ValueFactory {
     }
 
     /**
-     * Creates a new {@link ApertureValue} object.
-     *
-     * @return A new instance of {@link ApertureValue} representing an aperture setting.
-     */
-    @Override
-    public Value createApertureValue() {
-        return new ApertureValue();
-    }
-
-    /**
      * Creates a new {@link OnOffValue} object.
      *
      * @return A new instance of {@link OnOffValue} representing an on/off state.
@@ -59,24 +49,9 @@ public class ValueFactoryImp implements ValueFactory {
         return new OnOffValue(value);
     }
 
-    /**
-     * Creates a new {@link AveragePowerValue} object.
-     *
-     * @return A new instance of {@link AveragePowerValue} representing an average power measurement.
-     */
-    @Override
-    public Value createAveragePowerValue() {
-        return new AveragePowerValue();
-    }
-
     @Override
     public Value createScalePercentageValue() {
         return new ScalePercentageValue();
-    }
-
-    @Override
-    public Value createEnergyConsumptionValue() {
-        return new EnergyConsumptionValue();
     }
 
     @Override
