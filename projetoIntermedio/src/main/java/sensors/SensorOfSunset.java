@@ -1,7 +1,6 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.SunsetValue;
 import values.Value;
 
@@ -21,8 +20,7 @@ public class SensorOfSunset implements Sensor {
     /**
      * The default value of the sensor.
      */
-    private Value DEFAULT = new SunsetValue(LocalDateTime.of(LocalDate.now(), LocalTime.of(18,0)));
-
+    private Value<LocalDateTime> value;
     /**
      * Constructor for the SensorOfSunset class.
      */
@@ -80,7 +78,9 @@ public class SensorOfSunset implements Sensor {
      * @param date The date to retrieve the Sunset value from.
      * @return The Sunset value as a Value object.
      */
-    public Value getValue(LocalDate date) {
-        return this.DEFAULT;
+    public Value<LocalDateTime> getValue(LocalDate date) {
+        LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(10, 0));
+        this.value = new SunsetValue(dateTime);
+        return this.value;
     }
 }
