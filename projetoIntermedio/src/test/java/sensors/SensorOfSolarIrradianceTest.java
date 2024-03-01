@@ -1,82 +1,111 @@
-//package sensors;
-//
-//import domain.SensorType;
-//import factories.ValueFactory;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import values.Value;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.mock;
-//
-///**
-// * This class contains unit tests for the SensorOfSolarIrradiance class.
-// */
-//class SensorOfSolarIrradianceTest {
-//
-//    /**
-//     * Mock of the ValueFactory class.
-//     */
-//    ValueFactory valueFactoryMock;
-//    /**
-//     * Instance of the SensorOfSolarIrradiance class to be tested.
-//     */
-//    SensorOfSolarIrradiance sensorOfSolarIrradiance;
-//
-//    /**
-//     * Sets up the test environment before each test method.
-//     */
-//    @BeforeEach
-//    void setUp() {
-//        valueFactoryMock = mock(ValueFactory.class);
-//        sensorOfSolarIrradiance = new SensorOfSolarIrradiance(valueFactoryMock);
-//    }
-//
-//    /**
-//     * Test for the SensorOfSolarIrradiance constructor.
-//     */
-//    @Test
-//    void constructor() {
-//        assertNotNull(sensorOfSolarIrradiance);
-//    }
-//
-//    /**
-//     * Test for the SensorOfSolarIrradiance constructor when the ValueFactory parameter is null.
-//     */
-//    @Test
-//    void constructor_nullValueFactory() {
-//        assertThrows(IllegalArgumentException.class, () -> new SensorOfSolarIrradiance(null));
-//    }
-//
-//    /**
-//     * Test for the getId method of the SensorOfSolarIrradiance class.
-//     */
-//    @Test
-//    void getId() {
-//        assertEquals(0, sensorOfSolarIrradiance.getId());
-//    }
-//
-//    /**
-//     * Test for the setId method of the SensorOfSolarIrradiance class.
-//     */
-//    @Test
-//    void setId() {
-//        sensorOfSolarIrradiance.setId(10);
-//        assertEquals(10, sensorOfSolarIrradiance.getId());
-//    }
-//
-//    @Test
-//    void getType() {
-//        assertNotNull(sensorOfSolarIrradiance);
-//        assertEquals(SensorType.SOLAR_IRRADIANCE, sensorOfSolarIrradiance.getType());
-//    }
-//
-//    /**
-//     * Test for the getValue method of the SensorOfSolarIrradiance class.
-//     */
-//    @Test
-//    void getValue() {
-//        Value value = sensorOfSolarIrradiance.getValue();
-//        assertNull(value);
-//    }
-//}
+package sensors;
+
+import domain.SensorType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
+import values.SolarIrradianceValue;
+import values.Value;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+/**
+ * This class contains unit tests for the SensorOfSolarIrradiance class.
+ */
+class SensorOfSolarIrradianceTest {
+
+    Value valueDouble;
+
+    /**
+     * Sets up mock objects and valid data for testing the SensorOfSolarIrradiance class.
+     */
+    @BeforeEach
+    void setUp() {
+        valueDouble = mock(Value.class);
+    }
+
+    /**
+     * Test for the SensorOfSolarIrradiance constructor.
+     */
+    @Test
+    void testConstructor() {
+        //Arrange + Act
+        SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
+        //Assert
+        assertNotNull(sensorOfSolarIrradiance);
+    }
+
+    /**
+     * Test for the getId method of the SensorOfSolarIrradiance class.
+     * Verifies that the method returns the ID of the sensor correctly.
+     */
+    @Test
+    void testGetIdDefault() {
+        // Arrange
+        int idExpected = 0;
+        SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
+        // Act
+        int result = sensorOfSolarIrradiance.getId();
+        // Assert
+        assertEquals(idExpected, result);
+
+
+    }
+
+    /**
+     * Test for the setId method of the SensorOfSolarIrradiance class.
+     * Verifies that the method sets the ID of the sensor correctly.
+     */
+    @Test
+    void testSetId() {
+        // Arrange
+        int idExpected = 1;
+        SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
+        // Act
+        sensorOfSolarIrradiance.setId(idExpected);
+        int result = sensorOfSolarIrradiance.getId();
+        // Assert
+        assertEquals(idExpected, result);
+    }
+
+    /**
+     * Test for the getType method of the SensorOfSolarIrradiance class.
+     * Verifies that the method returns the type of the sensor correctly.
+     */
+    @Test
+    void testGetType() {
+        // Arrange
+        SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
+        // Act
+        SensorType result = sensorOfSolarIrradiance.getType();
+        // Assert
+        assertEquals(SensorType.SOLAR_IRRADIANCE, result);
+    }
+
+    /**
+     * Test for the getValue method of the SensorOfSolarIrradiance class.
+     * Verifies that the method returns the value of the sensor correctly.
+     */
+    @Test
+    void testGetValue() {
+        //Arrange
+        int expectedSize = 1;
+        double defaultValue = 1200.0;
+        try (MockedConstruction<SolarIrradianceValue> valueMockedConstruction = mockConstruction(SolarIrradianceValue.class, (mock, context) -> {
+            when(mock.getValue()).thenReturn(defaultValue);
+        })) {
+            SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
+            //Act
+            Value result = sensorOfSolarIrradiance.getValue();
+            //Assert
+            List<SolarIrradianceValue> values = valueMockedConstruction.constructed();
+            assertEquals(expectedSize, values.size());
+            assertEquals(defaultValue, result.getValue());
+        }
+
+    }
+}
+
