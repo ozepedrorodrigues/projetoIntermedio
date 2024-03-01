@@ -61,7 +61,7 @@ public class SensorFactoryImp implements SensorFactory {
     private boolean isValidSensorClassName(String sensorClassNamePath){
         boolean isValidSensorClassName = false;
 
-        for(String catalogueSensorClass : catalogue.getSensorCatalogue()) {
+        for(String catalogueSensorClass : catalogue.getSensorsCatalogue()) {
             if (sensorClassNamePath.equals(catalogueSensorClass)) {
                 isValidSensorClassName = true;
                 break;

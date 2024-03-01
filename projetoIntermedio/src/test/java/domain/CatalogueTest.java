@@ -89,20 +89,32 @@ class CatalogueTest {
     }
 
     /**
-     * Test to verify that the getCatalogue method returns a list with the same size of the one in config.properties.
+     * Test to verify that the getSensorCatalogue method returns a list with the same size of the one in config.properties.
      */
     @Test
-    void getCatalogue() throws InstantiationException {
+    void getSensorCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 10;
         //Act
-        List<String> result = catalogue.getSensorCatalogue();
+        List<String> result = catalogue.getSensorsCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
     }
 
-
+    /**
+     * Test to verify that the getActuatorCatalogue method returns a list with the same size of the one in config.properties.
+     */
+    @Test
+    void getActuatorCatalogue() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        int expectedSize = 10;
+        //Act
+        List<String> result = catalogue.getActuatorCatalogue();
+        //Assert
+        assertEquals(expectedSize, result.size());
+    }
 
     /**
      * Test to verify that the getSensorTypeList method returns list of unique sensor type.
