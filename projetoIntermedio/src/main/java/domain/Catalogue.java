@@ -17,16 +17,20 @@ public class Catalogue {
      */
     private List<SensorType> sensorTypes = new ArrayList<>();
 
+    private List<ActuatorType> actuatorTypes = new ArrayList<>();
+
     /**
      * The list of configured sensors in config.properties file.
      * This is the list of sensors available to be used in runtime.
      */
     private List<String> sensorClassList;
 
+    private List<String> actuatorClassList;
+
     /**
      * Catalogue constructor.
      * Loads the configurations from a given properties file.
-     * @param filePathname the path for the properties file where the available sensors are configured
+     * @param filePathname the path for the properties file where the available sensors and actuators are configured
      * @throws InstantiationException When the configuration file isn't found, an exception is thrown
      */
     public Catalogue(String filePathname) throws InstantiationException {
@@ -38,6 +42,9 @@ public class Catalogue {
 
             String[] arrayStringClassesSensors = configuration.getStringArray("sensor");
             this.sensorClassList = List.of(arrayStringClassesSensors);
+
+            String[] arrayStringClassesActuators = configuration.getStringArray("actuator");
+            this.actuatorClassList = List.of(arrayStringClassesSensors);
 
         } catch (ConfigurationException e) {
             throw new InstantiationException("Wrong file path name.");
@@ -60,14 +67,28 @@ public class Catalogue {
         return sensorType;
     }
 
+    public ActuatorType addActuatorType(ActuatorType actuatorType) {
+        for(ActuatorType actuatorType1 : actuatorTypes){
+            if(actuatorType.equals(actuatorType1)){
+                return null;
+            }
+        }
+        actuatorTypes.add(actuatorType);
+        return actuatorType;
+    }
+
 
     /**
      * Returns the list of sensors in the catalogue.
      *
      * @return immutable list of sensors.
      */
-    public List<String> getCatalogue() {
+    public List<String> getSensorCatalogue() {
         return List.copyOf(sensorClassList);
+    }
+
+    public List<String> getActuatorsCatalogue() {
+        return List.copyOf(actuatorClassList);
     }
 
     /**
@@ -77,6 +98,10 @@ public class Catalogue {
      */
     public List<SensorType> getSensorTypes() {
         return List.copyOf(sensorTypes);
+    }
+
+    public List<ActuatorType> getActuatorTypes() {
+        return List.copyOf(actuatorTypes);
     }
 
 }

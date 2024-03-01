@@ -61,6 +61,34 @@ class CatalogueTest {
     }
 
     /**
+     * Test to verify that the addActuatorType method returns the expected actuator type when it is possible to add.
+     */
+    @Test
+    void addActuatorType() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        ActuatorType expected = ActuatorType.ONOFFSWITCH;
+        //Act
+        ActuatorType result = catalogue.addActuatorType(ActuatorType.ONOFFSWITCH);
+        //Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test to verify that the addActuatorType method returns null when the actuator type added already exists.
+     */
+    @Test
+    void addActuatorTypeRepeatedActuatorType() throws InstantiationException {
+        //Arrange
+        Catalogue catalogue = new Catalogue("config.properties");
+        catalogue.addActuatorType(ActuatorType.LIMITER);
+        //Act
+        ActuatorType result = catalogue.addActuatorType(ActuatorType.LIMITER);
+        //Assert
+        assertNull(result);
+    }
+
+    /**
      * Test to verify that the getCatalogue method returns a list with the same size of the one in config.properties.
      */
     @Test
@@ -69,10 +97,12 @@ class CatalogueTest {
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 10;
         //Act
-        List<String> result = catalogue.getCatalogue();
+        List<String> result = catalogue.getSensorCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
     }
+
+
 
     /**
      * Test to verify that the getSensorTypeList method returns list of unique sensor type.
