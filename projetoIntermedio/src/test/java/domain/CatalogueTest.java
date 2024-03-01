@@ -82,7 +82,7 @@ class CatalogueTest {
         int expectedSize = 1;
         SensorType expected = SensorType.HUMIDITY;
         //Act
-        List<SensorType> result = catalogue.getSensorTypeList();
+        List<SensorType> result = catalogue.getSensorTypes();
         //Assert
         assertEquals(expectedSize, result.size());
         assertEquals(expected, result.get(0));
@@ -101,7 +101,7 @@ class CatalogueTest {
         SensorType expected0 = SensorType.HUMIDITY;
         SensorType expected1 = SensorType.TEMPERATURE;
         //Act
-        List<SensorType> result = catalogue.getSensorTypeList();
+        List<SensorType> result = catalogue.getSensorTypes();
         //Assert
         assertEquals(expectedSize, result.size());
         assertEquals(expected0, result.get(0));
@@ -117,7 +117,7 @@ class CatalogueTest {
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 0;
         //Act
-        List<SensorType> result = catalogue.getSensorTypeList();
+        List<SensorType> result = catalogue.getSensorTypes();
         //Assert
         assertEquals(expectedSize, result.size());
     }
