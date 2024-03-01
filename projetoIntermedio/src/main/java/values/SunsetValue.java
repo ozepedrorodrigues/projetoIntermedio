@@ -22,15 +22,6 @@ public class SunsetValue implements Value {
         this.sunsetValue = sunsetValue;
     }
 
-    /**
-     * Retrieves the LocalDateTime of the sunset.
-     *
-     * @return the LocalDateTime of the sunset.
-     */
-    @Override
-    public LocalDateTime getValue() {
-        return sunsetValue;
-    }
 
     /**
      * Converts the sunset value to a string representation.

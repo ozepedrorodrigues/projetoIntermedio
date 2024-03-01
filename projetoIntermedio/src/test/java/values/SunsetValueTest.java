@@ -29,7 +29,7 @@ class SunsetValueTest {
         SunsetValue sunsetValue = new SunsetValue(localDateTime);
         LocalDateTime expected = localDateTime;
         //Act
-        LocalDateTime result = sunsetValue.getValue();
+        String result = sunsetValue.valueToString();
         //Assert
         assertEquals(expected, result);
     }

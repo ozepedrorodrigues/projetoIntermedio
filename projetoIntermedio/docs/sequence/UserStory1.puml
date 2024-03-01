@@ -2,6 +2,12 @@
 
 autonumber
 
+title US01
+
+/'
+As an Administrator, I want to configure the location of the house.
+'/
+
 [o-> ":ConfigHouseLocationController" : configHouseLocation(LocationDTO)
 activate ":ConfigHouseLocationController"
 ":ConfigHouseLocationController" -> ":House": configLocation(LocationDTO)

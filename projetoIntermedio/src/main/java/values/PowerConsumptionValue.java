@@ -16,10 +16,6 @@ public class PowerConsumptionValue implements Value {
         this.powerConsumptionValue = powerConsumptionValue;
     }
 
-    @Override
-    public Double getValue() {
-        return powerConsumptionValue;
-    }
 
     /**
      * Converts the power consumption value to a string representation.

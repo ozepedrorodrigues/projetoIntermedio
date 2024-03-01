@@ -20,7 +20,7 @@ public class SensorOfSunset implements Sensor {
     /**
      * The default value of the sensor.
      */
-    private Value<LocalDateTime> value;
+    private Value value;
     /**
      * Constructor for the SensorOfSunset class.
      */
@@ -78,7 +78,7 @@ public class SensorOfSunset implements Sensor {
      * @param date The date to retrieve the Sunset value from.
      * @return The Sunset value as a Value object.
      */
-    public Value<LocalDateTime> getValue(LocalDate date) {
+    public Value getValue(LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(10, 0));
         this.value = new SunsetValue(dateTime);
         return this.value;

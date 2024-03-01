@@ -31,11 +31,11 @@ class WindSpeedValueTest {
     @Test
     void defaultConstructor_getWindSpeedValue() {
         // Arrange
-        double expected = 25;
+        String expected = "25.0";
         // Act
-        double result = windSpeedValue.getValue();
+        String result = windSpeedValue.toString();
         // Assert
-        assertEquals(expected, result, 0.01);
+        assertEquals(expected, result);
     }
 
     /**

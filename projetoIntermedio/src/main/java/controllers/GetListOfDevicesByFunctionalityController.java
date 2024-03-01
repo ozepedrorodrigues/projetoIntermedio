@@ -3,7 +3,7 @@ import domain.Device;
 import domain.House;
 import domain.SensorType;
 import dto.DeviceDTO;
-import mappers.MapperToGroupDeviceDTO;
+import mappers.DeviceGroupMapper;
 import java.util.List;
 import java.util.Map;
 
@@ -14,16 +14,16 @@ import java.util.Map;
 public class GetListOfDevicesByFunctionalityController {
 
     private House myHouse;
-    private MapperToGroupDeviceDTO mapper;
+    private DeviceGroupMapper mapper;
 
     /**
      * Constructs a new GetListOfDevicesByFunctionalityController with a specified House.
      *
      * @param house The House instance this controller will operate on to fetch devices.
      */
-    public GetListOfDevicesByFunctionalityController(House house,MapperToGroupDeviceDTO mapperToGroupDeviceDTO) {
+    public GetListOfDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
         this.myHouse = house;
-        this.mapper = mapperToGroupDeviceDTO;
+        this.mapper = deviceGroupMapper;
     }
 
     /**

@@ -1,7 +1,6 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.SunriseValue;
 import values.Value;
 
@@ -9,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class SensorOfSunrise implements Sensor{
+public class SensorOfSunrise implements Sensor {
 
     /**
      * The ID of the sensor.
@@ -24,7 +23,7 @@ public class SensorOfSunrise implements Sensor{
     /**
      * The value of the sensor.
      */
-    private Value<LocalDateTime> value;
+    private Value value;
 
 
     /**
@@ -64,7 +63,7 @@ public class SensorOfSunrise implements Sensor{
     }
 
 
-    public Value<LocalDateTime> getValue() {
+    public Value getValue() {
         LocalDate dateDate = LocalDate.now();
         return getValue(dateDate);
     }
@@ -74,7 +73,7 @@ public class SensorOfSunrise implements Sensor{
      *
      * @return the value from the sensor
      */
-    public Value<LocalDateTime> getValue(LocalDate date) {
+    public Value getValue(LocalDate date) {
         LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(10,0));
         this.value = new SunriseValue(dateTime);
         return this.value;

@@ -3,7 +3,7 @@ package controllers;
 import domain.House;
 import domain.Room;
 import dto.RoomDTO;
-import mappers.MapperToRoomDTO;
+import mappers.RoomMapper;
 
 /**
  * This class represents the controller for adding a room to a house.
@@ -19,7 +19,7 @@ public class AddRoomController {
     /**
      * The mapperToRoomDTO instance.
      */
-    private MapperToRoomDTO mapperToRoomDTO;
+    private RoomMapper roomMapper;
 
 
     /**
@@ -27,12 +27,12 @@ public class AddRoomController {
      *
      * @param house the house to which the room is to be added
      */
-    public AddRoomController(House house, MapperToRoomDTO mapperToRoomDTO) throws InstantiationException {
-        if(!isValidConstructorsArguments(house, mapperToRoomDTO)) {
+    public AddRoomController(House house, RoomMapper roomMapper) throws InstantiationException {
+        if(!isValidConstructorsArguments(house, roomMapper)) {
             throw new InstantiationException("House can not be null.");
         }
         this.house = house;
-        this.mapperToRoomDTO = mapperToRoomDTO;
+        this.roomMapper = roomMapper;
     }
 
     /**
@@ -41,8 +41,8 @@ public class AddRoomController {
      * @param house the house to be checked
      * @return true if the house is not null, false otherwise
      */
-    private boolean isValidConstructorsArguments(House house, MapperToRoomDTO mapperToRoomDTO) {
-        if (house == null || mapperToRoomDTO == null) {
+    private boolean isValidConstructorsArguments(House house, RoomMapper roomMapper) {
+        if (house == null || roomMapper == null) {
             return false;
         }
         return true;
@@ -64,7 +64,7 @@ public class AddRoomController {
             newRoomDTO = null;
             return newRoomDTO;
         } else {
-            newRoomDTO = mapperToRoomDTO.roomToDTO(newRoom);
+            newRoomDTO = roomMapper.roomToDTO(newRoom);
             return newRoomDTO;
         }
     }

@@ -5,8 +5,8 @@ import dto.DeviceDTO;
 import dto.RoomDTO;
 import factories.*;
 import factories.implement.*;
-import mappers.MapperToDeviceDTO;
-import mappers.MapperToRoomDTO;
+import mappers.DeviceMapper;
+import mappers.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AddDeviceToRoomControllerTest {
     GPSFactory gpsFactory;
     LocationFactory locationFactory;
-    ValueFactory valueFactory;
     String filePathName;
     SensorFactory sensorFactory;
     DeviceFactory deviceFactory;
@@ -24,8 +23,8 @@ public class AddDeviceToRoomControllerTest {
     RoomFactory roomFactory;
     House house;
     GetRoomListController getRoomListController;
-    MapperToDeviceDTO mapperToDeviceDTO;
-    MapperToRoomDTO mapperToRoomDTO;
+    DeviceMapper deviceMapper;
+    RoomMapper roomMapper;
     AddDeviceToRoomController addDeviceToRoomController;
     AddRoomController addRoomController;
 
@@ -34,17 +33,16 @@ public class AddDeviceToRoomControllerTest {
         filePathName = "config.properties";
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
-        valueFactory = new ValueFactoryImp();
-        sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        sensorFactory = new SensorFactoryImp(filePathName);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
-        mapperToRoomDTO = new MapperToRoomDTO();
-        getRoomListController = new GetRoomListController(house, mapperToRoomDTO);
-        mapperToDeviceDTO = new MapperToDeviceDTO();
-        addDeviceToRoomController = new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController);
-        addRoomController = new AddRoomController(house, mapperToRoomDTO);
+        roomMapper = new RoomMapper();
+        getRoomListController = new GetRoomListController(house, roomMapper);
+        deviceMapper = new DeviceMapper();
+        addDeviceToRoomController = new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
+        addRoomController = new AddRoomController(house, roomMapper);
     }
 
     @Test
@@ -52,7 +50,7 @@ public class AddDeviceToRoomControllerTest {
         // Arrange
         AddDeviceToRoomController addDeviceToRoomController;
         // Act & Assert
-        new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController);
+        new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
         // No exception is thrown, so the test passes
     }
 
@@ -61,15 +59,15 @@ public class AddDeviceToRoomControllerTest {
         // Arrange
         House house = null;
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController));
+        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
     @Test
     void constructorNullMapper() {
         // Arrange
-        MapperToDeviceDTO mapperToDeviceDTO = null;
+        DeviceMapper deviceMapper = null;
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController));
+        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
     @Test
@@ -77,7 +75,7 @@ public class AddDeviceToRoomControllerTest {
         // Arrange
         GetRoomListController getRoomListController = null;
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController));
+        assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
     @Test

@@ -7,13 +7,13 @@ import dto.LocationDTO;
  * This class is a Mapper for LocationDTO.
  * It is used to map a location to a LocationDTO object.
  */
-public class MapperLocationDTO {
+public class LocationMapper {
 
     /**
      * Constructs a new MapperLocationDTO.
      * The constructor is empty because it is a Mapper.
      */
-    public MapperLocationDTO() {
+    public LocationMapper() {
     }
 
     /**

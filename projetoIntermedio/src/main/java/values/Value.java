@@ -7,14 +7,7 @@ package values;
  *
  */
 
-public interface Value<T> {
-
-    /**
-     * Retrieves the value of the sensor.
-     *
-     * @return The value of the sensor.
-     */
-    T getValue();
+public interface Value {
 
 
     /**

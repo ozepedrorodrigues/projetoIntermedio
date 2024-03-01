@@ -4,7 +4,6 @@ package factories.implement;
 import domain.Catalogue;
 import sensors.Sensor;
 import factories.SensorFactory;
-import factories.ValueFactory;
 
 import java.lang.reflect.InvocationTargetException;
 

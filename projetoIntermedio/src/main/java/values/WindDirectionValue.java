@@ -23,15 +23,6 @@ public class WindDirectionValue implements Value {
         this.windDirection = windDirection; // default value
     }
 
-    /**
-     * Gets the current wind direction value.
-     *
-     * @return The current wind direction value.
-     */
-    @Override
-    public Integer getValue() {
-        return windDirection;
-    }
 
     /**
     * Converts the wind direction value to a string representation.

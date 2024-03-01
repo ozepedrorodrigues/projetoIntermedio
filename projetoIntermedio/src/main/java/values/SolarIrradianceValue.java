@@ -22,14 +22,6 @@ public class SolarIrradianceValue implements Value {
         this.solarIrradianceValue = solarIrradianceValue;
     }
 
-    /**
-     * Gets the solar irradiance value.
-     * @return the solar irradiance value.
-     */
-    @Override
-    public Double getValue() {
-        return solarIrradianceValue;
-    }
 
     /**
      * Converts the solar irradiance value to a string representation.

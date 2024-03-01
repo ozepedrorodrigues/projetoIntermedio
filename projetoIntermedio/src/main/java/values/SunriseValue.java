@@ -2,7 +2,7 @@ package values;
 
 import java.time.LocalDateTime;
 
-public class SunriseValue implements Value<LocalDateTime>{
+public class SunriseValue implements Value{
 
     private LocalDateTime sunriseValue;
 
@@ -10,9 +10,6 @@ public class SunriseValue implements Value<LocalDateTime>{
         this.sunriseValue = sunriseValue;
     }
 
-    public LocalDateTime getValue() {
-        return sunriseValue;
-    }
 
     @Override
     public String valueToString() {

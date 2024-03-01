@@ -32,9 +32,9 @@ class WindDirectionValueTest {
     @Test
     void defaultConstructor_getWindDirectionValue() {
         // Arrange
-        int expected = 315;
+        String expected = "315";
         // Act
-        int result = windDirectionValue.getValue();
+        String result = windDirectionValue.valueToString();
         // Assert
         assertEquals(expected, result);
     }

@@ -18,9 +18,9 @@ public class PowerConsumptionTest {
         // Arrange
         int expected = 1;
         // Act
-        double result = powerConsumptionValue.getValue();
+        String result = powerConsumptionValue.toString();
         // Assert
-        assertEquals(expected, result);
+        assertEquals(String.valueOf(expected), result);
     }
 
     @Test

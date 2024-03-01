@@ -1,7 +1,14 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title US07
+
 autonumber
+
+/'
+As a Power User [or Administrator], I want to add a sensor to an existing device in
+a room. The sensor must be of a model of an existing type of sensor.
+'/
 
 participant "_getRoomList:GetRoomListController" as C
 participant "_getDeviceList:GetDeviceListFromSpecificRoomController" as D
@@ -21,12 +28,12 @@ participant "_sensorDTO:SensorDTO" as S2
 
 [o->C : getRoomList()
 activate C
-ref over C : (UseCase03.puml for more details)
+ref over C : (UserStory3.puml for more details)
 [o<--C : _roomListDTO
 deactivate C
 [o->D : getDeviceList()
 activate D
-ref over D : (UseCase06.puml for more details)
+ref over D : (UserStory6.puml for more details)
 [o<--D : _deviceListDTO
 deactivate D
 [o->S: getSensorTypes()

@@ -2,6 +2,12 @@
 
 autonumber
 
+title US05
+
+/'
+As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
+'/
+
 participant "_getRoomListController:GetRoomListController" as G
 participant "_addDeviceController:AddDeviceToRoomController" as A
 participant "_house:House" as H
@@ -13,7 +19,7 @@ participant "_deviceDTO:DeviceDTO" as DTO
 
 [o->G : getRoomList()
 activate G
-ref over G : (UseCase03.puml for more details)
+ref over G : (UseCase3.puml for more details)
 [o<--G : _roomListDTO
 deactivate G
 [o->A : addDeviceToRoom(DeviceDTO _deviceDTO)

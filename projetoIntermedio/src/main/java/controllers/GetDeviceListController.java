@@ -4,7 +4,7 @@ import domain.Device;
 import domain.House;
 import domain.Room;
 import dto.DeviceDTO;
-import mappers.MapperToDeviceDTO;
+import mappers.DeviceMapper;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,13 +21,13 @@ public class GetDeviceListController {
     /**
      * The mapper to convert devices to DTOs.
      */
-    private MapperToDeviceDTO mapperToDeviceDTO;
+    private DeviceMapper deviceMapper;
     /**
      * Constructor for ControllerGetDeviceList.
      */
-    public GetDeviceListController(House ourHouse, MapperToDeviceDTO mapperToDeviceDTO) {
+    public GetDeviceListController(House ourHouse, DeviceMapper deviceMapper) {
         this.matryoshka = ourHouse;
-        this.mapperToDeviceDTO = mapperToDeviceDTO;
+        this.deviceMapper = deviceMapper;
     }
 
     /**
@@ -42,6 +42,6 @@ public class GetDeviceListController {
             return Collections.emptyList();
         }
         List<Device> devices = room.getDeviceList();
-        return mapperToDeviceDTO.devicesToDTO(devices, roomName);
+        return deviceMapper.devicesToDTO(devices, roomName);
     }
 }

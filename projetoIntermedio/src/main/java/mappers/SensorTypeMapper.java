@@ -8,13 +8,13 @@ import java.util.List;
  * This class is a Mapper for SensorTypeDTO.
  * It is used to map a list of sensor types to a SensorTypeDTO object.
  */
-public class MapperSensorTypeDTO {
+public class SensorTypeMapper {
 
     /**
-     * Constructs a new MapperSensorTypeDTO.
+     * Constructs a new SensorTypeMapper.
      * The constructor is empty because it is a Mapper.
      */
-    public MapperSensorTypeDTO() {
+    public SensorTypeMapper() {
         // Constructor, empty because it is a Mapper
     }
 

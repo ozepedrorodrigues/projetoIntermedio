@@ -4,7 +4,7 @@ import domain.House;
 import dto.RoomDTO;
 import factories.*;
 import factories.implement.*;
-import mappers.MapperToRoomDTO;
+import mappers.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ class AddRoomControllerTest {
     AddRoomController addRoomController;
     AddRoomController addRoomController2;
     House house;
-    MapperToRoomDTO mapperToRoomDTO;
+    RoomMapper roomMapper;
     LocationFactory locationFactory;
     GPSFactory gpsFactory;
     RoomFactory roomFactory;
@@ -28,7 +28,6 @@ class AddRoomControllerTest {
     DimensionsFactory dimensionsFactory;
     DeviceFactory deviceFactory;
     SensorFactory sensorFactory;
-    ValueFactory valueFactory;
     String filePathName;
 
     /**
@@ -41,17 +40,16 @@ class AddRoomControllerTest {
         this.locationFactory = new LocationFactoryImp(gpsFactory);
         this.dimensionsFactory = new DimensionsFactoryImp();
         this.filePathName = "config.properties";
-        this.valueFactory = new ValueFactoryImp();
-        this.sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        this.sensorFactory = new SensorFactoryImp(filePathName);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         this.roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
-        this.mapperToRoomDTO = new MapperToRoomDTO();
+        this.roomMapper = new RoomMapper();
         this.width = 14.3;
         this.length = 15.2;
         this.height = 4.5;
         this.house = new House(locationFactory, roomFactory);
-        this.addRoomController = new AddRoomController(house, mapperToRoomDTO);
-        this.addRoomController2 = new AddRoomController(house, mapperToRoomDTO);
+        this.addRoomController = new AddRoomController(house, roomMapper);
+        this.addRoomController2 = new AddRoomController(house, roomMapper);
     }
 
     /**
@@ -63,7 +61,7 @@ class AddRoomControllerTest {
         House invalidHouse = null;
         String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, mapperToRoomDTO));
+        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, roomMapper));
         assertEquals(expected, exception.getMessage());
     }
 
@@ -73,7 +71,7 @@ class AddRoomControllerTest {
     @Test
     void constructorInvalidMapperToRoomDTO() {
         //Arrange
-        MapperToRoomDTO invalidMapper = null;
+        RoomMapper invalidMapper = null;
         String expected = "House can not be null.";
         //Act + assert
         Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(house, invalidMapper));

@@ -95,9 +95,9 @@ class SensorOfWindSpeedTest {
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
-        double valueExpected = 25.0;
+        String valueExpected = "25.0";
         try (MockedConstruction<WindSpeedValue> valueDouble = mockConstruction(WindSpeedValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(valueExpected);
+            when(mock.valueToString()).thenReturn(valueExpected);
         })) {
             SensorOfWindSpeed sensorOfWindSpeed = new SensorOfWindSpeed();
             // Act
@@ -105,7 +105,7 @@ class SensorOfWindSpeedTest {
             // Assert
             List<WindSpeedValue> values = valueDouble.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(valueExpected, result.getValue());
+            assertEquals(valueExpected, result.valueToString());
         }
     }
 

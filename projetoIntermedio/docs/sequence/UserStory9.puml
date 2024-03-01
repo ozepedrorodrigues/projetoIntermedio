@@ -1,11 +1,11 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title US09
 autonumber
-@startuml
-title US09: As a Power User [or Administrator], I want to get a list of all devices in a house, grouped by device functionality types. It must include device location.
 
-autonumber
+/'As a Power User [or Administrator], I want to get a list of all devices in a house,
+grouped by device functionality types. It must include device location.'/
 
 participant "_getDevices:GetListOfDevicesByFunctionalityController" as C
 participant ":House" as H

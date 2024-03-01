@@ -16,8 +16,8 @@ public class Device {
     private String name;
     private String type;
     private boolean active;
-    private List<Sensor> sensorList = new ArrayList<>();
-    private HashSet<String> functionalityList = new HashSet<>();
+    private List<Sensor> sensors = new ArrayList<>();
+    private HashSet<String> functionalities = new HashSet<>();
     private SensorFactory sensorFactory;
 
     /**
@@ -83,8 +83,8 @@ public class Device {
         Sensor sensor = sensorFactory.createSensor(sensorClassName);
         if(sensor == null) return null;
         sensor.setId(IdGenerator.generateSensorId());
-        sensorList.add(sensor);
-        functionalityList.add(sensor.getType().getSensorType());
+        sensors.add(sensor);
+        functionalities.add(sensor.getType().getSensorType());
         return sensor;
     }
 
@@ -107,7 +107,7 @@ public class Device {
      * @return A list of sensors.
      */
     public List<Sensor> getDeviceSensors() {
-        return new ArrayList<>(sensorList);
+        return new ArrayList<>(sensors);
     }
 
     /**
@@ -116,6 +116,6 @@ public class Device {
      * @return A list of functionalities.
      */
     public HashSet<String> getFunctionalities() {
-        return new HashSet<>(functionalityList);
+        return new HashSet<>(functionalities);
     }
 }

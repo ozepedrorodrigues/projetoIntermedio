@@ -3,7 +3,7 @@ package controllers;
 import domain.House;
 import domain.Room;
 import dto.RoomDTO;
-import mappers.MapperToRoomDTO;
+import mappers.RoomMapper;
 
 import java.util.List;
 
@@ -19,18 +19,18 @@ public class GetRoomListController {
     /**
      * MapperToRoomDTO instance.
      */
-    private MapperToRoomDTO mapperToRoomDTO;
+    private RoomMapper roomMapper;
 
     /**
      * Constructor for ControllerGetRoomList.
      * Initializes the house and mapperToRoomDTO instance.
      */
-    public GetRoomListController(House house, MapperToRoomDTO mapperToRoomDTO) throws InstantiationException {
+    public GetRoomListController(House house, RoomMapper roomMapper) throws InstantiationException {
         if(house == null){
             throw new InstantiationException("House can not be null.");
         }
         this.house = house;
-        this.mapperToRoomDTO = mapperToRoomDTO;
+        this.roomMapper = roomMapper;
     }
 
     /**
@@ -40,6 +40,6 @@ public class GetRoomListController {
      */
    public List<RoomDTO> getRoomList() {
         List<Room> roomList = house.getRooms();
-        return mapperToRoomDTO.getRoomList(roomList);
+        return roomMapper.getRoomList(roomList);
     }
 }

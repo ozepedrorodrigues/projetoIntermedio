@@ -4,9 +4,7 @@ import domain.*;
 import dto.DeviceDTO;
 import dto.RoomDTO;
 import dto.SensorDTO;
-import factories.ValueFactory;
-import factories.implement.ValueFactoryImp;
-import mappers.MapperSensorDTO;
+import mappers.SensorMapper;
 import sensors.Sensor;
 
 import java.util.List;
@@ -20,10 +18,9 @@ public class AddSensorToDeviceController {
 
     private House house;
     private Catalogue catalogue;
-    private MapperSensorDTO mapperSensorDTO;
+    private SensorMapper sensorMapper;
     private GetRoomListController getRoomListController;
     private GetDeviceListController getDeviceListController;
-    private ValueFactory valueFactory;
 
     /**
      * Constructor for AddSensorToDeviceController.
@@ -31,23 +28,22 @@ public class AddSensorToDeviceController {
      * Throws an InstantiationException if any of the parameters are null.
      * @param house                   the house instance
      * @param catalogue               the catalogue instance
-     * @param mapperSensorDTO         the mapperSensorDTO instance
+     * @param sensorMapper         the mapperSensorDTO instance
      * @param getRoomListController   the getRoomListController instance
      * @param getDeviceListController the getDeviceListController instance
      * @throws InstantiationException if any of the parameters are null
      */
-    public AddSensorToDeviceController(House house, Catalogue catalogue, MapperSensorDTO mapperSensorDTO,
+    public AddSensorToDeviceController(House house, Catalogue catalogue, SensorMapper sensorMapper,
                                        GetRoomListController getRoomListController, GetDeviceListController getDeviceListController)
             throws IllegalArgumentException {
-        if (!validParameters(house, getDeviceListController, getRoomListController, catalogue, mapperSensorDTO)) {
+        if (!validParameters(house, getDeviceListController, getRoomListController, catalogue, sensorMapper)) {
             throw new IllegalArgumentException("Invalid parameters");
         }
         this.house = house;
         this.catalogue = catalogue;
-        this.mapperSensorDTO = mapperSensorDTO;
+        this.sensorMapper = sensorMapper;
         this.getRoomListController = getRoomListController;
         this.getDeviceListController = getDeviceListController;
-        this.valueFactory = new ValueFactoryImp();
     }
 
     /**
@@ -88,7 +84,7 @@ public class AddSensorToDeviceController {
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel, catalogue);
 
-        return mapperSensorDTO.getSensorDTO(sensor);
+        return sensorMapper.getSensorDTO(sensor);
     }
 
     /**
@@ -97,10 +93,10 @@ public class AddSensorToDeviceController {
      * @param getDeviceListController the getDeviceListController instance
      * @param getRoomListController the getRoomListController instance
      * @param catalogue the catalogue instance
-     * @param mapperSensorDTO the mapperSensorDTO instance
+     * @param sensorMapper the mapperSensorDTO instance
      * @return true if all parameters are non-null, false otherwise
      */
-    private boolean validParameters(House house, GetDeviceListController getDeviceListController, GetRoomListController getRoomListController, Catalogue catalogue, MapperSensorDTO mapperSensorDTO) {
-        return house != null && getDeviceListController != null && getRoomListController != null && catalogue != null && mapperSensorDTO != null;
+    private boolean validParameters(House house, GetDeviceListController getDeviceListController, GetRoomListController getRoomListController, Catalogue catalogue, SensorMapper sensorMapper) {
+        return house != null && getDeviceListController != null && getRoomListController != null && catalogue != null && sensorMapper != null;
     }
 }

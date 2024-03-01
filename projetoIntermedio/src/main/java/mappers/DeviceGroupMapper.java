@@ -7,15 +7,15 @@ import dto.DeviceDTO;
 import java.util.*;
 
 /**
- * The MapperToGroupDeviceDTO class is used to map devices to a dto (Data Transfer Object) format and group them by functionality.
+ * The DeviceGroupMapper class is used to map devices to a dto (Data Transfer Object) format and group them by functionality.
  * It provides methods to group devices by functionality and add a device to the map.
  */
-public class MapperToGroupDeviceDTO {
+public class DeviceGroupMapper {
 
     /**
-     * Constructs a new MapperToGroupDeviceDTO.
+     * Constructs a new DeviceGroupMapper.
      */
-    public MapperToGroupDeviceDTO() {
+    public DeviceGroupMapper() {
     }
 
     /**

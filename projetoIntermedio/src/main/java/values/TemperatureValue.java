@@ -21,15 +21,6 @@ public class TemperatureValue implements Value {
         this.temperatureValue = temperatureValue;
     }
 
-    /**
-     * Gets the current temperature value.
-     *
-     * @return The current temperature value.
-     */
-    @Override
-    public Double getValue() {
-        return temperatureValue;
-    }
 
     /**
      * Converts the temperature value to a string representation.

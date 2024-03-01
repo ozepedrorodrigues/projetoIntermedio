@@ -3,19 +3,17 @@ package mappers;
 import dto.SensorDTO;
 import sensors.Sensor;
 
-import java.util.List;
-
 /**
  * This class is a Mapper for SensorDTO.
  * It is used to map a list of sensors to a SensorDTO object.
  */
-public class MapperSensorDTO {
+public class SensorMapper {
 
     /**
      * Constructs a new MapperSensorDTO.
      * The constructor is empty because it is a Mapper.
      */
-    public MapperSensorDTO() {
+    public SensorMapper() {
     }
 
 

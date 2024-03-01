@@ -1,11 +1,9 @@
 package controllers;
 
 import domain.House;
-import domain.Location;
 import dto.LocationDTO;
-import factories.GPSFactory;
 import factories.implement.*;
-import mappers.MapperLocationDTO;
+import mappers.LocationMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DefineHouseLocationControllerTest {
 
     private House house;
-    private MapperLocationDTO mapperLocationDTO;
+    private LocationMapper locationMapper;
     private DefineHouseLocationController defineHouseLocationController;
     private String filepath = "config.properties";
 
@@ -37,8 +35,8 @@ class DefineHouseLocationControllerTest {
                         new DimensionsFactoryImp(),
                         new DeviceFactoryImp(new SensorFactoryImp(filepath))));
 
-        mapperLocationDTO = new MapperLocationDTO();
-        defineHouseLocationController = new DefineHouseLocationController(house, mapperLocationDTO);
+        locationMapper = new LocationMapper();
+        defineHouseLocationController = new DefineHouseLocationController(house, locationMapper);
     }
 
     /**
@@ -52,7 +50,7 @@ class DefineHouseLocationControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new DefineHouseLocationController(invalidHouse, mapperLocationDTO));
+                new DefineHouseLocationController(invalidHouse, locationMapper));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -65,12 +63,12 @@ class DefineHouseLocationControllerTest {
     @Test
     void testConstructorInvalidMapper() {
         // Arrange
-        MapperLocationDTO invalidMapperLocationDTO = null;
+        LocationMapper invalidLocationMapper = null;
         String expectedMessage = "Invalid parameters";
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new DefineHouseLocationController(house, invalidMapperLocationDTO));
+                new DefineHouseLocationController(house, invalidLocationMapper));
         String resultMessage = e.getMessage();
 
         // Assert

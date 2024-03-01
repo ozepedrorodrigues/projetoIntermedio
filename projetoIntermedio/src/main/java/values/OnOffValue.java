@@ -15,11 +15,6 @@ public class OnOffValue implements Value {
         this.onOffValue = onOffValue;
     }
 
-    @Override
-    public Boolean getValue() {
-        return onOffValue;
-    }
-
     /**
      * Converts the ON/OFF value to its string representation.
      *

@@ -5,8 +5,8 @@ import dto.DeviceDTO;
 import dto.RoomDTO;
 import factories.*;
 import factories.implement.*;
-import mappers.MapperToDeviceDTO;
-import mappers.MapperToRoomDTO;
+import mappers.DeviceMapper;
+import mappers.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,6 @@ class DeactivateDeviceControllerTest {
 
     GPSFactory gpsFactory;
     LocationFactory locationFactory;
-    ValueFactory valueFactory;
     String filePathName;
     SensorFactory sensorFactory;
     DeviceFactory deviceFactory;
@@ -30,9 +29,9 @@ class DeactivateDeviceControllerTest {
     RoomFactory roomFactory;
     House house;
     GetRoomListController getRoomListController;
-    MapperToRoomDTO mapperToRoomDTO;
+    RoomMapper roomMapper;
     GetDeviceListController getDeviceListController;
-    MapperToDeviceDTO mapperToDeviceDTO;
+    DeviceMapper deviceMapper;
     AddDeviceToRoomController addDeviceToRoomController;
     AddRoomController addRoomController;
     DeactivateDeviceController deactivateDeviceController;
@@ -43,19 +42,18 @@ class DeactivateDeviceControllerTest {
         filePathName = "config.properties";
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
-        valueFactory = new ValueFactoryImp();
-        sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        sensorFactory = new SensorFactoryImp(filePathName);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
-        mapperToRoomDTO = new MapperToRoomDTO();
-        mapperToDeviceDTO = new MapperToDeviceDTO();
-        getRoomListController = new GetRoomListController(house, mapperToRoomDTO);
-        getDeviceListController = new GetDeviceListController(house, mapperToDeviceDTO);
-        addDeviceToRoomController = new AddDeviceToRoomController(house, mapperToDeviceDTO, getRoomListController);
-        addRoomController = new AddRoomController(house, mapperToRoomDTO);
-        deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, mapperToDeviceDTO);
+        roomMapper = new RoomMapper();
+        deviceMapper = new DeviceMapper();
+        getRoomListController = new GetRoomListController(house, roomMapper);
+        getDeviceListController = new GetDeviceListController(house, deviceMapper);
+        addDeviceToRoomController = new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
+        addRoomController = new AddRoomController(house, roomMapper);
+        deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper);
 
         RoomDTO roomDTO = new RoomDTO("Room", 1, 1, 1, 1);
         addRoomController.addNewRoomToHouse(roomDTO);

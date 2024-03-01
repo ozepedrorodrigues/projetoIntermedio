@@ -87,15 +87,16 @@ class SensorOfScalePercentageTest {
 
     /**
      * Tests the getValue method of the SensorOfScalePercentage class.
-     * Verifies that the method returns the value of the sensor correctly.
-     */
+     * Verifies that the method returns the value of the sensor correctly.*/
+
+
     @Test
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
-        int defaultValue = 50;
+        String defaultValue = "50";
         try (MockedConstruction<ScalePercentageValue> valueDouble = mockConstruction(ScalePercentageValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);})) {
+            when(mock.valueToString()).thenReturn(defaultValue);})) {
 
             SensorOfScalePercentage sensorOfScalePercentage = new SensorOfScalePercentage();
 
@@ -105,7 +106,8 @@ class SensorOfScalePercentageTest {
             // Assert
             List<ScalePercentageValue> values = valueDouble.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.getValue());
+            assertEquals(defaultValue, result.valueToString());
         }
     }
+
 }

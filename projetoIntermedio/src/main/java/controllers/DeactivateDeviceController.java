@@ -5,7 +5,7 @@ import domain.House;
 import domain.Room;
 import dto.DeviceDTO;
 import dto.RoomDTO;
-import mappers.MapperToDeviceDTO;
+import mappers.DeviceMapper;
 
 import java.util.List;
 
@@ -26,27 +26,27 @@ public class DeactivateDeviceController {
      */
     private GetDeviceListController getDeviceListController;
     /**
-     * MapperToDeviceDTO instance.
+     * DeviceMapper instance.
      */
-    private MapperToDeviceDTO mapperToDeviceDTO;
+    private DeviceMapper deviceMapper;
 
     /**
      * Constructor for DeactivateDeviceController.
-     * Initializes the house, getRoomListController, getDeviceListController and mapperToDeviceDTO instance.
+     * Initializes the house, getRoomListController, getDeviceListController and deviceMapper instance.
      *
      * @param house                   House instance.
      * @param getRoomListController   GetRoomListController instance.
      * @param getDeviceListController GetDeviceListController instance.
-     * @param mapperToDeviceDTO       MapperToDeviceDTO instance.
+     * @param deviceMapper       DeviceMapper instance.
      * @throws InstantiationException if house is null.
      */
-    public DeactivateDeviceController(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, MapperToDeviceDTO mapperToDeviceDTO) throws InstantiationException {
+    public DeactivateDeviceController(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, DeviceMapper deviceMapper) throws InstantiationException {
         if (house == null)
             throw new InstantiationException("House cannot be null.");
         this.house = house;
         this.getRoomListController = getRoomListController;
         this.getDeviceListController = getDeviceListController;
-        this.mapperToDeviceDTO = mapperToDeviceDTO;
+        this.deviceMapper = deviceMapper;
     }
 
     /**

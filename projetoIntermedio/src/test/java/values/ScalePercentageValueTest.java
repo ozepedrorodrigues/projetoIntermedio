@@ -30,11 +30,11 @@ class ScalePercentageValueTest {
     @Test
     void defaultConstructor_getScalePercentageValue() {
         // Arrange
-        int expected = 50;
+        String expected = "50";
         // Act
-        int result = scalePercentageValue.getValue();
+        String result = scalePercentageValue.valueToString();
         // Assert
-        assertEquals(expected, result, 0.01);
+        assertEquals(expected, result);
     }
 
     /**

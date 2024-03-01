@@ -3,7 +3,7 @@ package controllers;
 import domain.House;
 import domain.Location;
 import dto.LocationDTO;
-import mappers.MapperLocationDTO;
+import mappers.LocationMapper;
 
 /**
  * UC01
@@ -21,7 +21,7 @@ public class DefineHouseLocationController {
     /**
      * The mapper location dto instance
      */
-    private final MapperLocationDTO mapperLocationDTO;
+    private final LocationMapper locationMapper;
 
 
     /**
@@ -29,13 +29,13 @@ public class DefineHouseLocationController {
      * Initializes the house instance
      * Initializes the mapper location dto instance
      */
-    public DefineHouseLocationController(House house, MapperLocationDTO mapperLocationDTO) {
-        if (!validParameters(house, mapperLocationDTO)) {
+    public DefineHouseLocationController(House house, LocationMapper locationMapper) {
+        if (!validParameters(house, locationMapper)) {
             throw new IllegalArgumentException("Invalid parameters");
         }
 
         this.house = house;
-        this.mapperLocationDTO = mapperLocationDTO;
+        this.locationMapper = locationMapper;
     }
 
     /**
@@ -54,14 +54,14 @@ public class DefineHouseLocationController {
         if (location == null) {
             return null;
         } else {
-            return mapperLocationDTO.locationToDto(location);
+            return locationMapper.locationToDto(location);
         }
     }
 
     /**
      * Checks if the given constructor parameters are not null.
      */
-    private boolean validParameters(House house, MapperLocationDTO mapperLocationDTO) {
-        return house != null && mapperLocationDTO != null;
+    private boolean validParameters(House house, LocationMapper locationMapper) {
+        return house != null && locationMapper != null;
     }
 }

@@ -10,12 +10,12 @@ import java.util.List;
  * This class is a Mapper for RoomDTO.
  * It is used to map a list of rooms to a list of RoomDTO objects.
  */
-public class MapperToRoomDTO {
+public class RoomMapper {
     /**
      * Constructs a new MapperToRoomDTO.
      * Create new scratch file from selection
      */
-    public MapperToRoomDTO() {
+    public RoomMapper() {
     }
 
     /**

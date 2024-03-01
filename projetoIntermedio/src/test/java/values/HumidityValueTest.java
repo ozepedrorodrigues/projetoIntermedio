@@ -21,11 +21,11 @@ class HumidityValueTest {
     @Test
     void defaultConstructor_getHumidityValue() {
         // Arrange
-        double expected = 50;
+        String expected = "50.0";
         // Act
-        double result = humidityValue.getValue();
+        String result = humidityValue.valueToString();
         // Assert
-        assertEquals(expected, result, 0.01);
+        assertEquals(expected, result);
     }
 
     /**

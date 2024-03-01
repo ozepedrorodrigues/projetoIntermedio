@@ -88,15 +88,15 @@ class SensorOfTemperatureTest {
 
     /**
      * Tests the behavior of the getValue method of SensorOfTemperature class.
-     * Verifies that the method returns the current temperature value of the sensor.
-     */
+     * Verifies that the method returns the current temperature value of the sensor.*/
+
     @Test
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
-        double defaultValue = 25.0;
+        String defaultValue = "25.0";
         try (MockedConstruction<TemperatureValue> valueDouble = mockConstruction(TemperatureValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);})) {
+            when(mock.valueToString()).thenReturn(defaultValue);})) {
 
             SensorOfTemperature sensorOfTemperature = new SensorOfTemperature();
 
@@ -106,7 +106,7 @@ class SensorOfTemperatureTest {
             // Assert
             List<TemperatureValue> values = valueDouble.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.getValue());
+            assertEquals(defaultValue, result.valueToString());
         }
     }
 }

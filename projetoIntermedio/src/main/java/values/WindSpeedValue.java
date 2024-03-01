@@ -26,17 +26,6 @@ public class WindSpeedValue implements Value {
     }
 
     /**
-     * Gets the current wind speed value.
-     *
-     * @return The current wind speed value.
-     */
-
-    @Override
-    public Double getValue() {
-        return windSpeed;
-    }
-
-    /**
      * Converts the wind speed value to a string representation.
      *
      * @return A string representation of the wind speed value.

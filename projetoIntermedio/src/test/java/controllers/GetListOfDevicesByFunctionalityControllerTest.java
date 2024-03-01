@@ -4,7 +4,7 @@ import domain.*;
 import dto.DeviceDTO;
 import factories.*;
 import factories.implement.*;
-import mappers.MapperToGroupDeviceDTO;
+import mappers.DeviceGroupMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sensors.Sensor;
@@ -29,8 +29,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
     LocationFactory locationFactory;
     DimensionsFactory dimensionsFactory;
 
-    MapperToGroupDeviceDTO mapperToGroupDeviceDTO;
-    ValueFactory valueFactory;
+    DeviceGroupMapper deviceGroupMapper;
     SensorFactory sensorFactory;
     DeviceFactory deviceFactory;
     RoomFactory roomFactory;
@@ -46,8 +45,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         GPSFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(GPSFactory);
         dimensionsFactory = new DimensionsFactoryImp();
-        valueFactory = new ValueFactoryImp();
-        sensorFactory = new SensorFactoryImp(filePathName, valueFactory);
+        sensorFactory = new SensorFactoryImp(filePathName);
         deviceFactory = new DeviceFactoryImp(sensorFactory);
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
@@ -55,7 +53,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         room1 = house.addRoom("Room1", 1, 2, 3, 4);
         room2 = house.addRoom("Room2", 5, 6, 7, 8);
         numberOfFunctionalities = SensorType.values().length;
-        mapperToGroupDeviceDTO = new MapperToGroupDeviceDTO();
+        deviceGroupMapper = new DeviceGroupMapper();
     }
 
     /**
@@ -67,7 +65,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor("SensorOfTemperature",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -86,7 +84,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Sensor sensor1 = device1.addSensor("SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor("SensorOfHumidity",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -108,7 +106,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Device device2 = room1.addNewDevice("Device2", "Sensor2");
         Sensor sensor2 = device2.addSensor("SensorOfTemperature",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -131,7 +129,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Sensor sensor3 = device2.addSensor("SensorOfTemperature",catalogue);
         Sensor sensor4 = device2.addSensor("SensorOfHumidity",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -156,7 +154,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Device device3 = room2.addNewDevice("Device3", "Sensor3");
         Sensor sensor3 = device3.addSensor("SensorOfAperture",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -178,7 +176,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Sensor sensor2 = device1.addSensor("SensorOfHumidity",catalogue);
         Sensor sensor3 = device1.addSensor("SensorOfAperture",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());
@@ -199,7 +197,7 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Sensor sensor3 = device2.addSensor("SensorOfAperture",catalogue);
         Sensor sensor4 = device2.addSensor("SensorOfAveragePowerConsumption",catalogue);
         //Act
-        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house,mapperToGroupDeviceDTO);
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
         //Assert
         assertEquals(numberOfFunctionalities, result.size());

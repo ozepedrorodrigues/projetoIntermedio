@@ -1,13 +1,10 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
-import sensors.SensorOfHumidity;
 import values.HumidityValue;
-import values.TemperatureValue;
 import values.Value;
 
 import java.util.List;
@@ -98,9 +95,9 @@ class SensorOfHumidityTest {
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
-        double defaultValue = 25.0;
+        String defaultString = "25.0";
         try (MockedConstruction<HumidityValue> valueDouble = mockConstruction(HumidityValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);
+            when(mock.valueToString()).thenReturn(defaultString);
         })) {
             SensorOfHumidity sensorOfHumidity = new SensorOfHumidity();
             // Act
@@ -109,7 +106,7 @@ class SensorOfHumidityTest {
             // Assert
             List<HumidityValue> values = valueDouble.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.getValue());
+            assertEquals(defaultString, result.valueToString());
         }
     }
 }

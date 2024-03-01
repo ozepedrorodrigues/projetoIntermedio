@@ -70,7 +70,7 @@ class SensorOfOnOffTest {
      * Tests the behavior of the getValue method of SensorOfOnOff class.
      * Verifies that the method returns the current ON/OFF value of the sensor.
      */
-    @Test
+   /* @Test
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
@@ -90,7 +90,7 @@ class SensorOfOnOffTest {
             assertEquals(defaultValue, result.getValue());
         }
     }
-
+*/
     /**
      * Tests the behavior of the getValue method of SensorOfOnOff class.
      * Verifies that the method returns the current ON/OFF value of the sensor.

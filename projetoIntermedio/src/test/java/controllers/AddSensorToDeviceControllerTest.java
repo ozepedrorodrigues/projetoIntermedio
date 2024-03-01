@@ -3,21 +3,17 @@ package controllers;
 import domain.*;
 import dto.DeviceDTO;
 import dto.SensorDTO;
-import factories.ValueFactory;
 import factories.implement.*;
-import mappers.MapperSensorDTO;
-import mappers.MapperToDeviceDTO;
-import mappers.MapperToRoomDTO;
+import mappers.DeviceMapper;
+import mappers.SensorMapper;
+import mappers.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sensors.Sensor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 
 /**
@@ -30,7 +26,7 @@ class AddSensorToDeviceControllerTest {
 
     private String filepath = "config.properties";
 
-    private MapperSensorDTO mapperSensorDTO;
+    private SensorMapper sensorMapper;
 
     private GetRoomListController getRoomListController;
 
@@ -40,9 +36,7 @@ class AddSensorToDeviceControllerTest {
 
     private Room room;
 
-    private MapperToDeviceDTO mapperToDeviceDTO;
-
-    private ValueFactory valueFactory;
+    private DeviceMapper deviceMapper;
 
     /**
      * Set up the house, catalogue, mapperSensorDTO, getRoomListController, and getDeviceListController instances.
@@ -55,17 +49,13 @@ class AddSensorToDeviceControllerTest {
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(
                         new DimensionsFactoryImp(),
-                        new DeviceFactoryImp(new SensorFactoryImp(filepath, new ValueFactoryImp()))));
+                        new DeviceFactoryImp(new SensorFactoryImp(filepath))));
 
-        mapperSensorDTO = new MapperSensorDTO();
-        getRoomListController = new GetRoomListController(house, new MapperToRoomDTO());
-        getDeviceListController = new GetDeviceListController(house, new MapperToDeviceDTO());
+        sensorMapper = new SensorMapper();
+        getRoomListController = new GetRoomListController(house, new RoomMapper());
+        getDeviceListController = new GetDeviceListController(house, new DeviceMapper());
         catalogue = new Catalogue(filepath);
-        room = house.addRoom("Room1", 1, 1, 1, 1);
-        valueFactory = new ValueFactoryImp();
-
-
-    }
+        room = house.addRoom("Room1", 1, 1, 1, 1);}
 
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid house
@@ -80,7 +70,7 @@ class AddSensorToDeviceControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(invalidHouse, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController));
+                new AddSensorToDeviceController(invalidHouse, catalogue, sensorMapper, getRoomListController, getDeviceListController));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -95,12 +85,12 @@ class AddSensorToDeviceControllerTest {
     @Test
     void testConstructorInvalidMapper() {
         // Arrange
-        MapperSensorDTO invalidMapperSensorDTO = null;
+        SensorMapper invalidSensorMapper = null;
         String expectedMessage = "Invalid parameters";
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, catalogue, invalidMapperSensorDTO, getRoomListController, getDeviceListController));
+                new AddSensorToDeviceController(house, catalogue, invalidSensorMapper, getRoomListController, getDeviceListController));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -120,7 +110,7 @@ class AddSensorToDeviceControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, invalidGetRoomListController, getDeviceListController));
+                new AddSensorToDeviceController(house, catalogue, sensorMapper, invalidGetRoomListController, getDeviceListController));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -140,7 +130,7 @@ class AddSensorToDeviceControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, invalidGetDeviceListController));
+                new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, invalidGetDeviceListController));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -160,7 +150,7 @@ class AddSensorToDeviceControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, invalidCatalogue, mapperSensorDTO, getRoomListController, getDeviceListController));
+                new AddSensorToDeviceController(house, invalidCatalogue, sensorMapper, getRoomListController, getDeviceListController));
         String resultMessage = e.getMessage();
 
         // Assert
@@ -179,7 +169,7 @@ class AddSensorToDeviceControllerTest {
         int expectedSize = 1;
 
         // Act
-        int resultSize = new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController).getRoomList().size();
+        int resultSize = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getRoomList().size();
 
         // Assert
         assertEquals(expectedSize, resultSize);
@@ -201,7 +191,7 @@ class AddSensorToDeviceControllerTest {
         int expectedSize = room.getDeviceList().size();
 
         // Act
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController);
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
         int resultSize = controller.getDeviceList(roomName).size();
 
         // Assert
@@ -220,7 +210,7 @@ class AddSensorToDeviceControllerTest {
         List<DeviceDTO> expected = new ArrayList<>();
 
         // Act
-        List<DeviceDTO> result = new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController).getDeviceList(roomName);
+        List<DeviceDTO> result = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getDeviceList(roomName);
 
         // Assert
         assertEquals(expected, result);
@@ -239,7 +229,7 @@ class AddSensorToDeviceControllerTest {
 
         // Act
         Exception e = assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, invalidCatalogue, mapperSensorDTO, getRoomListController, getDeviceListController).getSensorModel());
+                new AddSensorToDeviceController(house, invalidCatalogue, sensorMapper, getRoomListController, getDeviceListController).getSensorModel());
         String resultMessage = e.getMessage();
 
         // Assert
@@ -258,7 +248,7 @@ class AddSensorToDeviceControllerTest {
         String deviceName = "Device1";
         String sensorModel = "SensorOfTemperature";
         Device device = this.room.addNewDevice(deviceName, "Light"); // use the room field here
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController);
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
         SensorType expected = SensorType.TEMPERATURE;
 
         // Act
@@ -282,7 +272,7 @@ class AddSensorToDeviceControllerTest {
         String invalidRoomName = "InvalidRoom";
         String invalidDeviceName = "InvalidDevice";
         String invalidSensorModel = "InvalidSensorModel";
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, mapperSensorDTO, getRoomListController, getDeviceListController);
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
 
         // Act and Assert
         assertThrows(NullPointerException.class, () ->

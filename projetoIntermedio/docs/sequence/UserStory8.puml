@@ -3,10 +3,15 @@
 
 autonumber
 
-@startuml
-'https://plantuml.com/sequence-diagram
+title US08
 
 autonumber
+
+/'
+As a Power User [or Administrator], I want to deactivate a device, so that it is no
+longer used. Nevertheless, it should be possible to access its configuration and
+activity log.
+'/
 
 participant "_getRoomList:GetRoomListController" as C1
 participant "_getDeviceList:GetDeviceListFromSpecificRoomController" as C2
@@ -20,12 +25,12 @@ participant "_deviceDTO:DeviceDTO" as D2
 
 [o->C1 : getRoomList()
 activate C1
-ref over C1 : (UseCase03.puml for more details)
+ref over C1 : (UserStory3.puml for more details)
 [o<--C1 : _roomListDTO
 deactivate C1
 [o->C2 : getDeviceList()
 activate C2
-ref over C2 : (UseCase06.puml for more details)
+ref over C2 : (UserStory6.puml for more details)
 [o<--C2 : _deviceListDTO
 deactivate C2
 

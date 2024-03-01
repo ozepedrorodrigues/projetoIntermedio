@@ -5,8 +5,7 @@ import domain.House;
 import domain.Room;
 import dto.DeviceDTO;
 import dto.RoomDTO;
-import mappers.MapperToDeviceDTO;
-import mappers.MapperToRoomDTO;
+import mappers.DeviceMapper;
 
 import java.util.List;
 
@@ -21,9 +20,9 @@ public class AddDeviceToRoomController {
      */
     private House house;
     /**
-     * MapperToDeviceDTO instance.
+     * DeviceMapper instance.
      */
-    private MapperToDeviceDTO mapperToDeviceDTO;
+    private DeviceMapper deviceMapper;
     /**
      * GetRoomListController instance.
      */
@@ -33,12 +32,12 @@ public class AddDeviceToRoomController {
      * Constructor of the controller to add a device to a room.
      * Initializes the house instance
      */
-    public AddDeviceToRoomController(House house, MapperToDeviceDTO mapperToDeviceDTO, GetRoomListController getRoomListController) throws IllegalArgumentException {
-        if (!validHouse(house) || !validMapperToDeviceDTO(mapperToDeviceDTO) || !validGetRoomListController(getRoomListController)) {
+    public AddDeviceToRoomController(House house, DeviceMapper deviceMapper, GetRoomListController getRoomListController) throws IllegalArgumentException {
+        if (!validHouse(house) || !validMapperToDeviceDTO(deviceMapper) || !validGetRoomListController(getRoomListController)) {
             throw new IllegalArgumentException("Invalid parameter(s).");
         }
         this.house = house;
-        this.mapperToDeviceDTO = mapperToDeviceDTO;
+        this.deviceMapper = deviceMapper;
         this.getRoomListController = getRoomListController;
     }
 
@@ -53,13 +52,13 @@ public class AddDeviceToRoomController {
     }
 
     /**
-     * method to verify if the mapperToDeviceDTO is valid.
+     * method to verify if the deviceMapper is valid.
      *
-     * @param mapperToDeviceDTO the mapperToDeviceDTO to be validated
-     * @return true if the mapperToDeviceDTO is valid, false otherwise
+     * @param deviceMapper the deviceMapper to be validated
+     * @return true if the deviceMapper is valid, false otherwise
      */
-    private boolean validMapperToDeviceDTO(MapperToDeviceDTO mapperToDeviceDTO) {
-        return mapperToDeviceDTO != null;
+    private boolean validMapperToDeviceDTO(DeviceMapper deviceMapper) {
+        return deviceMapper != null;
     }
 
     /**
@@ -95,6 +94,6 @@ public class AddDeviceToRoomController {
         if (device == null) {
             return null;
         }
-        return mapperToDeviceDTO.deviceToDTO(device, room.getRoomName());
+        return deviceMapper.deviceToDTO(device, room.getRoomName());
     }
 }

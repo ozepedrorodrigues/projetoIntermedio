@@ -1,14 +1,12 @@
 package sensors;
-
 import domain.SensorType;
 import values.Value;
-
 /**
  * This interface represents a generic sensor.
  * It has methods to get the type, name, and current reading of the sensor.
  */
 
-public interface Sensor {
+public interface Sensor{
     /**
      * Returns the type of the sensor.
      *

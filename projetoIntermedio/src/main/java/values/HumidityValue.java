@@ -27,17 +27,6 @@ public class HumidityValue implements Value {
     }
 
     /**
-     * Gets the humidity value as an integer.
-     *
-     * @return The humidity value.
-     */
-
-    @Override
-    public Double getValue() {
-        return humidityValue;
-    }
-
-    /**
      * Converts the humidity value to a string representation.
      *
      * @return The string representation of the humidity value.

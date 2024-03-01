@@ -3,6 +3,12 @@
 
 autonumber
 
+title US03
+
+/'
+As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
+'/
+
 participant "_getRoomListController:GetRoomListController" as C
 participant "_house:House" as H
 participant "_mapperToRoomDTO:MapperToRoomDTO" as M

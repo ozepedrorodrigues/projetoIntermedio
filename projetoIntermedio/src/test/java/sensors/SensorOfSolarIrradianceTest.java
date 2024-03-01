@@ -87,15 +87,15 @@ class SensorOfSolarIrradianceTest {
 
     /**
      * Test for the getValue method of the SensorOfSolarIrradiance class.
-     * Verifies that the method returns the value of the sensor correctly.
-     */
+     * Verifies that the method returns the value of the sensor correctly.*/
+
     @Test
     void testGetValue() {
         //Arrange
         int expectedSize = 1;
-        double defaultValue = 1200.0;
+        String defaultValue = "1200.0";
         try (MockedConstruction<SolarIrradianceValue> valueMockedConstruction = mockConstruction(SolarIrradianceValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);
+            when(mock.valueToString()).thenReturn(defaultValue);
         })) {
             SensorOfSolarIrradiance sensorOfSolarIrradiance = new SensorOfSolarIrradiance();
             //Act
@@ -103,9 +103,8 @@ class SensorOfSolarIrradianceTest {
             //Assert
             List<SolarIrradianceValue> values = valueMockedConstruction.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.getValue());
-        }
+            assertEquals(defaultValue, result.valueToString());
+        }}
 
-    }
 }
 

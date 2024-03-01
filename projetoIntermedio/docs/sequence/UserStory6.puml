@@ -3,6 +3,12 @@
 
 autonumber
 
+title US06
+/'
+As a Room Owner [or Power User, or Administrator], I want to get a list of all
+devices in a room, so that I can configure them.
+'/
+
 Participant "GetRoomList:GetRoomListController" as G
 Participant "GetDeviceList:GetDeviceListController" as G1
 Participant "room:Room" as R
@@ -11,7 +17,7 @@ Participant "roomDevicesDTO:List<DeviceDTO>" as L
 
 [o->G : getRoomList()
 activate G
-ref over G : (UseCase03.puml for more details)
+ref over G : (UseCase3.puml for more details)
 [o<--G : _roomListDTO
 deactivate G
 

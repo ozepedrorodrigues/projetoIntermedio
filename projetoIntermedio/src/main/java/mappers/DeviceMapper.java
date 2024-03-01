@@ -10,12 +10,12 @@ import java.util.List;
  * This class is a Mapper for DeviceDTO.
  * It is used to map a list of devices to a list of DeviceDTO objects.
  */
-public class MapperToDeviceDTO {
+public class DeviceMapper {
     /**
-     * Constructs a new MapperToDeviceDTO.
+     * Constructs a new DeviceMapper.
      */
-    public MapperToDeviceDTO() {
-        // Constructor for MapperToDeviceDTO
+    public DeviceMapper() {
+        // Constructor for DeviceMapper
     }
 
     /**

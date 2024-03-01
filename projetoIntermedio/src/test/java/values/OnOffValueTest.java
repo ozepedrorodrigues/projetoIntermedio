@@ -18,13 +18,13 @@ class OnOffValueTest {
     void testGetOnOffValueMethod() {
         // Arrange
         boolean expected = true;
-        OnOffValue onOffValue = new OnOffValue(expected);
+        OnOffValue onOffValue = new OnOffValue(true);
 
         // Act
-        boolean result = onOffValue.getValue();
+        String result = onOffValue.valueToString();
 
         // Assert
-        assertEquals(expected, result);
+        assertEquals(String.valueOf(expected), result);
     }
 
     /**

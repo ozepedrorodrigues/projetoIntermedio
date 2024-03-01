@@ -27,11 +27,11 @@ class SolarIrradianceValueTest {
     @Test
     void testDefaultConstructorGetSolarIrradianceValue() {
         // Arrange
-        double expected = 1200.0;
+        String expected = "1200.0";
         // Act
-        double result = solarIrradianceValue.getValue();
+        String result = solarIrradianceValue.valueToString();
         // Assert
-        assertEquals(expected, result, 0.01);
+        assertEquals(expected, result);
     }
 
     /**

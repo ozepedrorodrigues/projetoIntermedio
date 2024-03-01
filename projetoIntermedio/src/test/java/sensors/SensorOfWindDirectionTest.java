@@ -92,16 +92,16 @@ class SensorOfWindDirectionTest {
 
     /**
      * Tests the getValue method of the SensorOfWindDirection class.
-     * Verifies that the method returns the value of the sensor correctly.
-     */
+     * Verifies that the method returns the value of the sensor correctly.*/
+
 
     @Test
     void testGetValue() {
         // Arrange
         int expectedSize = 1;
-        int defaultValue = 315;
+        String  defaultValue = "315";
         try(MockedConstruction<WindDirectionValue> valueInteger = mockConstruction(WindDirectionValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);
+            when(mock.valueToString()).thenReturn(defaultValue);
         })) {
             SensorOfWindDirection sensorOfWindDirection = new SensorOfWindDirection();
             // Act
@@ -109,7 +109,7 @@ class SensorOfWindDirectionTest {
             // Assert
             List<WindDirectionValue> constructed = valueInteger.constructed();
             assertEquals(expectedSize, constructed.size());
-            assertEquals(defaultValue, result.getValue());
+            assertEquals(defaultValue, result.valueToString());
         }
 }}
 

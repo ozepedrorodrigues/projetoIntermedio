@@ -27,9 +27,7 @@ public class AddSensorTypeController {
      * @param typeDTO dto with the information of the new sensorType
      * @return true if the sensorType was created successfully, false if not
      */
-    /*
+
     public boolean defineSensorType(String typeDTO) {
         return myHouse.getCatalog().addSensorType(typeDTO);}
-
-     */
 }

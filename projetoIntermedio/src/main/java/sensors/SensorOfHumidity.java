@@ -1,7 +1,6 @@
 package sensors;
 
 import domain.SensorType;
-import factories.ValueFactory;
 import values.HumidityValue;
 import values.Value;
 

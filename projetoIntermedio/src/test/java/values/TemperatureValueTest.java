@@ -31,11 +31,11 @@ class TemperatureValueTest {
     @Test
     void defaultConstructor_getTemperatureValue() {
         // Arrange
-        double expected = 25;
+        String expected = "25";
         // Act
-        double result = temperatureValue.getValue();
+        String result = temperatureValue.valueToString();
         // Assert
-        assertEquals(expected, result, 0.01);
+        assertEquals(expected, result);
     }
 
 

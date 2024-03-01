@@ -39,7 +39,7 @@ public class Room {
     /**
      * The list of devices in the room.
      */
-    private List<Device> deviceList;
+    private List<Device> devices;
 
     /**
      * Constructor for creating a Room instance with specified name, floor, and dimensions.
@@ -60,7 +60,7 @@ public class Room {
         this.floor = floor;
         this.deviceFactory = deviceFactory;
         this.dimensionsFactory = dimensionsFactory;
-        this.deviceList = new ArrayList<>();
+        this.devices = new ArrayList<>();
     }
 
     /**
@@ -103,7 +103,7 @@ public class Room {
         try {
             Device device = deviceFactory.createDevice(name, deviceType);
             if (device != null) {
-                this.deviceList.add(device);
+                this.devices.add(device);
             }
             return device;
         } catch (IllegalArgumentException e) {
@@ -117,7 +117,7 @@ public class Room {
      * @param deviceName the name of the device to be added
      */
     private boolean validDeviceName(String deviceName) {
-        for (Device devices : deviceList) {
+        for (Device devices : devices) {
             if (devices.getName().equalsIgnoreCase(deviceName)) {
                 return false;}}
         return true;}
@@ -129,7 +129,7 @@ public class Room {
      */
     public List<Device> getDeviceList() {
         List<Device> deviceList = new ArrayList<>();
-        for (Device device : this.deviceList)
+        for (Device device : this.devices)
             deviceList.add(device);
         return deviceList;
     }
@@ -141,7 +141,7 @@ public class Room {
      * @return the device with the given name, or null if no such device exists
      */
     public Device getDeviceByName(String name) {
-        for (Device device : deviceList) {
+        for (Device device : devices) {
             if (device.getName().equals(name))
                 return device;}
         return null;

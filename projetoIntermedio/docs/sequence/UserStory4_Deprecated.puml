@@ -3,6 +3,12 @@
 
 autonumber
 
+title US04
+
+/'
+As an Administrator, I want to define a sensor type. S1
+'/
+
 Participant "addSensorTypeController:AddSensorTypeController" as C
 Participant "_house:House" as H
 Participant "_catalogue:Catalogue" as CAT
