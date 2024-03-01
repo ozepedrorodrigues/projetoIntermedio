@@ -12,7 +12,7 @@ class CatalogueTest {
      * Test to verify that the constructor does not throw exceptions.
      */
     @Test
-    void catalogueConstructor_validParameters() {
+    void catalogueConstructorValidParameters() {
         //Act + assert
         assertDoesNotThrow(() -> new Catalogue("config.properties"), "Should not throw exception.");
     }
@@ -21,7 +21,7 @@ class CatalogueTest {
      * Test to verify that the constructor throws an exception.
      */
     @Test
-    void catalogueConstructor_invalidPath() {
+    void catalogueConstructorInvalidPath() {
         //Arrange
         String expectedMessage = "Wrong file path name.";
         //Act + assert
@@ -47,7 +47,7 @@ class CatalogueTest {
      * Test to verify that the addSensorType method returns null when the sensor type added already exists.
      */
     @Test
-    void addSensorType_repeatedSensorType() throws InstantiationException {
+    void addSensorTypeRepeatedSensorType() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
@@ -75,7 +75,7 @@ class CatalogueTest {
      * Test to verify that the getSensorTypeList method returns list of unique sensor type.
      */
     @Test
-    void getSensorTypeList_listOfUniqueSensorType() throws InstantiationException {
+    void getSensorTypeslistOfUniqueSensorType() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
@@ -92,7 +92,7 @@ class CatalogueTest {
      * Test to verify that the getSensorTypeList method returns list of two sensor types.
      */
     @Test
-    void getSensorTypeList_listOfTwoSensorTypes() throws InstantiationException {
+    void getSensorTypesListOfTwoSensorTypes() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         catalogue.addSensorType(SensorType.HUMIDITY);
@@ -112,7 +112,7 @@ class CatalogueTest {
      * Test to verify that the getSensorTypeList method returns an empty list when is empty.
      */
     @Test
-    void getSensorTypeList_emptyList() throws InstantiationException {
+    void getSensorTypesEmptyList() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 0;

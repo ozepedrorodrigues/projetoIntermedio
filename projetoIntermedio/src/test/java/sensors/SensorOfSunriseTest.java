@@ -64,7 +64,7 @@ class SensorOfSunriseTest {
     }
 
     @Test
-    void getValue_currentDate() {
+    void getValueCurrentDate() {
         //Arrange
         LocalDate localDate = LocalDate.now();
         SunriseValue sunriseValueMock = mock(SunriseValue.class);
@@ -81,13 +81,13 @@ class SensorOfSunriseTest {
     }
 
     @Test
-    void getValue_givenCalendarDate() {
+    void getValueGivenCalendarDate() {
         //Arrange
         LocalDate localDate = LocalDate.of(2023,1,10);
         SunriseValue sunriseValueMock = mock(SunriseValue.class);
         when(sunriseValueMock.valueToString()).thenReturn("2023-01-10T10:00");
 
-        try(MockedConstruction<Value> valueDouble = mockConstruction(Value.class, (mock, context) -> {
+        try(MockedConstruction<SunriseValue> valueDouble = mockConstruction(SunriseValue.class, (mock, context) -> {
             when(mock.valueToString()).thenReturn(String.valueOf(sunriseValueMock));
         })) {
             LocalDateTime expected = LocalDateTime.of(localDate, LocalTime.of(10,0));
@@ -97,10 +97,11 @@ class SensorOfSunriseTest {
             //Act
             Value result = sensorOfSunrise1.getValue(localDate);
             //Assert
-            List<Value> values = valueDouble.constructed();
+            List<SunriseValue> values = valueDouble.constructed();
             assertEquals(1, values.size());
             assertEquals(expected.toString(), valueDouble.constructed().get(0).valueToString());
             assertEquals(expected.toString(), result.valueToString());
+
         }
     }
 }
