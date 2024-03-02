@@ -41,8 +41,7 @@ public class DeactivateDeviceController {
      * @throws InstantiationException if house is null.
      */
     public DeactivateDeviceController(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, DeviceMapper deviceMapper) throws InstantiationException {
-        if (house == null)
-            throw new InstantiationException("House cannot be null.");
+        if (house == null) throw new InstantiationException();
         this.house = house;
         this.getRoomListController = getRoomListController;
         this.getDeviceListController = getDeviceListController;
