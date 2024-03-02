@@ -14,21 +14,71 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class AddDeviceToRoomControllerTest {
+    /**
+     * The GPSFactory instance to be used in tests.
+     */
     GPSFactory gpsFactory;
+    /**
+     * The LocationFactory instance to be used in tests.
+     */
     LocationFactory locationFactory;
+    /**
+     * The path to the file to be used in tests.
+     */
     String filePathName;
+    /**
+     * The SensorFactory instance to be used in tests.
+     */
     SensorFactory sensorFactory;
+    /**
+     * The ActuatorFactory instance to be used in tests.
+     */
     ActuatorFactory actuatorFactory;
+    /**
+     * The DeviceFactory instance to be used in tests.
+     */
     DeviceFactory deviceFactory;
+    /**
+     * The DimensionsFactory instance to be used in tests.
+     */
     DimensionsFactory dimensionsFactory;
+    /**
+     * The RoomFactory instance to be used in tests.
+     */
     RoomFactory roomFactory;
+    /**
+     * The House instance to be used in tests.
+     */
     House house;
+    /**
+     * The GetRoomListController instance to be used in tests.
+     */
     GetRoomListController getRoomListController;
+    /**
+     * The DeviceMapper instance to be used in tests.
+     */
     DeviceMapper deviceMapper;
+    /**
+     * The RoomMapper instance to be used in tests.
+     */
     RoomMapper roomMapper;
+    /**
+     * The AddDeviceToRoomController instance to be used in tests.
+     */
     AddDeviceToRoomController addDeviceToRoomController;
+    /**
+     * The AddRoomController instance to be used in tests.
+     */
     AddRoomController addRoomController;
 
+    /**
+     * Set up the necessary objects for the tests.
+     * Initializes the GPSFactory, LocationFactory, SensorFactory, ActuatorFactory, DeviceFactory, DimensionsFactory,
+     *      RoomFactory, House, RoomMapper, GetRoomListController, DeviceMapper, AddDeviceToRoomController and
+     *      AddRoomController instances to be used in tests.
+     *
+     * @throws InstantiationException if an instantiation exception occurs
+     */
     @BeforeEach
     void setUpIntegration() throws InstantiationException {
         filePathName = "config.properties";
@@ -47,15 +97,20 @@ public class AddDeviceToRoomControllerTest {
         addRoomController = new AddRoomController(house, roomMapper);
     }
 
+    /**
+     * Test the constructor of the AddDeviceToRoomController with valid parameters.
+     */
     @Test
-    void constructorNotNull() {
-        // Arrange
-        AddDeviceToRoomController addDeviceToRoomController;
-        // Act & Assert
-        new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
-        // No exception is thrown, so the test passes
+    void constructorValid() {
+        // Act
+        AddDeviceToRoomController controller = new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
+        // Assert
+        assertNotNull(controller);
     }
 
+    /**
+     * Test the constructor of the AddDeviceToRoomController with null house.
+     */
     @Test
     void constructorNullHouse() {
         // Arrange
@@ -64,6 +119,9 @@ public class AddDeviceToRoomControllerTest {
         assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
+    /**
+     * Test the constructor of the AddDeviceToRoomController with null deviceMapper.
+     */
     @Test
     void constructorNullMapper() {
         // Arrange
@@ -72,6 +130,9 @@ public class AddDeviceToRoomControllerTest {
         assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
+    /**
+     * Test the constructor of the AddDeviceToRoomController with null getRoomListController.
+     */
     @Test
     void constructorNullGetRoomListController() {
         // Arrange
@@ -80,6 +141,9 @@ public class AddDeviceToRoomControllerTest {
         assertThrows(IllegalArgumentException.class, () -> new AddDeviceToRoomController(house, deviceMapper, getRoomListController));
     }
 
+    /**
+     * Test the getRoomList method with one room.
+     */
     @Test
     void getRoomListOneRoom() {
         // Arrange
@@ -92,8 +156,11 @@ public class AddDeviceToRoomControllerTest {
         assertEquals(sizeExpected, sizeResult);
     }
 
+    /**
+     * Test the addDeviceToRoom method with valid parameters.
+     */
     @Test
-    void addDeviceToRoom() {
+    void addDeviceToRoomValid() {
         // Arrange
         String roomName = "Room1";
         String deviceName = "Device1";
@@ -110,6 +177,9 @@ public class AddDeviceToRoomControllerTest {
         assertEquals(deviceName, nameResult);
     }
 
+    /**
+     * Test the addDeviceToRoom method with a repeated device name.
+     */
     @Test
     void addDeviceToRoomDeviceNameIsRepeated() {
         // Arrange
@@ -123,6 +193,9 @@ public class AddDeviceToRoomControllerTest {
         assertNull(result);
     }
 
+    /**
+     * Test the addDeviceToRoom method with two rooms and adding a device to the last one.
+     */
     @Test
     void addDeviceToCorrectRoom() {
         // Arrange
@@ -140,6 +213,9 @@ public class AddDeviceToRoomControllerTest {
         assertNotNull(result);
     }
 
+    /**
+     * Test the addDeviceToRoom method with a null deviceDTO.
+     */
     @Test
     void addDeviceToRoomNullDeviceDTO() {
         // Arrange
