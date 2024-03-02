@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class Room {
     /**
-     * The unique identifier of the room
-     */
-    private int id;
-    /**
      * The name of the room
      */
     private String name;
@@ -43,17 +39,21 @@ public class Room {
 
     /**
      * Constructor for creating a Room instance with specified name, floor, and dimensions.
+     * The room is created with an empty list of devices.
+     * The dimensions and device factories are used to create dimensions and devices.
      *
-     * @param name                the name of the room (must not be null or empty)
-     * @param floor               the floor of the room
-     * @param width,length,height the dimensions of the room
-     * @param dimensionsFactory   the factory to create dimensions
-     * @param deviceFactory       the factory to create devices
+     * @param name the name of the room (must not be null or empty)
+     * @param floor the floor of the room
+     * @param width the width of the room
+     * @param length the length of the room
+     * @param height the height of the room
+     * @param dimensionsFactory the factory to create dimensions
+     * @param deviceFactory the factory to create devices
      * @throws IllegalArgumentException if input parameters are invalid
      */
     public Room(String name, int floor, double width, double length, double height, DimensionsFactory dimensionsFactory, DeviceFactory deviceFactory) throws IllegalArgumentException {
         if (!validName(name) || !validDimensonsFactory(dimensionsFactory) || !validDeviceFactory(deviceFactory)) {
-            throw new IllegalArgumentException("Invalid parameters.");
+            throw new IllegalArgumentException();
         }
         this.dimensions = dimensionsFactory.createDimensions(width, length, height);
         this.name = name;
@@ -65,6 +65,8 @@ public class Room {
 
     /**
      * Getter method to retrieve the name of the room.
+     *
+     * @return the name of the room
      */
     public String getRoomName() {
         return this.name;
@@ -89,12 +91,11 @@ public class Room {
     }
 
     /**
-     * Creates a new device and adds it to the room.
+     * Adds a new device to the room.
      *
-     * @param name       the name of the device
+     * @param name the name of the device
      * @param deviceType the type of the device
-     * @return the created device
-     * @throws IllegalArgumentException if the device is invalid
+     * @return the created device or null if the device could not be created
      */
     public Device addNewDevice(String name, String deviceType) {
         if (!validDeviceName(name)) {
@@ -123,15 +124,12 @@ public class Room {
         return true;}
 
     /**
-     * Returns a list of all devices in the room.
+     * Returns the devices in the room.
      *
      * @return a list of all devices in the room
      */
     public List<Device> getDevicesInRoom() {
-        List<Device> deviceList = new ArrayList<>();
-        for (Device device : this.devices)
-            deviceList.add(device);
-        return deviceList;
+        return List.copyOf(devices);
     }
 
     /**
@@ -150,7 +148,7 @@ public class Room {
     /**
      * Checks if the given room name is non-null and not blank.
      *
-     * @param name
+     * @param name the name of the room
      * @return true if the name is valid, false otherwise
      */
     private boolean validName(String name) {
@@ -160,7 +158,7 @@ public class Room {
     /**
      * Checks if the given dimensionsFactory is non-null.
      *
-     * @param dimensionsFactory
+     * @param dimensionsFactory the factory to create dimensions
      * @return true if the dimensionsFactory is valid, false otherwise
      */
     private boolean validDimensonsFactory(DimensionsFactory dimensionsFactory) {
@@ -170,7 +168,7 @@ public class Room {
     /**
      * Checks if the given deviceFactory is non-null.
      *
-     * @param deviceFactory
+     * @param deviceFactory the factory to create devices
      * @return true if the deviceFactory is valid, false otherwise
      */
     private boolean validDeviceFactory(DeviceFactory deviceFactory) {
