@@ -24,7 +24,7 @@ public class GPS {
      */
     public GPS(double latitude, double longitude) throws IllegalArgumentException {
         if (!validLatitude(latitude) || !validLongitude(longitude))
-            throw new IllegalArgumentException("Invalid GPS Location");
+            throw new IllegalArgumentException();
 
         this.latitude = latitude;
         this.longitude = longitude;

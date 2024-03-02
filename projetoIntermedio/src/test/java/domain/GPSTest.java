@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GPSTest {
     /**
      * Constructor with valid parameters
+
      */
     @Test
     void testConstructorValidParameters() {
@@ -29,36 +30,28 @@ class GPSTest {
 
     /**
      * Constructor with invalid negative parameters
+     * Negative latitude and longitude
      */
     @Test
     void testConstructorInvalidParametersNegativeLatitudeAndLongitude() {
         // Arrange
         double latitude = -91;
         double longitude = -181;
-        String expectedMessage = "Invalid GPS Location";
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new GPS(latitude, longitude));
-        String result = exception.getMessage();
-        // Assert
-        assertEquals(expectedMessage, result);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new GPS(latitude, longitude));
     }
 
     /**
      * Constructor with invalid positive parameters
+
      */
     @Test
     void testConstructorInvalidParametersPositiveLatitudeAndLongitude() {
         // Arrange
         double latitude = 91;
         double longitude = 181;
-        String expectedMessage = "Invalid GPS Location";
-        // Act
-        Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new GPS(latitude, longitude));
-        String result = exception.getMessage();
-        // Assert
-        assertEquals(expectedMessage, result);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new GPS(latitude, longitude));
     }
 
     /**
@@ -80,6 +73,7 @@ class GPSTest {
 
     /**
      * Constructor with valid parameters in the positive boundary
+     *
      */
     @Test
     void testConstructorValidParametersBoundaryPositiveLatitudeAndLongitude() {
