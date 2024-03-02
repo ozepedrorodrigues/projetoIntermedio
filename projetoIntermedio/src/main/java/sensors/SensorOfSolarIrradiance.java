@@ -11,7 +11,7 @@ import values.Value;
  * The type is always SensorType.SOLAR_IRRADIANCE, and the value is a SolarIrradianceValue.
  * The ID can be set using the setID method.
  */
-public class SensorOfSolarIrradiance {
+public class SensorOfSolarIrradiance implements Sensor{
 
     private int id;
 

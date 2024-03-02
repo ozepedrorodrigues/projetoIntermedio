@@ -61,7 +61,7 @@ public class ActuatorFactoryImp implements ActuatorFactory {
     private boolean isValidActuatorClassName(String actuatorClassNamePath){
         boolean isValidActuatorClassName = false;
 
-        for(String catalogueActuatorClass : catalogue.getActuatorCatalogue()) {
+        for(String catalogueActuatorClass : catalogue.getSensorsCatalogue()) {
             if (actuatorClassNamePath.equals(catalogueActuatorClass)) {
                 isValidActuatorClassName = true;
                 break;

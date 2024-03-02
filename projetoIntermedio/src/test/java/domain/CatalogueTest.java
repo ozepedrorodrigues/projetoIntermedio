@@ -97,7 +97,7 @@ class CatalogueTest {
         Catalogue catalogue = new Catalogue("config.properties");
         int expectedSize = 10;
         //Act
-        List<String> result = catalogue.getActuatorCatalogue();
+        List<String> result = catalogue.getSensorsCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
     }

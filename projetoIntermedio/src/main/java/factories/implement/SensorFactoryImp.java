@@ -38,12 +38,12 @@ public class SensorFactoryImp implements SensorFactory {
      * during the creation of the sensor and catalogue consultation.
      */
     public Sensor createSensor(String sensorClassName) {
-        String sensorClassNamePath = "sensors." + sensorClassName;
-        boolean isValidSensorClassName = isValidSensorClassName(sensorClassNamePath);
-
+        if(!sensorClassName.contains("sensors.")){
+            sensorClassName = "sensors." + sensorClassName;}
+        boolean isValidSensorClassName = isValidSensorClassName(sensorClassName);
         if(isValidSensorClassName) {
             try {
-                return (Sensor) Class.forName(sensorClassNamePath).getConstructor().newInstance();
+                return (Sensor) Class.forName(sensorClassName).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
                 System.out.println("Error creating the sensor: " + e.getMessage());
@@ -61,7 +61,7 @@ public class SensorFactoryImp implements SensorFactory {
     private boolean isValidSensorClassName(String sensorClassNamePath){
         boolean isValidSensorClassName = false;
 
-        for(String catalogueSensorClass : catalogue.getActuatorCatalogue()) {
+        for(String catalogueSensorClass : catalogue.getSensorsCatalogue()) {
             if (sensorClassNamePath.equals(catalogueSensorClass)) {
                 isValidSensorClassName = true;
                 break;

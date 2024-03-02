@@ -96,7 +96,7 @@ public class Catalogue {
      *
      * @return immutable list of sensors.
      */
-    public List<String> getActuatorCatalogue() {
+    public List<String> getSensorsCatalogue() {
         return List.copyOf(sensorClassList);
     }
 
