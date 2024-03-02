@@ -8,6 +8,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * The SensorOfSunset class represents a sensor that detects the sunset time.
+ * It implements the Sensor interface and provides methods to get and set the sensor's ID, get the sensor's type, and get the sunset value for the current day or a specified date.
+ */
 public class SensorOfSunset implements Sensor {
     /**
      * The ID of the sensor.
@@ -50,7 +54,6 @@ public class SensorOfSunset implements Sensor {
         return this.id;
     }
 
-
     /**
      * Retrieves the type of the sensor.
      *
@@ -63,6 +66,7 @@ public class SensorOfSunset implements Sensor {
 
     /**
      * Retrieves the Sunset value of the current day.
+     * By default, if no date is specified, the current date is used.
      *
      * @return The Sunset value as a Value object.
      */
