@@ -197,9 +197,9 @@ class RoomTest {
     void getDimensionsValid() {
         // Act
         dimensionsMock = validRoom.getDimensions();
-        int width = 10;
-        int length = 20;
-        int height = 30;
+        double width = dimensionsMock.getWidth();
+        double length = dimensionsMock.getLength();
+        double height = dimensionsMock.getHeight();
         // Assert
         assertEquals(validWidth, width);
         assertEquals(validLength, length);
