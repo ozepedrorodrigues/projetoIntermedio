@@ -68,7 +68,7 @@ public class AddSensorToDeviceController {
      * @return the list of sensor types.
      */
     public List<String> getSensorModel() {
-        return catalogue.getSensorsCatalogue();
+        return catalogue.getActuatorCatalogue();
     }
     //Esse metodo só pode ser testado no final ou a lista de sensores está sempre sendo atualizada
 
