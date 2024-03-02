@@ -49,7 +49,7 @@ class AddSensorToDeviceControllerTest {
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(
                         new DimensionsFactoryImp(),
-                        new DeviceFactoryImp(new SensorFactoryImp(filepath))));
+                        new DeviceFactoryImp(new SensorFactoryImp(filepath),new ActuatorFactoryImp(filepath))));
 
         sensorMapper = new SensorMapper();
         getRoomListController = new GetRoomListController(house, new RoomMapper());
@@ -60,7 +60,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid house
      *
-     * @throws InstantiationException if any of the parameters are null
+     * @throws IllegalArgumentException if any of the parameters are null
      */
     @Test
     void testConstructorInvalidHouse() {
@@ -80,7 +80,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid mapperSensorDTO
      *
-     * @throws InstantiationException if any of the parameters are null
+     * @throws IllegalArgumentException if any of the parameters are null
      */
     @Test
     void testConstructorInvalidMapper() {
@@ -100,7 +100,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid GetRoomListController
      *
-     * @throws InstantiationException if any of the parameters are null
+     * @throws IllegalArgumentException if any of the parameters are null
      */
     @Test
     void testConstructorInvalidGetRoomListController() {
@@ -120,7 +120,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid GetDeviceListController
      *
-     * @throws InstantiationException if any of the parameters are null
+     * @throws IllegalArgumentException if any of the parameters are null
      */
     @Test
     void testConstructorInvalidGetDeviceListController() {
@@ -140,7 +140,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * Test to assess the Constructor of AddSensorToDeviceController with invalid Catalogue
      *
-     * @throws InstantiationException if any of the parameters are null
+     * @throws IllegalArgumentException if any of the parameters are null
      */
     @Test
     void testConstructorInvalidCatalogue() {

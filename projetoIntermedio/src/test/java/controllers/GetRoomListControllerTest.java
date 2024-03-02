@@ -91,6 +91,7 @@ class GetRoomListControllerTest {
     LocationFactory locationFactory;
     String filePathName;
     SensorFactory sensorFactory;
+    ActuatorFactory actuatorFactory;
     DeviceFactory deviceFactory;
     DimensionsFactory dimensionsFactory;
     RoomFactory roomFactory;
@@ -105,7 +106,8 @@ class GetRoomListControllerTest {
         locationFactory = new LocationFactoryImp(gpsFactory);
         filePathName = "config.properties";
         sensorFactory = new SensorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        actuatorFactory = new ActuatorFactoryImp(filePathName);
+        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house2 = new House(locationFactory, roomFactory);

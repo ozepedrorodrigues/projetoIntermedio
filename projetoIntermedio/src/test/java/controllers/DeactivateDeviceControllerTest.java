@@ -24,6 +24,7 @@ class DeactivateDeviceControllerTest {
     LocationFactory locationFactory;
     String filePathName;
     SensorFactory sensorFactory;
+    ActuatorFactory actuatorFactory;
     DeviceFactory deviceFactory;
     DimensionsFactory dimensionsFactory;
     RoomFactory roomFactory;
@@ -43,7 +44,8 @@ class DeactivateDeviceControllerTest {
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
         sensorFactory = new SensorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        actuatorFactory = new ActuatorFactoryImp(filePathName);
+        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);

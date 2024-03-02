@@ -1,5 +1,6 @@
 package domain;
 
+import factories.ActuatorFactory;
 import factories.SensorFactory;
 import org.junit.jupiter.api.Test;
 import sensors.Sensor;
@@ -60,12 +61,20 @@ class DeviceTest {
     SensorFactory sensorFactory = mock(SensorFactory.class);
 
     /**
+     * A mock of an ActuatorFactory. It is a test double version of an ActuatorFactory, meaning it is an empty object with the same methods
+     * as an actual ActuatorFactory, but all those methods are empty. When executed they will return absolutely nothing and make
+     * no changes.
+     */
+
+    ActuatorFactory actuatorFactory = mock(ActuatorFactory.class);
+
+    /**
      * Test designed to evaluate the constructor of the Device Class under normal circumstances.
      * No Exception should be thrown, the device should be created.*/
     @Test
     void constructorValidShouldNotThrowException() throws IllegalArgumentException {
         //Arrange and Act
-        new Device(validName,validType,sensorFactory);
+        new Device(validName,validType,sensorFactory,actuatorFactory);
         //As the constructor does not throw any exception, if the object is created, the test is successful
         //No Assertion needed
     }
@@ -75,10 +84,8 @@ class DeviceTest {
      * The Exception thrown should send a message in a String "Invalid Parameters".*/
     @Test
     void constructorInvalidNullNameShouldThrowIllegalArgumentException() {
-        //Arrange and Act
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(null,validType,sensorFactory));
-        //Assert
-        assertEquals("Invalid Parameter(s)", exc.getMessage());}
+        //Arrange and Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> new Device(null,validType,sensorFactory,actuatorFactory));}
 
     /**
      * Test designed to assess the response of the constructor to a Null SensorFactory (should throw IllegalArgumentException).
@@ -86,20 +93,16 @@ class DeviceTest {
      */
     @Test
     void construtorInvalidNullsensorFactoryShouldThrowIllegalArgumentException() {
-        //Arrange and Act
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,validType,null));
-        //Assert
-        assertEquals("Invalid Parameter(s)", exc.getMessage());}
+        //Arrange and Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> new Device(validName,validType,null,actuatorFactory));}
 
     /**
      * Test designed to assess the response of the constructor to a Null Type (should throw IllegalArgumentException).
      * The Exception thrown should send a message in a String "Invalid Parameters".*/
     @Test
     void constructorInvalidNullTypeShouldThrowIllegalArgumentException() {
-        //Arrange and Act
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,null,sensorFactory));
-        //Assert
-        assertEquals("Invalid Parameter(s)", exc.getMessage());}
+        //Arrange and Act and Assert
+        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,null,sensorFactory,actuatorFactory));}
     /**
      * Test designed to assess the response of the constructor to an Emptu Name (should throw IllegalArgumentException).
      * The Exception thrown should send a message in a String "Invalid Parameters".*/
@@ -107,10 +110,13 @@ class DeviceTest {
     void constructorInvalidEmptyNameShouldThrowIllegalArgumentException() {
         //Arrange
         String invalidName = "";
-        //Act
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(invalidName,validType,sensorFactory));
-        //Assert
-        assertEquals("Invalid Parameter(s)", exc.getMessage());}
+        //Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> new Device(invalidName,validType,sensorFactory,actuatorFactory));}
+
+    @Test
+    void constructorNullActuatorFactoryShouldThrowIllegalArgumentException() {
+        //Arrange and Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> new Device(validName,validType,sensorFactory,null));}
 
     /**
      * Test designed to assess the response of the constructor to an Emptu Type (should throw IllegalArgumentException).
@@ -120,10 +126,8 @@ class DeviceTest {
     void constructorInvalidEmptyTypeShouldThrowIllegalArgumentException() {
         //Arrange
         String invalidType = "";
-        //Act
-        IllegalArgumentException exc = assertThrows(IllegalArgumentException.class, () -> new Device(validName,invalidType,sensorFactory));
-        //Assert
-        assertEquals("Invalid Parameter(s)", exc.getMessage());}
+        //Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> new Device(validName,invalidType,sensorFactory,actuatorFactory));}
 
     /**
      * Test designed to evaluate the response of the getName method under normal circumstances.
@@ -131,7 +135,7 @@ class DeviceTest {
     @Test
     void getName() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         //Act
         String result = device.getName();
         //Assert
@@ -143,7 +147,7 @@ class DeviceTest {
     @Test
     void getType() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         //Act
         String result = device.getType();
         //Assert
@@ -155,7 +159,7 @@ class DeviceTest {
     @Test
     void addSensorOfHumidityToAnEmptyDevice() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfHumidity";
         //Act
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfHumidity);
@@ -175,7 +179,7 @@ class DeviceTest {
      @Test
     void addSensorOfTemperatureToAnEmptyDevice() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfTemperature";
         //Act
          when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
@@ -196,7 +200,7 @@ class DeviceTest {
     @Test
     void addSensorOfTemperatureToADeviceWhichAlreadyHasOne() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfTemperature";
         Sensor sensorOfTemperature2 = mock(SensorOfTemperature.class);
         //Act
@@ -226,7 +230,7 @@ class DeviceTest {
     @Test
     void addSensorOfHumidityToADeviceWhichAlreadyHasOne() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfHumidity";
         Sensor sensor2 = mock(SensorOfHumidity.class);
         //Act
@@ -254,7 +258,7 @@ class DeviceTest {
     @Test
     void addSensorOfHumidityToADeviceWhichAlreadyHasOneTemperatureSensor() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfTemperature";
         String sensorClassName2 = "SensorOfHumidity";
         //Act
@@ -282,7 +286,7 @@ class DeviceTest {
     @Test
     void deactivateADeviceThatisActiveShouldReturnTrue() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         //Act
         boolean result = device.deactivate();
         //Assert
@@ -295,7 +299,7 @@ class DeviceTest {
     @Test
     void deactivateADeviceThatisInactiveShouldReturnFalse() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         device.deactivate();
         //Act
         boolean result = device.deactivate();
@@ -308,7 +312,7 @@ class DeviceTest {
     @Test
     void getDeviceSensorsReturnsAListWith2Sensors() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         String sensorClassName = "SensorOfTemperature";
         String sensorClassName2 = "SensorOfHumidity";
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
@@ -330,7 +334,7 @@ class DeviceTest {
     @Test
     void getDeviceSensorsEmptyList() {
         //Arrange
-        Device device = new Device(validName,validType,sensorFactory);
+        Device device = new Device(validName,validType,sensorFactory,actuatorFactory);
         //Act
         int size = device.getDeviceSensors().size();
         //Assert

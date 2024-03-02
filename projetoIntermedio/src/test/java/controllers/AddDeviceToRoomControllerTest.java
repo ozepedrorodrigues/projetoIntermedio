@@ -18,6 +18,7 @@ public class AddDeviceToRoomControllerTest {
     LocationFactory locationFactory;
     String filePathName;
     SensorFactory sensorFactory;
+    ActuatorFactory actuatorFactory;
     DeviceFactory deviceFactory;
     DimensionsFactory dimensionsFactory;
     RoomFactory roomFactory;
@@ -34,7 +35,8 @@ public class AddDeviceToRoomControllerTest {
         gpsFactory = new GPSFactoryImp();
         locationFactory = new LocationFactoryImp(gpsFactory);
         sensorFactory = new SensorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        actuatorFactory = new ActuatorFactoryImp(filePathName);
+        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
@@ -79,7 +81,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     @Test
-    void getRoomListOneRoom() throws InstantiationException {
+    void getRoomListOneRoom() {
         // Arrange
         RoomDTO roomDTO = new RoomDTO("Room1", 1, 1, 1, 1);
         addRoomController.addNewRoomToHouse(roomDTO);
@@ -102,7 +104,7 @@ public class AddDeviceToRoomControllerTest {
         // Act
         DeviceDTO result = addDeviceToRoomController.addDeviceToRoom(deviceDTO);
         int finalSize = house.getRoomByName(roomName).getDeviceList().size();
-        String nameResult = house.getRoomByName(roomName).getDeviceList().get(0).getName();
+        String nameResult = house.getRoomByName(roomName).getDeviceList().getFirst().getName();
         // Assert
         assertEquals(initialSize + 1, finalSize);
         assertEquals(deviceName, nameResult);

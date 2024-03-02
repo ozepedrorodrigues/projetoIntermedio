@@ -33,7 +33,7 @@ class WindSpeedValueTest {
         // Arrange
         String expected = "25.0";
         // Act
-        String result = windSpeedValue.toString();
+        String result = windSpeedValue.valueToString();
         // Assert
         assertEquals(expected, result);
     }

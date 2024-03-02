@@ -1,12 +1,13 @@
 package domain;
 
+import factories.ActuatorFactory;
 import factories.SensorFactory;
+
 import sensors.Sensor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 
 /**
  * Represents a device with various sensors and functionalities.
@@ -18,6 +19,8 @@ public class Device {
     private boolean active;
     private List<Sensor> sensors = new ArrayList<>();
     private HashSet<String> functionalities = new HashSet<>();
+
+    private ActuatorFactory actuatorFactory;
     private SensorFactory sensorFactory;
 
     /**
@@ -29,29 +32,35 @@ public class Device {
      * @throws NullPointerException if name or type or sensorFactory is null.
      * @throws IllegalArgumentException if name or type is empty.
      */
-    public Device(String name, String type, SensorFactory sensorFactory) {
-        if (!validName(name)||!validType(type)||sensorFactory==null) throw new IllegalArgumentException("Invalid Parameter(s)");
+    public Device(String name, String type, SensorFactory sensorFactory, ActuatorFactory actuatorFactory) {
+        if (!validName(name)||!validType(type)||!validFactories(sensorFactory,actuatorFactory)) throw new IllegalArgumentException();
         this.name = name;
         this.type = type;
         this.active = true;
         this.sensorFactory = sensorFactory;
-    }
+        this.actuatorFactory = actuatorFactory;}
 
     /**
      * Validates the name of the device.
      * @param name The name of the device.
      * @return true if the name is not null and not empty, false otherwise.
      */
-    private boolean validName(String name) {
-        return name != null && !name.isEmpty();}
+    private boolean validName(String name) { return name != null && !name.isEmpty();}
 
     /**
      * Validates the type of the device.
      * @param type The type of the device.
      * @return true if the type is not null and not empty, false otherwise.
      */
-    private boolean validType(String type) {
-        return type != null && !type.isEmpty();}
+    private boolean validType(String type) {return type != null && !type.isEmpty();}
+
+    /**
+     * Validates the factories of the device.
+     * @param sensorFactory The sensor factory of the device.
+     * @param actuatorFactory The actuator factory of the device.
+     * @return true if the factories are not null, false otherwise.
+     */
+    private boolean validFactories(SensorFactory sensorFactory, ActuatorFactory actuatorFactory) {return sensorFactory != null && actuatorFactory != null;}
 
     /**
      * Gets the name of the device.
@@ -90,7 +99,6 @@ public class Device {
 
     /**
      * Deactivates the device.
-     *
      * @return true if the device was active and has been deactivated, false otherwise.
      */
     public boolean deactivate() {
@@ -103,7 +111,6 @@ public class Device {
 
     /**
      * Gets a list of sensors attached to the device.
-     *
      * @return A list of sensors.
      */
     public List<Sensor> getDeviceSensors() {
@@ -112,7 +119,6 @@ public class Device {
 
     /**
      * Gets a list of functionalities supported by the device.
-     *
      * @return A list of functionalities.
      */
     public HashSet<String> getFunctionalities() {

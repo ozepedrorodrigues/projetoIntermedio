@@ -12,11 +12,8 @@ public enum SensorType {
 
     TEMPERATURE("Temperature", "ºC"),
     HUMIDITY("Humidity", "%RH"),
-    APERTURE("Aperture", "%AP"),
-    AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W"),
     SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     ON_OFF("On/Off", "Boolean"),
-    ENERGY_CONSUMPTION("Energy Consumption", "kWh"),
     POWER_CONSUMPTION("Power Consumption","W"),
     SUNRISE("Sunrise", "H"),
     SUNSET("Sunset", "H"),

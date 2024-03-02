@@ -27,7 +27,7 @@ class SunsetValueTest {
     void getValue() {
         //Arrange
         SunsetValue sunsetValue = new SunsetValue(localDateTime);
-        LocalDateTime expected = localDateTime;
+        String expected = localDateTime.toString();
         //Act
         String result = sunsetValue.valueToString();
         //Assert

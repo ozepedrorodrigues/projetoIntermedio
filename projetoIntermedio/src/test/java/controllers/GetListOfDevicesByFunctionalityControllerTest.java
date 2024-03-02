@@ -28,9 +28,9 @@ class GetListOfDevicesByFunctionalityControllerTest {
     GPSFactory GPSFactory;
     LocationFactory locationFactory;
     DimensionsFactory dimensionsFactory;
-
     DeviceGroupMapper deviceGroupMapper;
     SensorFactory sensorFactory;
+    ActuatorFactory actuatorFactory;
     DeviceFactory deviceFactory;
     RoomFactory roomFactory;
     int numberOfFunctionalities;
@@ -46,7 +46,8 @@ class GetListOfDevicesByFunctionalityControllerTest {
         locationFactory = new LocationFactoryImp(GPSFactory);
         dimensionsFactory = new DimensionsFactoryImp();
         sensorFactory = new SensorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        actuatorFactory = new ActuatorFactoryImp(filePathName);
+        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
         roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         house = new House(locationFactory, roomFactory);
         catalogue = new Catalogue(filePathName);
@@ -71,8 +72,13 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(1, result.get("Temperature").size());
         assertEquals(0, result.get("Humidity").size());
-        assertEquals(0,result.get("Aperture").size());
-        assertEquals(0,result.get("Average Power Consumption").size());}
+        assertEquals(0,result.get("Scale Percentage").size());
+        assertEquals(0,result.get("Power Consumption").size());
+        assertEquals(0,result.get("Sunrise").size());
+        assertEquals(0,result.get("Sunset").size());
+        assertEquals(0,result.get("WindSpeed").size());
+        assertEquals(0,result.get("WindDirection").size());
+        assertEquals(0,result.get("Solar Irradiance").size());}
 
     /**
      * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 2 rooms and 1 device with 2 functionalities.
@@ -90,8 +96,14 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(1, result.get("Temperature").size());
         assertEquals(1, result.get("Humidity").size());
-        assertEquals(0,result.get("Aperture").size());
-        assertEquals(0,result.get("Average Power Consumption").size());
+        assertEquals(0,result.get("Scale Percentage").size());
+        assertEquals(0,result.get("On/Off").size());
+        assertEquals(0,result.get("Power Consumption").size());
+        assertEquals(0,result.get("Sunrise").size());
+        assertEquals(0,result.get("Sunset").size());
+        assertEquals(0,result.get("WindSpeed").size());
+        assertEquals(0,result.get("WindDirection").size());
+        assertEquals(0,result.get("Solar Irradiance").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
         assertEquals("Device1", result.get("Humidity").getFirst().getName());}
 
@@ -112,7 +124,6 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(2, result.get("Temperature").size());
         assertEquals(0, result.get("Humidity").size());
-        assertEquals(0,result.get("Aperture").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
         assertEquals("Device2", result.get("Temperature").getLast().getName());}
 
@@ -135,7 +146,6 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(2, result.get("Temperature").size());
         assertEquals(2, result.get("Humidity").size());
-        assertEquals(0,result.get("Aperture").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
         assertEquals("Device2", result.get("Temperature").getLast().getName());
         assertEquals("Device1", result.get("Humidity").getFirst().getName());
@@ -152,7 +162,6 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Device device2 = room2.addNewDevice("Device2", "Sensor2");
         Sensor sensor2 = device2.addSensor("SensorOfHumidity",catalogue);
         Device device3 = room2.addNewDevice("Device3", "Sensor3");
-        Sensor sensor3 = device3.addSensor("SensorOfAperture",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
@@ -160,10 +169,8 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(1, result.get("Temperature").size());
         assertEquals(1, result.get("Humidity").size());
-        assertEquals(1,result.get("Aperture").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
-        assertEquals("Device2", result.get("Humidity").getFirst().getName());
-        assertEquals("Device3", result.get("Aperture").getFirst().getName());}
+        assertEquals("Device2", result.get("Humidity").getFirst().getName());}
 
     /**
      * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 2 rooms and 3 devices with 3 functionalities each.
@@ -174,7 +181,6 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Device device1 = room1.addNewDevice("Device1", "Sensor1");
         Sensor sensor1 = device1.addSensor("SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor("SensorOfHumidity",catalogue);
-        Sensor sensor3 = device1.addSensor("SensorOfAperture",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
@@ -182,10 +188,8 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(1, result.get("Temperature").size());
         assertEquals(1, result.get("Humidity").size());
-        assertEquals(1,result.get("Aperture").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
-        assertEquals("Device1", result.get("Humidity").getFirst().getName());
-        assertEquals("Device1", result.get("Aperture").getFirst().getName());}
+        assertEquals("Device1", result.get("Humidity").getFirst().getName());}
 
     @Test
     void getDeviceByFunctionality1House2Rooms2Devices4Functionalities2InEach(){
@@ -194,8 +198,8 @@ class GetListOfDevicesByFunctionalityControllerTest {
         Sensor sensor1 = device1.addSensor("SensorOfTemperature",catalogue);
         Sensor sensor2 = device1.addSensor("SensorOfHumidity",catalogue);
         Device device2 = room2.addNewDevice("Device2", "Sensor2");
-        Sensor sensor3 = device2.addSensor("SensorOfAperture",catalogue);
-        Sensor sensor4 = device2.addSensor("SensorOfAveragePowerConsumption",catalogue);
+        Sensor sensor5 = device2.addSensor("SensorOfScalePercentage",catalogue);
+        Sensor sensor6 = device2.addSensor("SensorOfOnOff",catalogue);
         //Act
         GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
         Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
@@ -203,10 +207,40 @@ class GetListOfDevicesByFunctionalityControllerTest {
         assertEquals(numberOfFunctionalities, result.size());
         assertEquals(1, result.get("Temperature").size());
         assertEquals(1, result.get("Humidity").size());
-        assertEquals(1,result.get("Aperture").size());
-        assertEquals(1,result.get("Average Power Consumption").size());
+        assertEquals(1,result.get("Scale Percentage").size());
+        assertEquals(1,result.get("On/Off").size());
         assertEquals("Device1", result.get("Temperature").getFirst().getName());
         assertEquals("Device1", result.get("Humidity").getFirst().getName());
-        assertEquals("Device2", result.get("Aperture").getFirst().getName());
-        assertEquals("Device2", result.get("Average Power Consumption").getFirst().getName());}
-    }
+        assertEquals("Device2", result.get("Scale Percentage").getFirst().getName());
+        assertEquals("Device2", result.get("On/Off").getFirst().getName());}
+
+    @Test
+    void getDeviceByFunctionality1House2Rooms2DevicesWithAllFunctionalities(){
+        //Arrange
+        Device device1 = room1.addNewDevice("Device1", "Sensor1");
+        Sensor sensor1 = device1.addSensor("SensorOfTemperature",catalogue);
+        Sensor sensor2 = device1.addSensor("SensorOfHumidity",catalogue);
+        Device device2 = room2.addNewDevice("Device2", "Sensor2");
+        Sensor sensor5 = device2.addSensor("SensorOfScalePercentage",catalogue);
+        Sensor sensor6 = device2.addSensor("SensorOfOnOff",catalogue);
+        Sensor sensor8 = device2.addSensor("SensorOfPowerConsumption",catalogue);
+        Sensor sensor9 = device2.addSensor("SensorOfSunrise",catalogue);
+        Sensor sensor10 = device2.addSensor("SensorOfSunset",catalogue);
+        Sensor sensor11 = device2.addSensor("SensorOfWindSpeed",catalogue);
+        Sensor sensor12 = device2.addSensor("SensorOfWindDirection",catalogue);
+        Sensor sensor13 = device2.addSensor("SensorOfSolarIrradiance",catalogue);
+        //Act
+        GetListOfDevicesByFunctionalityController getListOfDevicesByFunctionalityController = new GetListOfDevicesByFunctionalityController(house, deviceGroupMapper);
+        Map<String, List<DeviceDTO>> result = getListOfDevicesByFunctionalityController.getDeviceByFunctionality();
+        //Assert
+        assertEquals(numberOfFunctionalities, result.size());
+        assertEquals(1, result.get("Temperature").size());
+        assertEquals(1, result.get("Humidity").size());
+        assertEquals(1,result.get("Scale Percentage").size());
+        assertEquals(1,result.get("On/Off").size());
+        assertEquals(1,result.get("Power Consumption").size());
+        assertEquals(1,result.get("Sunrise").size());
+        assertEquals(1,result.get("Sunset").size());
+        assertEquals(1,result.get("WindSpeed").size());
+        assertEquals(1,result.get("WindDirection").size());}
+}

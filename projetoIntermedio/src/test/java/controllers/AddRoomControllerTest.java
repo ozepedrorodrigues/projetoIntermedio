@@ -28,11 +28,12 @@ class AddRoomControllerTest {
     DimensionsFactory dimensionsFactory;
     DeviceFactory deviceFactory;
     SensorFactory sensorFactory;
+    ActuatorFactory actuatorFactory;
     String filePathName;
 
     /**
      * Set up the necessary objects for the tests.
-     * @throws InstantiationException
+     * @throws InstantiationException if an error occurs during the instantiation of the objects.
      */
     @BeforeEach
     void setUp() throws InstantiationException {
@@ -41,7 +42,8 @@ class AddRoomControllerTest {
         this.dimensionsFactory = new DimensionsFactoryImp();
         this.filePathName = "config.properties";
         this.sensorFactory = new SensorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory);
+        this.actuatorFactory = new ActuatorFactoryImp(filePathName);
+        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
         this.roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
         this.roomMapper = new RoomMapper();
         this.width = 14.3;

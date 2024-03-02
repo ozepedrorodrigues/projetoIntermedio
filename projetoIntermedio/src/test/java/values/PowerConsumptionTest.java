@@ -16,18 +16,18 @@ public class PowerConsumptionTest {
     @Test
     void defaultConstructor_getPowerConsumptionValue() {
         // Arrange
-        int expected = 1;
+        String expected = "1.0";
         // Act
-        String result = powerConsumptionValue.toString();
+        String result = powerConsumptionValue.valueToString();
         // Assert
-        assertEquals(String.valueOf(expected), result);
+        assertEquals(expected, result);
     }
 
     @Test
     void toValue_Valid() {
         // Arrange
         PowerConsumptionValue currentReading = new PowerConsumptionValue(0);
-        String expected = "1.0";
+        String expected = "0.0";
         // Act
         String result = currentReading.valueToString();
         // Assert
