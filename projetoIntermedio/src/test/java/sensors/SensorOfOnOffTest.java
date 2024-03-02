@@ -15,6 +15,17 @@ import static org.mockito.Mockito.*;
 class SensorOfOnOffTest {
 
     /**
+     * Tests the constructor of the SensorOfOnOff class.
+     */
+    @Test
+    void testConstructor() {
+        // Arrange + Act
+        SensorOfOnOff result = new SensorOfOnOff();
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
      * Tests the behavior of the getId method of SensorOfOnOff class.
      * Verifies that the method returns the default ID of the sensor correctly.
      */
@@ -70,36 +81,11 @@ class SensorOfOnOffTest {
      * Tests the behavior of the getValue method of SensorOfOnOff class.
      * Verifies that the method returns the current ON/OFF value of the sensor.
      */
-   /* @Test
-    void testGetValue() {
-        // Arrange
-        int expectedSize = 1;
-        boolean defaultValue = true;
-        try (MockedConstruction<OnOffValue> valueDouble = mockConstruction(OnOffValue.class, (mock, context) -> {
-            when(mock.getValue()).thenReturn(defaultValue);
-        })) {
-
-            SensorOfOnOff sensorOfOnOff = new SensorOfOnOff();
-
-            // Act
-            Value result = sensorOfOnOff.getValue();
-
-            // Assert
-            List<OnOffValue> values = valueDouble.constructed();
-            assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.getValue());
-        }
-    }
-*/
-    /**
-     * Tests the behavior of the getValue method of SensorOfOnOff class.
-     * Verifies that the method returns the current ON/OFF value of the sensor.
-     */
     @Test
     void testGetValueWithValueToString() {
         // Arrange
         int expectedSize = 1;
-        String defaultString = "Value: true";
+        String defaultString = "true";
         try (MockedConstruction<OnOffValue> valueDouble = mockConstruction(OnOffValue.class, (mock, context) -> {
             when(mock.valueToString()).thenReturn(defaultString);
         })) {
