@@ -11,17 +11,17 @@ import java.util.Map;
  * Controller class responsible for fetching a list of devices grouped by their functionality.
  * It interacts with the House domain to retrieve devices and utilizes a mapper to organize these devices into a DTO format.
  */
-public class GetListOfDevicesByFunctionalityController {
+public class GetDevicesByFunctionalityController {
 
     private House myHouse;
     private DeviceGroupMapper mapper;
 
     /**
-     * Constructs a new GetListOfDevicesByFunctionalityController with a specified House.
+     * Constructs a new GetDevicesByFunctionalityController with a specified House.
      *
      * @param house The House instance this controller will operate on to fetch devices.
      */
-    public GetListOfDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
+    public GetDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
         this.myHouse = house;
         this.mapper = deviceGroupMapper;
     }

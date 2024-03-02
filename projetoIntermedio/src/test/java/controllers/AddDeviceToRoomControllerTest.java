@@ -100,11 +100,11 @@ public class AddDeviceToRoomControllerTest {
         RoomDTO roomDTO = new RoomDTO(roomName, 1, 1, 1, 1);
         addRoomController.addNewRoomToHouse(roomDTO);
         DeviceDTO deviceDTO = new DeviceDTO(deviceName, "DeviceType1", "Room1");
-        int initialSize = house.getRoomByName(roomName).getDeviceList().size();
+        int initialSize = house.getRoomByName(roomName).getDevicesInRoom().size();
         // Act
         DeviceDTO result = addDeviceToRoomController.addDeviceToRoom(deviceDTO);
-        int finalSize = house.getRoomByName(roomName).getDeviceList().size();
-        String nameResult = house.getRoomByName(roomName).getDeviceList().getFirst().getName();
+        int finalSize = house.getRoomByName(roomName).getDevicesInRoom().size();
+        String nameResult = house.getRoomByName(roomName).getDevicesInRoom().getFirst().getName();
         // Assert
         assertEquals(initialSize + 1, finalSize);
         assertEquals(deviceName, nameResult);
@@ -131,10 +131,10 @@ public class AddDeviceToRoomControllerTest {
         addRoomController.addNewRoomToHouse(roomDTO);
         addRoomController.addNewRoomToHouse(roomDTO2);
         DeviceDTO deviceDTO = new DeviceDTO("Device1", "DeviceType1", "Room2");
-        int initialSize = house.getRoomByName("Room2").getDeviceList().size();
+        int initialSize = house.getRoomByName("Room2").getDevicesInRoom().size();
         // Act
         DeviceDTO result = addDeviceToRoomController.addDeviceToRoom(deviceDTO);
-        int finalSize = house.getRoomByName("Room2").getDeviceList().size();
+        int finalSize = house.getRoomByName("Room2").getDevicesInRoom().size();
         // Assert
         assertEquals(initialSize + 1, finalSize);
         assertNotNull(result);

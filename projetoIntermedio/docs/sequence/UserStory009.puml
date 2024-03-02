@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title US09
+title US009
 autonumber
 
 /'As a Power User [or Administrator], I want to get a list of all devices in a house,

@@ -29,7 +29,7 @@ public class House {
      */
     public House(LocationFactory locationFactory, RoomFactory roomFactory) {
         if (!validFactory(locationFactory) || !validFactory(roomFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
+            throw new IllegalArgumentException();
         }
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
@@ -151,7 +151,7 @@ public class House {
     public Map<String, List<Device>> getDevicesGroupedByRoom() {
         Map<String, List<Device>> devicesPerRoom = new HashMap<>();
         for (Room room : rooms) {
-            List<Device> deviceList = room.getDeviceList();
+            List<Device> deviceList = room.getDevicesInRoom();
             devicesPerRoom.put(room.getRoomName(), deviceList);
         }
         return devicesPerRoom;

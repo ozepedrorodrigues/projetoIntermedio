@@ -127,7 +127,7 @@ public class Room {
      *
      * @return a list of all devices in the room
      */
-    public List<Device> getDeviceList() {
+    public List<Device> getDevicesInRoom() {
         List<Device> deviceList = new ArrayList<>();
         for (Device device : this.devices)
             deviceList.add(device);

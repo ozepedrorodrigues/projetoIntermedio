@@ -46,7 +46,7 @@ public class ActuatorFactoryImp implements ActuatorFactory {
                 return (Actuator) Class.forName(actuatorClassNamePath).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
+                throw new IllegalArgumentException(e.getMessage());
             }
         }
 
@@ -61,7 +61,7 @@ public class ActuatorFactoryImp implements ActuatorFactory {
     private boolean isValidActuatorClassName(String actuatorClassNamePath){
         boolean isValidActuatorClassName = false;
 
-        for(String catalogueActuatorClass : catalogue.getSensorsCatalogue()) {
+        for(String catalogueActuatorClass : catalogue.getActuatorsCatalogue()) {
             if (actuatorClassNamePath.equals(catalogueActuatorClass)) {
                 isValidActuatorClassName = true;
                 break;

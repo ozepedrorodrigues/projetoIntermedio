@@ -7,23 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a Mapper for DeviceDTO.
- * It is used to map a list of devices to a list of DeviceDTO objects.
+ * The DeviceMapper class serves as a mapping utility for converting Device objects to DeviceDTO objects.
+ * It enables the mapping of a list of devices to a list of corresponding DeviceDTO objects.
+ * <p>
+ * This mapper is designed to simplify the transformation of device information,
+ * ensuring a consistent representation when transferring data between different layers of an application.
+ * </p>
  */
 public class DeviceMapper {
+
     /**
-     * Constructs a new DeviceMapper.
+     * Constructs a new instance of the MapperToDeviceDTO.
+     * <p>
+     * This constructor initializes the mapper for Device to DeviceDTO conversions.
+     * </p>
      */
     public DeviceMapper() {
-        // Constructor for DeviceMapper
     }
 
     /**
-     * Converts a Device object to its corresponding DeviceDTO.
+     * Converts a single Device object to its corresponding DeviceDTO.
      *
      * @param device    The Device object to be converted.
      * @param roomName  The room where the device is located.
-     * @return A DeviceDTO representing the converted device information.
+     * @return DeviceDTO A DeviceDTO representing the converted device information.
      */
     public DeviceDTO deviceToDTO(Device device, String roomName) {
         return new DeviceDTO(device.getName(), device.getType(), roomName);
@@ -35,9 +42,9 @@ public class DeviceMapper {
      *
      * If the provided list of devices is empty, the method returns an empty list.
      *
-     * @param roomDevices the list of Device objects to be converted to DeviceDTO.
-     * @param roomName    the name of the room where the devices are located.
-     * @return a list of DeviceDTO objects associated with the specified room.
+     * @param roomDevices The list of Device objects to be converted to DeviceDTO.
+     * @param roomName    The name of the room where the devices are located.
+     * @return List<DeviceDTO> A list of DeviceDTO objects associated with the specified room.
      */
     public List<DeviceDTO> devicesToDTO(List<Device> roomDevices, String roomName) {
         List<DeviceDTO> roomDevicesDTO = new ArrayList<>();
@@ -48,5 +55,4 @@ public class DeviceMapper {
         }
         return roomDevicesDTO;
     }
-
 }

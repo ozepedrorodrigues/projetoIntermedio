@@ -188,7 +188,7 @@ class AddSensorToDeviceControllerTest {
         Room room = house.getRoomByName(roomName);
         assertNotNull(room, "Room should not be null");
 
-        int expectedSize = room.getDeviceList().size();
+        int expectedSize = room.getDevicesInRoom().size();
 
         // Act
         AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);

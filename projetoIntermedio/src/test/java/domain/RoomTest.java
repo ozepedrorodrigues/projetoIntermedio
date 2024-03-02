@@ -216,7 +216,7 @@ class RoomTest {
         validRoom.addNewDevice(validDeviceName, validDeviceType);
         int sizeExpected = 1;
         // Act
-        List<Device> deviceList = validRoom.getDeviceList();
+        List<Device> deviceList = validRoom.getDevicesInRoom();
         boolean result = deviceList.contains(deviceMock);
         int sizeResult = deviceList.size();
         // Assert
