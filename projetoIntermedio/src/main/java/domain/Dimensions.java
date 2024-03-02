@@ -28,7 +28,7 @@ public class Dimensions {
      */
     public Dimensions(double width, double length, double height) throws IllegalArgumentException {
         if (!validWidth(width) || !validLength(length) || !validHeight(height))
-            throw new IllegalArgumentException("Invalid dimensions");
+            throw new IllegalArgumentException();
 
         this.width = width;
         this.length = length;

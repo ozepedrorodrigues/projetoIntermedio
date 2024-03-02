@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DimensionsTest {
 
     /**
-     * Test to assess the Constructor of Location with valid parameters.
+     * Test to assess the Constructor of Dimensions with valid parameters.
      */
     @Test
     void testConstructorValid() {
@@ -31,7 +31,7 @@ class DimensionsTest {
     }
 
     /**
-     * Test to assess the Constructor of Location with invalid width.
+     * Test to assess the Constructor of Dimensions with invalid width.
      */
     @Test
     void testConstructorInvalidWidth() {
@@ -39,16 +39,13 @@ class DimensionsTest {
         double expectedWidth = -10.0;
         double expectedLength = 20.0;
         double expectedHeight = 30.0;
-        String expectedMessage = "Invalid dimensions";
-        // Act
-        Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
-        String resultMessage = exc.getMessage();
-        //Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
+
     }
 
     /**
-     * Test to assess the Constructor of Location with invalid length.
+     * Test to assess the Constructor of Dimensions with invalid length.
      */
     @Test
     void testConstructorInvalidLength() {
@@ -56,16 +53,13 @@ class DimensionsTest {
         double expectedWidth = 10.0;
         double expectedLength = -20.0;
         double expectedHeight = 30.0;
-        String expectedMessage = "Invalid dimensions";
-        // Act
-        Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
-        String resultMessage = exc.getMessage();
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
+
     }
 
     /**
-     * Test to assess the Constructor of Location with invalid length.
+     * Test to assess the Constructor of Dimensions with invalid height.
      */
     @Test
     void testConstructorInvalidHeight() {
@@ -73,17 +67,14 @@ class DimensionsTest {
         double expectedWidth = 10.0;
         double expectedLength = 20.0;
         double expectedHeight = -30.0;
-        String expectedMessage = "Invalid dimensions";
-        // Act
-        Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
-        String resultMessage = exc.getMessage();
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act & Assert
+       assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
+
 
     }
 
     /**
-     * Test to assess the Constructor of Location with zero height.
+     * Test to assess the Constructor of Dimensions with zero width.
      */
     @Test
     void testConstructorZeroHeightValid() {
@@ -103,7 +94,7 @@ class DimensionsTest {
     }
 
     /**
-     * Test to assess the Constructor of Location with zero width.
+     * Test to assess the Constructor of Dimensions with zero width.
      */
     @Test
     void testConstructorZeroWidthInvalid() {
@@ -111,16 +102,12 @@ class DimensionsTest {
         double expectedWidth = 0.0;
         double expectedLength = 20.0;
         double expectedHeight = 30.0;
-        String expectedMessage = "Invalid dimensions";
-        // Act
-        Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
-        String resultMessage = exc.getMessage();
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
     }
 
     /**
-     * Test to assess the Constructor of Location with zero width.
+     * Test to assess the Constructor of Dimensions with zero length.
      */
     @Test
     void testConstructorZeroLengthInvalid() {
@@ -128,12 +115,9 @@ class DimensionsTest {
         double expectedWidth = 10.0;
         double expectedLength = 0.0;
         double expectedHeight = 30.0;
-        String expectedMessage = "Invalid dimensions";
-        // Act
-        Exception exc = assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
-        String resultMessage = exc.getMessage();
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new Dimensions(expectedWidth, expectedLength, expectedHeight));
+
     }
 
 }
