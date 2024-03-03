@@ -57,7 +57,7 @@ public class AddActuatorToDeviceController {
 
         Room room = house.getRoomByName(roomName);
         Device device = room.getDeviceByName(deviceName);
-        Actuator actuator = device.addActuator(actuatorModel, catalogue);
+        Actuator actuator = device.addActuator(actuatorModel);
         return actuatorMapper.actuatorToDTO(actuator);
     }
 

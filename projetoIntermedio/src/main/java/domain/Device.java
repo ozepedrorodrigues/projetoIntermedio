@@ -103,6 +103,7 @@ public class Device {
      * @return The added Sensor, or null if the sensor cannot be added.
      */
     public Sensor addSensor(String sensorClassName, Catalogue catalogue) {
+        //não precisa do cataloque para adicionar um sensor e podem apgar a validacao do catalogue
         if (!validClassName(sensorClassName) || !validCatalogue(catalogue)) {
             return null;
         }
@@ -117,11 +118,10 @@ public class Device {
         return sensor;
     }
 
-    public Actuator addActuator(String actuatorClassName, Catalogue catalogue) {
-        if (!validClassName(actuatorClassName) || !validCatalogue(catalogue)) {
+    public Actuator addActuator(String actuatorClassName) {
+        if (!validClassName(actuatorClassName)) {
             return null;
         }
-
         Actuator actuator = actuatorFactory.createActuator(actuatorClassName);
         if (actuator == null) {
             return null;
@@ -160,6 +160,10 @@ public class Device {
      */
     public List<Sensor> getDeviceSensors() {
         return new ArrayList<>(sensors);
+    }
+
+    public List<Actuator> getDeviceActuators() {
+        return new ArrayList<>(actuators);
     }
 
     /**
