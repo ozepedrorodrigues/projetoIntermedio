@@ -27,7 +27,7 @@ public class SensorOfWindDirection implements Sensor {
     /**
      * The default value of the sensor
      */
-    private Value DEFAULT = new WindDirectionValue(315);
+    private Value DEFAULT = new WindDirectionValue(0);
 
     /**
      * Constructor for the SensorOfWindDirection class

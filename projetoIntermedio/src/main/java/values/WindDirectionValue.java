@@ -1,7 +1,7 @@
 package values;
 
 /**
- * Representes a specific value of wind direction. Instances of this class
+ * Represents a specific value of wind direction. Instances of this class
  * encapsulate a wind direction value and provide methods to retrieve and represent
  * the wind direction.
  */
