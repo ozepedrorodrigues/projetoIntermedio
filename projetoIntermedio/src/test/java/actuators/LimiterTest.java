@@ -1,5 +1,6 @@
 package actuators;
 
+import domain.ActuatorType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -130,6 +131,52 @@ class LimiterTest {
         limiter.deactivate();
         // Assert
         assertThrows(IllegalStateException.class, () -> limiter.deactivate());
+    }
+
+    /**
+     * Test the getType method.
+     * The method should return the correct ActuatorType.
+     */
+    @Test
+    void getType() {
+        // Arrange
+        Limiter limiter = new Limiter(0, 10);
+        ActuatorType expected = ActuatorType.LIMITER;
+        // Act
+        ActuatorType result = limiter.getType();
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test the getId method.
+     * The method should return the correct ID.
+     */
+    @Test
+    void getId() {
+        // Arrange
+        Limiter limiter = new Limiter(0, 10);
+        int expected = 0;
+        // Act
+        int result = limiter.getId();
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test the setId method with a valid Limiter and ID.
+     * The ID should be set.
+     */
+    @Test
+    void setId() {
+        // Arrange
+        Limiter limiter = new Limiter(0, 10);
+        int expected = 1;
+        // Act
+        limiter.setId(expected);
+        int result = limiter.getId();
+        // Assert
+        assertEquals(expected, result);
     }
 
     /**

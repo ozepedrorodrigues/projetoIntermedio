@@ -1,10 +1,20 @@
 package actuators;
 
+import domain.ActuatorType;
+
 /**
  * A Limiter is an implementation of the Actuator interface that limits a value within a specified range.
  * The Limiter has a state, a minimum and maximum limit, and a value.
  */
 public class Limiter implements Actuator {
+    /**
+     * The unique identifier of the Limiter.
+     */
+    private int id;
+    /**
+     * The type of the Actuator.
+     */
+    private ActuatorType type;
     /**
      * The state of the Limiter.
      */
@@ -38,6 +48,7 @@ public class Limiter implements Actuator {
         this.max = upper;
         this.state = false;
         this.value = null;
+        this.type = ActuatorType.LIMITER;
     }
 
     /**
@@ -74,6 +85,35 @@ public class Limiter implements Actuator {
             throw new IllegalStateException();
         }
         state = false;
+    }
+
+    /**
+     * Retrieves the type of the Actuator.
+     *
+     * @return the ActuatorType of the Actuator
+     */
+    public ActuatorType getType() {
+        return this.type;
+    }
+
+    /**
+     * Retrieves the ID of the Actuator.
+     *
+     * @return the ID of the Actuator
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the ID of the Actuator.
+     *
+     * @param newId the new ID to set
+     * @return the new ID of the Actuator
+     */
+    public int setId(int newId) {
+        this.id = newId;
+        return this.id;
     }
 
     /**
