@@ -1,5 +1,7 @@
 package actuators;
 
+import domain.ActuatorType;
+
 public class OnOff implements Actuator {
     /**
      * The state of the actuator
@@ -8,11 +10,22 @@ public class OnOff implements Actuator {
     private boolean state;
 
     /**
+     * The type of the actuator
+     */
+    private ActuatorType type;
+
+    /**
+     * The unique identifier of the actuator
+     */
+    private int id;
+
+    /**
      * Constructs a new OnOff actuator
      * The actuator is initially deactivated
      */
     public OnOff() {
         this.state = false;
+        this.type = ActuatorType.ONOFFSWITCH;
     }
 
     /**
@@ -49,5 +62,32 @@ public class OnOff implements Actuator {
             throw new IllegalStateException();
         }
         state = false;
+    }
+
+    /**
+     * Retrieves the type of the actuator
+     *
+     * @return the ActuatorType of the actuator
+     */
+    public ActuatorType getType() {
+        return this.type;
+    }
+
+    /**
+     * Retrieves the ID of the actuator
+     *
+     * @return the ID of the actuator
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the ID of the actuator
+     *
+     * @param id the new ID of the actuator
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }
