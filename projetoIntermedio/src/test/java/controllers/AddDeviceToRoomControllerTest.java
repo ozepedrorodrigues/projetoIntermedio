@@ -12,6 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class is responsible for testing the AddDeviceToRoomController class.
+ * It tests the creation of the controller and its methods, ensuring that devices are correctly added to rooms,
+ * and that the appropriate responses are given for invalid inputs.
+ */
 
 public class AddDeviceToRoomControllerTest {
     /**
