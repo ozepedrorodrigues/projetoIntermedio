@@ -9,7 +9,7 @@ import domain.SensorType;
  */
 public class SensorDTO {
     /**
-     * The Id of the sensor.
+     * The id of the sensor.
      */
     private int sensorId;
 
@@ -22,7 +22,7 @@ public class SensorDTO {
     /**
      * Constructs a new SensorDTO with the given sensor name and type of sensor.
      *
-     * @param sensorId   the Id of the sensor
+     * @param sensorId   the id of the sensor
      * @param typeOfSensor the type of the sensor
      */
     public SensorDTO(int sensorId, SensorType typeOfSensor) {
@@ -31,9 +31,9 @@ public class SensorDTO {
     }
 
     /**
-     * Returns the Id of the sensor.
+     * Returns the id of the sensor.
      *
-     * @return the name of the sensor
+     * @return the id of the sensor
      */
     public int getSensorId() {
         return sensorId;

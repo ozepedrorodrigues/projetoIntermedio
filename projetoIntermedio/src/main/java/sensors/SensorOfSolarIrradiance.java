@@ -37,6 +37,7 @@ public class SensorOfSolarIrradiance implements Sensor{
 
     /**
      * Sets the ID of the sensor.
+     *
      * @param newId The new ID to set.
      * @return the ID of the sensor.
      */

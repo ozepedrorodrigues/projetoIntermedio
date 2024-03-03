@@ -15,6 +15,7 @@ public class SolarIrradianceValue implements Value {
     /**
      * Constructor for the SolarIrradianceValue class.
      * with the solar irradiance value initialized to an undefined state.
+     *
      * @param solarIrradianceValue The solar irradiance value.
      */
     public SolarIrradianceValue(double solarIrradianceValue) {
@@ -25,6 +26,7 @@ public class SolarIrradianceValue implements Value {
 
     /**
      * Converts the solar irradiance value to a string representation.
+     *
      * @return the solar irradiance value as a string.
      */
     @Override
