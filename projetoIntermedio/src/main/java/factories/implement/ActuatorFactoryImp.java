@@ -38,7 +38,8 @@ public class ActuatorFactoryImp implements ActuatorFactory {
      * during the creation of the actuator and catalogue consultation.
      */
     public Actuator createActuator(String actuatorClassName) {
-        String actuatorClassNamePath = "actuator." + actuatorClassName;
+
+        String actuatorClassNamePath = "actuators." + actuatorClassName;
         boolean isValidActuatorClassName = isValidActuatorClassName(actuatorClassNamePath);
 
         if(isValidActuatorClassName) {
