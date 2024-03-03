@@ -5,14 +5,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PowerConsumptionTest {
+public class PowerConsumptionValueTest {
     PowerConsumptionValue powerConsumptionValue;
 
+    /**
+     * This method sets up the test environment, initializing the power consumption value to 1.0.
+     */
     @BeforeEach
     void setUp() {
         powerConsumptionValue = new PowerConsumptionValue(1);
     }
 
+    /**
+     * This test checks if the default constructor sets the power consumption value to 1.0.
+     */
     @Test
     void defaultConstructor_getPowerConsumptionValue() {
         // Arrange
@@ -23,6 +29,9 @@ public class PowerConsumptionTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * This test checks if the value of the power consumption is correctly converted to a string.
+     */
     @Test
     void toValue_Valid() {
         // Arrange

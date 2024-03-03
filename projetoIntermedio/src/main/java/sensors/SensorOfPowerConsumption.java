@@ -10,10 +10,10 @@ public class SensorOfPowerConsumption implements Sensor {
     private int id;
     private Value DEFAULT = new PowerConsumptionValue(1);
 
+
     public SensorOfPowerConsumption() {
                    this.type = SensorType.POWER_CONSUMPTION;
         }
-
 
     @Override
     public int getId() {
@@ -34,4 +34,16 @@ public class SensorOfPowerConsumption implements Sensor {
     public Value getValue() {
         return this.DEFAULT;
     }
+
+/**
+ *  INCOMPLETE METHOD - IN WORK
+ */
+//    public PowerConsumptionValue getAveragePower() {
+//        int powerCount = 0;
+//        int totalPower = 0;
+//        if (powerCount == 0) {
+//            return new PowerConsumptionValue(0);
+//        }
+//        return new PowerConsumptionValue(totalPower / powerCount);
+//    }
 }
