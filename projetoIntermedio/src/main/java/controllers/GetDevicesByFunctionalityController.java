@@ -20,6 +20,7 @@ public class GetDevicesByFunctionalityController {
      * Constructs a new GetDevicesByFunctionalityController with a specified House.
      *
      * @param house The House instance this controller will operate on to fetch devices.
+     * @param deviceGroupMapper The mapper that will be used to group devices by functionality.
      */
     public GetDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
         this.myHouse = house;

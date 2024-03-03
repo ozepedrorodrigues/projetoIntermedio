@@ -95,7 +95,7 @@ class CatalogueTest {
     void getSensorsCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 11;
+        int expectedSize = 12;
         //Act
         List<String> result = catalogue.getSensorsCatalogue();
         //Assert
@@ -109,7 +109,7 @@ class CatalogueTest {
     void getActuatorsCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 0;
+        int expectedSize = 4;
         //Act
         List<String> result = catalogue.getActuatorsCatalogue();
         //Assert
