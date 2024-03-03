@@ -14,7 +14,7 @@ participant "_house:House" as H
 participant "_room:Room" as R
 participant "_deviceFactory:DeviceFactory" as F
 participant "_device:Device" as D
-participant "_mapperDeviceDTO:MapperDeviceDTO" as M
+participant "_deviceMapper:DeviceMapper" as M
 participant "_deviceDTO:DeviceDTO" as DTO
 
 [o->G : getRoomList()
@@ -22,13 +22,13 @@ activate G
 ref over G : (UseCase3.puml for more details)
 [o<--G : _roomListDTO
 deactivate G
-[o->A : addDeviceToRoom(DeviceDTO _deviceDTO)
+[o->A : addDeviceToRoom(_deviceDTO)
 activate A
-A->H : getRoomByName(String _roomName)
+A->H : getRoomByName(_roomName)
 activate H
 H-->A : _room
 deactivate H
-A->R : addDevice(String name, String type)
+A->R : addNewDevice(name, type)
 activate R
 R->F : createDevice(name, type)
 activate F
@@ -37,7 +37,7 @@ F-->R : _device
 deactivate F
 R-->A : _device
 deactivate R
-A->M : mapToDTO(_device)
+A->M : deviceToDTO(_device)
 activate M
 M-->DTO** : create(_device)
 M-->A : _deviceDTO
