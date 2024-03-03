@@ -13,9 +13,9 @@ class OnOffTest {
     void testConstructor() {
         // Arrange
         OnOff actuator = new OnOff();
-        boolean result = false;
+        boolean expected = false;
         // Act
-        boolean expected = actuator.isActive();
+        boolean result = actuator.isActive();
         // Assert
         assertNotNull(actuator);
         assertEquals(result, expected);
@@ -30,9 +30,9 @@ class OnOffTest {
     void isActive() {
         // Arrange
         OnOff actuator = new OnOff();
-        boolean result = false;
+        boolean expected = false;
         // Act
-        boolean expected = actuator.isActive();
+        boolean result = actuator.isActive();
         // Assert
         assertEquals(result, expected);
     }
@@ -47,10 +47,10 @@ class OnOffTest {
     void activate() {
         // Arrange
         OnOff actuator = new OnOff();
-        boolean result = true;
+        boolean expected = true;
         // Act
         actuator.activate();
-        boolean expected = actuator.isActive();
+        boolean result = actuator.isActive();
         // Assert
         assertEquals(result, expected);
     }
@@ -80,11 +80,11 @@ class OnOffTest {
     void deactivate() {
         // Arrange
         OnOff actuator = new OnOff();
-        boolean result = false;
+        boolean expected = false;
         // Act
         actuator.activate();
         actuator.deactivate();
-        boolean expected = actuator.isActive();
+        boolean result = actuator.isActive();
         // Assert
         assertEquals(result, expected);
     }
@@ -99,8 +99,7 @@ class OnOffTest {
     void deactivateAlreadyInactive() {
         // Arrange
         OnOff actuator = new OnOff();
-        // Act
-        // Assert
+        // Act & Assert
         assertThrows(IllegalStateException.class, actuator::deactivate);
     }
 }
