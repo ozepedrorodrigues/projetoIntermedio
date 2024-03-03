@@ -28,13 +28,33 @@ public class House {
      * @param roomFactory     the factory for creating rooms
      */
     public House(LocationFactory locationFactory, RoomFactory roomFactory) {
-        if (!validFactory(locationFactory) || !validFactory(roomFactory)) {
+        if (!validLocationFactory(locationFactory) || !validRoomFactory(roomFactory)) {
             throw new IllegalArgumentException();
         }
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
         this.rooms = new ArrayList<>();
         this.idGenerator = new IdGenerator();
+    }
+
+    /**
+     * Checks if the given LocationFactory is non-null.
+     *
+     * @param locationFactory
+     * @return true if the locationFactory is valid, false otherwise
+     */
+    private boolean validLocationFactory(LocationFactory locationFactory) {
+        return locationFactory != null;
+    }
+
+    /**
+     * Checks if the given RoomFactory is non-null.
+     *
+     * @param roomFactory
+     * @return true if the roomFactory is valid, false otherwise
+     */
+    private boolean validRoomFactory(RoomFactory roomFactory) {
+        return roomFactory != null;
     }
 
     /**
@@ -58,10 +78,6 @@ public class House {
         } catch (IllegalArgumentException e) {
             return null;
         }
-    }
-
-    private boolean validFactory(Object factory) {
-        return factory != null;
     }
 
     /**

@@ -2,34 +2,38 @@ package sensors;
 import domain.SensorType;
 import values.Value;
 /**
- * This interface represents a generic sensor.
- * It has methods to get the type, name, and current reading of the sensor.
+ * This interface represents a generic sensor that can measure various physical quantities.
+ * Implementing classes must provide functionality to retrieve the sensor type, current value,
+ * and manage the sensor's unique identifier.
  */
-
 public interface Sensor{
+
     /**
      * Returns the type of the sensor.
      *
-     * @return the type of the sensor
+     * @return The type of the sensor as defined by the SensorType enum.
      */
     SensorType getType();
 
     /**
-     * Returns the current reading from the sensor.
+     * Returns the current reading measured by the sensor.
      *
-     * @return the current reading from the sensor
+     * @return The current reading from the sensor represented by an implementation of the Value interface.
      */
     Value getValue();
 
     /**
-     * Alters the current Id of the sensor.
-     * @return the ID of the sensor
+     * Sets a new unique identifier for the sensor.
+     *
+     * @param newId The new unique identifier to assign to the sensor.
+     * @return The updated unique identifier for the sensor.
      */
     int setId(int newId);
 
     /**
-     * Returns the ID of the sensor
-     * @return the ID of the sensor
+     * Retrieves the unique identifier of the sensor.
+     *
+     * @return The unique identifier of the sensor.
      */
     int getId();
 }
