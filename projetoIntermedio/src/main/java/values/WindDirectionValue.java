@@ -5,7 +5,6 @@ package values;
  * encapsulate a wind direction value and provide methods to retrieve and represent
  * the wind direction.
  */
-
 public class WindDirectionValue implements Value {
 
     /**
@@ -28,7 +27,6 @@ public class WindDirectionValue implements Value {
     * Converts the wind direction value to a string representation.
     * @return A string representation of the wind direction value.
      */
-
     public String valueToString() {
         return String.valueOf(windDirection);
     }
