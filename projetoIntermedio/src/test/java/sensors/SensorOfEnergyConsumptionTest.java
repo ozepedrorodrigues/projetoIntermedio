@@ -101,7 +101,7 @@ class SensorOfEnergyConsumptionTest {
             // Assert
             List<EnergyConsumptionValue> values = valueDouble.constructed();
             assertEquals(expectedSize, values.size());
-            assertEquals(defaultValue, result.valueToString();
+            assertEquals(defaultValue, result.valueToString());
         }
     }
 }
