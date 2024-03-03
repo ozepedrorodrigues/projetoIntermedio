@@ -156,7 +156,7 @@ public class AddDeviceToRoomControllerTest {
         addRoomController.addNewRoomToHouse(roomDTO);
         int sizeExpected = 1;
         // Act
-        int sizeResult = addDeviceToRoomController.getRoomList().size();
+        int sizeResult = addDeviceToRoomController.getRooms().size();
         // Assert
         assertEquals(sizeExpected, sizeResult);
     }

@@ -50,7 +50,7 @@ public class AddDeviceToRoomController {
      *
      * @return a list of RoomDTO objects representing the rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
+    public List<RoomDTO> getRooms() {
         return getRoomListController.getRoomList();
     }
 

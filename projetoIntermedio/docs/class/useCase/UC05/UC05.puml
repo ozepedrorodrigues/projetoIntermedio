@@ -1,17 +1,21 @@
 @startuml
 
 class House {
-    - roomList : List<Room>
+    - rooms : List<Room>
     + getRoomList() : List<Room>
     + getRoomByName(...) : Room
 }
 
 class Room {
     - name : String
+    - floor : int
+    - deviceFactory : DeviceFactory
+    - devices : List<Device>
     + getName() : String
+    + getFloor() : int
     + getDimensions() : Dimensions
-    + createDevice() : Device
-    - addDevice() : boolean
+    + addNewDevice() : Device
+    - validDeviceName() : boolean
 }
 
 class Dimensions{
@@ -43,22 +47,28 @@ class DeviceDTO {
 
 class AddDeviceToRoomController {
     - house : House
+    - deviceMapper : DeviceMapper
+    - getRoomListController : GetRoomListController
     + AddDeviceToRoomController(...)
-    + getRooms(...) : List<RoomDTO>
-    + addDeviceToRoom(...) : boolean
+    + getRooms() : List<RoomDTO>
+    + addDeviceToRoom(...) : DeviceDTO
 }
 
 class GetRoomListController {
     - house : House
-    + ControllerGetRoomList(...)
+    - roomMapper : RoomMapper
+    + GetRoomListController(...)
     + getRoomList() : List<RoomDTO>
 }
 
-class MapperToRoomDTO {
+class DeviceMapper {
+    + deviceToDTO(...) : DeviceDTO
+}
 
-    + MapperToRoomDTO(...)
-    + getRoomList(...) : List<RoomDTO>
-    - toRoomDTO(...) : RoomDTO
+class RoomMapper {
+    + RoomMapper()
+    + getRooms(...) : List<RoomDTO>
+    - roomToDTO(...) : RoomDTO
 }
 
 class RoomDTO {
@@ -67,7 +77,6 @@ class RoomDTO {
     - width : double
     - length : double
     - height : double
-
     + RoomDTO(...)
     + getName() : String
     + getFloor() : int
@@ -78,12 +87,14 @@ class RoomDTO {
 
 AddDeviceToRoomController "1" ..> "1" House : uses
 GetRoomListController "1" ..> "1" House : uses
-House "1" *-- "List<Room>" Room : contains
-Room "1" *-- "List<Device>" Device : contains
+House "1" *-- "*" Room : contains
+AddDeviceToRoomController "1" ..> "1" DeviceMapper : uses
+DeviceMapper "1" ..> "*" DeviceDTO : creates
+Room "1" *-- "*" Device : contains
 AddDeviceToRoomController "1" ..> "1" GetRoomListController : uses
 AddDeviceToRoomController "1" ..> "1" DeviceDTO : uses
-GetRoomListController "1" ..> "1" MapperToRoomDTO : uses
-MapperToRoomDTO "1" ..> "List<RoomDTO>" RoomDTO : creates
+GetRoomListController "1" ..> "1" RoomMapper : uses
+RoomMapper "1" ..> "*" RoomDTO : creates
 Room "1" *-- "1" Dimensions : has
 
 @enduml
