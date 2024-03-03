@@ -1,57 +1,71 @@
 package domain;
 
 /**
- * <p>Represents the type of a sensor along with its measuring unit. This enum
- * defines the different types of sensors, such as temperature and humidity, and
- * associates each type with a specific measuring unit.</p>
- *
- * <p></p>
+ * The SensorType enum represents different types of sensors, each associated with a specific measuring unit.
+ * It provides methods to retrieve the sensor type, measuring unit, and a combination of both.
  */
 public enum SensorType {
 
-
     TEMPERATURE("Temperature", "ºC"),
     HUMIDITY("Humidity", "%RH"),
-    SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     ON_OFF("On/Off", "Boolean"),
-    POWER_CONSUMPTION("Power Consumption","W"),
-    SUNRISE("Sunrise", "H"),
-    SUNSET("Sunset", "H"),
+    SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     WIND_SPEED("WindSpeed", "km/h"),
     WIND_DIRECTION("WindDirection", "radian"),
+    SUNRISE("Sunrise", "H"),
+    SUNSET("Sunset", "H"),
+    DEW_POINT("DewPoint", "ºC"),
     SOLAR_IRRADIANCE("Solar Irradiance", "W/m²"),
+    POWER_CONSUMPTION("Power Consumption","W"),
     ENERGY_CONSUMPTION("Energy Consumption", "Wh");
 
-
+    /**
+     * This attribute represents the type of the sensor.
+     * It holds a string value indicating the category or purpose of the sensor.
+     * This attribute is set in the constructor when creating each enum constant.
+     * It is used to store the specific type associated with each sensor category.
+     */
     private final String sensorType;
+
+    /**
+     * This attribute represents the measuring unit associated with the sensor type.
+     * It holds a string value indicating the unit of measurement for the sensor's data.
+     * This attribute is set in the constructor when creating each enum constant.
+     * It is used to store the specific measuring unit corresponding to the sensor type.
+     */
     private final String measuringUnit;
 
-
+    /**
+     * Constructs a SensorType enum constant with the specified sensor type and measuring unit.
+     *
+     * @param sensorType    The type of the sensor.
+     * @param measuringUnit The measuring unit associated with the sensor type.
+     */
     SensorType(String sensorType, String measuringUnit) {
         this.sensorType = sensorType;
         this.measuringUnit = measuringUnit;
     }
 
     /**
-     * Gets the type of the sensor as a string.
+     * Retrieves the sensor type.
      *
-     * @return The type of the sensor.
+     * @return The sensor type.
      */
     public String getSensorType() {
         return sensorType;
     }
 
     /**
-     * Gets the measuring unit of the sensor as a string.
+     * Retrieves the measuring unit associated with the sensor type.
      *
-     * @return The measuring unit of the sensor.
+     * @return The measuring unit.
      */
     public String getMeasuringUnit() {
         return measuringUnit;
     }
 
     /**
-     * Gets a combined string of the type and measuring unit.
+     * Retrieves a combined string of the type and measuring unit.
      *
      * @return A string combining the type and measuring unit.
      */
