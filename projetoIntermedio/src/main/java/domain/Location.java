@@ -39,7 +39,7 @@ public class Location {
      */
     public Location(String address, String zipCode, double latitude, double longitude, GPSFactory gpsFactory) throws IllegalArgumentException {
         if (!validAddress(address) || !validZipCode(zipCode) || !validGpsFactory(gpsFactory)) {
-            throw new IllegalArgumentException("Invalid parameters");
+            throw new IllegalArgumentException();
         }
         this.address = address;
         this.zipCode = zipCode;

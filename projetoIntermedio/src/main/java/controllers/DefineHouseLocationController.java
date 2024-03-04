@@ -6,10 +6,9 @@ import dto.LocationDTO;
 import mappers.LocationMapper;
 
 /**
- * UC01
- * "As an Administrator, I want to configure the location of the house."
- * <p>
- * This class represents the controller to define the house location
+ * The DefineHouseLocationController class serves as a controller for defining the location of a house.
+ * It is designed to interact with the House model to define the location of the house.
+ * The controller utilizes a locationMapper to convert the location to a LocationDTO.
  */
 public class DefineHouseLocationController {
 
@@ -25,13 +24,15 @@ public class DefineHouseLocationController {
 
 
     /**
-     * Constructor
-     * Initializes the house instance
-     * Initializes the mapper location dto instance
+     * Constructs a new DefineHouseLocationController with the specified house and locationMapper.
+     *
+     * @param house          the house to which the location is to be defined
+     * @param locationMapper the locationMapper to be used
+     * @throws IllegalArgumentException if an error occurs during the instantiation of the objects.
      */
     public DefineHouseLocationController(House house, LocationMapper locationMapper) {
         if (!validParameters(house, locationMapper)) {
-            throw new IllegalArgumentException("Invalid parameters");
+            throw new IllegalArgumentException();
         }
 
         this.house = house;
@@ -39,10 +40,10 @@ public class DefineHouseLocationController {
     }
 
     /**
-     * Method that configures the location of the house
+     * Defines the location of the house with the specified address, zip code, latitude, and longitude.
      *
-     * @param locationDTO the location dto
-     * @return a location dto if the location is valid, null otherwise
+     * @param locationDTO the location to be defined for the house
+     * @return the defined location as a LocationDTO, null if the location could not be defined
      */
     public LocationDTO defineHouseLocation(LocationDTO locationDTO) {
         Location location = house.defineLocation(
@@ -59,7 +60,11 @@ public class DefineHouseLocationController {
     }
 
     /**
-     * Checks if the given constructor parameters are not null.
+     * Checks if the arguments passed to the constructor are valid.
+     *
+     * @param house          the house to be checked
+     * @param locationMapper the locationMapper to be checked
+     * @return true if the arguments are valid, false otherwise
      */
     private boolean validParameters(House house, LocationMapper locationMapper) {
         return house != null && locationMapper != null;
