@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 class LimiterDecimalTest {
 
     /**
-        * Test of the LimiterDecimal constructor with valid limits.
-        * The LimiterDecimal should be inactive and the value should be null.
-        */
+     * Test of the LimiterDecimal constructor with valid limits.
+     * The LimiterDecimal should be inactive and the value should be null.
+     */
     @Test
     void testConstructor() {
         // Arrange
@@ -88,7 +88,8 @@ class LimiterDecimalTest {
         // Assert
         assertEquals(expected, result);
     }
-/**
+
+    /**
      * Test of activate method
      * The method should throw an IllegalStateException if the LimiterDecimal is already active.
      */
@@ -101,7 +102,8 @@ class LimiterDecimalTest {
         // Assert
         assertThrows(IllegalStateException.class, () -> actuator.activate());
     }
-/**
+
+    /**
      * Test of deactivate method
      * The method should deactivate the LimiterDecimal.
      * The state of the LimiterDecimal should be inactive (false).
@@ -119,7 +121,8 @@ class LimiterDecimalTest {
         // Assert
         assertEquals(expected, result);
     }
-/**
+
+    /**
      * Test of deactivate method
      * The method should throw an IllegalStateException if the LimiterDecimal is already inactive.
      */
@@ -128,7 +131,8 @@ class LimiterDecimalTest {
         // Arrange
         LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
         // Act & Assert
-        assertThrows(IllegalStateException.class, () -> actuator.deactivate());}
+        assertThrows(IllegalStateException.class, () -> actuator.deactivate());
+    }
 
     /**
      * Test of getId method
@@ -143,7 +147,8 @@ class LimiterDecimalTest {
         // Act
         int result = actuator.getId();
         // Assert
-        assertEquals(expected, result);}
+        assertEquals(expected, result);
+    }
 
     /**
      * Test if Setid method.
@@ -199,24 +204,89 @@ class LimiterDecimalTest {
      * The method should throw an IllegalArgumentException.
      */
     @Test
-    void setValueInactive() {
-        // Arrange
-        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
-        double expected = 50.0;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> actuator.setValue(expected));
-    }
-
-    /**
-     * Test of setValue method with an invalid value.
-     * The method should throw an IllegalArgumentException.
-     */
-    @Test
     void setValueInvalid() {
         // Arrange
         LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
         double expected = 100.0;
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> actuator.setValue(expected));
+    }
+
+    /**
+     * Test of setLimits method with valid limits.
+     * The method should set the limits of the LimiterDecimal.
+     * The limits of the LimiterDecimal should be set.
+     */
+    @Test
+    void setLimitsValid() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        // Act
+        actuator.setLimits(50.0, 100.0);
+        actuator.activate();
+        boolean setValidValue = actuator.setValue(100.0);
+        // Assert
+        assertTrue(setValidValue);
+    }
+
+    /**
+     * Test of setLimits method with invalid limits.
+     * The method should throw an IllegalArgumentException.
+     */
+    @Test
+    void setLimitsInvalid() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        double lower = 100.0;
+        double upper = 50.0;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> actuator.setLimits(lower, upper));
+    }
+
+    /**
+     * Test of getValue method.
+     * The method should return the value of the LimiterDecimal.
+     */
+    @Test
+    void getValue() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        double expected = 50.0;
+        // Act
+        actuator.activate();
+        actuator.setValue(expected);
+        double result = actuator.getValue();
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of setPrecision method with valid precision.
+     * The method should set the precision of the LimiterDecimal.
+     * The precision of the LimiterDecimal should be set.
+     */
+    @Test
+    void setPrecisionValid() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        // Act
+        actuator.setPrecision(1);
+        actuator.activate();
+        boolean setValidPrecision= actuator.setPrecision(1);
+        // Assert
+        assertTrue(setValidPrecision);
+    }
+
+    /**
+     * Test of setPrecision method with invalid precision.
+     * The method should throw an IllegalArgumentException.
+     */
+    @Test
+    void setPrecisionInvalid() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        int precision = -1;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> actuator.setPrecision(precision));
     }
 }

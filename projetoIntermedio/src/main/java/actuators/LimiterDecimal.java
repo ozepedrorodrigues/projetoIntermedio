@@ -136,7 +136,7 @@ public class LimiterDecimal implements Actuator {
      * @throws IllegalArgumentException if the limits are not valid
      */
     public boolean setLimits(double lower, double upper) {
-        if (validLimits(lower, upper)) {
+        if (!validLimits(lower, upper)) {
             throw new IllegalArgumentException();
         }
 
@@ -192,7 +192,7 @@ public class LimiterDecimal implements Actuator {
      * @return true if the lower limit is less than the upper limit, false otherwise
      */
     private boolean validLimits(double lower, double upper) {
-        return lower < upper;
+        return lower <= upper;
     }
 
     /**
