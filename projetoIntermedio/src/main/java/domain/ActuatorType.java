@@ -9,6 +9,10 @@ public enum ActuatorType {
     LIMITER("Limiter", new ArrayList<String>() {
         {add("SetMinimum");
         add("SetMaximum");}}),
+    LIMITER_DECIMAL("LimiterDecimal", new ArrayList<String>() {
+        {add("SetMinimum");
+        add("SetMaximum");
+        add("SetPrecision");}}),
     ONOFFSWITCH("OnOffSwitch", new ArrayList<String>() {
         {add("TurnOn");
         add("TurnOff");}});
