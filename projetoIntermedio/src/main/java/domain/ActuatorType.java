@@ -1,24 +1,25 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * The ActuatorType enum represents the different types of actuators that can be used in the system.
+ * <p>
+ */
 public enum ActuatorType {
-    BLINDSMANAGER("Blinders", new ArrayList<String>() {
-        {add("OpenBlinders");
-        add("CloseBlinders");}}),
-    LIMITER("Limiter", new ArrayList<String>() {
-        {add("SetMinimum");
-        add("SetMaximum");}}),
-    LIMITER_DECIMAL("LimiterDecimal", new ArrayList<String>() {
-        {add("SetMinimum");
-        add("SetMaximum");
-        add("SetPrecision");}}),
-    ONOFFSWITCH("OnOffSwitch", new ArrayList<String>() {
-        {add("TurnOn");
-        add("TurnOff");}});
+    /**
+     * The BlindsManager actuator type (for controlling blinds).*/
+    BLINDSMANAGER("Blinders"),
+    /** The Limiter actuator type (for setting upper and lower limits).*/
+    LIMITER("Limiter"),
+    /** The LimiterDecimal actuator type (for setting upper and lower limits with decimal values).*/
+    LIMITER_DECIMAL("LimiterDecimal"),
+    /** The OnOffSwitch actuator type (for turning devices on and off).*/
+    ONOFFSWITCH("OnOffSwitch");
     private final String name;
-    private final List<String> commandList;
-    ActuatorType(String name, List<String> commandList) {
-        this.name = name;
-        this.commandList = commandList;}
+
+    /**
+     * Constructor of the ActuatorType enum.
+     * @param name The name of the actuator type.
+     */
+    ActuatorType(String name) {
+        this.name = name;}
 }

@@ -2,8 +2,10 @@ package actuators;
 
 import domain.ActuatorType;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Test class for the BlindsManager class.

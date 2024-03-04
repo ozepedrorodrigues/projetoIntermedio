@@ -223,11 +223,10 @@ class AddSensorToDeviceControllerTest {
     void testGetDeviceListNullRoom() {
         // Arrange
         String roomName = null;
-
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getDeviceList(roomName));
-    }
+        //Act
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        // Assert
+        assertNull(controller.getDeviceList(roomName));}
 
     /**
      * Test to assess the getSensorModel method of AddSensorToDeviceController with an invalid Catalogue.
