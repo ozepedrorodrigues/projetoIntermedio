@@ -27,7 +27,7 @@ public class GetRoomListController {
      */
     public GetRoomListController(House house, RoomMapper roomMapper) throws InstantiationException {
         if(house == null){
-            throw new InstantiationException("House can not be null.");
+            throw new InstantiationException();
         }
         this.house = house;
         this.roomMapper = roomMapper;
