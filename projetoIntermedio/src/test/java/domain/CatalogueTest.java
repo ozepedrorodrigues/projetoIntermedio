@@ -95,7 +95,7 @@ class CatalogueTest {
     void getSensorsCatalogue() throws InstantiationException {
         //Arrange
         Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 12;
+        int expectedSize = 13;
         //Act
         List<String> result = catalogue.getSensorsCatalogue();
         //Assert

@@ -2,7 +2,7 @@ package actuators;
 
 import domain.ActuatorType;
 
-public class OnOff implements Actuator {
+public class ActuatoOfOnOff implements Actuator {
     /**
      * The state of the actuator
      * true if the actuator is active, false otherwise
@@ -20,10 +20,10 @@ public class OnOff implements Actuator {
     private int id;
 
     /**
-     * Constructs a new OnOff actuator
+     * Constructs a new ActuatoOfOnOff actuator
      * The actuator is initially deactivated
      */
-    public OnOff() {
+    public ActuatoOfOnOff() {
         this.state = false;
         this.type = ActuatorType.ONOFFSWITCH;
     }

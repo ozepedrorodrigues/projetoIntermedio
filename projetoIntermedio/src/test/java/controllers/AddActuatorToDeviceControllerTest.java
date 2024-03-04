@@ -54,7 +54,7 @@ class AddActuatorToDeviceControllerTest {
     void addActuatorToDevice() {
         // Arrange
         DeviceDTO deviceDTO = new DeviceDTO(deviceName, "Device", roomName);
-        String actuatorModel = "OnOff";
+        String actuatorModel = "ActuatoOfOnOff";
         ActuatorDTO expected = new ActuatorDTO(false);
 
         // Act

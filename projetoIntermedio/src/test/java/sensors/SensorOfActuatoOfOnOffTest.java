@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class SensorOfOnOffTest {
+class SensorOfActuatoOfOnOffTest {
 
     /**
      * Tests the constructor of the SensorOfOnOff class.
