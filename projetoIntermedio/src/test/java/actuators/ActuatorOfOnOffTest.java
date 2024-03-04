@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActuatoOfOnOffTest {
+class ActuatorOfOnOffTest {
     /**
-     * Test of the constructor, of class ActuatoOfOnOff. No parameters are needed.
-     * The constructor should create a new instance of the ActuatoOfOnOff class, with the state of the ActuatoOfOnOff initialized to an inactive (false) state.
+     * Test of the constructor, of class ActuatorOfOnOff. No parameters are needed.
+     * The constructor should create a new instance of the ActuatorOfOnOff class, with the state of the ActuatorOfOnOff initialized to an inactive (false) state.
      */
     @Test
     void testConstructor() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         boolean expected = false;
         // Act
         boolean result = actuator.isActive();
@@ -23,14 +23,14 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the isActive method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should return the state of the ActuatoOfOnOff.
-     * The state of the ActuatoOfOnOff should be inactive (false).
+     * Test of the isActive method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should return the state of the ActuatorOfOnOff.
+     * The state of the ActuatorOfOnOff should be inactive (false).
      */
     @Test
     void isActive() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         boolean expected = false;
         // Act
         boolean result = actuator.isActive();
@@ -39,15 +39,15 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the activate method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should activate the ActuatoOfOnOff.
-     * The state of the ActuatoOfOnOff should be active (true).
+     * Test of the activate method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should activate the ActuatorOfOnOff.
+     * The state of the ActuatorOfOnOff should be active (true).
      * The method should not throw an IllegalStateException.
      */
     @Test
     void activate() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         boolean expected = true;
         // Act
         actuator.activate();
@@ -57,15 +57,15 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the activate method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should throw an IllegalStateException if the ActuatoOfOnOff is already active.
-     * The state of the ActuatoOfOnOff should be active (true).
+     * Test of the activate method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should throw an IllegalStateException if the ActuatorOfOnOff is already active.
+     * The state of the ActuatorOfOnOff should be active (true).
      * The method should throw an IllegalStateException.
      */
     @Test
     void activateAlreadyActive() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         // Act
         actuator.activate();
         // Assert
@@ -73,14 +73,14 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the activate method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should throw an IllegalStateException if the ActuatoOfOnOff is already active.
-     * The state of the ActuatoOfOnOff should be active (true).
+     * Test of the activate method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should throw an IllegalStateException if the ActuatorOfOnOff is already active.
+     * The state of the ActuatorOfOnOff should be active (true).
      */
     @Test
     void deactivate() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         boolean expected = false;
         // Act
         actuator.activate();
@@ -91,28 +91,28 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the deactivate method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should throw an IllegalStateException if the ActuatoOfOnOff is already deactivated.
-     * The state of the ActuatoOfOnOff should be inactive (false).
+     * Test of the deactivate method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should throw an IllegalStateException if the ActuatorOfOnOff is already deactivated.
+     * The state of the ActuatorOfOnOff should be inactive (false).
      * The method should throw an IllegalStateException.
      */
     @Test
     void deactivateAlreadyInactive() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         // Act & Assert
         assertThrows(IllegalStateException.class, actuator::deactivate);
     }
 
     /**
-     * Test of the getType method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should return the ActuatorType of the ActuatoOfOnOff.
+     * Test of the getType method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should return the ActuatorType of the ActuatorOfOnOff.
      * The method should return ActuatorType.ONOFFSWITCH.
      */
     @Test
     void getType() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         ActuatorType expected = ActuatorType.ONOFFSWITCH;
         // Act
         ActuatorType result = actuator.getType();
@@ -121,13 +121,13 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the getId method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should return the ID of the ActuatoOfOnOff.
+     * Test of the getId method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should return the ID of the ActuatorOfOnOff.
      */
     @Test
     void getId() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         int expected = 0;
         // Act
         int result = actuator.getId();
@@ -136,13 +136,13 @@ class ActuatoOfOnOffTest {
     }
 
     /**
-     * Test of the setId method, of class ActuatoOfOnOff. No parameters are needed.
-     * The method should set the ID of the ActuatoOfOnOff.
+     * Test of the setId method, of class ActuatorOfOnOff. No parameters are needed.
+     * The method should set the ID of the ActuatorOfOnOff.
      */
     @Test
     void setId() {
         // Arrange
-        ActuatoOfOnOff actuator = new ActuatoOfOnOff();
+        ActuatorOfOnOff actuator = new ActuatorOfOnOff();
         int expected = 1;
         // Act
         actuator.setId(expected);
