@@ -38,8 +38,6 @@ public class SensorOfWindSpeed implements Sensor {
 
     /**
      * Returns the ID of the sensor.
-     *
-     * @return the ID of the sensor
      */
     public int getId() {
         return id;
@@ -47,9 +45,8 @@ public class SensorOfWindSpeed implements Sensor {
 
     /**
      * Sets the ID of the sensor.
-     *
      * @param newId the new ID of the sensor
-     * @return the ID of the sensor
+     * @return the new ID of the sensor
      */
     public int setId(int newId) {
         this.id = newId;
@@ -58,8 +55,6 @@ public class SensorOfWindSpeed implements Sensor {
 
     /**
      * Returns the type of the sensor.
-     *
-     * @return the type of the sensor
      */
 
     public SensorType getType() {
@@ -68,8 +63,6 @@ public class SensorOfWindSpeed implements Sensor {
 
     /**
      * Returns the value of the sensor.
-     *
-     * @return
      */
     public Value getValue() {
         ;

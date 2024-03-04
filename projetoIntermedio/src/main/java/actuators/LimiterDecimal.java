@@ -1,11 +1,23 @@
 package actuators;
 
+import domain.ActuatorType;
+
 /**
  * The LimiterDecimal class represents an actuator that can set a decimal value within a certain range and with a predefined precision.
  * The value can be set by the user after the actuator is activated.
  */
 public class LimiterDecimal implements Actuator {
-   /**
+    /**
+     * The unique identifier of the actuator.
+     */
+    private int id;
+
+    /**
+     * The type of the actuator.
+     */
+    private ActuatorType type = ActuatorType.LIMITER;
+
+    /**
      * The state of the actuator.
      */
     private boolean state;
@@ -45,6 +57,15 @@ public class LimiterDecimal implements Actuator {
     }
 
     /**
+     * Returns the type of the actuator.
+     * @return ActuatorType.LIMITER
+     */
+    @Override
+    public ActuatorType getType() {
+        return type;
+    }
+
+    /**
      * Returns whether the actuator is active.
      * @return true if the actuator is active, false otherwise.
      */
@@ -75,7 +96,24 @@ public class LimiterDecimal implements Actuator {
         }
         this.state = false;
 
-    }}
+    }
+
+    /**
+     * Returns the unique identifier of the actuator.
+     */
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the unique identifier of the actuator.
+     */
+    @Override
+    public int setId(int id) {
+        this.id=id;
+        return this.id;}
+}
 
 //  private void setValue(double value) {
 //        if (value < this.lowerLimit || value > this.upperLimit) {

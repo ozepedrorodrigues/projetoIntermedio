@@ -1,5 +1,6 @@
 package actuators;
 
+import domain.ActuatorType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,4 +93,44 @@ class BlindsManagerTest {
         BlindsManager blindsManager = new BlindsManager();
         //Act & Assert
         assertThrows(IllegalStateException.class, blindsManager::deactivate);}
+
+    /**
+     * Test of the getId method, of class BlindsManager. No parameters are needed.
+     * The method should return the unique identifier of the BlindsManager.
+     */
+    @Test
+    void getId() {
+        //Arrange
+        BlindsManager blindsManager = new BlindsManager();
+        //Act
+        int result = blindsManager.getId();
+        //Assert
+        assertEquals(0, result);}
+
+    /**
+     * Test of the setId method, of class BlindsManager. The method should set the unique identifier of the BlindsManager.
+     * The ID should be set.
+     */
+
+    @Test
+    void setId() {
+        //Arrange
+        BlindsManager blindsManager = new BlindsManager();
+        //Act
+        blindsManager.setId(1);
+        //Assert
+        assertEquals(1, blindsManager.getId());}
+
+    /**
+     * Test of the getType method, of class BlindsManager. No parameters are needed.
+     * The method should return the correct ActuatorType (BLINDSMANAGER).
+     */
+    @Test
+    void getType() {
+        //Arrange
+        BlindsManager blindsManager = new BlindsManager();
+        //Act
+        ActuatorType result = blindsManager.getType();
+        //Assert
+        assertEquals(ActuatorType.BLINDSMANAGER, result);}
 }

@@ -87,7 +87,7 @@ public class OnOff implements Actuator {
      *
      * @param id the new ID of the actuator
      */
-    public void setId(int id) {
+    public int setId(int id) {
         this.id = id;
-    }
+        return this.id;}
 }

@@ -15,8 +15,15 @@ public class SensorOfSolarIrradiance implements Sensor{
 
     private int id;
 
+    /**
+     * The type of the sensor.
+     * The type is always SensorType.SOLAR_IRRADIANCE.
+     */
     private SensorType type;
 
+    /**
+     * The default value of the sensor.
+     */
     private Value DEFAULT = new SolarIrradianceValue(1200.0);
 
 

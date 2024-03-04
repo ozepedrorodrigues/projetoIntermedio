@@ -2,6 +2,7 @@ package actuators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import domain.ActuatorType;
 import org.junit.jupiter.api.Test;
 
 class LimiterDecimalTest {
@@ -93,6 +94,51 @@ class LimiterDecimalTest {
         // Arrange
         LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
         // Act & Assert
-        assertThrows(IllegalStateException.class, () -> actuator.deactivate());
+        assertThrows(IllegalStateException.class, () -> actuator.deactivate());}
+
+    /**
+     * Test of getId method
+     * The method should return the unique identifier of the LimiterDecimal.
+     */
+
+    @Test
+    void getId() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        int expected = 0;
+        // Act
+        int result = actuator.getId();
+        // Assert
+        assertEquals(expected, result);}
+
+    /**
+     * Test if Setid method.
+     * The method should set the unique identifier of the LimiterDecimal.
+     */
+    @Test
+    void setId() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        int expected = 1;
+        // Act
+        actuator.setId(1);
+        int result = actuator.getId();
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test of getType method.
+     * The method should return the correct ActuatorType(LIMITER).
+     */
+    @Test
+    void getType() {
+        // Arrange
+        LimiterDecimal actuator = new LimiterDecimal(25.0, 75.0, 2);
+        ActuatorType expected = ActuatorType.LIMITER;
+        // Act
+        ActuatorType result = actuator.getType();
+        // Assert
+        assertEquals(expected, result);
     }
 }
