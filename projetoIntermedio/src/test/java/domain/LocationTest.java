@@ -35,8 +35,7 @@ class LocationTest {
     }
 
     /**
-     * Tests the valid construction of the Location class by setting up mock objects and valid data.
-     * Verifies that the constructor initializes the Location object correctly.
+     * Tests the constructor of the Location class with valid parameters.
      */
     @Test
     void testConstructorValid() {
@@ -58,57 +57,73 @@ class LocationTest {
     }
 
     /**
-     * Tests the behavior of the Location constructor when provided with an invalid address.
-     * Verifies that an IllegalArgumentException is thrown with the expected error message.
+     * Tests the constructor of the Location class with invalid parameters.
+     * Verifies that the constructor throws an IllegalArgumentException when the address is null.
      */
     @Test
-    void testConstructorInvalidAddress() {
+    void testConstructorInvalidAddressIsNull() {
         // Arrange
-        String invalidAddress = "";
-        String expectedMessage = "Invalid parameters";
+        String invalidAddress = null;
 
-        // Act
-        Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(invalidAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble));
-        String resultMessage = e.getMessage();
-
-        //vAssert
-        assertEquals(expectedMessage, resultMessage);
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> new Location(invalidAddress,
+                validZipCode, validLatitude, validLongitude, gpsFactoryDouble));
     }
 
     /**
-     * Tests the behavior of the Location constructor when provided with an invalid zipcode.
-     * Verifies that an IllegalArgumentException is thrown with the expected error message.
+     * Tests the constructor of the Location class with invalid parameters.
+     * Verifies that the constructor throws an IllegalArgumentException when the address is empty.
      */
     @Test
-    void testConstructorInvalidZipCode() {
+    void testConstructorInvalidAddressIsEmpty() {
         // Arrange
-        String invalidZipCode = "";
-        String expectedMessage = "Invalid parameters";
+        String invalidAddress = " ";
 
-        // Act
-        Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(validAddress, invalidZipCode, validLatitude, validLongitude, gpsFactoryDouble));
-        String resultMessage = e.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> new Location(invalidAddress,
+                validZipCode, validLatitude, validLongitude, gpsFactoryDouble));
     }
 
     /**
-     * Tests the behavior of the Location constructor when provided with an invalid gps location factory.
-     * Verifies that an IllegalArgumentException is thrown with the expected error message.
+     * Tests the constructor of the Location class with invalid parameters.
+     * Verifies that the constructor throws an IllegalArgumentException when the zip code is null.
      */
     @Test
-    void testConstructorInvalidGpsLocationFactory() {
+    void testConstructorInvalidZipCodeIsNull() {
+        // Arrange
+        String invalidZipCode = null;
+
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> new Location(validAddress,
+                invalidZipCode, validLatitude, validLongitude, gpsFactoryDouble));
+    }
+
+    /**
+     * Tests the constructor of the Location class with invalid parameters.
+     * Verifies that the constructor throws an IllegalArgumentException when the zip code is empty.
+     */
+    @Test
+    void testConstructorInvalidZipCodeIsEmpty() {
+        // Arrange
+        String invalidZipCode = " ";
+
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> new Location(validAddress,
+                invalidZipCode, validLatitude, validLongitude, gpsFactoryDouble));
+    }
+
+    /**
+     * Tests the constructor of the Location class with invalid parameters.
+     * Verifies that the constructor throws an IllegalArgumentException when the GPSFactory is null.
+     */
+    @Test
+    void testConstructorInvalidGpsLocationFactoryIsNull() {
         // Arrange
         GPSFactory invalidGpsFactory = null;
-        String expectedMessage = "Invalid parameters";
 
-        // Act
-        Exception e = assertThrows(IllegalArgumentException.class, () -> new Location(validAddress, validZipCode, validLatitude, validLongitude, invalidGpsFactory));
-        String resultMessage = e.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> new Location(validAddress,
+                validZipCode, validLatitude, validLongitude, invalidGpsFactory));
     }
 
     /**
@@ -116,7 +131,7 @@ class LocationTest {
      * Verifies that the method returns the expected address.
      */
     @Test
-    void getAddress() {
+    void testGetAddress() {
         // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
@@ -132,7 +147,7 @@ class LocationTest {
      * Verifies that the method returns the expected zip code.
      */
     @Test
-    void getZipCode() {
+    void testGetZipCode() {
         // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
@@ -148,7 +163,7 @@ class LocationTest {
      * Verifies that the method returns the expected GPS.
      */
     @Test
-    void getGpsLocation() {
+    void testGetGpsLocation() {
         // Arrange
         when(gpsFactoryDouble.createGPS(validLatitude, validLongitude)).thenReturn(gpsDouble);
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
@@ -165,7 +180,7 @@ class LocationTest {
      * Verifies that the method returns the expected GPSFactory.
      */
     @Test
-    void getGpsLocationFactory() {
+    void testGetGpsLocationFactory() {
         // Arrange
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
 
