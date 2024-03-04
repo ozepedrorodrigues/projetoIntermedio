@@ -8,7 +8,7 @@ public enum SensorType {
 
     TEMPERATURE("Temperature", "ºC"),
     HUMIDITY("Humidity", "%RH"),
-    ON_OFF("On/Off", "Boolean"),
+    ON_OFF("On/Off", "I/O"),
     SCALE_PERCENTAGE(   "Scale Percentage", "%"),
     WIND_SPEED("WindSpeed", "km/h"),
     WIND_DIRECTION("WindDirection", "radian"),

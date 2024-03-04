@@ -5,26 +5,37 @@ import values.OnOffValue;
 import values.Value;
 
 /**
- * Represents a sensor of type ON_OFF.
+ * This class represents a binary sensor that measures ON/OFF values.
  */
 public class SensorOfOnOff implements Sensor {
 
+    /**
+     * The unique identifier of the sensor.
+     */
     private int id;
+
+    /**
+     * The type of the sensor.
+     */
     private SensorType type;
 
+    /**
+     * The default ON/OFF value of the sensor.
+     * This value is used when the sensor is not connected to a physical device.
+     */
     private final Value DEFAULT = new OnOffValue(true);
 
     /**
-     * Constructs a SensorOfOnOff instance using the provided ValueFactory.
+     * Creates a new instance of the SensorOfOnOff class.
      */
     public SensorOfOnOff() {
         this.type = SensorType.ON_OFF;
     }
 
     /**
-     * Retrieves the ID of the sensor.
+     * Retrieves the unique identifier of the sensor.
      *
-     * @return The current ID of the sensor.
+     * @return The unique identifier of the sensor.
      */
     @Override
     public int getId() {
@@ -32,10 +43,10 @@ public class SensorOfOnOff implements Sensor {
     }
 
     /**
-     * Sets the ID of the sensor to the specified value.
+     * Sets a new unique identifier for the sensor.
      *
-     * @param newId The new ID to set for the sensor.
-     * @return The updated ID after the operation.
+     * @param newId The new unique identifier to assign to the sensor.
+     * @return The updated unique identifier for the sensor.
      */
     @Override
     public int setId(int newId) {
@@ -44,9 +55,9 @@ public class SensorOfOnOff implements Sensor {
     }
 
     /**
-     * Retrieves the type of the sensor, which is ON_OFF.
+     * Retrieves the type of the sensor.
      *
-     * @return The SensorType.ON_OFF enumeration representing the sensor type.
+     * @return The type of the sensor as defined by the SensorType enum.
      */
     @Override
     public SensorType getType() {
@@ -54,9 +65,10 @@ public class SensorOfOnOff implements Sensor {
     }
 
     /**
-     * Retrieves the current ON/OFF value of the sensor.
+     * Returns the current reading measured by the sensor.
      *
-     * @return The current ON/OFF value as a Value object.
+     * @return The current reading from the sensor represented by an implementation of the
+     * Value interface.
      */
     @Override
     public Value getValue() {
