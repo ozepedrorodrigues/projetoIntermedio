@@ -33,13 +33,8 @@ public class DeviceFactoryImp implements DeviceFactory {
      * @param name       the name of the device
      * @param deviceType the type of the device
      * @return a Device object with the specified name and deviceType
-     * @throws IllegalArgumentException if the name or deviceType is empty
-     * @throws NullPointerException     if the name or deviceType is null
+     * @throws IllegalArgumentException if name or deviceType or name is null or empty or any of the factories is null.
      */
     public Device createDevice(String name, String deviceType) {
-        try{return new Device(name, deviceType,sensorFactory,actuatorFactory);}
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());}
-        catch (NullPointerException e) {
-            throw new NullPointerException(e.getMessage());}}
+        return new Device(name, deviceType, sensorFactory, actuatorFactory);}
 }

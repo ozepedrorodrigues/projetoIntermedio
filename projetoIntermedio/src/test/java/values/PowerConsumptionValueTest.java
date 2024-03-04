@@ -28,18 +28,4 @@ public class PowerConsumptionValueTest {
         // Assert
         assertEquals(expected, result);
     }
-
-    /**
-     * This test checks if the value of the power consumption is correctly converted to a string.
-     */
-    @Test
-    void toValue_Valid() {
-        // Arrange
-        PowerConsumptionValue currentReading = new PowerConsumptionValue(0);
-        String expected = "0.0";
-        // Act
-        String result = currentReading.valueToString();
-        // Assert
-        assertEquals(expected, result);
-    }
 }

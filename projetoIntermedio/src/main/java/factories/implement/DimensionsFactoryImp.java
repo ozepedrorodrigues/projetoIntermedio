@@ -24,10 +24,5 @@ public class DimensionsFactoryImp implements DimensionsFactory {
      * @throws IllegalArgumentException if any of the dimensions are non-positive
      */
     public Dimensions createDimensions(double width, double length, double height) {
-        try {
-            return new Dimensions(width, length, height);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-    }
+            return new Dimensions(width, length, height);}
 }

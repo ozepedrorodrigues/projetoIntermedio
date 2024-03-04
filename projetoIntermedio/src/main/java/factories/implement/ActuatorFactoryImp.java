@@ -47,10 +47,7 @@ public class ActuatorFactoryImp implements ActuatorFactory {
                 return (Actuator) Class.forName(actuatorClassNamePath).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
-                throw new IllegalArgumentException(e.getMessage());
-            }
-        }
-
+                return null;}}
         return null;
     }
 

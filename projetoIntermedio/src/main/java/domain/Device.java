@@ -30,8 +30,7 @@ public class Device {
      * @param name          The name of the device.
      * @param type          The type of the device.
      * @param sensorFactory The sensor factory to be used to create sensors for the device.
-     * @throws NullPointerException     if name or type or sensorFactory is null.
-     * @throws IllegalArgumentException if name or type is empty.
+     * @throws IllegalArgumentException if name or type is null or empty or any of the factories is null.
      */
     public Device(String name, String type, SensorFactory sensorFactory, ActuatorFactory actuatorFactory) {
         if (!validName(name) || !validType(type) || !validFactories(sensorFactory, actuatorFactory))
