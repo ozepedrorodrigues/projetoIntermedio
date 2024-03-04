@@ -118,6 +118,12 @@ public class Device {
         return sensor;
     }
 
+    /**
+     * Adds an actuator to the device.
+     *
+     * @param actuatorClassName The type of the actuator to be added.
+     * @return The added Actuator, or null if the actuator cannot be added.
+     */
     public Actuator addActuator(String actuatorClassName) {
         if (!validClassName(actuatorClassName)) {
             return null;
@@ -126,19 +132,25 @@ public class Device {
         if (actuator == null) {
             return null;
         }
-        //actuator.setId(IdGenerator.generateActuatorId());
+        actuator.setId(IdGenerator.generateActuatorId());
         actuators.add(actuator);
         return actuator;
     }
 
-    private boolean validClassName(String type) {
-        return type != null && !type.isEmpty();
+    /**
+     * Validates the class name of the device.
+     *
+     * @param className The className of the device.
+     * @return true if the className is not null and not empty, false otherwise.
+     */
+    private boolean validClassName(String className) {
+        return className != null && !className.isBlank();
     }
 
+    // É PARA REMOVER
     private boolean validCatalogue(Catalogue catalogue) {
         return catalogue != null;
     }
-
 
     /**
      * Deactivates the device.

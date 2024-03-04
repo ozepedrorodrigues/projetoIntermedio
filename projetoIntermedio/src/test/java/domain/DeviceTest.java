@@ -323,13 +323,14 @@ class DeviceTest {
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
-        assertEquals(0, device.getFunctionalities().size());}
+        assertEquals(0, device.getFunctionalities().size());
+    }
 
     /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor with an invalid (empty) class name.
      * The method should return null and the device should have no sensors.
      */
-     @Test
+    @Test
     void addSensorInvalidClassNameIsEmpty() {
         //Arrange
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
@@ -339,7 +340,8 @@ class DeviceTest {
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
-        assertEquals(0, device.getFunctionalities().size());}
+        assertEquals(0, device.getFunctionalities().size());
+    }
 
     /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor with a null class name.
@@ -356,7 +358,8 @@ class DeviceTest {
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
-        assertEquals(0, device.getFunctionalities().size());}
+        assertEquals(0, device.getFunctionalities().size());
+    }
 
     /**
      * Test designed to test deactivate() method on an active device.
@@ -469,9 +472,29 @@ class DeviceTest {
     }
 
     /**
+     * Test designed to evaluate the addActuator method when adding an actuator with an invalid (blank) class name.
+     * The method should return null and the device should have no actuators.
+     */
+    @Test
+    void testAddActuatorInvalidClassNameIsBlank() {
+        //Arrange
+        String invalidClassName = "     ";
+        int expectedSize = 0;
+        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
+
+        //Act
+        Actuator result = device.addActuator(invalidClassName);
+        int resultSize = device.getDeviceActuators().size();
+
+        //Assert
+        assertNull(result);
+        assertEquals(expectedSize, resultSize);
+    }
+
+    /**
      * Test designed to evaluate the addActuator method when adding an actuator with a null class name.
      * The method should return null and the device should have no actuators.
-      */
+     */
     @Test
     void testAddActuatorInvalidClassNameIsNull() {
         //Arrange
