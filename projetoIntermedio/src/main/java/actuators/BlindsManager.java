@@ -33,6 +33,7 @@ public class BlindsManager implements Actuator{
     public boolean isActive() {return this.state;}
     /**
      * Activates the BlindsManager.
+     * @throws IllegalStateException if the BlindsManager is already active.
      */
     @Override
     public void activate() {
@@ -41,6 +42,7 @@ public class BlindsManager implements Actuator{
     }
     /**
      * Deactivates the BlindsManager.
+     * @throws IllegalStateException if the BlindsManager is already inactive.
      */
     @Override
     public void deactivate() {
@@ -49,6 +51,7 @@ public class BlindsManager implements Actuator{
 
     /**
      * Returns the type of the Actuator.
+     * @return The {@link ActuatorType} of the Actuator.
      */
     @Override
     public ActuatorType getType() {
@@ -56,6 +59,7 @@ public class BlindsManager implements Actuator{
 
     /**
      * Returns the ID of the Actuator.
+     * @return The ID of the Actuator.
      */
     @Override
     public int getId() {
@@ -63,6 +67,8 @@ public class BlindsManager implements Actuator{
 
     /**
      * Sets the ID of the Actuator.
+     * @param id The new ID of the Actuator.
+     * @return The new ID of the Actuator.
      */
     @Override
     public int setId(int id) {
