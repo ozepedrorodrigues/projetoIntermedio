@@ -248,6 +248,9 @@ class GetDevicesByFunctionalityControllerTest {
         assertEquals("Device1", result.get("Humidity").getFirst().getName());
         assertEquals("Device1", result.get("Scale Percentage").getFirst().getName());}
 
+    /**
+     * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 2 rooms and 2 devices with 2 functionalities each.
+     */
     @Test
     void getDeviceByFunctionality1House2Rooms2Devices4Functionalities2InEach(){
         //Arrange
@@ -271,6 +274,10 @@ class GetDevicesByFunctionalityControllerTest {
         assertEquals("Device2", result.get("Scale Percentage").getFirst().getName());
         assertEquals("Device2", result.get("On/Off").getFirst().getName());}
 
+    /**
+     * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 2 rooms and 2 devices with all functionalities.
+     * This test is used to verify the functionality of the controller when all functionalities are present in the devices.
+     */
     @Test
     void getDeviceByFunctionality1House2Rooms2DevicesWithAllFunctionalities(){
         //Arrange
