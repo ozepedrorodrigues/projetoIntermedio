@@ -76,9 +76,8 @@ public class AddSensorToDeviceController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        //corrigir = não pode mandar um throw de IllegalArgumentException
         if (roomName == null) {
-            throw new IllegalArgumentException();
+            return null;
         }
         return this.getDeviceListController.getDevicesInRoom(roomName);
     }
