@@ -10,4 +10,11 @@ public class IdGenerator {
     public static int generateActuatorId() {
         return actuatorId++;
     }
+
+    public static void resetActuatorId() {
+        actuatorId = 1;
+    }
+    public static void resetSensorId() {
+        sensorId = 1;
+    }
 }

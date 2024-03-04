@@ -1,9 +1,6 @@
 package controllers;
 
-import domain.ActuatorType;
-import domain.Catalogue;
-import domain.House;
-import domain.Room;
+import domain.*;
 import dto.ActuatorDTO;
 import dto.DeviceDTO;
 import dto.RoomDTO;
@@ -84,6 +81,7 @@ class AddActuatorToDeviceControllerTest {
      */
     @BeforeEach
     void setUp() throws InstantiationException {
+        IdGenerator.resetActuatorId();
         filepath = "config.properties";
         roomName = "Kitchen";
         deviceName = "Fridge";
