@@ -433,7 +433,7 @@ class DeviceTest {
     @Test
     void testAddActuatorValid() {
         //Arrange
-        String validClassName = "ActuatoOfOnOff";
+        String validClassName = "ActuatorOfOnOff";
         int expectedSize = 1;
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
         Actuator actuatorDouble = mock(Actuator.class);

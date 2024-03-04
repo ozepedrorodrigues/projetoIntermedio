@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class contains unit tests for the OnOffValue class.
  * It tests the value getter and the implemented interface method valueToString.
  */
-class ActuatoOfOnOffValueTest {
+class ActuatorOfOnOffValueTest {
 
     /**
      * Tests the getOnOffValue method of the OnOffValue class.
