@@ -20,19 +20,61 @@ import static org.junit.jupiter.api.Assertions.*;
  * grouped by their functionality from a house with multiple rooms and devices.
  */
 class GetDevicesByFunctionalityControllerTest {
+    /**
+     * The house instance used for testing.
+     */
     House house;
+    /**
+     * The catalogue instance used for testing.
+     */
     Catalogue catalogue;
+    /**
+     * The room instances used for testing.
+     */
     Room room1;
+    /**
+     * The room instances used for testing.
+     */
     Room room2;
+    /**
+     * The file path name used for testing (location of config.properties file).
+     */
     String filePathName;
+    /**
+     * The GPSFactory instance used for testing.
+     */
     GPSFactory GPSFactory;
+    /**
+     * The LocationFactory instance used for testing.
+     */
     LocationFactory locationFactory;
+    /**
+     * The DimensionsFactory instance used for testing.
+     */
     DimensionsFactory dimensionsFactory;
+    /**
+     * The DeviceGroupMapper instance used for testing.
+     */
     DeviceGroupMapper deviceGroupMapper;
+    /**
+     * The SensorFactory instance used for testing.
+     */
     SensorFactory sensorFactory;
+    /**
+     * The ActuatorFactory instance used for testing.
+     */
     ActuatorFactory actuatorFactory;
+    /**
+     * The DeviceFactory instance used for testing.
+     */
     DeviceFactory deviceFactory;
+    /**
+     * The RoomFactory instance used for testing.
+     */
     RoomFactory roomFactory;
+    /**
+     * The number of functionalities used for testing.
+     */
     int numberOfFunctionalities;
 
     /**
@@ -58,8 +100,30 @@ class GetDevicesByFunctionalityControllerTest {
     }
 
     /**
+     * Test to verify if the controller throws an IllegalArgumentException when the house is null.
+     * This test is used to verify the constructor of the controller.
+     */
+    @Test
+    void getDeviceByFunctionalityNullHouse() {
+        //Act
+        //Assert
+        assertThrows(IllegalArgumentException.class, () -> new GetDevicesByFunctionalityController(null, deviceGroupMapper));}
+
+    /**
+     * Test to verify if the controller throws an IllegalArgumentException when the mapper is null.
+     * This test is used to verify the constructor of the controller.
+     */
+    @Test
+    void getDeviceByFunctionalityNullMapper() {
+        //Act
+        //Assert
+        assertThrows(IllegalArgumentException.class, () -> new GetDevicesByFunctionalityController(house, null));}
+
+
+    /**
      * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 1 room and 1 device with 1 functionality.
      */
+
     @Test
     void getDeviceByFunctionality1House2Rooms1Device1Functionality() {
         //Arrange
@@ -73,8 +137,7 @@ class GetDevicesByFunctionalityControllerTest {
         for(String functionality : result.keySet()){
             if(functionality.equals("Temperature")){
                 assertEquals(1, result.get(functionality).size());}
-            else{assertEquals(0, result.get(functionality).size());}}
-    }
+            else{assertEquals(0, result.get(functionality).size());}}}
 
     /**
      * Test to verify the functionality of retrieving devices grouped by their functionality from a house with 2 rooms and 1 device with 2 functionalities.

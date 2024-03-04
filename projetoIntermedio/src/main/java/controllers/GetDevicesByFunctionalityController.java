@@ -13,7 +13,14 @@ import java.util.Map;
  */
 public class GetDevicesByFunctionalityController {
 
+    /**
+     * The House instance this controller will operate on to fetch devices.
+     */
+
     private House myHouse;
+    /**
+     * The mapper that will be used to group devices by functionality.
+     */
     private DeviceGroupMapper mapper;
 
     /**
@@ -21,11 +28,12 @@ public class GetDevicesByFunctionalityController {
      *
      * @param house The House instance this controller will operate on to fetch devices.
      * @param deviceGroupMapper The mapper that will be used to group devices by functionality.
+     * @throws IllegalArgumentException if the house or mapper are null.
      */
     public GetDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
+        if(!validHouse(house)||!validMapper(deviceGroupMapper)) throw new IllegalArgumentException();
         this.myHouse = house;
-        this.mapper = deviceGroupMapper;
-    }
+        this.mapper = deviceGroupMapper;}
 
     /**
      * Retrieves devices grouped by their functionality.
@@ -41,4 +49,20 @@ public class GetDevicesByFunctionalityController {
         // Use the mapper to group devices by functionality and return the result.
         return mapper.groupDevicesByFunctionality(devicesByRoom, sensorTypes);
     }
+
+    /**
+     * Checks if the house given as constructor parameter is valid.
+     * @param house The house to be checked.
+     * @return True if the house is not null, false otherwise.
+     */
+    private boolean validHouse(House house) {
+        return house != null;}
+
+    /**
+     * Checks if the mapper given as constructor parameter is valid.
+     * @param mapper The mapper to be checked.
+     * @return True if the mapper is not null, false otherwise.
+     */
+    private boolean validMapper(DeviceGroupMapper mapper) {
+        return mapper != null;}
 }
