@@ -14,25 +14,26 @@ public class DeviceGroupMapper {
 
     /**
      * Constructs a new DeviceGroupMapper.
+     * This constructor is empty because it does not have any attributes to initialize.
      */
     public DeviceGroupMapper() {
     }
 
     /**
-     * Groups devices by functionality.
+     * Groups devicesByRoom by functionality.
      *
-     * @param devices         the list of devices grouped by room.
-     * @param sensorTypes the list of sensorTypes available in the house.
-     * @return a map of devicesDTO (including roomName) grouped by functionality.
+     * @param devicesByRoom         the list of {@link Device} grouped by {@link domain.Room}.
+     * @param sensorTypes the list of {@link SensorType} enum instances available
+     * @return a map of {@link dto.DeviceDTO} (including roomName) grouped by functionality.
      */
-   public Map<String, List<DeviceDTO>> groupDevicesByFunctionality(Map<String, List<Device>> devices, SensorType[] sensorTypes) {
+   public Map<String, List<DeviceDTO>> groupDevicesByFunctionality(Map<String, List<Device>> devicesByRoom, SensorType[] sensorTypes) {
        List<String> functionalities = new ArrayList<>();
        for (SensorType sensorType : sensorTypes)
            functionalities.add(sensorType.getSensorType());
        Map<String, List<DeviceDTO>> devicesPerFunctionality = new HashMap<>();
        for (String functionality : functionalities)
            devicesPerFunctionality.put(functionality, new ArrayList<>());
-       for (Map.Entry<String, List<Device>> entry : devices.entrySet()) {
+       for (Map.Entry<String, List<Device>> entry : devicesByRoom.entrySet()) {
            String roomName = entry.getKey();
            for (Device device : entry.getValue()) {
                for (String functionality : device.getFunctionalities()) {
