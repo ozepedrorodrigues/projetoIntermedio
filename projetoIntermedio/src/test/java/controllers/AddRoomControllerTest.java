@@ -15,21 +15,35 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class AddRoomControllerTest {
 
+    /**
+     * AddRoomController instance to be used in the tests.
+     */
     AddRoomController addRoomController;
-    AddRoomController addRoomController2;
+
+    /**
+     * The house instance to which the room is to be added.
+     */
     House house;
+
+    /**
+     * The mapperToRoomDTO instance to be used.
+     */
     RoomMapper roomMapper;
-    LocationFactory locationFactory;
-    GPSFactory gpsFactory;
-    RoomFactory roomFactory;
+
+    /**
+     * Width of the room.
+     */
     double width;
+
+    /**
+     * Length of the room.
+     */
     double length;
+
+    /**
+     * Height of the room.
+     */
     double height;
-    DimensionsFactory dimensionsFactory;
-    DeviceFactory deviceFactory;
-    SensorFactory sensorFactory;
-    ActuatorFactory actuatorFactory;
-    String filePathName;
 
     /**
      * Set up the necessary objects for the tests.
@@ -37,21 +51,15 @@ class AddRoomControllerTest {
      */
     @BeforeEach
     void setUp() throws InstantiationException {
-        this.gpsFactory = new GPSFactoryImp();
-        this.locationFactory = new LocationFactoryImp(gpsFactory);
-        this.dimensionsFactory = new DimensionsFactoryImp();
-        this.filePathName = "config.properties";
-        this.sensorFactory = new SensorFactoryImp(filePathName);
-        this.actuatorFactory = new ActuatorFactoryImp(filePathName);
-        deviceFactory = new DeviceFactoryImp(sensorFactory,actuatorFactory);
-        this.roomFactory = new RoomFactoryImp(dimensionsFactory, deviceFactory);
-        this.roomMapper = new RoomMapper();
+        String filePathName = "config.properties";
         this.width = 14.3;
         this.length = 15.2;
         this.height = 4.5;
-        this.house = new House(locationFactory, roomFactory);
-        this.addRoomController = new AddRoomController(house, roomMapper);
-        this.addRoomController2 = new AddRoomController(house, roomMapper);
+        RoomFactory roomFactory = new RoomFactoryImp(new DimensionsFactoryImp(),
+                new DeviceFactoryImp(new SensorFactoryImp(filePathName), new ActuatorFactoryImp(filePathName)));
+        this.house = new House(new LocationFactoryImp(new GPSFactoryImp()), roomFactory);
+
+        this.addRoomController = new AddRoomController(house, new RoomMapper());
     }
 
     /**
@@ -61,10 +69,8 @@ class AddRoomControllerTest {
     void constructorInvalidHouse() {
         //Arrange
         House invalidHouse = null;
-        String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, roomMapper));
-        assertEquals(expected, exception.getMessage());
+        assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, roomMapper));
     }
 
     /**
@@ -74,12 +80,9 @@ class AddRoomControllerTest {
     void constructorInvalidMapperToRoomDTO() {
         //Arrange
         RoomMapper invalidMapper = null;
-        String expected = "House can not be null.";
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new AddRoomController(house, invalidMapper));
-        assertEquals(expected, exception.getMessage());
+        assertThrows(InstantiationException.class, () -> new AddRoomController(house, invalidMapper));
     }
-
 
     /**
      * Test the addNewRoomToHouse method.
@@ -105,16 +108,16 @@ class AddRoomControllerTest {
         //Arrange
         String name = "Gaming Room";
         int floor = 1;
-        RoomDTO newRoom1 = new RoomDTO (name, floor, width, length, height);
-        RoomDTO newRoom2 = new RoomDTO (name, floor, width, length, height);
-        RoomDTO newRoom2Expected = null;
-        int roomListSizeBefore = 0;
-        int roomListSizeAfter = 1;
+        RoomDTO newRoom = new RoomDTO (name, floor, width, length, height);
+        RoomDTO newRoomSameName = new RoomDTO (name, floor, width, length, height);
+        int roomListSizeBefore = 1;
         //Act
-        RoomDTO newRoom1Result = addRoomController.addNewRoomToHouse(newRoom1);
-        RoomDTO newRoom2Result = addRoomController2.addNewRoomToHouse(newRoom2);
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoom);
+        RoomDTO newRoom2Result = addRoomController.addNewRoomToHouse(newRoomSameName);
+        int roomListSizeAfter = house.getRooms().size();
         //Assert
-        assertEquals(newRoom2Expected, newRoom2Result);
+        assertNull(newRoom2Result);
+        assertEquals(roomListSizeBefore, roomListSizeAfter);
     }
 
     /**
@@ -133,7 +136,7 @@ class AddRoomControllerTest {
         int roomListSizeAfter = 1;
         //Act
         RoomDTO newRoom1Result = addRoomController.addNewRoomToHouse(newRoom1);
-        RoomDTO newRoom2Result = addRoomController2.addNewRoomToHouse(newRoom2);
+        RoomDTO newRoom2Result = addRoomController.addNewRoomToHouse(newRoom2);
         String nameResult = newRoom1Result.getName();
         //Assert
         assertEquals(newRoom2Expected, newRoom2Result);
@@ -149,11 +152,10 @@ class AddRoomControllerTest {
         String name = null;
         int floor = -1;
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
-        RoomDTO roomExpected = null;
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
-        assertEquals(roomExpected, newRoomResult);
+        assertNull(newRoomResult);
     }
 
     /**
@@ -163,6 +165,22 @@ class AddRoomControllerTest {
     void addRoomEmptyName() {
         //Arrange
         String name = "";
+        int floor = -1;
+        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        RoomDTO roomExpected = null;
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(roomExpected, newRoomResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the room name is blank.
+     */
+    @Test
+    void addRoomBlankName() {
+        //Arrange
+        String name = "     ";
         int floor = -1;
         RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
         RoomDTO roomExpected = null;
