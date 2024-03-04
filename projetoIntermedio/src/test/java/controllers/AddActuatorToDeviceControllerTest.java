@@ -105,6 +105,18 @@ class AddActuatorToDeviceControllerTest {
 
 
     /**
+     * Test the constructor of the AddActuatorToDeviceController class with valid parameters.
+     */
+    @Test
+    void constructorValid() {
+        //Arrange - Act
+        AddActuatorToDeviceController result = new AddActuatorToDeviceController(
+                house, catalogue, getRoomListController, getDeviceListController, actuatorMapper);
+        //Assert
+        assertNotNull(result);
+    }
+
+    /**
      * Test the constructor of the AddActuatorToDeviceController class with invalid parameters.
      * The house is null.
      */
