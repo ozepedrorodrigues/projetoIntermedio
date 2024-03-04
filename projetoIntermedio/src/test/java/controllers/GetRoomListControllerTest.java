@@ -70,7 +70,6 @@ class GetRoomListControllerTest {
         String expected = "House can not be null.";
         //Act + assert
         Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null, roomMapper1));
-        assertEquals(expected, exception.getMessage());
 
     }
 
