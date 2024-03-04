@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SunriseValueTest {
 
+    /**
+     * The localDateTime attribute to be used in tests.
+     */
     LocalDateTime localDateTime;
 
     /**

@@ -20,6 +20,9 @@ import static org.mockito.Mockito.*;
  */
 class SensorOfSunriseTest {
 
+    /**
+     * The sensorOfSunrise attribute to be used in tests.
+     */
     SensorOfSunrise sensorOfSunrise;
 
     /**

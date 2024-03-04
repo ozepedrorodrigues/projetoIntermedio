@@ -13,22 +13,55 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 /**
  * This class is responsible for testing the GetRoomListController class.
  */
 class GetRoomListControllerTest {
 
+    /**
+     * The gpsFactory attribute to be used in tests.
+     */
     GPSFactory gpsFactory;
+    /**
+     * The locationFactory attribute to be used in tests.
+     */
     LocationFactory locationFactory;
+    /**
+     * The filePathName attribute to be used in tests.
+     */
     String filePathName;
+    /**
+     * The sensorFactory attribute to be used in tests.
+     */
     SensorFactory sensorFactory;
+    /**
+     * The actuatorFactory attribute to be used in tests.
+     */
     ActuatorFactory actuatorFactory;
+    /**
+     * The deviceFactory attribute to be used in tests.
+     */
     DeviceFactory deviceFactory;
+    /**
+     * The dimensionsFactory attribute to be used in tests.
+     */
     DimensionsFactory dimensionsFactory;
+    /**
+     * The roomFactory attribute to be used in tests.
+     */
     RoomFactory roomFactory;
+    /**
+     * The house2 attribute to be used in tests.
+     */
     House house2;
+    /**
+     * The getRoomListController1 attribute to be used in tests.
+     */
     GetRoomListController getRoomListController1;
+    /**
+     * The roomMapper1 attribute to be used in tests.
+     */
     RoomMapper roomMapper1;
 
     /**
@@ -66,8 +99,6 @@ class GetRoomListControllerTest {
      */
     @Test
     void constructor_houseIsNull_integration() {
-        //Arrange
-        String expected = "House can not be null.";
         //Act + assert
         Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null, roomMapper1));
 
