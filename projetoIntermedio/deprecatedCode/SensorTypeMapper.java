@@ -1,7 +1,5 @@
 package mappers;
 
-import dto.SensorTypeDTO;
-
 import java.util.List;
 
 /**
