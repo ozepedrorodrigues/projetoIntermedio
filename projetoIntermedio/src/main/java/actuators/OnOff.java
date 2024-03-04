@@ -69,6 +69,7 @@ public class OnOff implements Actuator {
      *
      * @return the ActuatorType of the actuator
      */
+    @Override
     public ActuatorType getType() {
         return this.type;
     }
@@ -78,6 +79,7 @@ public class OnOff implements Actuator {
      *
      * @return the ID of the actuator
      */
+    @Override
     public int getId() {
         return this.id;
     }
@@ -87,6 +89,7 @@ public class OnOff implements Actuator {
      *
      * @param id the new ID of the actuator
      */
+    @Override
     public int setId(int id) {
         this.id = id;
         return this.id;}
