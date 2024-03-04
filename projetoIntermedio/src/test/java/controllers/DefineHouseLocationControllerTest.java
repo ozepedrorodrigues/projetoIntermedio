@@ -14,18 +14,48 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class DefineHouseLocationControllerTest {
 
+    /**
+     * The House object used for testing.
+     */
     private House house;
+
+    /**
+     * The LocationMapper object used for testing.
+     */
     private LocationMapper locationMapper;
+
+    /**
+     * The DefineHouseLocationController object used for testing.
+     */
     private DefineHouseLocationController defineHouseLocationController;
+
+    /**
+     * The filepath used for testing.
+     */
     private String filepath = "config.properties";
 
+    /**
+     * Valid address for testing the DefineHouseLocationController class.
+     */
     private String validAddress = "Valid Address";
+
+    /**
+     * Valid zip code for testing the DefineHouseLocationController class.
+     */
     private String validZipCode = "Valid ZipCode";
+
+    /**
+     * Valid latitude for testing the DefineHouseLocationController class.
+     */
     private double validLatitude = 10.0;
+
+    /**
+     * Valid longitude for testing the DefineHouseLocationController class.
+     */
     private double validLongitude = 10.0;
 
     /**
-     * Sets up valid data for testing the DefineHouseLocationController class.
+     * Sets up the House, LocationMapper and DefineHouseLocationController objects for testing.
      */
     @BeforeEach
     void setUp() throws InstantiationException {
@@ -33,46 +63,38 @@ class DefineHouseLocationControllerTest {
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(
                         new DimensionsFactoryImp(),
-                        new DeviceFactoryImp(new SensorFactoryImp(filepath),new ActuatorFactoryImp(filepath))));
+                        new DeviceFactoryImp(new SensorFactoryImp(filepath), new ActuatorFactoryImp(filepath))));
 
         locationMapper = new LocationMapper();
         defineHouseLocationController = new DefineHouseLocationController(house, locationMapper);
     }
 
     /**
-     * Test the constructor of the DefineHouseLocationController class with invalid House.
+     * Test the constructor of the DefineHouseLocationController class with invalid parameters.
+     * Test if an IllegalArgumentException is thrown when the house is null.
      */
     @Test
-    void testConstructorInvalidHouse() {
+    void testConstructorInvalidHouseIsNull() {
         // Arrange
         House invalidHouse = null;
-        String expectedMessage = "Invalid parameters";
 
-        // Act
-        Exception e = assertThrows(IllegalArgumentException.class, () ->
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () ->
                 new DefineHouseLocationController(invalidHouse, locationMapper));
-        String resultMessage = e.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
     }
 
     /**
-     * Test the constructor of the DefineHouseLocationController class with invalid MapperLocationDTO.
+     * Test the constructor of the DefineHouseLocationController class with invalid parameters.
+     * Test if an IllegalArgumentException is thrown when the locationMapper is null.
      */
     @Test
-    void testConstructorInvalidMapper() {
+    void testConstructorInvalidMapperIsNull() {
         // Arrange
         LocationMapper invalidLocationMapper = null;
-        String expectedMessage = "Invalid parameters";
 
-        // Act
-        Exception e = assertThrows(IllegalArgumentException.class, () ->
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () ->
                 new DefineHouseLocationController(house, invalidLocationMapper));
-        String resultMessage = e.getMessage();
-
-        // Assert
-        assertEquals(expectedMessage, resultMessage);
     }
 
     /**
@@ -99,11 +121,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid address(null) is used.
      */
     @Test
-    void testDefineLocationNullAddress() {
+    void testDefineLocationInvalidAddressIsNull() {
         // Arrange
         String invalidAddress = null;
-        LocationDTO invalidLocationDTO = new LocationDTO(invalidAddress, validZipCode, validLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(invalidAddress,
+                validZipCode, validLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -118,11 +140,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid address(blank) is used.
      */
     @Test
-    void testDefineLocationBlankAddress() {
+    void testDefineLocationInvalidAddressIsEmpty() {
         // Arrange
         String invalidAddress = " ";
-        LocationDTO invalidLocationDTO = new LocationDTO(invalidAddress, validZipCode, validLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(invalidAddress,
+                validZipCode, validLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -137,11 +159,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid zipcode(null) is used.
      */
     @Test
-    void testDefineLocationNullZipCode() {
+    void testDefineLocationInvalidZipCodeIsNull() {
         // Arrange
         String invalidZipCode = null;
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, invalidZipCode, validLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                invalidZipCode, validLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -156,11 +178,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid zipcode(blank) is used.
      */
     @Test
-    void testDefineLocationBlankZipCode() {
+    void testDefineLocationInvalidZipCodeIsBlank() {
         // Arrange
         String invalidZipCode = " ";
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, invalidZipCode, validLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                invalidZipCode, validLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -175,11 +197,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid latitude(under 90) is used.
      */
     @Test
-    void testDefineLocationInvalidLatitudeLowerLimit() {
+    void testDefineLocationInvalidLatitudeBelowLowerLimit() {
         // Arrange
         double invalidLatitude = -90.1;
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, validZipCode, invalidLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                validZipCode, invalidLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -194,11 +216,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid latitude(above 90) is used.
      */
     @Test
-    void testDefineLocationInvalidLatitudeUpperLimit() {
+    void testDefineLocationInvalidLatitudeHigherThanUpperLimit() {
         // Arrange
         double invalidLatitude = 90.1;
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, validZipCode, invalidLatitude, validLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                validZipCode, invalidLatitude, validLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -213,11 +235,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid longitude(under 180) is used.
      */
     @Test
-    void testDefineLocationInvalidLongitudeLowerLimit() {
+    void testDefineLocationInvalidLongitudeBelowLowerLimit() {
         // Arrange
         double invalidLongitude = -180.1;
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, validZipCode, validLatitude, invalidLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                validZipCode, validLatitude, invalidLongitude);
         LocationDTO expectedDTO = null;
 
         // Act
@@ -232,11 +254,11 @@ class DefineHouseLocationControllerTest {
      * Test if the LocationDTO returned is null when an invalid longitude(above 180) is used.
      */
     @Test
-    void testDefineLocationInvalidLongitudeUpperLimit() {
+    void testDefineLocationInvalidLongitudeHigherThanUpperLimit() {
         // Arrange
         double invalidLongitude = 180.1;
-        LocationDTO invalidLocationDTO = new LocationDTO(validAddress, validZipCode, validLatitude, invalidLongitude);
-
+        LocationDTO invalidLocationDTO = new LocationDTO(validAddress,
+                validZipCode, validLatitude, invalidLongitude);
         LocationDTO expectedDTO = null;
 
         // Act

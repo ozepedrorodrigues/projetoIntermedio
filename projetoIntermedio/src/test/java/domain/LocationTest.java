@@ -14,11 +14,34 @@ import static org.mockito.Mockito.when;
  */
 class LocationTest {
 
+    /**
+     * Mock object for the GPSFactory class.
+     */
     GPSFactory gpsFactoryDouble;
+
+    /**
+     * Mock object for the GPS class.
+     */
     GPS gpsDouble;
+
+    /**
+     * Valid address for testing the Location class.
+     */
     String validAddress;
+
+    /**
+     * Valid zip code for testing the Location class.
+     */
     String validZipCode;
+
+    /**
+     * Valid latitude for testing the Location class.
+     */
     double validLatitude;
+
+    /**
+     * Valid longitude for testing the Location class.
+     */
     double validLongitude;
 
     /**
