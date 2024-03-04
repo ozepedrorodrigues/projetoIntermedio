@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * The Catalog class is used to manage a list of sensors and actuators, and available sensor and actuator types.
+ * The Catalog class is used to manage a list of sensors and actuators models.
  */
 public class Catalogue {
 

@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 public class SensorFactoryImp implements SensorFactory {
 
     /**
-     * Catalogue (contains the information about the available sensors and sensorTypes).
+     * Catalogue (contains the information about the available sensors models).
      */
     private Catalogue catalogue;
 
