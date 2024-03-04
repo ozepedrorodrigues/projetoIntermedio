@@ -17,7 +17,9 @@ public enum SensorType {
     DEW_POINT("DewPoint", "ºC"),
     SOLAR_IRRADIANCE("Solar Irradiance", "W/m²"),
     POWER_CONSUMPTION("Power Consumption","W"),
+    AVERAGE_POWER_CONSUMPTION("Average Power Consumption", "W"),
     ENERGY_CONSUMPTION("Energy Consumption", "Wh");
+
 
     /**
      * This attribute represents the type of the sensor.
