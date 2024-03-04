@@ -61,6 +61,18 @@ class LocationTest {
      * Tests the constructor of the Location class with valid parameters.
      */
     @Test
+    void testConstructor() {
+        // Arrange - Act
+        Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
+
+        // Assert
+        assertNotNull(location);
+    }
+
+    /**
+     * Tests the constructor of the Location class with valid parameters.
+     */
+    @Test
     void testConstructorValid() {
         // Arrange
         when(gpsFactoryDouble.createGPS(validLatitude, validLongitude)).thenReturn(gpsDouble);
