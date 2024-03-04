@@ -9,11 +9,11 @@ grouped by device functionality types. It must include device location.'/
 
 participant "_getDevices:GetListOfDevicesByFunctionalityController" as C
 participant ":House" as H
-participant "_devicesByRoom:Map<String, List<Device>>" as DBR
+participant "devicesByRoom:Map<String, List<Device>>" as DBR
 participant "SensorType" as ST
 participant ":Room" as R
-participant "_mapper:MapperToGroupDeviceDTO" as M
-participant "_myMap:Hashmap" as HM
+participant "mapper:MapperToGroupDeviceDTO" as M
+participant "devicesPerFunctionality:Hashmap" as HM
 
 
 [o-> C : getDeviceByFunctionality()
@@ -21,18 +21,18 @@ activate C
 C -> H : getDevicesGroupedByRoom()
 activate H
 H-->DBR** : create()
-H --> C : _devicesByRoom
+H --> C : devicesByRoom
 deactivate H
 C->ST : values()
 activate ST
-ST --> C : _sensorTypes
+ST --> C : sensorTypes
 deactivate ST
-C -> M : groupDevicesByFunctionality(devicesByRoom, _availableFunctionalities)
+C -> M : groupDevicesByFunctionality(devicesByRoom, sensorTypes)
 activate M
-M-->HM** : create(_availableFunctionalities, _devicesByRoom)
-M --> C : _myMap
+M-->HM** : create(functionalities, devicesByRoom)
+M --> C : devicesPerFunctionality
 deactivate M
-[o<-- C : _myMap
+[o<-- C : devicesPerFunctionality
 deactivate C
 
 
