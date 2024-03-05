@@ -106,8 +106,45 @@ class AddRoomControllerTest {
         RoomDTO newRoomExpected = new RoomDTO(roomName, floor, width, length, height);
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        String nameResult = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
         //Assert
         assertEquals(newRoomExpected.getName(), newRoomResult.getName());
+        assertEquals(roomName, nameResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the room name is not empty and the floor is a positive number.
+     * Add multiple rooms to the house.
+     * The rooms should be added to the house in the order they are added.
+     * The identifier of the room is the name.
+     */
+    @Test
+    void addRoomMultipleAdds() {
+        //Arrange
+        String roomName2 = "Gaming Room";
+        String roomName3 = "Kitchen";
+        RoomDTO newRoom1 = new RoomDTO(roomName, floor, width, length, height);
+        RoomDTO newRoom2 = new RoomDTO(roomName2, floor, width, length, height);
+        RoomDTO newRoom3 = new RoomDTO(roomName3, floor, width, length, height);
+        int listSizeBefore = 0;
+        int listSizeAfter = 3;
+
+        //Act
+        int listSizeBeforeResult = house.getRooms().size();
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoom1);
+        RoomDTO newRoom2Result = addRoomController.addNewRoomToHouse(newRoom2);
+        RoomDTO newRoom3Result = addRoomController.addNewRoomToHouse(newRoom3);
+        String nameResult1 = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
+        String nameResult2 = house.getRooms().get(1).getRoomName();
+        String nameResult3 = house.getRooms().getLast().getRoomName();
+        int listSizeAfterResult2 = house.getRooms().size();
+
+        //Assert
+        assertEquals(roomName, nameResult1);
+        assertEquals(roomName2, nameResult2);
+        assertEquals(roomName3, nameResult3);
+        assertEquals(listSizeBefore, listSizeBeforeResult);
+        assertEquals(listSizeAfter, listSizeAfterResult2);
     }
 
     /**
@@ -120,8 +157,10 @@ class AddRoomControllerTest {
         RoomDTO newRoomExpected = new RoomDTO(roomName, floorZero, width, length, height);
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        String nameResult = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
         //Assert
         assertEquals(newRoomExpected.getName(), newRoomResult.getName());
+        assertEquals(roomName, nameResult);
     }
 
     /**
@@ -134,8 +173,9 @@ class AddRoomControllerTest {
         RoomDTO newRoomExpected = new RoomDTO(roomName, floorNegative, width, length, height);
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        String nameResult = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
         //Assert
-        assertEquals(newRoomExpected.getName(), newRoomResult.getName());
+        assertEquals(roomName, nameResult);
     }
 
     /**
@@ -151,9 +191,11 @@ class AddRoomControllerTest {
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoom);
         RoomDTO newRoom2Result = addRoomController.addNewRoomToHouse(newRoomSameName);
         int roomListSizeAfter = house.getRooms().size();
+        String nameResult = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
         //Assert
         assertNull(newRoom2Result);
         assertEquals(roomListSizeBefore, roomListSizeAfter);
+        assertEquals(roomName, nameResult);
     }
 
     /**
@@ -172,7 +214,7 @@ class AddRoomControllerTest {
         //Act
         RoomDTO newRoom1Result = addRoomController.addNewRoomToHouse(newRoom1);
         RoomDTO newRoom2Result = addRoomController.addNewRoomToHouse(newRoom2);
-        String nameResult = newRoom1Result.getName();
+        String nameResult = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
         //Assert
         assertEquals(newRoom2Expected, newRoom2Result);
         assertEquals(nameExpected, nameResult);

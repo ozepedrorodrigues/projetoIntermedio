@@ -421,11 +421,13 @@ public class HouseTest {
         house.addRoom(expectedRoomName1, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         house.addRoom(expectedRoomName2, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         List<Room> retrieveRooms = house.getRooms();
+        String nameResult1 = house.getRooms().getFirst().getRoomName(); // The identifier of the room is the name
+        String nameResult2 = house.getRooms().getLast().getRoomName();
         // Assert
         assertNotNull(retrieveRooms);
         assertEquals(expectedSize, retrieveRooms.size());
-        assertEquals(expectedRoomName1, retrieveRooms.get(0).getRoomName());
-        assertEquals(expectedRoomName2, retrieveRooms.get(1).getRoomName());
+        assertEquals(expectedRoomName1, nameResult1);
+        assertEquals(expectedRoomName2, nameResult2);
     }
 
     /**
