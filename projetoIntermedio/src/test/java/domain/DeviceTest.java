@@ -186,7 +186,7 @@ class DeviceTest {
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfHumidity);
         when(sensorOfHumidity.getId()).thenReturn(1);
         when(sensorOfHumidity.getType()).thenReturn(humidity);
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         //Assert
         assertNotNull(result);
         assertEquals(1, result.getId());
@@ -208,7 +208,7 @@ class DeviceTest {
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
         when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         //Assert
         assertNotNull(result);
         assertEquals(1, result.getId());
@@ -232,12 +232,12 @@ class DeviceTest {
         when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
         when(sensorOfTemperature.getValue()).thenReturn(mock(Value.class));
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature2);
         when(sensorOfTemperature2.getId()).thenReturn(2);
         when(sensorOfTemperature2.getType()).thenReturn(Temperature);
         when(sensorOfTemperature2.getValue()).thenReturn(mock(Value.class));
-        Sensor result2 = device.addSensor(sensorClassName, catalogue);
+        Sensor result2 = device.addSensor(sensorClassName);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
@@ -263,11 +263,11 @@ class DeviceTest {
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfHumidity);
         when(sensorOfHumidity.getId()).thenReturn(1);
         when(sensorOfHumidity.getType()).thenReturn(humidity);
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensor2);
         when(sensor2.getId()).thenReturn(2);
         when(sensor2.getType()).thenReturn(humidity);
-        Sensor result2 = device.addSensor(sensorClassName, catalogue);
+        Sensor result2 = device.addSensor(sensorClassName);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
@@ -293,11 +293,11 @@ class DeviceTest {
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
         when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         when(sensorFactory.createSensor(sensorClassName2)).thenReturn(sensorOfHumidity);
         when(sensorOfHumidity.getId()).thenReturn(2);
         when(sensorOfHumidity.getType()).thenReturn(humidity);
-        Sensor result2 = device.addSensor(sensorClassName2, catalogue);
+        Sensor result2 = device.addSensor(sensorClassName2);
         //Assert
         assertNotNull(result);
         assertNotNull(result2);
@@ -319,7 +319,7 @@ class DeviceTest {
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
         String invalidClassName = "SensorOfSensor";
         //Act
-        Sensor result = device.addSensor(invalidClassName, catalogue);
+        Sensor result = device.addSensor(invalidClassName);
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
@@ -336,7 +336,7 @@ class DeviceTest {
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
         String invalidClassName = "";
         //Act
-        Sensor result = device.addSensor(invalidClassName, catalogue);
+        Sensor result = device.addSensor(invalidClassName);
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
@@ -352,9 +352,8 @@ class DeviceTest {
     void addSensorInvalidClassNameIsNull() {
         //Arrange
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
-        String invalidClassName = null;
         //Act
-        Sensor result = device.addSensor(invalidClassName, catalogue);
+        Sensor result = device.addSensor(null);
         //Assert
         assertNull(result);
         assertEquals(0, device.getDeviceSensors().size());
@@ -403,11 +402,11 @@ class DeviceTest {
         when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
         when(sensorOfTemperature.getId()).thenReturn(1);
         when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(sensorClassName, catalogue);
+        Sensor result = device.addSensor(sensorClassName);
         when(sensorFactory.createSensor(sensorClassName2)).thenReturn(sensorOfHumidity);
         when(sensorOfHumidity.getId()).thenReturn(2);
         when(sensorOfHumidity.getType()).thenReturn(humidity);
-        Sensor result2 = device.addSensor(sensorClassName2, catalogue);
+        Sensor result2 = device.addSensor(sensorClassName2);
         //Act
         int size = device.getDeviceSensors().size();
         //Assert
@@ -498,12 +497,11 @@ class DeviceTest {
     @Test
     void testAddActuatorInvalidClassNameIsNull() {
         //Arrange
-        String invalidClassName = null;
         int expectedSize = 0;
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
 
         //Act
-        Actuator result = device.addActuator(invalidClassName);
+        Actuator result = device.addActuator(null);
         int resultSize = device.getDeviceActuators().size();
 
         //Assert

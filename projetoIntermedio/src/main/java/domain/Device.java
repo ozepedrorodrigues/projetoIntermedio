@@ -98,14 +98,11 @@ public class Device {
      * Adds a sensor to the device.
      *
      * @param sensorClassName The type of the sensor to be added.
-     * @param catalogue       The catalogue from which to retrieve the sensor.
      * @return The added Sensor, or null if the sensor cannot be added.
      */
-    public Sensor addSensor(String sensorClassName, Catalogue catalogue) {
-        //não precisa do cataloque para adicionar um sensor e podem apgar a validacao do catalogue
-        if (!validClassName(sensorClassName) || !validCatalogue(catalogue)) {
-            return null;
-        }
+    public Sensor addSensor(String sensorClassName) {
+        if (!validClassName(sensorClassName)) {
+            return null;}
 
         Sensor sensor = sensorFactory.createSensor(sensorClassName);
         if (sensor == null) {
@@ -144,11 +141,6 @@ public class Device {
      */
     private boolean validClassName(String className) {
         return className != null && !className.isBlank();
-    }
-
-    // É PARA REMOVER
-    private boolean validCatalogue(Catalogue catalogue) {
-        return catalogue != null;
     }
 
     /**

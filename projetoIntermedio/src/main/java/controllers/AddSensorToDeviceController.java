@@ -76,9 +76,7 @@ public class AddSensorToDeviceController {
      * @return the list of devices in the room.
      */
     public List<DeviceDTO> getDeviceList(String roomName) {
-        if (roomName == null) {
-            return null;
-        }
+        if (roomName == null) {return null;}
         return this.getDeviceListController.getDevicesInRoom(roomName);
     }
 
@@ -103,8 +101,7 @@ public class AddSensorToDeviceController {
     public SensorDTO addSensorToExistingDevice(String roomName, String deviceName, String sensorModel) {
         Room room = house.getRoomByName(roomName);
         Device device = room.getDeviceByName(deviceName);
-        Sensor sensor = device.addSensor(sensorModel, catalogue);
-
+        Sensor sensor = device.addSensor(sensorModel);
         return sensorMapper.getSensorDTO(sensor);
     }
 
