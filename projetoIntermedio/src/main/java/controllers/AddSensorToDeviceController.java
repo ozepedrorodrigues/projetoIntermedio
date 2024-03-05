@@ -65,18 +65,18 @@ public class AddSensorToDeviceController {
      *
      * @return the list of rooms in the house.
      */
-    public List<RoomDTO> getRoomList() {
+    public List<RoomDTO> getRooms() {
         return this.getRoomListController.getRoomList();
     }
 
     /**
      * Gets the list of devices in a room.
      *
-     * @param roomName the name of the room
+     * @param roomDTO the room DTO
      * @return the list of devices in the room.
      */
-    public List<DeviceDTO> getDeviceList(String roomName) {
-        if (roomName == null) {return null;}
+    public List<DeviceDTO> getDevices(RoomDTO roomDTO) {
+        String roomName = roomDTO.getName();
         return this.getDeviceListController.getDevicesInRoom(roomName);
     }
 
@@ -93,15 +93,23 @@ public class AddSensorToDeviceController {
     /**
      * Adds a sensor to an existing device in a room.
      *
-     * @param roomName    the name of the room where the device is located
-     * @param deviceName  the name of the device to which the sensor will be added
+     * @param deviceDTO   the device DTO to which the sensor will be added
+     * @param sensorModel the model of the sensor to be added
      * @param sensorModel the model of the sensor to be added
      * @return the sensor DTO representing the newly added sensor
      */
-    public SensorDTO addSensorToExistingDevice(String roomName, String deviceName, String sensorModel) {
+    public SensorDTO addSensorToExistingDevice(DeviceDTO deviceDTO, String sensorModel) {
+        String roomName = deviceDTO.getRoomName();
+        String deviceName = deviceDTO.getName();
+
         Room room = house.getRoomByName(roomName);
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel);
+
+        if(sensor == null) {
+            return null;
+        }
+
         return sensorMapper.getSensorDTO(sensor);
     }
 
