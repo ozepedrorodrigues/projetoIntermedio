@@ -38,12 +38,12 @@ public class ActuatorFactoryImp implements ActuatorFactory {
      * during the creation of the actuator and catalogue consultation.
      */
     public Actuator createActuator(String actuatorClassName) {
-
         String actuatorClassNamePath = "actuators." + actuatorClassName;
+        //Tests if there exists an implementation of the Actuator interface with the actuatorClassNamePath
         boolean isValidActuatorClassName = isValidActuatorClassName(actuatorClassNamePath);
-
         if(isValidActuatorClassName) {
             try {
+                //Returns an instantiation of the implementation of The Actuator interface
                 return (Actuator) Class.forName(actuatorClassNamePath).getConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException | ClassNotFoundException e) {
@@ -58,14 +58,15 @@ public class ActuatorFactoryImp implements ActuatorFactory {
      */
     private boolean isValidActuatorClassName(String actuatorClassNamePath){
         boolean isValidActuatorClassName = false;
-
+        //Searches through all the Actuator Models (implementations) available in the Catalogue
         for(String catalogueActuatorClass : catalogue.getActuatorsCatalogue()) {
+            //If one of them matches the name of the given Actuator returns true
             if (actuatorClassNamePath.equals(catalogueActuatorClass)) {
                 isValidActuatorClassName = true;
                 break;
             }
         }
-
+        //No matches returns false
         return isValidActuatorClassName;
     }
 }

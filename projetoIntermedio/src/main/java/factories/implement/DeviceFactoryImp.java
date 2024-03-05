@@ -12,15 +12,17 @@ import factories.SensorFactory;
 
 public class DeviceFactoryImp implements DeviceFactory {
     /**
-     * The sensor factory to be used to create sensors for the device.
+     * The sensorFactory attribute to be instantiated in the constructor and used to create sensors for the device.
      */
     SensorFactory sensorFactory;
     /**
-     * The actuator factory to be used to create actuators for the device.
+     * The actuatorFactory attribute to be instantiated in the constructor and used to create actuators for the device.
      */
     ActuatorFactory actuatorFactory;
     /**
      * Default constructor for DeviceFactoryImp.
+     * @param sensorFactory the factory required to instantiate Sensors
+     * @param actuatorFactory the factory required to instantiate Actuators
      */
     public DeviceFactoryImp(SensorFactory sensorFactory, ActuatorFactory actuatorFactory) {
         this.sensorFactory = sensorFactory;

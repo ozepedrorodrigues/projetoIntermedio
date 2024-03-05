@@ -5,12 +5,13 @@ import factories.LocationFactory;
 import domain.Location;
 
 /**
- * This class is used to create Location objects
+ * This class is an implementation of the LocationFactory interface
+ * and is used to create Location objects
  */
 public class LocationFactoryImp implements LocationFactory {
 
     /**
-     * The GPSFactory used to create GPS objects
+     * GpsFactory attribute to be defined in the constructor and then used to create GPS objects
      */
     private GPSFactory gpsFactory;
 

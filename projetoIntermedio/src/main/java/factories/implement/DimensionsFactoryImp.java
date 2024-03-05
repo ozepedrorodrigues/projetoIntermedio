@@ -9,7 +9,8 @@ import factories.DimensionsFactory;
  */
 public class DimensionsFactoryImp implements DimensionsFactory {
     /**
-     * Default constructor for DimensionsFactoryImp.
+     * Default constructor for DimensionsFactoryImp. No parameters are given
+     * as no Attributes are required to be stored in this object
      */
     public DimensionsFactoryImp() {
     }
@@ -17,8 +18,8 @@ public class DimensionsFactoryImp implements DimensionsFactory {
     /**
      * Creates a Dimensions object with the specified width, length, and height.
      *
-     * @param width  the width of the room (must be a non-negative value)
-     * @param length the length of the room (must be a non-negative value)
+     * @param width  the width of the room
+     * @param length the length of the room
      * @param height the height of the room
      * @return a Dimensions object with the specified width, length, and height
      * @throws IllegalArgumentException if any of the dimensions are non-positive
