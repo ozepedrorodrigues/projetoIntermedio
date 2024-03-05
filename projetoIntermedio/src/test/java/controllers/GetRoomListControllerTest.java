@@ -133,12 +133,14 @@ class GetRoomListControllerTest {
     @Test
     void getRooms() {
         //Arrange
-        house2.addRoom("roomName", 0, 10, 10, 10);
+        String roomName = "roomName";
+        house2.addRoom(roomName, 0, 10, 10, 10);
         int expected = 1;
         //Act
         List<RoomDTO> result = getRoomListController1.getRooms();
         //Assert
         assertEquals(expected, result.size());
+        assertEquals(roomName, result.getFirst().getName());
 
     }
 }
