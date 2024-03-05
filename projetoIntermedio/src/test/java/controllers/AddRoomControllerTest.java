@@ -31,6 +31,16 @@ class AddRoomControllerTest {
     RoomMapper roomMapper;
 
     /**
+     * Room name.
+     */
+    String roomName;
+
+    /**
+     * Room floor.
+     */
+    int floor;
+
+    /**
      * Width of the room.
      */
     double width;
@@ -47,11 +57,14 @@ class AddRoomControllerTest {
 
     /**
      * Set up the necessary objects for the tests.
-     * @throws InstantiationException if an error occurs during the instantiation of the objects.
+     *
+     * @throws IllegalArgumentException if an error occurs during the instantiation of the objects.
      */
     @BeforeEach
     void setUp() throws InstantiationException {
         String filePathName = "config.properties";
+        this.roomName = "Living Room";
+        this.floor = 0;
         this.width = 14.3;
         this.length = 15.2;
         this.height = 4.5;
@@ -70,7 +83,7 @@ class AddRoomControllerTest {
         //Arrange
         House invalidHouse = null;
         //Act + assert
-        assertThrows(InstantiationException.class, () -> new AddRoomController(invalidHouse, roomMapper));
+        assertThrows(IllegalArgumentException.class, () -> new AddRoomController(invalidHouse, roomMapper));
     }
 
     /**
@@ -81,19 +94,44 @@ class AddRoomControllerTest {
         //Arrange
         RoomMapper invalidMapper = null;
         //Act + assert
-        assertThrows(InstantiationException.class, () -> new AddRoomController(house, invalidMapper));
+        assertThrows(IllegalArgumentException.class, () -> new AddRoomController(house, invalidMapper));
     }
 
     /**
-     * Test the addNewRoomToHouse method.
-     * Test if the room is added to the house.
+     * Test the addNewRoomToHouse when room name is not empty and the floor is a positive number.
      */
     @Test
-    void addRoom() {
+    void addRoomWithNotEmptyNameAndPositiveNumbersForFloorLocation() {
         //Arrange
-        String name = "Gaming Room";
-        int floor = -1;
-        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floor, width, length, height);
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(newRoomExpected.getName(), newRoomResult.getName());
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the room name is not empty and the floor is a positive number.
+     */
+    @Test
+    void addRoomWithFloorEqualsToZero() {
+        //Arrange
+        int floorZero = 0;
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floorZero, width, length, height);
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(newRoomExpected.getName(), newRoomResult.getName());
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the room name is not empty and the floor is a positive number.
+     */
+    @Test
+    void addRoomWithFloorNegative() {
+        //Arrange
+        int floorNegative = -1;
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floorNegative, width, length, height);
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
@@ -106,10 +144,8 @@ class AddRoomControllerTest {
     @Test
     void addRoomSameName() {
         //Arrange
-        String name = "Gaming Room";
-        int floor = 1;
-        RoomDTO newRoom = new RoomDTO (name, floor, width, length, height);
-        RoomDTO newRoomSameName = new RoomDTO (name, floor, width, length, height);
+        RoomDTO newRoom = new RoomDTO(roomName, floor, width, length, height);
+        RoomDTO newRoomSameName = new RoomDTO(roomName, floor, width, length, height);
         int roomListSizeBefore = 1;
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoom);
@@ -128,9 +164,8 @@ class AddRoomControllerTest {
         //Arrange
         String nameExpected = "Bathroom";
         String name2 = "baThroOm";
-        int floor = -1;
-        RoomDTO newRoom1 = new RoomDTO (nameExpected, floor, width, length, height);
-        RoomDTO newRoom2 = new RoomDTO (name2, floor, width, length, height);
+        RoomDTO newRoom1 = new RoomDTO(nameExpected, floor, width, length, height);
+        RoomDTO newRoom2 = new RoomDTO(name2, floor, width, length, height);
         RoomDTO newRoom2Expected = null;
         int roomListSizeBefore = 0;
         int roomListSizeAfter = 1;
@@ -149,9 +184,8 @@ class AddRoomControllerTest {
     @Test
     void addRoomNameNull() {
         //Arrange
-        String name = null;
-        int floor = -1;
-        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        String invalidName = null;
+        RoomDTO newRoomExpected = new RoomDTO(invalidName, floor, width, length, height);
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
         //Assert
@@ -164,9 +198,8 @@ class AddRoomControllerTest {
     @Test
     void addRoomEmptyName() {
         //Arrange
-        String name = "";
-        int floor = -1;
-        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        String invalidName = "";
+        RoomDTO newRoomExpected = new RoomDTO(invalidName, floor, width, length, height);
         RoomDTO roomExpected = null;
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
@@ -180,9 +213,54 @@ class AddRoomControllerTest {
     @Test
     void addRoomBlankName() {
         //Arrange
-        String name = "     ";
+        String invalidName = "     ";
+        RoomDTO newRoomExpected = new RoomDTO(invalidName, floor, width, length, height);
+        RoomDTO roomExpected = null;
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(roomExpected, newRoomResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the width is a negative number.
+     */
+    @Test
+    void addRoomNegativeWidth() {
+        //Arrange
+        double invalidWidth = -1;
         int floor = -1;
-        RoomDTO newRoomExpected = new RoomDTO (name, floor, width, length, height);
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floor, invalidWidth, length, height);
+        RoomDTO roomExpected = null;
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(roomExpected, newRoomResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the length is a negative number.
+     */
+    @Test
+    void addRoomNegativeLength() {
+        //Arrange
+        double negativeLength = -1;
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floor, width, negativeLength, height);
+        RoomDTO roomExpected = null;
+        //Act
+        RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);
+        //Assert
+        assertEquals(roomExpected, newRoomResult);
+    }
+
+    /**
+     * Test the addNewRoomToHouse method when the height is a negative number.
+     */
+    @Test
+    void addRoomNegativeHeight() {
+        //Arrange
+        double negativeHeight = -1;
+        RoomDTO newRoomExpected = new RoomDTO(roomName, floor, width, length, negativeHeight);
         RoomDTO roomExpected = null;
         //Act
         RoomDTO newRoomResult = addRoomController.addNewRoomToHouse(newRoomExpected);

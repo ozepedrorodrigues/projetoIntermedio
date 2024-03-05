@@ -75,22 +75,25 @@ class RoomDTO {
   + getHeight() : double
 }
 
-AddRoomController .left.> MapperToRoomDTO : uses
-MapperToRoomDTO "1" ..> "1  " RoomDTO : create
-MapperToRoomDTO ..> Room : uses
-RoomFactory <|.. RoomFactoryImp : implements
-Room "1" *-- "1" Dimensions : contains
-Room "1" *-- "1" DeviceFactory: contains
-RoomFactoryImp "1" ..> "1" Room : creates
-
-House "1" *--"*" Room : contains
-AddRoomController .right.> House : uses
+AddRoomController .down.> MapperToRoomDTO : uses
+AddRoomController "1" *-down- "1" MapperToRoomDTO : contains
 AddRoomController ..> RoomDTO : uses
+AddRoomController .right.> House : uses
+AddRoomController "1" *-right- "1" House : contains
+MapperToRoomDTO .left.> RoomDTO : create
+MapperToRoomDTO .down.> Room : uses
+RoomFactory <|.. RoomFactoryImp : implements
+RoomFactoryImp ..> Room : creates
+House "1" *--"*" Room : contains
+House .right.> RoomFactory : uses
+Room "1" *-- "1" Dimensions : contains
+Room "1" *-right- "1" DeviceFactory: contains
+Room "1" *-- "1" DimensionFactory : contains
 Room .left.> DimensionFactory : uses
 DimensionFactory <|.. DimensionFactoryImp : implements
-DimensionFactoryImp "1" ..> "1" Dimensions : creates
-House ..> RoomFactory : uses
-DeviceFactory <|.right. DeviceFactoryImp : implements
+DimensionFactoryImp .right.> Dimensions : creates
+DeviceFactory <|.down. DeviceFactoryImp : implements
+
 
 
 @enduml

@@ -27,11 +27,11 @@ public class AddRoomController {
      *
      * @param house the house to which the room is to be added
      * @param roomMapper the roomMapper to be used
-     * @throws InstantiationException if an error occurs during the instantiation of the objects.
+     * @throws IllegalArgumentException if an error occurs during the instantiation of the objects.
      */
-    public AddRoomController(House house, RoomMapper roomMapper) throws InstantiationException {
+    public AddRoomController(House house, RoomMapper roomMapper) throws IllegalArgumentException {
         if(!isValidConstructorsArguments(house, roomMapper)) {
-            throw new InstantiationException();
+            throw new IllegalArgumentException();
         }
         this.house = house;
         this.roomMapper = roomMapper;

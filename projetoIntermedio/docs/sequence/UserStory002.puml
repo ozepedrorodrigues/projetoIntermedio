@@ -12,7 +12,7 @@ participant "addRoomController:AddRoomController" as ARC
 participant "house:House" as H
 participant "roomFactory:RoomFactory" as RF
 participant "room:Room" as R
-participant "mapperRoomDTO" as M
+participant "mapperRoomDTO:MapperRoomDTO" as M
 participant "roomDTO:RoomDTO" as DTO
 
 [o-> ARC: addNewRoomToHouse(roomDTO)
