@@ -147,18 +147,26 @@ public class AddDeviceToRoomControllerTest {
     }
 
     /**
-     * Test the getRooms method with one room.
+     * Test the getRooms method with two rooms.
      */
     @Test
     void getRoomListOneRoom() {
         // Arrange
-        RoomDTO roomDTO = new RoomDTO("Room1", 1, 1, 1, 1);
-        addRoomController.addNewRoomToHouse(roomDTO);
-        int sizeExpected = 1;
+        String roomName1 = "Room1";
+        String roomName2 = "Room2";
+        RoomDTO roomDTO1 = new RoomDTO(roomName1, 1, 1, 1, 1);
+        RoomDTO roomDTO2 = new RoomDTO(roomName2, 2, 2, 2, 2);
+        addRoomController.addNewRoomToHouse(roomDTO1);
+        addRoomController.addNewRoomToHouse(roomDTO2);
+        int sizeExpected = 2;
         // Act
         int sizeResult = addDeviceToRoomController.getRooms().size();
+        String nameResult1 = addDeviceToRoomController.getRooms().getFirst().getName();
+        String nameResult2 = addDeviceToRoomController.getRooms().getLast().getName();
         // Assert
         assertEquals(sizeExpected, sizeResult);
+        assertEquals(roomName1, nameResult1);
+        assertEquals(roomName2, nameResult2);
     }
 
     /**
