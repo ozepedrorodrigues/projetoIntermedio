@@ -112,7 +112,7 @@ class GetDeviceListControllerTest {
      * Verifies that the returned list is null.
      */
     @Test
-    void getDevicesInRoomInvalidRoomName_ShouldReturnNull() {
+    void getDevicesInRoomInvalidRoom() {
         // Arrange
         String invalidRoomName = "Non existing Room";
         // Act

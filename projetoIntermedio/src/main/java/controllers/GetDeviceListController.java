@@ -84,6 +84,6 @@ public class GetDeviceListController {
      * @return true if the room is valid, false otherwise
      */
     private boolean validRoom(String roomName) {
-        return roomName != null;
+        return roomName != null && matryoshka.getRoomByName(roomName) != null;
     }
 }
