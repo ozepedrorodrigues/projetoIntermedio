@@ -67,5 +67,4 @@ public class Catalogue {
         return List.copyOf(actuatorClassList);
     }
 
-
 }
