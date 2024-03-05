@@ -8,32 +8,32 @@ title US001
 As an Administrator, I want to configure the location of the house.
 '/
 
-[o-> "locationController:DefineHouseLocationController" : configHouseLocation(LocationDTO)
-activate "locationController:DefineHouseLocationController"
-"locationController:DefineHouseLocationController" -> ":House": configLocation(LocationDTO)
-activate ":House"
-":House" -> ":LocationFactoryImp": createLocation(LocationDTO,GPSLocationFactory)
-activate ":LocationFactoryImp"
-":LocationFactoryImp" -->"_location:Location"** : <create>(LocationDTO,_gpsLocationFactory)
-activate "_location:Location"
-"_location:Location" ->":GPSLocationFactory" : createGPSLocation(double latitude, double longitude)
-activate ":GPSLocationFactory"
-":GPSLocationFactory" -->"_gpslocation:GPSLocation"** : <create>(double latitude, double longitude)
-":GPSLocationFactory" -->"_location:Location" : _gpslocation
-deactivate ":GPSLocationFactory"
-"_location:Location" -->":LocationFactoryImp" : _location
-deactivate "_location:Location"
-":LocationFactoryImp" -->":House" : _location
-deactivate ":LocationFactoryImp"
-":House" -> ":House" : this.location = _location
-":House" -->"locationController:DefineHouseLocationController" : _location
-deactivate ":House"
-"locationController:DefineHouseLocationController" ->":LocationDTOMapper" : locationToLocationDTO(_location)
-activate ":LocationDTOMapper"
-":LocationDTOMapper" -->"_locationDTO:LocationDTO"** : <create>(_location)
-":LocationDTOMapper" -->"locationController:DefineHouseLocationController" : _locationDTO
-deactivate ":LocationDTOMapper"
-[o<--"locationController:DefineHouseLocationController" : _locationDTO
-deactivate "locationController:DefineHouseLocationController"
+[o-> ": DefineHouseLocationController" : defineHouseLocation(LocationDTO)
+activate ": DefineHouseLocationController"
+": DefineHouseLocationController" -> ": House": defineLocation(address, zipCode, latitude, longitude)
+activate ": House"
+": House" -> ": LocationFactoryImp": createLocation(address, zipCode, latitude, longitude)
+activate ": LocationFactoryImp"
+": LocationFactoryImp" -->"_location : Location"** : createLocation(address, zipCode, latitude, longitude)
+activate "_location : Location"
+"_location : Location" ->": GPSFactoryImp" : createGPS(latitude, longitude)
+activate ": GPSFactoryImp"
+": GPSFactoryImp" -->"_gps : GPSLocation"** : createGPS(latitude, longitude)
+": GPSFactoryImp" -->"_location : Location" : _gps
+deactivate ": GPSFactoryImp"
+"_location : Location" -->": LocationFactoryImp" : _location
+deactivate "_location : Location"
+": LocationFactoryImp" -->": House" : _location
+deactivate ": LocationFactoryImp"
+
+": House" -->": DefineHouseLocationController" : _location
+deactivate ": House"
+": DefineHouseLocationController" ->": LocationMapper" : locationToDTO(_location)
+activate ": LocationMapper"
+": LocationMapper" -->"_locationDTO : LocationDTO"** : createLocationDTO(address, zipCode, latitude, longitude)
+": LocationMapper" -->": DefineHouseLocationController" : _locationDTO
+deactivate ": LocationMapper"
+[o<--": DefineHouseLocationController" : _locationDTO
+deactivate ": DefineHouseLocationController"
 
 @enduml
