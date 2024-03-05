@@ -153,7 +153,7 @@ public class LimiterDecimal implements Actuator {
      * @throws IllegalArgumentException if the precision is negative
      */
     public  boolean setPrecision(int precision) {
-        if (precision < 0) {
+        if (!validPrecision(precision)){
             throw new IllegalArgumentException();
         }
         this.precision = precision;
@@ -203,5 +203,9 @@ public class LimiterDecimal implements Actuator {
      */
     private boolean validValue(double value) {
         return value >= this.lowerLimit && value <= this.upperLimit;
+    }
+
+    private boolean validPrecision(int precision) {
+        return precision >= 0;
     }
 }
