@@ -136,10 +136,8 @@ class DeactivateDeviceControllerTest {
      */
     @Test
     void constructorNullHouseShouldThrowException() {
-        // Arrange
-        House house = null;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+        // Arrange & Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(null, getRoomListController, getDeviceListController, deviceMapper));
     }
 
     /**
@@ -148,10 +146,8 @@ class DeactivateDeviceControllerTest {
      */
     @Test
     void constructorNullGetRoomListControllerShouldThrowException() {
-        // Arrange
-        GetRoomListController getRoomListController = null;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+        // Arrange & Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, null, getDeviceListController, deviceMapper));
     }
 
     /**
@@ -160,10 +156,8 @@ class DeactivateDeviceControllerTest {
      */
     @Test
     void constructorNullGetDeviceListControllerShouldThrowException() {
-        // Arrange
-        GetDeviceListController getDeviceListController = null;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+        // Arrange & Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, null, deviceMapper));
     }
 
     /**
@@ -172,42 +166,64 @@ class DeactivateDeviceControllerTest {
      */
     @Test
     void constructorNullDeviceMapperShouldThrowException() {
-        // Arrange
-        DeviceMapper deviceMapper = null;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+        // Arrange & Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, null));
     }
 
     /**
      * Test for the getRooms() method in the DeactivateDeviceController
      * The test checks if the method returns a list with the room in the house.
      * The expected result is a list with one room.
+     * The room has the following attributes: name = "Room", floor = 1, width = 1, length = 1, height = 1.
      */
     @Test
     void testGetRooms() {
         // Arrange
-        int expected = 1;
+        int expectedListSize = 1;
+        String expectedRoomName = "Room";
+        int expectedRoomFloor = 1;
+        double expectedRoomWidth = 1;
+        double expectedRoomLength = 1;
+        double expectedRoomHeight = 1;
         // Act
         List<RoomDTO> roomList = deactivateDeviceController.getRooms();
-        int result = roomList.size();
+        int resultSize = roomList.size();
+        String resultRoomName = roomList.getFirst().getName();
+        int resultRoomFloor = roomList.getFirst().getFloor();
+        double resultRoomWidth = roomList.getFirst().getWidth();
+        double resultRoomLength = roomList.getFirst().getLength();
+        double resultRoomHeight = roomList.getFirst().getHeight();
         // Assert
-        assertEquals(expected, result);}
+        assertEquals(expectedListSize, resultSize);
+        assertEquals(expectedRoomName, resultRoomName);
+        assertEquals(expectedRoomFloor, resultRoomFloor);
+        assertEquals(expectedRoomWidth, resultRoomWidth);
+        assertEquals(expectedRoomLength, resultRoomLength);
+        assertEquals(expectedRoomHeight, resultRoomHeight);
+    }
 
     /**
      * Test for the getDevices() method in the DeactivateDeviceController
      * The test checks if the method returns a list with the devices in a room.
      * The expected result is a list with one device.
+     *
      */
     @Test
     void testGetDevices() {
         // Arrange
         String roomName = "Room";
         int expectedSize = 1;
+        String expectedDeviceName = myDeviceDTO.getName();
+        String expectedDeviceType = myDeviceDTO.getType();
         //  Act
         List<DeviceDTO> deviceList = deactivateDeviceController.getDevices(roomName);
-        int result = deviceList.size();
+        int resultSize = deviceList.size();
+        String resultDeviceName = deviceList.getFirst().getName();
+        String resultDeviceType = deviceList.getFirst().getType();
         // Assert
-        assertEquals(expectedSize, result);
+        assertEquals(expectedSize, resultSize);
+        assertEquals(expectedDeviceName, resultDeviceName);
+        assertEquals(expectedDeviceType, resultDeviceType);
     }
 
     /**
