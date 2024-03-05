@@ -6,15 +6,15 @@ class House {
 
 class GetRoomListController {
     - house : House
-    - mapperToRoomDTO : MapperToRoomDTO
+    - roomMapper : RoomMapper
     + GetRoomListController(...)
-    + getRoomList() : List<RoomDTO>
+    + getRooms() : List<RoomDTO>
 }
 
-class MapperToRoomDTO {
-    + MapperToRoomDTO(...)
-    + getRoomList(...) : List<RoomDTO>
-    - roomToDTO(...) : RoomDTO
+class RoomMapper {
+    + RoomMapper(...)
+    + roomsToDTO(...) : List<RoomDTO>
+    + roomToDTO(...) : RoomDTO
 }
 
 class RoomDTO {
@@ -35,7 +35,7 @@ class RoomDTO {
 class Room {
 - name : String
 - floor : int
-+ getName() : String
++ getRoomName() : String
 + getFloor() : int
 + getDimensions() : Dimensions
 }
@@ -51,8 +51,8 @@ class Dimensions {
 }
 
 GetRoomListController "1" ..> "1" House : uses
-GetRoomListController "1" ..> "1" MapperToRoomDTO : uses
-MapperToRoomDTO "1" ..> "List<RoomDTO>" RoomDTO : creates
+GetRoomListController "1" ..> "1" RoomMapper : uses
+RoomMapper "1" ..> "List<RoomDTO>" RoomDTO : creates
 House "1" *-- "List<Room>" Room : contains
 Room "1" *-- "1" Dimensions : has
 
