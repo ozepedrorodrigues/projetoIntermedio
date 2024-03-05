@@ -44,10 +44,14 @@ class CatalogueTest {
         //Arrange
         Catalogue catalogue = new Catalogue(filePathname);
         int expectedSize = 2;
+        String firstSensor = "sensors.SensorOfTemperature";
+        String secondSensor = "sensors.SensorOfHumidity";
         //Act
         List<String> result = catalogue.getSensorsCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
+        assertEquals(firstSensor, result.getFirst());
+        assertEquals(secondSensor, result.getLast());
     }
 
     /**
@@ -58,10 +62,12 @@ class CatalogueTest {
         //Arrange
         Catalogue catalogue = new Catalogue(filePathname);
         int expectedSize = 1;
+        String actuator = "actuators.ActuatorOfOnOff";
         //Act
         List<String> result = catalogue.getActuatorsCatalogue();
         //Assert
         assertEquals(expectedSize, result.size());
+        assertEquals(actuator, result.get(0));
     }
 
 }
