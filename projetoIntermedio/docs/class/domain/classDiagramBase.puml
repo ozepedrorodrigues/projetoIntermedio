@@ -1,23 +1,26 @@
 @startuml
 
 class House {
+  - locationFactory: LocationFactory
+  - roomFactory : RoomFactory
   + House (...)
-  + addRoom(...) : boolean
+  + addRoom(...) : Room
   + getRoomByName(...) : Room
-  + getRoomList() : List<Room>
+  + getRooms() : List<Room>
   + getLocation() : Location
-  + configLocation(...) : boolean
-  + getCatalogue() : Catalogue
+  + defineLocation(...) : boolean
   + getDevicesGroupedByRoom() : Map<String, List<Device>>
+  -validLocationFactory(...):boolean
+  -validRoomFactory(...):boolean
+  -validRoomName(...):boolean
 }
 
 class Catalogue {
-  - functionalities : List<String>
-  - sensorList : List<String>
-
-  + addSensor() : boolean
-  + getCatalogue() : Catalogue
-  + getFunctionalities() : List<String>
+  - actuatorClassList : List<String>
+  - sensorClassList : List<String>
+  +Catalogue(...)
+  + getSensorsCatalogue() : List<String>
+  + getActuatorsCatalogue() : List<String>
 }
 
 class Location {
@@ -27,30 +30,38 @@ class Location {
   + Location(...)
   + getAddress() : String
   + getZipCode() : String
-  + getGPSLocation() : GPSLocation
+  + getGPSLocation() : GPS
+  -validAddress(...) : boolean
+  -validZipCode(...) : boolean
+  -validGPSFactory(...) : boolean
 }
 
-class GPSLocation {
+class GPS {
   - latitude : double
   - longitude : double
-
   + GPSLocation(...)
   + getLatitude() : double
   + getLongitude() : double
+  -validLongitude(...):boolean
+  -validLatitude(...):boolean
 }
 
 class Room {
   - name : String
   - floor : int
-
+  - dimensionsFactory : DimensionsFactory
+  - deviceFactory : DeviceFactory
   + Room(...)
   + getName() : String
   + getFloor() : int
   + getDimensions() : Dimensions
-  + addDevice(...) : boolean
-  + createDevice(...) : Device
-  + getDeviceList() : List<Device>
+  + addNewDevice(...) : Device
+  + getDevicesInRoom() : List<Device>
   + getDeviceByName(...) : Device
+  -validName(...) : boolean
+  -validDimensionsFactory(...) : boolean
+  -validDeviceFactory(...) : boolean
+  -validDeviceName(...) : boolean
 }
 
 class Dimensions {
@@ -62,90 +73,73 @@ class Dimensions {
   + getWidth() : double
   + getLength() : double
   + getHeight() : double
+  -validWidth(...) : boolean
+  -validLength(...) : boolean
+  -validHeight(...) : boolean
 }
 
 class Device {
   - name : String
   - type : String
   - active : boolean
-  - functionalityList : HashSet<String>
-
+  - functionalities : HashSet<String>
+  - sensorFactory: SensorFactory
+  - actuatorFactory: ActuatorFactory
   + Device(...)
   + getName() : String
   + getType() : String
-  + addSensor(...) : boolean
+  + addSensor(...) : Sensor
+  + addActuator(...) : Actuator
   + deactivate() : boolean
   + getDeviceSensors() : List<Sensor>
   + getFunctionalities() : HashSet<String>
+  -validClassName(...):boolean
+  -validName(...) : boolean
+  -validType(...) : boolean
+  -validFactories(...):boolean
 }
 
 interface Sensor {
-
-  + getType() : String
-  + getName() : String
-  + getValue() : String
-}
-
-class SensorOfHumidity {
-  - name : String
-  - type : String
-  - value : Value
-
-  + SensorOfHumidity(...)
-  + getName() : String
   + getType() : String
   + getValue() : String
+  + getId() : int
+  + setId(int) : int
 }
 
-class SensorOfTemperature {
-  - name : String
-  - type : String
-  - value : Value
-
-  + SensorOfTemperature(...)
-  + getName() : String
-  + getType() : String
-  + getValue() : String
+interface Actuator{
+    +getType(): ActuatorType
+    +isActive(): boolean
+    +activate():void
+    +deactivate(): void
+    +getId():int
+    +setId(int): int
 }
 
-class HumidityValue {
-  - humidityValue: int
-
-  + HumidityValue()
-  + getHumidityValue() : int
-  + toValue() : String
-}
-
-class TemperatureValue {
-  - temperatureValue: double
-
-  + TemperatureValue()
-  + getTemperatureValue() : double
-  + toValue() : String
-}
 
 interface Value {
-  + toValue() : String
+  + valueToString() : String
 }
 
-House "1" *-- "1" Catalogue : contains
+class IdGenerator{
+- static sensorId:int
+- static actuatorId:int
++ static generateSensorId:int
++ static generateActuatorId:int
++ static resetSensorId: void
++ static resetActuatorId: void
+}
+
 House "1" *-- "1" Location : contains
 House "1" *-- "List<Room>" Room : contains
 
-Location "1" *-- "1" GPSLocation : contains
+Location "1" *-- "1" GPS : contains
 
-Room "1" *-- "*" Device : contains
+Room "1" *-- "List<Device>" Device : contains
 Room "1" *-- "1" Dimensions : contains
 
-Device "1" *-- "1..*" Sensor :  contains
-
-SensorOfHumidity "*" ..|> "1" Sensor : implements
-SensorOfTemperature "*" ..|> "1" Sensor : implements
-
-TemperatureValue "*" ..|> "1" Value : implements
-HumidityValue "*" ..|> "1" Value : implements
-
-SensorOfHumidity "1" *-- "1" HumidityValue : has
-SensorOfTemperature "1" *-- "1" TemperatureValue : has
+Device "1" *-- "List<Sensor>" Sensor :  contains
+Device "1" *-- "List<Actuator>" Actuator :  contains
+Device "*" ..> "1" IdGenerator : uses
+Sensor "1" ..> "*" Value : uses
 
 @enduml
