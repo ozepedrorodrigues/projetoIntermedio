@@ -20,24 +20,80 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class DeactivateDeviceControllerTest {
 
+    /**
+     * The gpsFactory attribute.
+     */
     GPSFactory gpsFactory;
+    /**
+     * The locationFactory attribute.
+     */
     LocationFactory locationFactory;
+    /**
+     * The filePathName attribute.
+     */
     String filePathName;
+    /**
+     * The sensorFactory attribute.
+     */
     SensorFactory sensorFactory;
+    /**
+     * The actuatorFactory attribute.
+     */
     ActuatorFactory actuatorFactory;
+    /**
+     * The deviceFactory attribute.
+     */
     DeviceFactory deviceFactory;
+    /**
+     * The dimensionsFactory attribute.
+     */
     DimensionsFactory dimensionsFactory;
+    /**
+     * The roomFactory attribute.
+     */
     RoomFactory roomFactory;
+    /**
+     * The house attribute.
+     */
     House house;
+    /**
+     * The getRoomListController attribute.
+     */
     GetRoomListController getRoomListController;
+    /**
+     * The roomMapper attribute.
+     */
     RoomMapper roomMapper;
+    /**
+     * The getDeviceListController attribute.
+     */
     GetDeviceListController getDeviceListController;
+    /**
+     * The deviceMapper attribute.
+     */
     DeviceMapper deviceMapper;
+    /**
+     * The addDeviceToRoomController attribute.
+     */
     AddDeviceToRoomController addDeviceToRoomController;
+    /**
+     * The addRoomController attribute.
+     */
     AddRoomController addRoomController;
+    /**
+     * The deactivateDeviceController attribute.
+     */
     DeactivateDeviceController deactivateDeviceController;
+    /**
+     * The myDeviceDTO attribute.
+     */
     DeviceDTO myDeviceDTO;
 
+
+    /**
+     * This method sets up the necessary objects for the tests.
+     * @throws InstantiationException if an error occurs while creating the factories.
+     */
     @BeforeEach
     void setUpIntegration() throws InstantiationException {
         filePathName = "config.properties";
@@ -63,39 +119,67 @@ class DeactivateDeviceControllerTest {
         addDeviceToRoomController.addDeviceToRoom(myDeviceDTO);
     }
 
+    /**
+     * Test for the constructor of the DeactivateDeviceController with Valid Parameters
+     * Should not throw any exception and the object should be created as not Null.
+     */
     @Test
-    void testGetRoomList() {
+    void constructorValidParametersShouldNotThrowException()throws IllegalArgumentException{
+        // Arrange
+        DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper);
+        // Assert
+        assertNotNull(deactivateDeviceController);}
+
+
+    /**
+     * Test for the getRooms() method in the DeactivateDeviceController
+     * The test checks if the method returns a list with the room in the house.
+     * The expected result is a list with one room.
+     */
+    @Test
+    void testGetRooms() {
         // Arrange
         int expected = 1;
         // Act
-        List<RoomDTO> roomList = deactivateDeviceController.getRoomList();
+        List<RoomDTO> roomList = deactivateDeviceController.getRooms();
         int result = roomList.size();
         // Assert
-        assertEquals(expected, result);
-    }
+        assertEquals(expected, result);}
 
-
+    /**
+     * Test for the getDevices() method in the DeactivateDeviceController
+     * The test checks if the method returns a list with the devices in a room.
+     * The expected result is a list with one device.
+     */
     @Test
     void testGetDeviceList() {
         // Arrange
         int expected = 1;
         //  Act
-        List<DeviceDTO> deviceList = deactivateDeviceController.getDeviceList("Room");
+        List<DeviceDTO> deviceList = deactivateDeviceController.getDevices("Room");
         int result = deviceList.size();
         // Assert
         assertEquals(expected, result);
     }
 
-
+    /**
+     * Test for the deactivateDevice() method in the DeactivateDeviceController
+     * The test checks if the method deactivates a device in a room.
+     * The expected result is true.
+     */
     @Test
     void testDeactivateDevice() {
         // Arrange & Act
         boolean result = deactivateDeviceController.deactivateDevice(myDeviceDTO);
         // Assert
-        assertTrue(result);
-    }
+        assertTrue(result);}
 
 
+    /**
+     * Test for the deactivateDevice() method in the DeactivateDeviceController when the device is already deactivated
+     * The test checks if the method deactivates a device in a room.
+     * The expected result is false.
+     */
     @Test
     void testDeactivateDeviceAgain() {
         // Arrange & Act
@@ -106,11 +190,17 @@ class DeactivateDeviceControllerTest {
     }
 
 
+    /**
+     * Test for the deactivateDevice() method in the DeactivateDeviceController when the deviceDTO is null
+     * The test checks if the method deactivates a device in a room.
+     * The expected result is false.
+     */
     @Test
     void testDeactivateDeviceDTONull() {
         // Arrange & Act
         boolean result = deactivateDeviceController.deactivateDevice(null);
         // Assert
-        assertFalse(result);
-    }
+        assertFalse(result);}
+
+
 }

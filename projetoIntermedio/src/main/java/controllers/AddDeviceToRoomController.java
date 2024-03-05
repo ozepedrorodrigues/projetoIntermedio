@@ -51,11 +51,11 @@ public class AddDeviceToRoomController {
      * @return a list of RoomDTO objects representing the rooms in the house.
      */
     public List<RoomDTO> getRooms() {
-        return getRoomListController.getRoomList();
+        return getRoomListController.getRooms();
     }
 
     /**
-     * adds a device to a room.
+     * Adds a device to a room.
      *
      * @param deviceDTO the device to be added to the room
      * @return the DeviceDTO object representing the device added to the room, or null if the device was not added
@@ -74,7 +74,7 @@ public class AddDeviceToRoomController {
 
 
     /**
-     * validates if the house is valid.
+     * Validates if the house is valid.
      *
      * @param house the house to be validated
      * @return true if the house is valid, false otherwise
@@ -84,7 +84,7 @@ public class AddDeviceToRoomController {
     }
 
     /**
-     * validates if the deviceMapper is valid.
+     * Validates if the deviceMapper is valid.
      *
      * @param deviceMapper the deviceMapper to be validated
      * @return true if the deviceMapper is valid, false otherwise
@@ -94,7 +94,7 @@ public class AddDeviceToRoomController {
     }
 
     /**
-     * validates if the getRoomListController is valid.
+     * Validates if the getRoomListController is valid.
      *
      * @param getRoomListController the getRoomListController to be validated
      * @return true if the getRoomListController is valid, false otherwise

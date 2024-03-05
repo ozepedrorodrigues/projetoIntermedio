@@ -176,7 +176,7 @@ class AddSensorToDeviceControllerTest {
     }
 
     /**
-     * Test to assess the getRoomList method of AddSensorToDeviceController.
+     * Test to assess the getRooms method of AddSensorToDeviceController.
      * <p>
      * It checks if the method returns the correct size of the room list.
      */
@@ -195,7 +195,7 @@ class AddSensorToDeviceControllerTest {
     }
 
     /**
-     * Test to assess the getDeviceList method of AddSensorToDeviceController.
+     * Test to assess the getDevices method of AddSensorToDeviceController.
      * It checks if the method returns the correct size of the device list for a given room.
      * The room is retrieved from the house by its name.
      * The test asserts that the room is not null and that the size of the device list matches the expected size.
@@ -216,7 +216,7 @@ class AddSensorToDeviceControllerTest {
     }
 
     /**
-     * Test to assess the getDeviceList method of AddSensorToDeviceController with a non-existent room.
+     * Test to assess the getDevices method of AddSensorToDeviceController with a non-existent room.
      * It checks if the method returns an empty list when the room does not exist.
      * The test asserts that the returned list matches the expected empty list.
      */

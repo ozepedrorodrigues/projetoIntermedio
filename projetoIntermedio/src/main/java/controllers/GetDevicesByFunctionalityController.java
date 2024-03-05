@@ -28,7 +28,7 @@ public class GetDevicesByFunctionalityController {
      *
      * @param house The House instance this controller will operate on to fetch devices.
      * @param deviceGroupMapper The mapper that will be used to group devices by functionality.
-     * @throws IllegalArgumentException if the house or mapper are null.
+     * @throws IllegalArgumentException if the house or mapper are invalid.
      */
     public GetDevicesByFunctionalityController(House house, DeviceGroupMapper deviceGroupMapper) {
         if(!validHouse(house)||!validMapper(deviceGroupMapper)) throw new IllegalArgumentException();

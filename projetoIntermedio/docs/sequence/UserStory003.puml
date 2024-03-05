@@ -19,12 +19,12 @@ C -> H: getRooms()
 activate H
 H-->C: rooms
 deactivate H
-C -> M: roomsToDTO(rooms)
+C -> M: roomToDTO(rooms)
 activate M
 
-M-->C: _roomsDTO
+M-->C: roomsDTO
 deactivate M
-[o<--C: _roomsDTO
+[o<--C: roomsDTO
 
 
 @enduml

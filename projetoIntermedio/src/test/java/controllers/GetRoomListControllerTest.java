@@ -100,25 +100,25 @@ class GetRoomListControllerTest {
     @Test
     void constructor_houseIsNull_integration() {
         //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new GetRoomListController(null, roomMapper1));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetRoomListController(null, roomMapper1));
 
     }
 
     /**
-     * Test to check if the getRoomList method returns an empty list.
+     * Test to check if the getRooms method returns an empty list.
      */
     @Test
     void getRoomList_emptyList_integration() {
         //Arrange
         int expected = 0;
         //Act
-        List<RoomDTO> result = getRoomListController1.getRoomList();
+        List<RoomDTO> result = getRoomListController1.getRooms();
         //Assert
         assertEquals(expected, result.size());
     }
 
     /**
-     * Test to check if the getRoomList method returns a list of rooms.
+     * Test to check if the getRooms method returns a list of rooms.
      */
     @Test
     void getRoomList_integration() {
@@ -126,7 +126,7 @@ class GetRoomListControllerTest {
         house2.addRoom("roomName", 0, 10, 10, 10);
         int expected = 1;
         //Act
-        List<RoomDTO> result = getRoomListController1.getRoomList();
+        List<RoomDTO> result = getRoomListController1.getRooms();
         //Assert
         assertEquals(expected, result.size());
 

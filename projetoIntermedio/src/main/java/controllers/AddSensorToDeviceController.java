@@ -42,7 +42,7 @@ public class AddSensorToDeviceController {
      *
      * @param house                   the house instance
      * @param catalogue               the catalogue instance
-     * @param sensorMapper            the mapperSensorDTO instance
+     * @param sensorMapper            the sensorMapper instance (maps Sensor objects to SensorDTO objects)
      * @param getRoomListController   the getRoomListController instance
      * @param getDeviceListController the getDeviceListController instance
      * @throws IllegalArgumentException if the house, getDeviceListController, getRoomListController, catalogue, or sensorMapper are not valid
@@ -63,17 +63,16 @@ public class AddSensorToDeviceController {
     /**
      * Gets the list of rooms in the house.
      *
-     * @return the list of rooms in the house.
+     * @return the list of Rooms (as RoomDTOs) in the house.
      */
     public List<RoomDTO> getRooms() {
-        return this.getRoomListController.getRoomList();
+        return this.getRoomListController.getRooms();
     }
 
     /**
-     * Gets the list of devices in a room.
-     *
+     * Gets the list of devices (as DeviceDTO's) in a room.
      * @param roomDTO the room DTO
-     * @return the list of devices in the room.
+     * @return the list of devices (as DeviceDTO's) in the room.
      */
     public List<DeviceDTO> getDevices(RoomDTO roomDTO) {
         String roomName = roomDTO.getName();
@@ -81,9 +80,8 @@ public class AddSensorToDeviceController {
     }
 
     /**
-     * Gets the list of sensor types.
-     *
-     * @return the list of sensor types.
+     * Gets the list of available Sensor models from the Catalogue.
+     * @return the list of available Sensor models from the Catalogue.
      */
     public List<String> getSensorModel() {
         return catalogue.getSensorsCatalogue();
@@ -93,23 +91,17 @@ public class AddSensorToDeviceController {
     /**
      * Adds a sensor to an existing device in a room.
      *
-     * @param deviceDTO   the device DTO to which the sensor will be added
-     * @param sensorModel the model of the sensor to be added
+     * @param deviceDTO   the DeviceDTO to which the sensor will be added
      * @param sensorModel the model of the sensor to be added
      * @return the sensor DTO representing the newly added sensor
      */
     public SensorDTO addSensorToExistingDevice(DeviceDTO deviceDTO, String sensorModel) {
         String roomName = deviceDTO.getRoomName();
         String deviceName = deviceDTO.getName();
-
         Room room = house.getRoomByName(roomName);
         Device device = room.getDeviceByName(deviceName);
         Sensor sensor = device.addSensor(sensorModel);
-
-        if(sensor == null) {
-            return null;
-        }
-
+        if(sensor == null) {return null;}
         return sensorMapper.getSensorDTO(sensor);
     }
 
@@ -121,7 +113,7 @@ public class AddSensorToDeviceController {
      * @param getRoomListController   the getRoomListController instance
      * @param catalogue               the catalogue instance
      * @param sensorMapper            the mapperSensorDTO instance
-     * @return true if all parameters are non-null, false otherwise
+     * @return true if all parameters are valid, false otherwise
      */
     private boolean validParameters(House house, GetDeviceListController getDeviceListController, GetRoomListController getRoomListController, Catalogue catalogue, SensorMapper sensorMapper) {
         return house != null && getDeviceListController != null && getRoomListController != null && catalogue != null && sensorMapper != null;

@@ -52,7 +52,7 @@ public class AddActuatorToDeviceController {
      * @param getRoomListController   the getRoomListController to be used
      * @param getDeviceListController the getDeviceListController to be used
      * @param actuatorMapper          the actuatorMapper to be used
-     * @throws IllegalArgumentException if an error occurs during the instantiation of the objects.
+     * @throws IllegalArgumentException if any of the given parameters is invalid.
      */
     public AddActuatorToDeviceController(House house, Catalogue catalogue,
                                          GetRoomListController getRoomListController,
@@ -76,13 +76,13 @@ public class AddActuatorToDeviceController {
      * @return the rooms in the house as a list of RoomDTOs
      */
     public List<RoomDTO> getRooms() {
-        return this.getRoomListController.getRoomList();
+        return this.getRoomListController.getRooms();
     }
 
     /**
      * Gets the devices in the room.
      *
-     * @param roomDTO the room to get the devices from
+     * @param roomDTO the room (represented by a RoomDTO object) to get the devices from
      * @return the devices in the room as a list of DeviceDTOs
      */
     public List<DeviceDTO> getDevices(RoomDTO roomDTO) {

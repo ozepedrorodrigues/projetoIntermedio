@@ -8,17 +8,17 @@ title US001
 As an Administrator, I want to configure the location of the house.
 '/
 
-[o-> ":ConfigHouseLocationController" : configHouseLocation(LocationDTO)
-activate ":ConfigHouseLocationController"
-":ConfigHouseLocationController" -> ":House": configLocation(LocationDTO)
+[o-> "locationController:DefineHouseLocationController" : configHouseLocation(LocationDTO)
+activate "locationController:DefineHouseLocationController"
+"locationController:DefineHouseLocationController" -> ":House": configLocation(LocationDTO)
 activate ":House"
 ":House" -> ":LocationFactoryImp": createLocation(LocationDTO,GPSLocationFactory)
 activate ":LocationFactoryImp"
-":LocationFactoryImp" -->"_location:Location"** : create(LocationDTO,_gpsLocationFactory)
+":LocationFactoryImp" -->"_location:Location"** : <create>(LocationDTO,_gpsLocationFactory)
 activate "_location:Location"
 "_location:Location" ->":GPSLocationFactory" : createGPSLocation(double latitude, double longitude)
 activate ":GPSLocationFactory"
-":GPSLocationFactory" -->"_gpslocation:GPSLocation"** : create(double latitude, double longitude)
+":GPSLocationFactory" -->"_gpslocation:GPSLocation"** : <create>(double latitude, double longitude)
 ":GPSLocationFactory" -->"_location:Location" : _gpslocation
 deactivate ":GPSLocationFactory"
 "_location:Location" -->":LocationFactoryImp" : _location
@@ -26,14 +26,14 @@ deactivate "_location:Location"
 ":LocationFactoryImp" -->":House" : _location
 deactivate ":LocationFactoryImp"
 ":House" -> ":House" : this.location = _location
-":House" -->":ConfigHouseLocationController" : _location
+":House" -->"locationController:DefineHouseLocationController" : _location
 deactivate ":House"
-":ConfigHouseLocationController" ->":LocationDTOMapper" : locationToLocationDTO(_location)
+"locationController:DefineHouseLocationController" ->":LocationDTOMapper" : locationToLocationDTO(_location)
 activate ":LocationDTOMapper"
-":LocationDTOMapper" -->"_locationDTO:LocationDTO"** : create(_location)
-":LocationDTOMapper" -->":ConfigHouseLocationController" : _locationDTO
+":LocationDTOMapper" -->"_locationDTO:LocationDTO"** : <create>(_location)
+":LocationDTOMapper" -->"locationController:DefineHouseLocationController" : _locationDTO
 deactivate ":LocationDTOMapper"
-[o<--":ConfigHouseLocationController" : _locationDTO
-deactivate ":ConfigHouseLocationController"
+[o<--"locationController:DefineHouseLocationController" : _locationDTO
+deactivate "locationController:DefineHouseLocationController"
 
 @enduml

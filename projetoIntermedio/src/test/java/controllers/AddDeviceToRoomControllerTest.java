@@ -147,7 +147,7 @@ public class AddDeviceToRoomControllerTest {
     }
 
     /**
-     * Test the getRoomList method with one room.
+     * Test the getRooms method with one room.
      */
     @Test
     void getRoomListOneRoom() {

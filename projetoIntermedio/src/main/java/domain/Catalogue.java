@@ -44,7 +44,7 @@ public class Catalogue {
             this.actuatorClassList = List.of(arrayStringClassesActuators);
 
         } catch (ConfigurationException e) {
-            throw new InstantiationException("Wrong file path name.");
+            throw new InstantiationException();
         }
 
     }

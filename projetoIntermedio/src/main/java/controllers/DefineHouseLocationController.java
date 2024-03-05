@@ -18,7 +18,7 @@ public class DefineHouseLocationController {
     private final House house;
 
     /**
-     * The mapper location dto instance
+     * The LocationMapper instance (converts Location to LocationDTO)
      */
     private final LocationMapper locationMapper;
 
@@ -28,7 +28,7 @@ public class DefineHouseLocationController {
      *
      * @param house          the house to which the location is to be defined
      * @param locationMapper the locationMapper to be used
-     * @throws IllegalArgumentException if an error occurs during the instantiation of the objects.
+     * @throws IllegalArgumentException if any of the parameters are invalid.
      */
     public DefineHouseLocationController(House house, LocationMapper locationMapper) {
         if (!validParameters(house, locationMapper)) {
@@ -42,7 +42,7 @@ public class DefineHouseLocationController {
     /**
      * Defines the location of the house with the specified address, zip code, latitude, and longitude.
      *
-     * @param locationDTO the location to be defined for the house
+     * @param locationDTO the location (represented by a LocationDTO object) to be defined for the house
      * @return the defined location as a LocationDTO, null if the location could not be defined
      */
     public LocationDTO defineHouseLocation(LocationDTO locationDTO) {

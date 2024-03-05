@@ -8,41 +8,41 @@ title US005
 As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
 '/
 
-participant "_getRoomListController:GetRoomListController" as G
-participant "_addDeviceController:AddDeviceToRoomController" as A
-participant "_house:House" as H
-participant "_room:Room" as R
-participant "_deviceFactory:DeviceFactory" as F
-participant "_device:Device" as D
-participant "_deviceMapper:DeviceMapper" as M
-participant "_deviceDTO:DeviceDTO" as DTO
+participant "getRoomListController:GetRoomListController" as G
+participant "addDeviceController:AddDeviceToRoomController" as A
+participant "house:House" as H
+participant "room:Room" as R
+participant "deviceFactory:DeviceFactory" as F
+participant "device:Device" as D
+participant "deviceMapper:DeviceMapper" as M
+participant "deviceDTO:DeviceDTO" as DTO
 
 [o->G : getRoomList()
 activate G
-ref over G : (UseCase3.puml for more details)
-[o<--G : _roomListDTO
+ref over G : (UseCase003.puml for more details)
+[o<--G : roomsDTO
 deactivate G
-[o->A : addDeviceToRoom(_deviceDTO)
+[o->A : addDeviceToRoom(deviceDTO)
 activate A
-A->H : getRoomByName(_roomName)
+A->H : getRoomByName(roomName)
 activate H
-H-->A : _room
+H-->A : room
 deactivate H
-A->R : addNewDevice(name, type)
+A->R : addNewDevice(name, deviceType)
 activate R
-R->F : createDevice(name, type)
+R->F : createDevice(name, deviceType)
 activate F
-F-->D** : create(name, type)
-F-->R : _device
+F-->D** : create(name, deviceType,sensorFactory,actuatorFactory)
+F-->R : device
 deactivate F
-R-->A : _device
+R-->A : device
 deactivate R
-A->M : deviceToDTO(_device)
+A->M : deviceToDTO(device, roomName)
 activate M
-M-->DTO** : create(_device)
-M-->A : _deviceDTO
+M-->DTO** : create(device)
+M-->A : deviceDTO
 deactivate M
-[o<--A : _deviceDTO
+[o<--A : deviceDTO
 deactivate A
 
 

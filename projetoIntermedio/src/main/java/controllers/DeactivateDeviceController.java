@@ -38,10 +38,11 @@ public class DeactivateDeviceController {
      * @param getRoomListController   GetRoomListController instance.
      * @param getDeviceListController GetDeviceListController instance.
      * @param deviceMapper       DeviceMapper instance.
-     * @throws InstantiationException if house is null.
+     * @throws IllegalArgumentException if at least one of the parameters is not valid.
      */
-    public DeactivateDeviceController(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, DeviceMapper deviceMapper) throws InstantiationException {
-        if (house == null) throw new InstantiationException();
+    public DeactivateDeviceController(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, DeviceMapper deviceMapper) throws IllegalArgumentException {
+        if (!validParameters(house,getRoomListController,getDeviceListController,deviceMapper))
+            throw new IllegalArgumentException();
         this.house = house;
         this.getRoomListController = getRoomListController;
         this.getDeviceListController = getDeviceListController;
@@ -49,29 +50,27 @@ public class DeactivateDeviceController {
     }
 
     /**
-     * Gets the list of rooms in the house.
-     *
-     * @return the list of rooms in the house.
+     * Gets the list of rooms (as RoomDTO objects) in the house.
+     * @return the list of rooms (as RoomDTO) in the house.
      */
-    public List<RoomDTO> getRoomList() {
-        return getRoomListController.getRoomList();
+    public List<RoomDTO> getRooms() {
+        return getRoomListController.getRooms();
     }
 
     /**
-     * Gets the list of devices in a room.
+     * Gets the list of devices (as DeviceDTO's) in a room.
      *
      * @param roomName the name of the room.
-     * @return the list of devices in the room.
+     * @return the list of devices (as DeviceDTO's) in the room.
      */
-    public List<DeviceDTO> getDeviceList(String roomName) {
+    public List<DeviceDTO> getDevices(String roomName) {
         return getDeviceListController.getDevicesInRoom(roomName);
     }
 
     /**
      * Deactivates the device.
-     * If the device is already deactivated, returns false.
      *
-     * @param deviceDTO the device to be deactivated.
+     * @param deviceDTO the DTO representation of the device to be deactivated.
      * @return true if the device was deactivated successfully, false otherwise.
      */
 
@@ -82,6 +81,17 @@ public class DeactivateDeviceController {
         String deviceName = deviceDTO.getName();
         Device device = room.getDeviceByName(deviceName);
 
-        return device.deactivate();
-    }
+        return device.deactivate();}
+
+    /**
+     * Checks if the constructor parameters are valid
+     * @param house the house to be checked
+     * @param getRoomListController the getRoomListController to be checked
+     * @param getDeviceListController the getDeviceListController to be checked
+     * @param deviceMapper the deviceMapper to be checked
+     * @return true if the parameters are valid, false otherwise
+     */
+    private boolean validParameters(House house, GetRoomListController getRoomListController, GetDeviceListController getDeviceListController, DeviceMapper deviceMapper){
+        return house != null && getRoomListController != null && getDeviceListController != null && deviceMapper != null;}
+
 }
