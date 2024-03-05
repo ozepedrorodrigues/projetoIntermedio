@@ -30,4 +30,21 @@ class IdGeneratorTest {
         assertEquals(2, IdGenerator.generateActuatorId());
         assertEquals(3, IdGenerator.generateActuatorId());
     }
+/**
+ * Test of resetSensorId method.
+ */
+    @Test
+    void resetSensorId() {
+        IdGenerator.resetSensorId();
+        assertEquals(1, IdGenerator.generateSensorId());
+    }
+
+    /**
+     * Test of resetActuatorId method.
+     */
+    @Test
+    void resetActuatorId() {
+        IdGenerator.resetActuatorId();
+        assertEquals(1, IdGenerator.generateActuatorId());
+    }
 }
