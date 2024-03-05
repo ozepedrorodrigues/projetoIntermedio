@@ -273,7 +273,7 @@ class RoomTest {
     }
 
     /**
-     * Test to verify that the getDevicesInRoom method returns the correct device
+     * Test to verify that the getDevicesInRoom method returns the correct device in the right order.
      */
     @Test
     void testGetDevicesInRoomReturnsCorrectDevices() {
