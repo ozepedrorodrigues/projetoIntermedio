@@ -14,13 +14,13 @@ public class Catalogue {
 
     /**
      * The list of configured sensors in config.properties file.
-     * This is the list of sensors available to be used in runtime.
+     * This is the list of sensor models (as Strings) available to be used in runtime.
      */
     private List<String> sensorClassList;
 
     /**
      * The list of configured actuators in config.properties file.
-     * This is the list of actuators available to be used in runtime.
+     * This is the list of actuator models (as Strings) available to be used in runtime.
      */
     private List<String> actuatorClassList;
 

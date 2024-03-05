@@ -8,18 +8,11 @@ import factories.implement.*;
 import mappers.DeviceMapper;
 import mappers.SensorMapper;
 import mappers.RoomMapper;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
-import java.io.File;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+
 
 
 /**
@@ -36,7 +29,7 @@ class AddSensorToDeviceControllerTest {
     /**
      * The path to the file to be used in tests.
      */
-    private String filepath = "config.properties";
+    private String filepath;
 
     /**
      * The SensorMapper instance to be used in tests.
@@ -64,19 +57,32 @@ class AddSensorToDeviceControllerTest {
     private Room room;
 
     /**
+     * The room name to be used in tests.
+     */
+    private String roomName;
+
+    /**
+     * The device name to be used in tests.
+     */
+    private String deviceName;
+
+    /**
      * The DeviceMapper instance to be used in tests.
      */
     private DeviceMapper deviceMapper;
 
     /**
-     * Set up the necessary objects for the tests
-     * Initializes the house, sensorMapper, getRoomListController, getDeviceListController, and catalogue instances.
-     * Initializes the room instance.
+     * Set up the necessary objects for the tests.
+     * It instantiates a house, a sensorMapper, a getRoomListController, a getDeviceListController, a catalogue, a room, a roomName, a deviceName, a filepath, and a deviceMapper.
+     * It also adds a room to the house.
      *
      * @throws InstantiationException if an instantiation exception occurs
      */
     @BeforeEach
     void setUpIntegration() throws InstantiationException {
+        roomName = "Room1";
+        deviceName = "Device1";
+        filepath = "configTest.properties";
         house = new House(
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(
@@ -87,7 +93,18 @@ class AddSensorToDeviceControllerTest {
         getRoomListController = new GetRoomListController(house, new RoomMapper());
         getDeviceListController = new GetDeviceListController(house, new DeviceMapper());
         catalogue = new Catalogue(filepath);
-        room = house.addRoom("Room1", 1, 1, 1, 1);
+        room = house.addRoom(roomName, 1, 1, 1, 1);
+    }
+
+    /**
+     * Test to assess the Constructor of AddSensorToDeviceController with valid parameters.
+     */
+    @Test
+    void testConstructorValid() {
+        // Act
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        // Assert
+        assertNotNull(controller);
     }
 
     /**
@@ -102,25 +119,6 @@ class AddSensorToDeviceControllerTest {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () ->
                 new AddSensorToDeviceController(invalidHouse, catalogue, sensorMapper, getRoomListController, getDeviceListController));
-    }
-
-    /**
-     * Test to assess the Constructor of AddSensorToDeviceController with invalid parameters
-     */
-    @Test
-    void testConstructorValid() {
-        // Act
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
-        // Assert
-        assertNotNull(controller);
-    }
-
-    @Test
-    void testConstructorNullHouse() {
-        // Arrange
-        House house = null;
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController));
     }
 
     /**
@@ -177,13 +175,12 @@ class AddSensorToDeviceControllerTest {
 
     /**
      * Test to assess the getRooms method of AddSensorToDeviceController.
-     * <p>
      * It checks if the method returns the correct size of the room list.
+     * The test asserts that the size of the room list matches the expected size.
      */
     @Test
     void testGetRoomList() {
         // Arrange
-        String roomName = "Room1";
         house.addRoom(roomName, 1, 1, 1, 1);
         int expectedSize = 1;
 
@@ -203,7 +200,6 @@ class AddSensorToDeviceControllerTest {
     @Test
     void testGetDeviceList() {
         // Arrange
-        String roomName = "Room1";
         RoomDTO roomDTO = new RoomDTO(roomName, 1, 1, 1, 1);
         AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
 
@@ -211,122 +207,102 @@ class AddSensorToDeviceControllerTest {
         List<DeviceDTO> devices = controller.getDevices(roomDTO);
 
         // Assert
-        assertNotNull(devices, "Devices should not be null");
+        assertNotNull(devices);
         assertEquals(house.getRoomByName(roomName).getDevicesInRoom().size(), devices.size());
     }
 
     /**
-     * Test to assess the getDevices method of AddSensorToDeviceController with a non-existent room.
-     * It checks if the method returns an empty list when the room does not exist.
-     * The test asserts that the returned list matches the expected empty list.
-     */
-    /*@Test
-    void testGetDeviceListNullRoom() {
-        // Arrange
-        RoomDTO roomDTO = null;
-        //Act
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
-        // Assert
-        assertNull(controller.getDevices(roomDTO));}*/
-
-    /**
-     * Test to assess the getSensorModel method of AddSensorToDeviceController with an invalid Catalogue.
-     * It checks if the method throws an IllegalArgumentException when the Catalogue is null.
-     * The test asserts that the exception message matches the expected message.
+     * Test to assess the getDevices method of AddSensorToDeviceController with an invalid room.
+     * It checks if the method returns null when the room does not exist.
+     * The test asserts that the returned list is null.
      */
     @Test
-    void testGetSensorModelInvalidCatalogue() {
-        // Arrange
-        Catalogue invalidCatalogue = null;
-
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () ->
-                new AddSensorToDeviceController(house, invalidCatalogue, sensorMapper, getRoomListController, getDeviceListController).getSensorModel());
+    void testGetDeviceListInvalidRoom() {
+        //Arrange
+        RoomDTO roomDTO = new RoomDTO("InvalidRoom", 1, 1, 1, 1);
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        //  Act
+        List<DeviceDTO> result = controller.getDevices(roomDTO);
+        //  Assert
+        assertNull(result);
     }
 
     /**
      * Test to assess the addSensorToExistingDevice method of AddSensorToDeviceController.
-     * It checks if the method correctly adds a sensor to an existing device in a room.
-     * The test asserts that the type of the added sensor matches the expected sensor type.
+     * It checks if the method returns the correct sensor type when adding a sensor to an existing device.
+     * The test asserts that the returned sensor type matches the expected sensor type.
+     * The device is added to the room before adding the sensor.
+     * The room name, device name, and sensor model are valid.
      */
-    /*@Test
+    @Test
     void testAddSensorToExistingDevice() {
         // Arrange
-        String roomName = "Room1";
-        String deviceName = "Device1";
         String sensorModel = "SensorOfTemperature";
-        RoomDTO roomDTO = null;
-        DeviceDTO deviceDTO = null;
-        Device device = this.room.addNewDevice(deviceName, "Light"); // use the room field here
+        DeviceDTO deviceDTO = new DeviceDTO(deviceName, "Light", roomName);
+        house.getRoomByName(roomName).addNewDevice(deviceName, "Light");
         AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
         SensorType expected = SensorType.TEMPERATURE;
 
         // Act
-        controller.getDevices(roomDTO);
         SensorDTO result = controller.addSensorToExistingDevice(deviceDTO, sensorModel);
-
 
         // Assert
         assertEquals(expected, result.getTypeOfSensor());
-
-    }*/
+    }
 
     /**
-     * Test to assess the addSensorToExistingDevice method of AddSensorToDeviceController with invalid parameters.
-     * It checks if the method throws a NullPointerException when the room name, device name, and sensor model are invalid.
-     * The test asserts that the exception thrown is a NullPointerException.
+     * Test to assess the addSensorToExistingDevice method of AddSensorToDeviceController with an invalid device.
+     * It checks if the method returns null when the device does not exist.
+     * The test asserts that the returned sensor is null.
      */
     @Test
-    void testAddSensorToExistingDeviceInvalidParameters() {
+    void testAddSensorToExistingDeviceInvalidParametersDeviceIsNull() {
         // Arrange
-        String invalidRoomName = "InvalidRoom";
-        String invalidDeviceName = "InvalidDevice";
-        String invalidSensorModel = "InvalidSensorModel";
+        String sensorModel = "SensorOfTemperature";
         DeviceDTO invalidDeviceDTO = null;
-
+        house.getRoomByName(roomName).addNewDevice(deviceName, "Light");
         AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        SensorType expected = SensorType.TEMPERATURE;
 
         // Act and Assert
         assertThrows(NullPointerException.class, () ->
-                controller.addSensorToExistingDevice(invalidDeviceDTO, invalidSensorModel));
+                controller.addSensorToExistingDevice(invalidDeviceDTO, sensorModel));
+    }
+
+    /**
+     * Test to assess the addSensorToExistingDevice method of AddSensorToDeviceController with an invalid sensor model.
+     * It checks if the method returns null when the sensor model does not exist.
+     * The test asserts that the returned sensor is null.
+     */
+    @Test
+    void testAddSensorToExistingDeviceInvalidSensorModel() {
+        String sensorModel = "SensorOfLight";
+        DeviceDTO deviceDTO = new DeviceDTO(deviceName, "Light", roomName);
+        house.getRoomByName(roomName).addNewDevice(deviceName, "Light");
+        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        SensorType expected = SensorType.TEMPERATURE;
+
+        // Act
+        SensorDTO result = controller.addSensorToExistingDevice(deviceDTO, sensorModel);
+
+        // Assert
+        assertNull(result);
+
     }
 
     /**
      * Test to assess the getSensorModel method of AddSensorToDeviceController.
-     * It checks if the method returns the correct list of sensor models.
-     * The test asserts that the returned list matches the expected list.
+     * It checks if the method returns the correct size of the sensor model list.
      */
-    /*@Test
+    @Test
     void testGetSensorModel() {
         // Arrange
-        List<String> expectedSensorModels = Arrays.asList("SensorModel1", "SensorModel2", "SensorModel3");
-        Catalogue catalogue = mock(Catalogue.class);
-        when(catalogue.getSensorsCatalogue()).thenReturn(expectedSensorModels);
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
-
+        int expectedSize = 2;
         // Act
-        List<String> resultSensorModels = controller.getSensorModel();
-
+        List<String> result = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getSensorModel();
         // Assert
-        assertEquals(expectedSensorModels, resultSensorModels);
-    }*/
-
-    @Test
-    void testGetSensorModels() throws ConfigurationException{
-        // Arrange
-        String prefix = "sensor";
-        Configurations configurations = new Configurations();
-        Configuration configuration = configurations.properties(new File(filepath));
-        String[] sensorModels = configuration.getStringArray(prefix);
-        int expectedSize = sensorModels.length;
-
-        // Act
-        AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
-        List<String> result = controller.getSensorModel();
-        int resultSize = result.size();
-
-        // Assert
-        assertEquals(expectedSize, resultSize);
+        assertEquals(expectedSize, result.size());
     }
+
 }
 

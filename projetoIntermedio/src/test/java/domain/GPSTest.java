@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GPSTest {
     /**
      * Constructor with valid parameters
-
+     * Should not Throw Exception.
      */
     @Test
-    void testConstructorValidParameters() {
+    void testConstructorValidParametersShouldNotThrowException() throws IllegalArgumentException{
         // Arrange
         double latitude = 1;
         double longitude = 2;
@@ -30,7 +30,7 @@ class GPSTest {
 
     /**
      * Constructor with invalid negative parameters
-     * Negative latitude and longitude
+     * Should throw IllegalArgumentException.
      */
     @Test
     void testConstructorInvalidParametersNegativeLatitudeAndLongitude() {
@@ -43,7 +43,7 @@ class GPSTest {
 
     /**
      * Constructor with invalid positive parameters
-
+     * Should throw IllegalArgumentException.
      */
     @Test
     void testConstructorInvalidParametersPositiveLatitudeAndLongitude() {
@@ -56,9 +56,10 @@ class GPSTest {
 
     /**
      * Constructor with valid parameters in the negative boundary
+     * Should not throw exception.
      */
     @Test
-    void testConstructorValidParametersBoundaryNegativeLatitudeAndLongitude() {
+    void testConstructorValidParametersBoundaryNegativeLatitudeAndLongitude()throws IllegalArgumentException {
         // Arrange
         double latitude = -90;
         double longitude = -180;
@@ -73,7 +74,7 @@ class GPSTest {
 
     /**
      * Constructor with valid parameters in the positive boundary
-     *
+     * Should not throw exception.
      */
     @Test
     void testConstructorValidParametersBoundaryPositiveLatitudeAndLongitude() {

@@ -8,13 +8,10 @@ import factories.implement.*;
 import mappers.ActuatorMapper;
 import mappers.DeviceMapper;
 import mappers.RoomMapper;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,7 +79,7 @@ class AddActuatorToDeviceControllerTest {
     @BeforeEach
     void setUp() throws InstantiationException {
         IdGenerator.resetActuatorId();
-        filepath = "config.properties";
+        filepath = "configTest.properties";
         roomName = "Kitchen";
         deviceName = "Fridge";
         house = new House(
@@ -280,12 +277,7 @@ class AddActuatorToDeviceControllerTest {
     @Test
     void getActuatorModels() throws ConfigurationException {
         //Arrange
-        String prefix = "actuator";
-        Configurations configurations = new Configurations();
-        Configuration configuration = configurations.properties(new File(filepath));
-        String[] actuatorsModels = configuration.getStringArray(prefix);
-        int expectedSize = actuatorsModels.length;
-
+        int expectedSize = 1;
         //Act
         List<String> result = addActuatorToDeviceController.getActuatorModels();
         int resultSize = result.size();

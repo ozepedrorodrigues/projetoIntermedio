@@ -86,7 +86,7 @@ class GetRoomListControllerTest {
      * Test to check if the constructor of the GetRoomListController class is not null.
      */
     @Test
-    void constructor_integration() throws InstantiationException {
+    void constructor() {
         //Act
         GetRoomListController result = new GetRoomListController(house2, roomMapper1);
         //Assert
@@ -98,9 +98,19 @@ class GetRoomListControllerTest {
      * Test to check that when the constructor of the GetRoomListController class is null an exception is throw.
      */
     @Test
-    void constructor_houseIsNull_integration() {
+    void constructorHouseIsNull() {
         //Act + assert
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetRoomListController(null, roomMapper1));
+
+    }
+
+    /**
+     * Test to check that when the constructor of the GetRoomListController class is null an exception is throw.
+     */
+    @Test
+    void constructorRoomMapperIsNull() {
+        //Act + assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetRoomListController(house2, null));
 
     }
 
@@ -108,7 +118,7 @@ class GetRoomListControllerTest {
      * Test to check if the getRooms method returns an empty list.
      */
     @Test
-    void getRoomList_emptyList_integration() {
+    void getRoomsEmptyList() {
         //Arrange
         int expected = 0;
         //Act
@@ -121,14 +131,16 @@ class GetRoomListControllerTest {
      * Test to check if the getRooms method returns a list of rooms.
      */
     @Test
-    void getRoomList_integration() {
+    void getRooms() {
         //Arrange
-        house2.addRoom("roomName", 0, 10, 10, 10);
+        String roomName = "roomName";
+        house2.addRoom(roomName, 0, 10, 10, 10);
         int expected = 1;
         //Act
         List<RoomDTO> result = getRoomListController1.getRooms();
         //Assert
         assertEquals(expected, result.size());
+        assertEquals(roomName, result.getFirst().getName());
 
     }
 }

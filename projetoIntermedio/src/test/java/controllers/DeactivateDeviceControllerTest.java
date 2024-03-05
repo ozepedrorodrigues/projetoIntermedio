@@ -125,11 +125,58 @@ class DeactivateDeviceControllerTest {
      */
     @Test
     void constructorValidParametersShouldNotThrowException()throws IllegalArgumentException{
-        // Arrange
+        // Arrange & Act
         DeactivateDeviceController deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper);
         // Assert
         assertNotNull(deactivateDeviceController);}
 
+    /**
+     * Test for the constructor of the DeactivateDeviceController with Null House
+     * Should throw IllegalArgumentException.
+     */
+    @Test
+    void constructorNullHouseShouldThrowException() {
+        // Arrange
+        House house = null;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+    }
+
+    /**
+     * Test for the constructor of the DeactivateDeviceController with Null GetRoomListController
+     * Should throw IllegalArgumentException.
+     */
+    @Test
+    void constructorNullGetRoomListControllerShouldThrowException() {
+        // Arrange
+        GetRoomListController getRoomListController = null;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+    }
+
+    /**
+     * Test for the constructor of the DeactivateDeviceController with Null GetDeviceListController
+     * Should throw IllegalArgumentException.
+     */
+    @Test
+    void constructorNullGetDeviceListControllerShouldThrowException() {
+        // Arrange
+        GetDeviceListController getDeviceListController = null;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+    }
+
+    /**
+     * Test for the constructor of the DeactivateDeviceController with Null DeviceMapper
+     * Should throw IllegalArgumentException.
+     */
+    @Test
+    void constructorNullDeviceMapperShouldThrowException() {
+        // Arrange
+        DeviceMapper deviceMapper = null;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper));
+    }
 
     /**
      * Test for the getRooms() method in the DeactivateDeviceController
@@ -152,14 +199,15 @@ class DeactivateDeviceControllerTest {
      * The expected result is a list with one device.
      */
     @Test
-    void testGetDeviceList() {
+    void testGetDevices() {
         // Arrange
-        int expected = 1;
+        String roomName = "Room";
+        int expectedSize = 1;
         //  Act
-        List<DeviceDTO> deviceList = deactivateDeviceController.getDevices("Room");
+        List<DeviceDTO> deviceList = deactivateDeviceController.getDevices(roomName);
         int result = deviceList.size();
         // Assert
-        assertEquals(expected, result);
+        assertEquals(expectedSize, result);
     }
 
     /**
@@ -173,7 +221,6 @@ class DeactivateDeviceControllerTest {
         boolean result = deactivateDeviceController.deactivateDevice(myDeviceDTO);
         // Assert
         assertTrue(result);}
-
 
     /**
      * Test for the deactivateDevice() method in the DeactivateDeviceController when the device is already deactivated
@@ -189,7 +236,6 @@ class DeactivateDeviceControllerTest {
         assertFalse(result);
     }
 
-
     /**
      * Test for the deactivateDevice() method in the DeactivateDeviceController when the deviceDTO is null
      * The test checks if the method deactivates a device in a room.
@@ -201,6 +247,4 @@ class DeactivateDeviceControllerTest {
         boolean result = deactivateDeviceController.deactivateDevice(null);
         // Assert
         assertFalse(result);}
-
-
 }

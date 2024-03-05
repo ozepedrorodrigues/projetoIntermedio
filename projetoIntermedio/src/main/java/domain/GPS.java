@@ -16,7 +16,7 @@ public class GPS {
 
     /**
      * Constructor for GPS class
-     * Validates the latitude and longitude of the GPS location
+     * Validates the latitude and longitude of the GPS location and saves them as parameters.
      *
      * @param latitude  The latitude of the GPS location of the house
      * @param longitude The longitude of the GPS location of the house

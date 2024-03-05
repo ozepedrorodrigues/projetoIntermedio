@@ -57,21 +57,4 @@ public enum SensorType {
         return sensorType;
     }
 
-    /**
-     * Retrieves the measuring unit associated with the sensor type.
-     *
-     * @return The measuring unit.
-     */
-    public String getMeasuringUnit() {
-        return measuringUnit;
-    }
-
-    /**
-     * Retrieves a combined string of the type and measuring unit.
-     *
-     * @return A string combining the type and measuring unit.
-     */
-    public String getTypeAndMeasuringUnit() {
-        return sensorType + " (" + measuringUnit + ")";
-    }
 }

@@ -11,59 +11,59 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- This test class represents a group of unit tests for the Room class.
- It uses valid room parameters and mock objects for DeviceFactory and DimensionsFactory.
- It is used to test the Room constructor, the getter methods for room attributes, and the methods for device management in a room.
+ * This test class represents a group of unit tests for the Room class.
+ * It uses valid room parameters and mock objects for DeviceFactory and DimensionsFactory.
+ * It is used to test the Room constructor, the getter methods for room attributes, and the methods for device management in a room.
  */
 
 class RoomTest {
 
     /**
-     * Mock object for the DeviceFactory class.
+     * deviceFactoryMock attribute.
      */
-    DeviceFactory deviceFactoryMock = mock(DeviceFactory.class);
+    DeviceFactory deviceFactoryMock;
     /**
-     * Mock object for the Device class.
+     * deviceMock attribute.
      */
-    Device deviceMock = mock(Device.class);
+    Device deviceMock;
     /**
-     * Mock object for the DimensionsFactory class.
+     * dimensionsFactoryMock attribute.
      */
-    DimensionsFactory dimensionsFactoryMock = mock(DimensionsFactory.class);
+    DimensionsFactory dimensionsFactoryMock;
     /**
-     * Mock object for the Dimensions class.
+     * dimensionsMock attribute.
      */
-    Dimensions dimensionsMock = mock(Dimensions.class);
+    Dimensions dimensionsMock;
     /**
-     * Valid width for the Room object.
+     * validWidth attribute.
      */
-    double validWidth = 10;
+    double validWidth;
     /**
-     * Valid length for the Room object.
+     * validLength attribute.
      */
-    double validLength = 20;
+    double validLength;
     /**
-     * Valid height for the Room object.
+     * validHeight attribute.
      */
-    double validHeight = 30;
+    double validHeight;
     /**
-     * Valid floor for the Room object.
+     * validFloor attribute.
      */
-    int validFloor = 1;
+    int validFloor;
     /**
-     * Valid room name for the Room object.
+     * validRoomName attribute.
      */
-    String validRoomName = "Living Room";
+    String validRoomName;
     /**
-     * Valid device name for the Room object.
+     * validDeviceName attribute.
      */
-    String validDeviceName = "Device";
+    String validDeviceName;
     /**
-     * Valid device type for the Room object.
+     * validDeviceType attribute.
      */
-    String validDeviceType = "DeviceType";
+    String validDeviceType;
     /**
-     * Valid Room object to be used in the tests.
+     * validRoom attribute.
      */
     Room validRoom;
 
@@ -74,6 +74,17 @@ class RoomTest {
      */
     @BeforeEach
     void setUp() {
+        deviceFactoryMock = mock(DeviceFactory.class);
+        deviceMock = mock(Device.class);
+        dimensionsFactoryMock = mock(DimensionsFactory.class);
+        dimensionsMock = mock(Dimensions.class);
+        validWidth = 10;
+        validLength = 20;
+        validHeight = 30;
+        validFloor = 1;
+        validRoomName = "Living Room";
+        validDeviceName = "Device";
+        validDeviceType = "DeviceType";
         when(dimensionsFactoryMock.createDimensions(validWidth, validLength, validHeight)).thenReturn(dimensionsMock);
         when(deviceFactoryMock.createDevice(validDeviceName, validDeviceType)).thenReturn(deviceMock);
         when(dimensionsMock.getWidth()).thenReturn(validWidth);
@@ -88,7 +99,7 @@ class RoomTest {
      * Test to check if the constructor of the Room class does not throw an exception when valid parameters are used.
      */
     @Test
-    void roomConstructorValidParameters() {
+    void roomConstructorValidParametersShouldNotThrowException() {
         // Act
         Room room = new Room(validRoomName, validFloor, validWidth, validLength, validHeight, dimensionsFactoryMock, deviceFactoryMock);
         String roomName = room.getRoomName();
@@ -109,7 +120,7 @@ class RoomTest {
      * Test to check if the constructor of the Room class does not throw an exception when border parameters are used.
      */
     @Test
-    void roomConstructorBorderParameters() {
+    void roomConstructorBorderParametersShouldNotThrowException() {
         // Arrange
         int floor = -1;
         double width = 0.1;

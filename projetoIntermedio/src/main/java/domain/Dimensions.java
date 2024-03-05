@@ -21,8 +21,8 @@ public class Dimensions {
     /**
      * Constructor to create a Dimensions instance with specified width, length, and height.
      *
-     * @param width  the width of the room (must be a non-negative value)
-     * @param length the length of the room (must be a non-negative value)
+     * @param width  the width of the room
+     * @param length the length of the room
      * @param height the height of the room
      * @throws IllegalArgumentException if the provided dimensions are invalid
      */

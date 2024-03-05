@@ -8,7 +8,6 @@ import values.Value;
  * This class represents a humidity sensor.
  * It implements the Sensor interface and has a type.
  * The sensor has an ID, a type, and a value.
- * The type is always SensorType.HUMIDITY. The value is a HumidityValue.
  * The ID can be set using the setID method.
  */
 public class SensorOfHumidity implements Sensor {
@@ -17,7 +16,7 @@ public class SensorOfHumidity implements Sensor {
      */
     private int id;
     /**
-     * The type of the sensor.
+     * The SensorType of the sensor.
      */
     private SensorType type;
 
@@ -36,7 +35,6 @@ public class SensorOfHumidity implements Sensor {
 
     /**
      * Returns the ID of the sensor.
-     *
      * @return the ID of the sensor
      */
     public int getId() {
@@ -47,6 +45,7 @@ public class SensorOfHumidity implements Sensor {
      * Sets the ID of the sensor.
      *
      * @param newId the new ID of the sensor
+     * @return the newId of the sensor
      */
     public int setId(int newId) {
         this.id = newId;
@@ -54,9 +53,9 @@ public class SensorOfHumidity implements Sensor {
     }
 
     /**
-     * Returns the type of the sensor.
+     * Returns the Sensortype of the sensor.
      *
-     * @return the type of the sensor
+     * @return the Sensortype of the sensor
      */
     public SensorType getType() {
         return type;
