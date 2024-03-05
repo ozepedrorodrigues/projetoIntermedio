@@ -19,7 +19,7 @@ C -> H: getRooms()
 activate H
 H-->C: rooms
 deactivate H
-C -> M: roomToDTO(rooms)
+C -> M: roomsToDTO
 activate M
 
 M-->C: roomsDTO
