@@ -105,6 +105,16 @@ class GetRoomListControllerTest {
     }
 
     /**
+     * Test to check that when the constructor of the GetRoomListController class is null an exception is throw.
+     */
+    @Test
+    void constructorRoomMapperIsNull() {
+        //Act + assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new GetRoomListController(house2, null));
+
+    }
+
+    /**
      * Test to check if the getRooms method returns an empty list.
      */
     @Test
