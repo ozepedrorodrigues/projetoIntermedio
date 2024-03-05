@@ -13,7 +13,7 @@ participant "_getRoomListController:GetRoomListController" as C
 participant "_house:House" as H
 participant "RoomMapper:RoomMapper" as M
 
-[o-> C: getRoomList()
+[o-> C: getRooms()
 activate C
 C -> H: getRooms()
 activate H
