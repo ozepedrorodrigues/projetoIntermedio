@@ -205,6 +205,12 @@ public class LimiterDecimal implements Actuator {
         return value >= this.lowerLimit && value <= this.upperLimit;
     }
 
+    /**
+     * Validates the precision of the LimiterDecimal.
+     *
+     * @param precision the precision to validate
+     * @return true if the precision is non-negative, false otherwise
+     */
     private boolean validPrecision(int precision) {
         return precision >= 0;
     }
