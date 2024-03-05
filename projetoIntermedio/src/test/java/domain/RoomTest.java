@@ -268,14 +268,23 @@ class RoomTest {
     void testGetDevicesInRoomReturnsCorrectDevices() {
         // Arrange
         validRoom.addNewDevice(validDeviceName, validDeviceType);
-        int sizeExpected = 1;
+        String otherDeviceName = "Device2";
+        String otherDeviceType = "DeviceType2";
+        Device deviceMock2 = mock(Device.class);
+        when(deviceFactoryMock.createDevice(otherDeviceName, otherDeviceType)).thenReturn(deviceMock2);
+        when(deviceMock2.getName()).thenReturn(otherDeviceName);
+        when(deviceMock2.getType()).thenReturn(otherDeviceType);
+        validRoom.addNewDevice(otherDeviceName, otherDeviceType);
+        int sizeExpected = 2;
         // Act
         List<Device> deviceList = validRoom.getDevicesInRoom();
-        boolean deviceIsPresent = deviceList.contains(deviceMock);
+        String deviceName1Result = deviceList.getFirst().getName();
+        String deviceName2Result = deviceList.getLast().getName();
         int sizeResult = deviceList.size();
         // Assert
-        assertTrue(deviceIsPresent);
         assertEquals(sizeExpected, sizeResult);
+        assertEquals(validDeviceName, deviceName1Result);
+        assertEquals(otherDeviceName, deviceName2Result);
     }
 
     /**
