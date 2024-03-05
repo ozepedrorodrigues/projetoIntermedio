@@ -181,14 +181,17 @@ class AddSensorToDeviceControllerTest {
     @Test
     void testGetRoomList() {
         // Arrange
+        String roomName = "Room1";
         house.addRoom(roomName, 1, 1, 1, 1);
-        int expectedSize = 1;
+        int expected = 1;
 
         // Act
-        int resultSize = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getRooms().size();
+        List<RoomDTO> result = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController).getRooms();
 
         // Assert
-        assertEquals(expectedSize, resultSize);
+        assertEquals(expected, result.size());
+        assertEquals(roomName, result.getFirst().getName());
+
     }
 
     /**
@@ -200,15 +203,21 @@ class AddSensorToDeviceControllerTest {
     @Test
     void testGetDeviceList() {
         // Arrange
+        String roomName = "Room1";
+        String deviceName = "Device1";
+        house.addRoom(roomName, 1, 1, 1, 1);
+        house.getRoomByName(roomName).addNewDevice(deviceName, "Light");
         RoomDTO roomDTO = new RoomDTO(roomName, 1, 1, 1, 1);
         AddSensorToDeviceController controller = new AddSensorToDeviceController(house, catalogue, sensorMapper, getRoomListController, getDeviceListController);
+        int expected = 1;
 
         // Act
         List<DeviceDTO> devices = controller.getDevices(roomDTO);
 
         // Assert
         assertNotNull(devices);
-        assertEquals(house.getRoomByName(roomName).getDevicesInRoom().size(), devices.size());
+        assertEquals(expected, devices.size());
+        assertEquals(deviceName, devices.getFirst().getName());
     }
 
     /**
