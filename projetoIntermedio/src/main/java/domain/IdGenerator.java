@@ -5,7 +5,13 @@ package domain;
  */
 public class IdGenerator {
 
+    /**
+     * The current sensor and actuator ID.
+     */
     private static int sensorId = 1;
+    /**
+     * The current actuator ID.
+     */
     private static int actuatorId = 1;
 
     /**

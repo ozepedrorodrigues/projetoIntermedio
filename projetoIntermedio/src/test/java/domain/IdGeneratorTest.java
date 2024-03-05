@@ -10,11 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class IdGeneratorTest {
 
     /**
-     * Test of generateActuatorId method.
+     * Test of generateSensorId method.
      * The method should return a unique id for each call.
      */
     @Test
     void generateSensorId() {
+        //Act and Assert
         assertEquals(1, IdGenerator.generateSensorId());
         assertEquals(2, IdGenerator.generateSensorId());
         assertEquals(3, IdGenerator.generateSensorId());
@@ -26,6 +27,7 @@ class IdGeneratorTest {
      */
     @Test
     void generateActuatorId() {
+        //Act and Assert
         assertEquals(1, IdGenerator.generateActuatorId());
         assertEquals(2, IdGenerator.generateActuatorId());
         assertEquals(3, IdGenerator.generateActuatorId());
@@ -35,7 +37,9 @@ class IdGeneratorTest {
  */
     @Test
     void resetSensorId() {
+        //Act
         IdGenerator.resetSensorId();
+        //Assert
         assertEquals(1, IdGenerator.generateSensorId());
     }
 
@@ -44,7 +48,9 @@ class IdGeneratorTest {
      */
     @Test
     void resetActuatorId() {
+        //Act
         IdGenerator.resetActuatorId();
+        //Assert
         assertEquals(1, IdGenerator.generateActuatorId());
     }
 }

@@ -75,30 +75,21 @@ public class Location {
     }
 
     /**
-     * Getter for the GPSFactory of the location
-     *
-     * @return the GPS factory of the location
-     */
-    public GPSFactory getGpsLocationFactory() {
-        return gpsFactory;
-    }
-
-    /**
-     * Checks if the given address is non-null and not blank.
+     * Checks if the given address is invalid.
      */
     private boolean validAddress(String address) {
         return address != null && !address.isBlank();
     }
 
     /**
-     * Checks if the given zip code is non-null and not blank.
+     * Checks if the given zip code is invalid.
      */
     private boolean validZipCode(String zipCode) {
         return zipCode != null && !zipCode.isBlank();
     }
 
     /**
-     * Checks if the given GPSFactory is non-null.
+     * Checks if the given GPSFactory is invalid.
      */
     private boolean validGpsFactory(GPSFactory gpsFactory) {
         return gpsFactory != null;

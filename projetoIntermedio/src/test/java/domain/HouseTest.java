@@ -1,6 +1,5 @@
 package domain;
 
-import factories.DimensionsFactory;
 import factories.LocationFactory;
 import factories.RoomFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,49 +13,101 @@ import static org.mockito.Mockito.*;
 
 /**
  * This class contains unit tests for the House class. It uses Mockito
- * for creating mock objects and testing in isolation. The tests cover various
+ * for creating mock objects and testing in isolation. The tests covers various
  * scenarios including valid construction, invalid parameters, defining
  * locations, adding rooms, and retrieving information.
  */
 public class HouseTest {
 
-    // Mock objects for the LocationFactory and RoomFactory
-    LocationFactory locationFactoryMock = mock(LocationFactory.class);
-    Location locationMock = mock(Location.class);
-    String validAddress = "Valid Address";
-    String validZipCode = "Valid ZipCode";
-    double validLatitude = 67.9222;
-    double validLongitude = 26.5046;
+    /**
+     * The mock object of The LocationFactory as an attribute.
+     */
+    LocationFactory locationFactoryMock;
+    /**
+     * The mock object of The Location as an attribute
+     */
+    Location locationMock;
+    /**
+     * An example of a valid Address (String) as an attribute
+     */
+    String validAddress;
+    /**
+     * An example of a valid ZipCode (String) as an attribute
+     */
+    String validZipCode;
+    /**
+     * An example of a valid Latitude (double) as an attribute
+     */
+    double validLatitude;
+    /**
+     * An example of a valid Longitude (double) as an attribute
+     */
+    double validLongitude;
+    /**
+     * The mock object of The RoomFactory as an attribute
+     */
+    RoomFactory roomFactoryMock;
+    /**
+     * The mock object of Room saved as an attribute
+     */
+    Room roomMock;
+    /**
+     * An example of a valid Room Name (String) as an attribute
+     */
+    String validRoomName;
+    /**
+     * An example of a valid Floor (int) as an attribute
+     */
+    int validFloor;
+    /**
+     * An example of a valid Room Width (double) as an attribute
+     */
+    double validRoomWidth;
+    /**
+     * An example of a valid Room Length (double) as an attribute
+     */
+    double validRoomLength;
+    /**
+     * An example of a valid Room Height (double) as an attribute
+     */
+    double validRoomHeight;
 
-    RoomFactory roomFactoryMock = mock(RoomFactory.class);
-    Room roomMock = mock(Room.class);
-    String validRoomName = "Valid Room";
-    int validFloor = 0;
-    double validRoomWidth = 4.0;
-    double validRoomLength = 3.0;
-    double validRoomHeight = 2.5;
-
-    // The House instance under test
-    House matryoshka;
+    /**
+     * The House atttibute used for testing.
+     */
+    House house;
 
     /**
      * This method is executed before each test case. It sets up the mock
-     * behaviors and initializes the House instance with valid factories.
+     * behaviors and initializes instances of every attribute with valid factories.
      */
     @BeforeEach
     void setUp() {
+        locationFactoryMock = mock(LocationFactory.class);
+        locationMock = mock(Location.class);
+        validAddress = "Valid Address";
+        validZipCode = "Valid ZipCode";
+        validLatitude = 67.9222;
+        validLongitude = 26.5046;
+        roomFactoryMock = mock(RoomFactory.class);
+        roomMock = mock(Room.class);
+        validRoomName = "Valid Room";
+        validFloor = 0;
+        validRoomWidth = 4.0;
+        validRoomLength = 3.0;
+        validRoomHeight = 2.5;
         when(locationFactoryMock.createLocation(validAddress, validZipCode, validLatitude, validLongitude)).thenReturn(locationMock);
         when(roomFactoryMock.createRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(roomMock);
-
-        this.matryoshka = new House(locationFactoryMock, roomFactoryMock);
+        this.house = new House(locationFactoryMock, roomFactoryMock);
     }
 
     /**
      * Tests the constructor of the House class with all valid parameters.
      * It ensures that the House instance is created successfully.
+     * Should not Throw Exception and the object should not be null.
      */
     @Test
-    void houseConstructorWithAllValidParameters() {
+    void houseConstructorWithAllValidParametersShouldNotThrowException() throws IllegalArgumentException{
         // Act
         House ourHouse = new House(locationFactoryMock, roomFactoryMock);
         // Assert
@@ -94,7 +145,7 @@ public class HouseTest {
     @Test
     void defineLocationWithAllValidParameters() {
         // Act
-        Location location = matryoshka.defineLocation(validAddress, validZipCode, validLatitude, validLongitude);
+        Location location = house.defineLocation(validAddress, validZipCode, validLatitude, validLongitude);
         // Assert
         assertNotNull(location);
         assertEquals(locationMock, location);
@@ -112,7 +163,7 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(invalidAddress, validZipCode, validLatitude, validLongitude))
                 .thenReturn(null);
         // Act
-        Location result = matryoshka.defineLocation(invalidAddress, validZipCode, validLatitude, validLongitude);
+        Location result = house.defineLocation(invalidAddress, validZipCode, validLatitude, validLongitude);
         // Assert
         assertNull(result);
     }
@@ -129,7 +180,7 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(validAddress, invalidZipCode, validLatitude, validLongitude))
                 .thenReturn(null);
         // Act
-        Location result = matryoshka.defineLocation(validAddress, invalidZipCode, validLatitude, validLongitude);
+        Location result = house.defineLocation(validAddress, invalidZipCode, validLatitude, validLongitude);
         // Assert
         assertNull(result);
     }
@@ -146,7 +197,7 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(validAddress, validZipCode, invalidLatitude, validLongitude))
                 .thenReturn(null);
         // Act
-        Location result = matryoshka.defineLocation(validAddress, validZipCode, invalidLatitude, validLongitude);
+        Location result = house.defineLocation(validAddress, validZipCode, invalidLatitude, validLongitude);
         // Assert
         assertNull(result);
     }
@@ -163,7 +214,7 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(validAddress, validZipCode, validLatitude, invalidLongitude))
                 .thenReturn(null);
         // Act
-        Location result = matryoshka.defineLocation(validAddress, validZipCode, validLatitude, invalidLongitude);
+        Location result = house.defineLocation(validAddress, validZipCode, validLatitude, invalidLongitude);
         // Assert
         assertNull(result);
     }
@@ -183,7 +234,7 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(invalidAddress, invalidZipCode, invalidLatitude, invalidLongitude))
                 .thenReturn(null);
         // Act
-        Location result = matryoshka.defineLocation(invalidAddress, invalidZipCode, invalidLatitude, invalidLongitude);
+        Location result = house.defineLocation(invalidAddress, invalidZipCode, invalidLatitude, invalidLongitude);
         // Assert
         assertNull(result);
     }
@@ -196,7 +247,7 @@ public class HouseTest {
     @Test
     void getLocationBeforeLocationIsSet() {
         // Act
-        Location location = matryoshka.getLocation();
+        Location location = house.getLocation();
         // Assert
         assertNull(location);  // Initially, location is not set
     }
@@ -213,8 +264,8 @@ public class HouseTest {
         when(locationFactoryMock.createLocation(validAddress, validZipCode, validLatitude, validLongitude))
                 .thenReturn(locationMock);
         // Act
-        Location definedLocation = matryoshka.defineLocation(validAddress, validZipCode, validLatitude, validLongitude);
-        Location retrievedLocation = matryoshka.getLocation();
+        Location definedLocation = house.defineLocation(validAddress, validZipCode, validLatitude, validLongitude);
+        Location retrievedLocation = house.getLocation();
         // Assert
         assertNotNull(definedLocation);                 // Ensure location was defined successfully
         assertEquals(locationMock, retrievedLocation);  // Ensure retrieved location is the same as the defined location
@@ -228,7 +279,7 @@ public class HouseTest {
     @Test
     void addRoomWithAllValidParameters() {
         // Act
-        Room addedRoom = matryoshka.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Room addedRoom = house.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         // Assert
         assertNotNull(addedRoom);
         assertEquals(roomMock, addedRoom);
@@ -240,33 +291,30 @@ public class HouseTest {
      * the method returns null, indicating the failure to create the room.
      */
     @Test
-    void addRoomWithInvalidRoomName() {
+    void addRoomWithEmptyRoomName() {
         // Arrange
         String invalidRoomName = "";
         when(roomFactoryMock.createRoom(invalidRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight))
                 .thenReturn(null);
         // Act
-        Room result = matryoshka.addRoom(invalidRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Room result = house.addRoom(invalidRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         // Assert
-        assertNull(result);
-    }
-
+        assertNull(result);}
     /**
-     * Tests the addRoom method with an invalid floor parameter.
-     * It ensures that when attempting to add a room with an invalid floor,
+     * Tests the addRoom method with an invalid room name parameter.
+     * It ensures that when attempting to add a room with an invalid room name,
      * the method returns null, indicating the failure to create the room.
      */
     @Test
-    void addRoomWithInvalidFloor() {
+    void addRoomWithBlankRoomName() {
         // Arrange
-        int invalidFloor = -1;
-        when(roomFactoryMock.createRoom(validRoomName, invalidFloor, validRoomWidth, validRoomLength, validRoomHeight))
+        String invalidRoomName = " ";
+        when(roomFactoryMock.createRoom(invalidRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight))
                 .thenReturn(null);
         // Act
-        Room result = matryoshka.addRoom(validRoomName, invalidFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Room result = house.addRoom(invalidRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         // Assert
-        assertNull(result);
-    }
+        assertNull(result);}
 
     /**
      * Tests the addRoom method with an invalid room width parameter.
@@ -280,7 +328,7 @@ public class HouseTest {
         when(roomFactoryMock.createRoom(validRoomName, validFloor, invalidRoomWidth, validRoomLength, validRoomHeight))
                 .thenReturn(null);
         // Act
-        Room result = matryoshka.addRoom(validRoomName, validFloor, invalidRoomWidth, validRoomLength, validRoomHeight);
+        Room result = house.addRoom(validRoomName, validFloor, invalidRoomWidth, validRoomLength, validRoomHeight);
         // Assert
         assertNull(result);
     }
@@ -297,7 +345,7 @@ public class HouseTest {
         when(roomFactoryMock.createRoom(validRoomName, validFloor, validRoomWidth, invalidRoomLength, validRoomHeight))
                 .thenReturn(null);
         // Act
-        Room result = matryoshka.addRoom(validRoomName, validFloor, validRoomWidth, invalidRoomLength, validRoomHeight);
+        Room result = house.addRoom(validRoomName, validFloor, validRoomWidth, invalidRoomLength, validRoomHeight);
         // Assert
         assertNull(result);
     }
@@ -314,7 +362,7 @@ public class HouseTest {
         when(roomFactoryMock.createRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, invalidRoomHeight))
                 .thenReturn(null);
         // Act
-        Room result = matryoshka.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, invalidRoomHeight);
+        Room result = house.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, invalidRoomHeight);
         // Assert
         assertNull(result);
     }
@@ -327,7 +375,7 @@ public class HouseTest {
     @Test
     void getRoomsBeforeAddingAnyRoom() {
         // Act
-        List<Room> rooms = matryoshka.getRooms();
+        List<Room> rooms = house.getRooms();
         // Assert
         assertNotNull(rooms);
         assertEquals(0, rooms.size());  // Initially, there are no rooms
@@ -342,9 +390,9 @@ public class HouseTest {
     void getRoomsAfterAddingOneRoom() {
         // Arrange
         int expectedSize = 1;
-        matryoshka.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        house.addRoom(validRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
         // Act
-        List<Room> rooms = matryoshka.getRooms();
+        List<Room> rooms = house.getRooms();
         // Assert
         assertNotNull(rooms);
         assertEquals(expectedSize, rooms.size());
@@ -370,9 +418,9 @@ public class HouseTest {
         when(roomFactoryMock.createRoom(expectedRoomName2, validFloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(roomMock2);
 
         // Act
-        matryoshka.addRoom(expectedRoomName1, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
-        matryoshka.addRoom(expectedRoomName2, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
-        List<Room> retrieveRooms = matryoshka.getRooms();
+        house.addRoom(expectedRoomName1, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        house.addRoom(expectedRoomName2, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        List<Room> retrieveRooms = house.getRooms();
         // Assert
         assertNotNull(retrieveRooms);
         assertEquals(expectedSize, retrieveRooms.size());
@@ -386,12 +434,53 @@ public class HouseTest {
      * that the room is not found.
      */
     @Test
-    void getRoomByName() {
+    void getRoomByNameNonExistentShouldReturnNull() {
         // Act
-        Room room = matryoshka.getRoomByName("Nonexistent Room");
+        Room room = house.getRoomByName("Nonexistent Room");
         // Assert
         assertNull(room);
     }
+
+    /**
+     * Tests the getRoomByName method when attempting to retrieve a
+     * room with a null name. It ensures that null is returned, indicating
+     * that the room is not found.
+     */
+    @Test
+    void getRoomByNameNullStringShouldReturnNull(){
+        // Act
+        Room room = house.getRoomByName(null);
+        // Assert
+        assertNull(room);}
+
+    /**
+     * Tests the getRoomByName method when attempting to retrieve a
+     * room with an empty name. It ensures that null is returned,
+     * indicating that the room is not found.
+     */
+    @Test
+    void getRoomByNameEmptyStringShouldReturnNull(){
+        //Arrange
+        String roomName = "";
+        // Act
+        Room room = house.getRoomByName(roomName);
+        // Assert
+        assertNull(room);
+    }
+
+    /**
+     * Tests the getRoomByName method when attempting to retrieve a
+     * room with a blank name. It ensures that null is returned,
+     * indicating that the room is not found.
+     */
+    @Test
+    void getRoomByNameBlankStringShouldReturnNull(){
+        //Arrange
+        String roomName = " ";
+        // Act
+        Room room = house.getRoomByName(roomName);
+        // Assert
+        assertNull(room);}
 
     /**
      * Tests the getRoomByName method when attempting to retrieve an
@@ -406,8 +495,8 @@ public class HouseTest {
         when(existingRoomMock.getRoomName()).thenReturn(expectedRoomName);
         when(roomFactoryMock.createRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(existingRoomMock);
         // Act
-        matryoshka.addRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
-        Room existingRoom = matryoshka.getRoomByName(expectedRoomName);
+        house.addRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Room existingRoom = house.getRoomByName(expectedRoomName);
         // Assert
         assertNotNull(expectedRoomName);
         assertEquals(expectedRoomName, existingRoom.getRoomName());
@@ -420,7 +509,7 @@ public class HouseTest {
     @Test
     void getDevicesGroupedByRoomWithNoRooms() {
         // Act
-        Map<String, List<Device>> devicesPerRoom = matryoshka.getDevicesGroupedByRoom();
+        Map<String, List<Device>> devicesPerRoom = house.getDevicesGroupedByRoom();
         // Assert
         assertNotNull(devicesPerRoom);
         assertTrue(devicesPerRoom.isEmpty());
@@ -438,8 +527,8 @@ public class HouseTest {
         when(oneRoomMock.getRoomName()).thenReturn(expectedRoomName);
         when(roomFactoryMock.createRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight)).thenReturn(oneRoomMock);
         // Act
-        matryoshka.addRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
-        Map<String, List<Device>> devicesPerRoom = matryoshka.getDevicesGroupedByRoom();
+        house.addRoom(expectedRoomName, validFloor, validRoomWidth, validRoomLength, validRoomHeight);
+        Map<String, List<Device>> devicesPerRoom = house.getDevicesGroupedByRoom();
         // Assert
         assertNotNull(devicesPerRoom);
         //assertTrue(devicesPerRoom.isEmpty());

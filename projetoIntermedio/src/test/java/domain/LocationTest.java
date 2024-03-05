@@ -15,32 +15,32 @@ import static org.mockito.Mockito.when;
 class LocationTest {
 
     /**
-     * Mock object for the GPSFactory class.
+     * gpsFactory attribute.
      */
     GPSFactory gpsFactoryDouble;
 
     /**
-     * Mock object for the GPS class.
+     * gpsDouble attribute.
      */
     GPS gpsDouble;
 
     /**
-     * Valid address for testing the Location class.
-     */
+     * validAddress attribute.
+     * */
     String validAddress;
 
     /**
-     * Valid zip code for testing the Location class.
+     * validZipCode attribute.
      */
     String validZipCode;
 
     /**
-     * Valid latitude for testing the Location class.
+     * validLatitude attribute.
      */
     double validLatitude;
 
     /**
-     * Valid longitude for testing the Location class.
+     * validLongitude attribute.
      */
     double validLongitude;
 
@@ -64,7 +64,6 @@ class LocationTest {
     void testConstructor() {
         // Arrange - Act
         Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
-
         // Assert
         assertNotNull(location);
     }
@@ -82,13 +81,11 @@ class LocationTest {
         String resultAddress = location.getAddress();
         String resultZipCode = location.getZipCode();
         GPS resultGps = location.getGps();
-        GPSFactory resultGpsFactory = location.getGpsLocationFactory();
 
         //Assert
         assertEquals(validAddress, resultAddress);
         assertEquals(validZipCode, resultZipCode);
         assertEquals(gpsDouble, resultGps);
-        assertEquals(gpsFactoryDouble, resultGpsFactory);
     }
 
     /**
@@ -208,21 +205,5 @@ class LocationTest {
 
         // Assert
         assertEquals(gpsDouble, result);
-    }
-
-    /**
-     * Tests the getGpsLocationFactory method of the Location class.
-     * Verifies that the method returns the expected GPSFactory.
-     */
-    @Test
-    void testGetGpsLocationFactory() {
-        // Arrange
-        Location location = new Location(validAddress, validZipCode, validLatitude, validLongitude, gpsFactoryDouble);
-
-        // Act
-        GPSFactory result = location.getGpsLocationFactory();
-
-        // Assert
-        assertEquals(gpsFactoryDouble, result);
     }
 }

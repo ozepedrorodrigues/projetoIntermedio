@@ -9,38 +9,48 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A house may include gardens and other outbuildings that are part of the house (e.g. garage, garden
- * shed, etc.). It may also have more than one floor. A house has an address, including ZIP code, and a
- * GPS location.
+ * The House class represents a house with a location and a list of rooms.
+ * The location of the house is defined using a LocationFactory, and rooms are added to the house using a RoomFactory.
+ * The house can also retrieve a list of all rooms, retrieve a room by its name, and get devices in the house grouped by room.
  */
 public class House {
 
+    /**
+     * The location of the house.
+     */
     private Location location;
+    /**
+     * The factory for creating locations.
+     */
     private LocationFactory locationFactory;
+    /**
+     * The factory for creating Rooms
+     */
     private RoomFactory roomFactory;
+    /**
+     * The list of rooms in the house.
+     */
     private List<Room> rooms;
-    private IdGenerator idGenerator;
 
     /**
      * Constructs a new House object with the specified location factory and room factory.
      *
      * @param locationFactory the factory for creating locations
      * @param roomFactory     the factory for creating rooms
+     * @throws IllegalArgumentException at least if one of the Factories is not valid
      */
-    public House(LocationFactory locationFactory, RoomFactory roomFactory) {
+    public House(LocationFactory locationFactory, RoomFactory roomFactory) throws IllegalArgumentException{
         if (!validLocationFactory(locationFactory) || !validRoomFactory(roomFactory)) {
             throw new IllegalArgumentException();
         }
         this.locationFactory = locationFactory;
         this.roomFactory = roomFactory;
-        this.rooms = new ArrayList<>();
-        this.idGenerator = new IdGenerator();
-    }
+        this.rooms = new ArrayList<>();}
 
     /**
-     * Checks if the given LocationFactory is non-null.
+     * Checks if the given LocationFactory is valid.
      *
-     * @param locationFactory
+     * @param locationFactory the location factory to check
      * @return true if the locationFactory is valid, false otherwise
      */
     private boolean validLocationFactory(LocationFactory locationFactory) {
@@ -48,9 +58,9 @@ public class House {
     }
 
     /**
-     * Checks if the given RoomFactory is non-null.
+     * Checks if the given RoomFactory is valid.
      *
-     * @param roomFactory
+     * @param roomFactory the room factory to check
      * @return true if the roomFactory is valid, false otherwise
      */
     private boolean validRoomFactory(RoomFactory roomFactory) {
@@ -59,11 +69,7 @@ public class House {
 
     /**
      * Defines the location of the house using the injected LocationFactory and location details.
-     * Attempts to create a new Location object using the injected LocationFactory and the specified
-     * address, zip code, latitude, and longitude parameters. If successful, updates the current location
-     * of the house. If the creation process fails due to invalid parameters or other issues,
-     * an error message is printed, and no changes to the house's state are made.
-     *
+     * Attempts to create a new Location and updates the Location of the House.
      * @param address   the address of the location.
      * @param zipCode   the zip code of the location.
      * @param latitude  the latitude coordinate of the location.
@@ -82,7 +88,6 @@ public class House {
 
     /**
      * Retrieves the location of the house.
-     *
      * @return the location of the house
      */
     public Location getLocation() {
@@ -91,12 +96,7 @@ public class House {
 
     /**
      * Adds a new room to the house using the injected RoomFactory and room details.
-     * Attempts to create a new Room object using the injected RoomFactory and the specified
-     * room name, floor, width, length, and height parameters. If successful, adds the room
-     * to the list of rooms in the house. If a room with the same name already exists,
-     * returns null without adding the room. If the creation process fails due to invalid
-     * parameters or other issues, an error message is printed, and no changes to the
-     * house's state are made.
+     * Attempts to create a new Room and add it to the rooms List.
      *
      * @param roomName the name of the room.
      * @param floor    the floor of the room.
@@ -153,21 +153,22 @@ public class House {
     public Room getRoomByName(String roomName) {
         for (Room room : rooms) {
             if (roomName.equals(room.getRoomName())) {
-                return room;
-            }
-        }
+                return room;}}
         return null;
     }
 
     /**
      * Method to get devices in the house grouped by room
      *
-     * @return a map of devices grouped by room
+     * @return a Map<String,List<Device>> of devices grouped by roomName
      */
     public Map<String, List<Device>> getDevicesGroupedByRoom() {
         Map<String, List<Device>> devicesPerRoom = new HashMap<>();
+        // For each room, get the devices in the room and add them to the map
         for (Room room : rooms) {
+            // Get the devices in the room
             List<Device> deviceList = room.getDevicesInRoom();
+            // Add the devices to the map
             devicesPerRoom.put(room.getRoomName(), deviceList);
         }
         return devicesPerRoom;

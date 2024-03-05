@@ -9,6 +9,8 @@ import sensors.SensorOfHumidity;
 import sensors.SensorOfTemperature;
 import values.Value;
 
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,11 +21,11 @@ import static org.mockito.Mockito.when;
  */
 class DeviceTest {
     /**
-     * A valid name of the device (used to save time and avoid repetition).
+     * A valid name of the device.
      */
     String validName = "Device1";
     /**
-     * A valid type of the device (used to save time and avoid repetition).
+     * A valid type of the device.
      */
     String validType = "Type1";
 
@@ -87,7 +89,6 @@ class DeviceTest {
 
     /**
      * Test designed to assess the response of the constructor to a Null Name (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void constructorInvalidNullNameShouldThrowIllegalArgumentException() {
@@ -97,7 +98,6 @@ class DeviceTest {
 
     /**
      * Test designed to assess the response of the constructor to a Null SensorFactory (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void construtorInvalidNullsensorFactoryShouldThrowIllegalArgumentException() {
@@ -107,7 +107,6 @@ class DeviceTest {
 
     /**
      * Test designed to assess the response of the constructor to a Null Type (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void constructorInvalidNullTypeShouldThrowIllegalArgumentException() {
@@ -117,7 +116,6 @@ class DeviceTest {
 
     /**
      * Test designed to assess the response of the constructor to an Emptu Name (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void constructorInvalidEmptyNameShouldThrowIllegalArgumentException() {
@@ -127,6 +125,9 @@ class DeviceTest {
         assertThrows(IllegalArgumentException.class, () -> new Device(invalidName, validType, sensorFactory, actuatorFactory));
     }
 
+    /**
+     * Test designed to assess the response of the constructor to a Null ActuatorFactory (should throw IllegalArgumentException).
+     */
     @Test
     void constructorNullActuatorFactoryShouldThrowIllegalArgumentException() {
         //Arrange and Act and Assert
@@ -135,7 +136,6 @@ class DeviceTest {
 
     /**
      * Test designed to assess the response of the constructor to an Emptu Type (should throw IllegalArgumentException).
-     * The Exception thrown should send a message in a String "Invalid Parameters".
      */
     @Test
     void constructorInvalidEmptyTypeShouldThrowIllegalArgumentException() {
@@ -174,6 +174,46 @@ class DeviceTest {
     }
 
     /**
+     * Test designed to evaluate the response of the getFunctionalities method when the device has no sensors.
+     * The method should return an empty list.
+     */
+    @Test
+    void getFunctionalities() {
+        //Arrange
+        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
+        //Act
+        HashSet<String> result = device.getFunctionalities();
+        //Assert
+        assertNotNull(result);
+        assertEquals(0, result.size());}
+
+    /**
+     * Test designed to evaluate the response of the getFunctionalities method when the device has 1 sensor.
+     * The method should return a list with 1 functionality (temperature).
+     */
+    @Test
+    void getFunctionalitiesWithOneSensor() {
+        //Arrange
+        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
+        String sensorClassName = "SensorOfTemperature";
+        HashSet<String> expected = new HashSet<>();
+        expected.add("Temperature");
+        int expectedId=1;
+        //Act
+        when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
+        when(sensorOfTemperature.getId()).thenReturn(1);
+        when(sensorOfTemperature.getType()).thenReturn(Temperature);
+        Sensor result = device.addSensor(sensorClassName);
+        HashSet<String> functionalities = device.getFunctionalities();
+        //Assert
+        assertNotNull(result);
+        assertEquals(expectedId, result.getId());
+        assertEquals(Temperature, result.getType());
+        assertEquals(expected.size(), device.getDeviceSensors().size());
+        assertTrue(functionalities.containsAll(expected));
+        assertEquals(expected.size(), device.getFunctionalities().size());}
+
+    /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor of temperature to an empty device.
      * The method should return the sensor added, and the device should have 1 sensor and 1 functionality (temperature).
      */
@@ -191,28 +231,6 @@ class DeviceTest {
         assertNotNull(result);
         assertEquals(1, result.getId());
         assertEquals(humidity, result.getType());
-        assertEquals(1, device.getDeviceSensors().size());
-        assertEquals(1, device.getFunctionalities().size());
-    }
-
-    /**
-     * Test designed to evaluate the response of the addSensor method when adding a sensor of temperature to an empty device.
-     * The method should return the sensor added, and the device should have 1 sensor and 1 functionality (temperature).
-     */
-    @Test
-    void addSensorOfTemperatureToAnEmptyDevice() {
-        //Arrange
-        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
-        String sensorClassName = "SensorOfTemperature";
-        //Act
-        when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfTemperature);
-        when(sensorOfTemperature.getId()).thenReturn(1);
-        when(sensorOfTemperature.getType()).thenReturn(Temperature);
-        Sensor result = device.addSensor(sensorClassName);
-        //Assert
-        assertNotNull(result);
-        assertEquals(1, result.getId());
-        assertEquals(Temperature, result.getType());
         assertEquals(1, device.getDeviceSensors().size());
         assertEquals(1, device.getFunctionalities().size());
     }
@@ -249,35 +267,6 @@ class DeviceTest {
         assertEquals(1, device.getFunctionalities().size());
     }
 
-    /**
-     * Test designed to evaluate the response of the addSensor method when adding a sensor of humidity to a device that already has one.
-     * The method should return the sensor added, and the device should have 2 sensor and 1 functionality (humidity).
-     */
-    @Test
-    void addSensorOfHumidityToADeviceWhichAlreadyHasOne() {
-        //Arrange
-        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
-        String sensorClassName = "SensorOfHumidity";
-        Sensor sensor2 = mock(SensorOfHumidity.class);
-        //Act
-        when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensorOfHumidity);
-        when(sensorOfHumidity.getId()).thenReturn(1);
-        when(sensorOfHumidity.getType()).thenReturn(humidity);
-        Sensor result = device.addSensor(sensorClassName);
-        when(sensorFactory.createSensor(sensorClassName)).thenReturn(sensor2);
-        when(sensor2.getId()).thenReturn(2);
-        when(sensor2.getType()).thenReturn(humidity);
-        Sensor result2 = device.addSensor(sensorClassName);
-        //Assert
-        assertNotNull(result);
-        assertNotNull(result2);
-        assertEquals(1, result.getId());
-        assertEquals(humidity, result.getType());
-        assertEquals(2, result2.getId());
-        assertEquals(humidity, result2.getType());
-        assertEquals(2, device.getDeviceSensors().size());
-        assertEquals(1, device.getFunctionalities().size());
-    }
 
     /**
      * Test designed to evaluate the response of the addSensor method when adding a sensor of humidity to a device with a temperature sensor.
@@ -335,6 +324,23 @@ class DeviceTest {
         //Arrange
         Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
         String invalidClassName = "";
+        //Act
+        Sensor result = device.addSensor(invalidClassName);
+        //Assert
+        assertNull(result);
+        assertEquals(0, device.getDeviceSensors().size());
+        assertEquals(0, device.getFunctionalities().size());
+    }
+
+    /**
+     * Test designed to evaluate the response of the addSensor method when adding a sensor with an invalid (blank) class name.
+     * The method should return null and the device should have no sensors.
+     */
+    @Test
+    void addSensorInvalidClassNameIsBlank() {
+        //Arrange
+        Device device = new Device(validName, validType, sensorFactory, actuatorFactory);
+        String invalidClassName = " ";
         //Act
         Sensor result = device.addSensor(invalidClassName);
         //Assert

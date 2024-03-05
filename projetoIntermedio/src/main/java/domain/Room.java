@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a room in a Smart Home, which is a logical part of a house with specific functionalities.
+ * Represents a room in a Smart Home, which is a logical part of a house.
  * A room has a name, house floor, and dimensions. It can be used to manage devices that act as sensors,
- * actuators, or both. Devices in a room have the same set of permissions, and the room may have a set of owners.
+ * actuators, or both.
  */
 public class Room {
     /**
@@ -113,17 +113,6 @@ public class Room {
     }
 
     /**
-     * Method to add a device to room
-     *
-     * @param deviceName the name of the device to be added
-     */
-    private boolean validDeviceName(String deviceName) {
-        for (Device devices : devices) {
-            if (devices.getName().equalsIgnoreCase(deviceName)) {
-                return false;}}
-        return true;}
-
-    /**
      * Returns the devices in the room.
      *
      * @return a list of all devices in the room
@@ -146,7 +135,7 @@ public class Room {
     }
 
     /**
-     * Checks if the given room name is non-null and not blank.
+     * Checks if the given room name is invalid.
      *
      * @param name the name of the room
      * @return true if the name is valid, false otherwise
@@ -156,7 +145,7 @@ public class Room {
     }
 
     /**
-     * Checks if the given dimensionsFactory is non-null.
+     * Checks if the given dimensionsFactory is invalid.
      *
      * @param dimensionsFactory the factory to create dimensions
      * @return true if the dimensionsFactory is valid, false otherwise
@@ -166,7 +155,7 @@ public class Room {
     }
 
     /**
-     * Checks if the given deviceFactory is non-null.
+     * Checks if the given deviceFactory is invalid.
      *
      * @param deviceFactory the factory to create devices
      * @return true if the deviceFactory is valid, false otherwise
@@ -174,4 +163,15 @@ public class Room {
     private boolean validDeviceFactory(DeviceFactory deviceFactory) {
         return deviceFactory != null;
     }
+
+    /**
+     * Method to check if the device name is valid.
+     * @param deviceName the name of the device to be added
+     * @return true if the device name is valid, false otherwise
+     */
+    private boolean validDeviceName(String deviceName) {
+        for (Device devices : devices) {
+            if (devices.getName().equalsIgnoreCase(deviceName)) {
+                return false;}}
+        return true;}
 }

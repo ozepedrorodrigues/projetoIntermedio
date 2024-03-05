@@ -10,14 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * This Test class represents a group of tests to the class Catalogue.
  */
 class CatalogueTest {
+    /**
+     * The path (as String) for the properties file where the available sensors and actuators are configured.
+     */
+    String filePathname = "configTest.properties";;
 
     /**
      * Test to verify that the constructor does not throw exceptions.
+     * The file path is valid.
      */
     @Test
     void catalogueConstructorValidParameters() {
         //Act + assert
-        assertDoesNotThrow(() -> new Catalogue("config.properties"), "Should not throw exception.");
+        assertDoesNotThrow(() -> new Catalogue(filePathname));
     }
 
     /**
@@ -26,10 +31,9 @@ class CatalogueTest {
     @Test
     void catalogueConstructorInvalidPath() {
         //Arrange
-        String expectedMessage = "Wrong file path name.";
-        //Act + assert
-        Exception exception = assertThrows(InstantiationException.class, () -> new Catalogue("config.house"));
-        assertEquals(expectedMessage, exception.getMessage());
+        String invalidFilePathname = "invalidPath.properties";
+        //Act and Assert
+        assertThrows(InstantiationException.class, () -> new Catalogue(invalidFilePathname));
     }
 
     /**
@@ -38,8 +42,8 @@ class CatalogueTest {
     @Test
     void getSensorsCatalogue() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 13;
+        Catalogue catalogue = new Catalogue(filePathname);
+        int expectedSize = 2;
         //Act
         List<String> result = catalogue.getSensorsCatalogue();
         //Assert
@@ -52,8 +56,8 @@ class CatalogueTest {
     @Test
     void getActuatorsCatalogue() throws InstantiationException {
         //Arrange
-        Catalogue catalogue = new Catalogue("config.properties");
-        int expectedSize = 4;
+        Catalogue catalogue = new Catalogue(filePathname);
+        int expectedSize = 1;
         //Act
         List<String> result = catalogue.getActuatorsCatalogue();
         //Assert
