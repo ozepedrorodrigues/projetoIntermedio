@@ -4,6 +4,7 @@ import domain.Device;
 import domain.House;
 import domain.Room;
 import dto.DeviceDTO;
+import dto.RoomDTO;
 import mappers.DeviceMapper;
 
 import java.util.List;
@@ -28,38 +29,34 @@ public class GetDeviceListController {
     private DeviceMapper deviceMapper;
 
     /**
+     * The GetRoomListController instance.
+     */
+    private final GetRoomListController getRoomListController;
+
+    /**
      * Constructs a new instance of the GetDeviceListController.
      *
      * @param ourHouse      The House object representing the overall structure.
      * @param deviceMapper  The mapper used to convert devices to DTOs.
+     * @param getRoomListController the getRoomListController to be initialized
      * @throws IllegalArgumentException if the house or deviceMapper are invalid.
      */
-    public GetDeviceListController(House ourHouse, DeviceMapper deviceMapper) throws IllegalArgumentException {
+    public GetDeviceListController(House ourHouse, DeviceMapper deviceMapper, GetRoomListController getRoomListController) throws IllegalArgumentException {
         if (!validHouse(ourHouse) || !validMapper(deviceMapper)) {
             throw new IllegalArgumentException();
         }
         this.house = ourHouse;
         this.deviceMapper = deviceMapper;
+        this.getRoomListController = getRoomListController;
     }
 
     /**
-     * Checks if the house passed to the constructor is valid.
+     * Fetches a list of RoomDTO objects by using ControllerGetRoomList.
      *
-     * @param ourHouse the house to be checked
-     * @return true if the house is valid, false otherwise
+     * @return a list of RoomDTO objects representing the rooms in the house.
      */
-    private boolean validHouse(House ourHouse) {
-        return ourHouse != null;
-    }
-
-    /**
-     * Checks if the DeviceMapper passed to the constructor is valid.
-     *
-     * @param deviceMapper the deviceMapper to be checked
-     * @return true if the DeviceMapper is valid, false otherwise
-     */
-    private boolean validMapper(DeviceMapper deviceMapper) {
-        return deviceMapper != null;
+    public List<RoomDTO> getRooms() {
+        return getRoomListController.getRooms();
     }
 
     /**
@@ -87,4 +84,25 @@ public class GetDeviceListController {
     private boolean validRoom(String roomName) {
         return roomName != null && house.getRoomByName(roomName) != null;
     }
+
+    /**
+     * Checks if the house passed to the constructor is valid.
+     *
+     * @param ourHouse the house to be checked
+     * @return true if the house is valid, false otherwise
+     */
+    private boolean validHouse(House ourHouse) {
+        return ourHouse != null;
+    }
+
+    /**
+     * Checks if the DeviceMapper passed to the constructor is valid.
+     *
+     * @param deviceMapper the deviceMapper to be checked
+     * @return true if the DeviceMapper is valid, false otherwise
+     */
+    private boolean validMapper(DeviceMapper deviceMapper) {
+        return deviceMapper != null;
+    }
+
 }

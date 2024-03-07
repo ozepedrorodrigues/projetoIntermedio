@@ -9,32 +9,36 @@ As a Room Owner [or Power User, or Administrator], I want to get a list of all
 devices in a room, so that I can configure them.
 '/
 
+Participant "GetDeviceList:GetDeviceListController" as A
 Participant "GetRoomList:GetRoomListController" as G
-Participant "GetDeviceList:GetDeviceListController" as G1
 Participant "House:House" as H
 Participant "room:Room" as R
 Participant "deviceMapper:DeviceMapper" as M
 
-[o->G : getRoomList()
+[o->A : getRooms()
+activate A
+A->G : getRooms()
 activate G
-ref over G : (UseCase003.puml for more details)
-[o<--G : roomListDTO
+ref over G : (UserStory003 for more details)
+G-->A : roomsDTO
 deactivate G
-[o->G1 : getDeviceListByRoom(roomName)
-activate G1
-G1->H : getRoomByName(roomName)
+[o<--A : roomsDTO
+deactivate A
+[o->A : getDeviceListByRoom(roomName)
+activate A
+A->H : getRoomByName(roomName)
 activate H
-H-->G1: room
+H-->A: room
 deactivate H
-G1->R : getDevicesInRoom()
+A->R : getDevicesInRoom()
 activate R
-R-->G1: devicesInRoom
+R-->A: devicesInRoom
 deactivate R
-G1->M : devicesToDTO(device, roomName)
+A->M : devicesToDTO(device, roomName)
 activate M
-M-->G1 : roomDevicesDTO
+M-->A : roomDevicesDTO
 deactivate M
-[o<--G1 : roomDevicesDTO
-deactivate G1
+[o<--A : roomDevicesDTO
+deactivate A
 
 @enduml

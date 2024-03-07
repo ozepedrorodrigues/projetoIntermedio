@@ -1,9 +1,9 @@
 @startuml
 
 class House {
-
+  - locationFactory : LocationFactory
+  + getRooms() : List<Room>
   + getRoomByName(...) : Room
-  + getRoomList() : List<Room>
 }
 
 class GetRoomListController {

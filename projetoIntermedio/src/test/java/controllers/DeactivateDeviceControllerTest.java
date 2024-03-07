@@ -108,7 +108,7 @@ class DeactivateDeviceControllerTest {
         roomMapper = new RoomMapper();
         deviceMapper = new DeviceMapper();
         getRoomListController = new GetRoomListController(house, roomMapper);
-        getDeviceListController = new GetDeviceListController(house, deviceMapper);
+        getDeviceListController = new GetDeviceListController(house, deviceMapper, getRoomListController);
         addDeviceToRoomController = new AddDeviceToRoomController(house, deviceMapper, getRoomListController);
         addRoomController = new AddRoomController(house, roomMapper);
         deactivateDeviceController = new DeactivateDeviceController(house, getRoomListController, getDeviceListController, deviceMapper);

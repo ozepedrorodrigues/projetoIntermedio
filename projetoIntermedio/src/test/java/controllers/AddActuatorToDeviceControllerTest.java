@@ -92,7 +92,7 @@ class AddActuatorToDeviceControllerTest {
 
         catalogue = new Catalogue(filepath);
         getRoomListController = new GetRoomListController(house, new RoomMapper());
-        getDeviceListController = new GetDeviceListController(house, new DeviceMapper());
+        getDeviceListController = new GetDeviceListController(house, new DeviceMapper(), getRoomListController);
         actuatorMapper = new ActuatorMapper();
 
         addActuatorToDeviceController = new AddActuatorToDeviceController(
@@ -237,7 +237,7 @@ class AddActuatorToDeviceControllerTest {
                         new DimensionsFactoryImp(),
                         new DeviceFactoryImp(new SensorFactoryImp(filepath), new ActuatorFactoryImp(filepath))));
         houseWithoutDevices.addRoom(roomName, 1, 10, 10, 10);
-        GetDeviceListController getDeviceListController = new GetDeviceListController(houseWithoutDevices, new DeviceMapper());
+        GetDeviceListController getDeviceListController = new GetDeviceListController(houseWithoutDevices, new DeviceMapper(), getRoomListController);
         AddActuatorToDeviceController addActuatorToDeviceController = new AddActuatorToDeviceController(
                 houseWithoutDevices, catalogue, getRoomListController, getDeviceListController, actuatorMapper);
         RoomDTO roomDTO = new RoomDTO(roomName, 1, 10, 10, 10);

@@ -7,6 +7,7 @@ import dto.DeviceDTO;
 import factories.*;
 import factories.implement.*;
 import mappers.DeviceMapper;
+import mappers.RoomMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,10 @@ class GetDeviceListControllerTest {
      * Common Controller class for getting the list of devices in a room.
      */
     private GetDeviceListController controller;
+    /**
+     * The GetRoomListController instance to be used in tests.
+     */
+    GetRoomListController getRoomListController;
     /**
      * DeviceMapper instance.
      */
@@ -48,7 +53,8 @@ class GetDeviceListControllerTest {
                 new LocationFactoryImp(new GPSFactoryImp()),
                 new RoomFactoryImp(new DimensionsFactoryImp(), new DeviceFactoryImp(new SensorFactoryImp(filepath), new ActuatorFactoryImp(filepath))));
         deviceMapper = new DeviceMapper();
-        controller = new GetDeviceListController(matryoshka, deviceMapper);
+        getRoomListController = new GetRoomListController(matryoshka, new RoomMapper());
+        controller = new GetDeviceListController(matryoshka, deviceMapper, getRoomListController);
     }
 
     /**
@@ -59,7 +65,7 @@ class GetDeviceListControllerTest {
     @Test
     void testConstructorValidHouseAndMapper() {
         // Act & Assert
-        assertDoesNotThrow(() -> new GetDeviceListController(matryoshka, deviceMapper));
+        assertDoesNotThrow(() -> new GetDeviceListController(matryoshka, deviceMapper, getRoomListController));
         assertNotNull(controller);
     }
 
@@ -72,7 +78,7 @@ class GetDeviceListControllerTest {
         // Arrange
         House invalidHouse = null;
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetDeviceListController(invalidHouse, deviceMapper));
+        assertThrows(IllegalArgumentException.class, () -> new GetDeviceListController(invalidHouse, deviceMapper, getRoomListController));
     }
 
     /**
@@ -84,7 +90,7 @@ class GetDeviceListControllerTest {
         // Arrange
         DeviceMapper invalidDeviceMapper = null;
         // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> new GetDeviceListController(matryoshka, invalidDeviceMapper));
+        assertThrows(IllegalArgumentException.class, () -> new GetDeviceListController(matryoshka, invalidDeviceMapper, getRoomListController));
     }
 
     /**

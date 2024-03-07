@@ -91,7 +91,7 @@ class AddSensorToDeviceControllerTest {
 
         sensorMapper = new SensorMapper();
         getRoomListController = new GetRoomListController(house, new RoomMapper());
-        getDeviceListController = new GetDeviceListController(house, new DeviceMapper());
+        getDeviceListController = new GetDeviceListController(house, new DeviceMapper(), getRoomListController);
         catalogue = new Catalogue(filepath);
         room = house.addRoom(roomName, 1, 1, 1, 1);
     }
