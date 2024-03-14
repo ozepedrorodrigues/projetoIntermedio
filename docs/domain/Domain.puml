@@ -2,67 +2,109 @@
 
 title DOMAIN MODEL (G6)
 
+package "House Ag." {
 entity House {
-- name : String
+- houseName : HouseName
+}
+Object Location {
+- address : Address
+- zipCode : ZipCode
+}
+Object GPS {
+- latitude : Latitude
+- longitude : Longitude
+}
+object Address {
+- street : Street
+- number : Number
+- city : City
+}
 }
 
-entity Location {
-- address : String
-- zipCode : String
+
+object HouseId {
+- id : HouseId
 }
 
-entity GPS {
-- latitude : double
-- longitude : double
-}
-
+package "Room Ag" {
 entity Room {
-- name : String
-- floor : int
+- name : RoomName
+- floor : Floor
+- houseID : houseID
+}
+object Dimensions {
+- width : Width
+- length : Length
+- height : Height
+}
 }
 
-entity Dimensions {
-- width : double
-- length : double
-- height : double
+object RoomId {
+- id : RoomId
 }
 
+
+package "Device Ag" {
 entity Device {
-- name : String
-- type : String
-- active : boolean
+- name : DeviceName
+- type : DeviceType
+- active : Active
+- RoomID : RoomID
+}
 }
 
+
+object DeviceId {
+- id : DeviceId
+}
+
+
+package "Sensor Ag" {
 entity Sensor {
-- id : int
+- id : sensorId
+- deviceId : DeviceId
 - type: SensorType
 - value : Value
 }
-
-entity Actuator {
-- id : int
-- state : boolean
-- type : ActuatorType
-}
-
-entity SensorType {
+Object SensorType {
 - name : String
 - measuringUnit : String
 }
-
-entity ActuatorType {
-- name: String
 }
 
+package "Actuator Ag" {
+entity Actuator {
+- id : ActuatorId
+- deviceId : DeviceId
+- state : State
+- type : ActuatorType
+}
+Object ActuatorType {
+- name: String
+}
+}
 
-House "1" *-- "*" Room : contains
-House "1" *-- "1" Location : has
-Location "1" *-- "1" GPS : has
-Room "1" *-- "*" Device : contains
-Room "1" *-- "1" Dimensions : has
-Device "1" *-- "1..*" Sensor :  contains
-Device "1" *-- "*" Actuator : contains
-Sensor "*" -- "1" SensorType :  is
-Actuator "*" -- "1" ActuatorType : is
+House --  HouseId
+Room -- HouseId
+DeviceId -- Device
+DeviceId -- Sensor
+DeviceId -- Actuator
+Device -- RoomId
+Room -- RoomId
+
+House -- Location
+Location -- Address
+Location -- GPS
+
+Room -- Dimensions
+
+Sensor -- SensorType
+
+Actuator -- ActuatorType
+
+
+
+
+
 
 @enduml
