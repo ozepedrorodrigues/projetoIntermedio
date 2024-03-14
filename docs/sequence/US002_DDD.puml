@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "addRoomController:AddRoomController" as ARC
+participant "roomFactory:RoomFactory" as RF
+participant "roomName:RoomName" as RN
+participant "floor:Floor" as F
+participant "length:Length" as L
+participant "height:Height" as H
+participant "width:Width" as W
+participant "dimension:Dimension" as D
+participant "room:Room" as R
+participant "roomRepo:RoomRepository" as RR
+participant "roomMapper:RoomMapper" as RM
+participant "roomDTO:RoomDTO" as RD
+
+[o-> ARC : addRoom(roomDTO)
+activate ARC
+ARC -> RF : createRoom(roomDTO)
+activate RF
+RF --> RN** : <create> (name)
+RF --> F** : <create> (floor)
+RF --> L** : <create> (length)
+RF --> H** : <create> (height)
+RF --> W** : <create> (width)
+RF --> D** : <create> (length, width, height)
+RF --> R** : <create> (roomName, floor, dimension)
+RF --> ARC : room
+deactivate RF
+ARC -> RR : save(room)
+activate RR
+RR -> RR : save(room)
+RR --> ARC : room
+deactivate RR
+ARC -> RM : roomToDTO(room)
+activate RM
+RM --> RD : <create> (room)
+RM --> ARC : roomDTO
+deactivate RM
+[o<-- ARC : roomDTO
+deactivate ARC
+
+@enduml

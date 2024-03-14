@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "locationController:DefineHouseLocationController" as LC
+participant "houseRepo:HouseRepo" as HF
+participant "house:House" as H
+
+[o-> LC : defineHouseLocation(location, HouseID)
+activate LC
+LC -> HF: getHouseById(houseID)
+activate HF
+HF --> LC: house
+deactivate HF
+LC -> H : defineLocation(location)
+activate H
+H -> H: this.location = location
+H --> LC: location
+deactivate H
+[o<--LC: location
+deactivate LC
+
+
+
+
+
+@enduml
