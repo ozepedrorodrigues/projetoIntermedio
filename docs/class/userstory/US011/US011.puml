@@ -1,0 +1,48 @@
+@startuml
+
+title US011
+
+/'
+As Product Owner, I want the system to have a type of sensor that measures
+humidity (%).
+'/
+
+interface Sensor {
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+class SensorOfHumidity {
+    - id : int
+    + SensorOfHumidity()
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+interface Value {
+    + valueToString() : String
+}
+
+class HumidityValue {
+    - humidityValue : double
+    + humidityValue(double)
+    + valueToString() : String
+}
+
+enum SensorType {
+    - sensorType : String
+    - measureUnit : String
+    + SensorType(...)
+    + getSensorType() : String
+}
+
+Sensor <|.. SensorOfHumidity : " implements       "
+Value <|.. HumidityValue : " implements"
+SensorOfHumidity "1  " *-- "1    " HumidityValue :  "  has"
+SensorOfHumidity "1  " o-- "1  " SensorType :  "  has"
+
+@enduml

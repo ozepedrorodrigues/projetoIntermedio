@@ -1,0 +1,41 @@
+@startuml
+
+
+autonumber
+
+title US002
+
+/'As an Administrator, I want to add a new room to the house, in order to
+  configure it (name, house floor and dimensions).'/
+
+participant "addRoomController:AddRoomController" as ARC
+participant "house:House" as H
+participant "roomFactory:RoomFactory" as RF
+participant "room:Room" as R
+participant "roomMapper:RoomMapper" as M
+participant "roomDTO:RoomDTO" as DTO
+
+[o-> ARC: addNewRoomToHouse(roomDTO)
+activate ARC
+ARC -> H: addRoom(roomName, floor, width, length, height)
+activate H
+H -> RF: createRoom(roomName, floor, width, length, height)
+activate RF
+RF --> R**: <creates>(roomName, floor, width, length, height)
+H <-- RF: room
+H -> H: rooms.add(room)
+deactivate RF
+H --> ARC: room
+deactivate H
+ARC -> M: roomToDTO(room)
+activate M
+M --> DTO**: <creates>(room)
+M --> ARC: roomDTO
+deactivate M
+[o<--ARC: roomDTO
+deactivate ARC
+
+
+
+
+@enduml

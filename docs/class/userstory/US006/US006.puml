@@ -1,0 +1,60 @@
+@startuml
+
+title US006
+
+/'
+As a Room Owner [or Power User, or Administrator], I want to get a list of all
+devices in a room, so that I can configure them.
+'/
+
+class House {
+    + getRooms() : List<Room>
+    + getRoomByName(...) : Room
+}
+
+class Room {
+  - name : String
+  + getRoomName() : String
+  + getDevicesInRoom() : List<Device>
+}
+
+class Device {
+  - name : String
+  - active : boolean
+  + Device(...)
+}
+
+class GetDeviceListController {
+    - house : House
+    - deviceMapper : DeviceMapper
+    - getRoomListController : GetRoomListController
+    + getRooms() : List<RoomDTO>
+    + getDevicesInRoom(...) : List<DeviceDTO>
+}
+
+class GetRoomListController {
+    - house : House
+    - roomMapper : RoomMapper
+    + GetRoomListController(...)
+    + getRooms() : List<RoomDTO>
+}
+
+class DeviceMapper {
+    + devicesToDTO(...) : "List<DeviceDTO>"
+}
+
+
+
+
+note bottom of GetRoomListController : ref: GetRoomListController\nfor more details
+
+
+
+GetDeviceListController "1" .l> "1" GetRoomListController : uses
+GetDeviceListController "1" -.> "1" House : uses
+GetDeviceListController "1" -.> "1" Room : uses
+GetDeviceListController "1" -.> "1" DeviceMapper : uses
+DeviceMapper "1" ..> "1" Room : uses
+House "1" --> "List<Room>" Room : contains
+Room "1" --> "List<Device>" Device : contains
+@enduml

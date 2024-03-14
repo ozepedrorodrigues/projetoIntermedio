@@ -1,0 +1,93 @@
+@startuml
+
+title US005
+
+/'
+As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
+'/
+
+class House {
+    + getRooms() : List<Room>
+    + getRoomByName(...) : Room
+}
+
+class Room {
+    - name : String
+    - floor : int
+    - deviceFactory : DeviceFactory
+    + getRoomName() : String
+    + getFloor() : int
+    + getDimensions() : Dimensions
+    + addNewDevice() : Device
+}
+
+class Dimensions{
+    - width : double
+    - length : double
+    - height : double
+    + getWidth() : double
+    + getLength() : double
+    + getHeight() : double
+}
+
+class Device{
+    + name : String
+    + type : String
+    + Device(...)
+}
+
+class DeviceFactoryImp{
+    + createDevice(...) : Device
+}
+
+class DeviceDTO {
+    - name : String
+    - type : String
+    - roomName : String
+    + DeviceDTO(...)
+    + getName() : String
+    + getType() : String
+    + getRoomName() : String
+}
+
+class AddDeviceToRoomController {
+    - house : House
+    - deviceMapper : DeviceMapper
+    - getRoomListController : GetRoomListController
+    + AddDeviceToRoomController(...)
+    + getRooms() : List<RoomDTO>
+    + addDeviceToRoom(...) : DeviceDTO
+}
+
+class GetRoomListController {
+    - house : House
+    - roomMapper : RoomMapper
+    + GetRoomListController(...)
+    + getRooms() : List<RoomDTO>
+}
+
+class DeviceMapper {
+    + deviceToDTO(...) : DeviceDTO
+}
+
+interface DeviceFactory {
+    + createDevice(...) : Device
+}
+
+note left of GetRoomListController : ref: GetRoomListController\nfor more details
+
+
+AddDeviceToRoomController "1" ..> "1" House : uses
+AddDeviceToRoomController "1" ..> "1" Room : uses
+House "1" *-- "*" Room : contains
+AddDeviceToRoomController "1" ..> "1" DeviceMapper : uses
+DeviceMapper "1" ..> "*" DeviceDTO : creates
+Room "1" *-- "*" Device : contains
+Room "1" ..> "1" DeviceFactory : uses
+DeviceFactoryImp "1" .up.> "1" Device : creates
+AddDeviceToRoomController "1" .left.> "1" GetRoomListController : uses
+AddDeviceToRoomController "1" ..> "1" DeviceDTO : uses
+Room "1" *-- "1" Dimensions : has
+DeviceFactoryImp ..|>  DeviceFactory : implements
+
+@enduml

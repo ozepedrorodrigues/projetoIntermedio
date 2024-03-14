@@ -1,0 +1,50 @@
+@startuml
+
+title US020
+
+/'
+As Product Owner, I want the system to have a type of sensor
+that gives the sunrise instant for a given calendar date.
+'/
+
+interface Sensor {
+    + getType() : SensorType
+    + getValue() : Value
+    + getId() : int
+    + generateId(int) : int
+
+}
+
+class SensorOfSunrise {
+    - id : int
+    + SensorOfSunrise()
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+    + getValue(LocalDate) : Value
+}
+
+interface Value {
+    + valueToString() : String
+}
+
+class SunriseValue {
+    - sunriseValue : LocalDateTime
+    + SunriseValue(LocalDateTime)
+    + valueToString() : String
+}
+
+enum SensorType {
+    - sensorType : String
+    - measureUnit : String
+    + SensorType(...)
+    + getSensorType() : String
+}
+
+SensorOfSunrise ..|> Sensor : " implements       "
+SunriseValue ..|> Value : " implements"
+SensorOfSunrise "1  " *-- "1    " SunriseValue :  "  has"
+SensorOfSunrise "1  " o-- "1  " SensorType :  "  has"
+
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+
+title DOMAIN MODEL (G6)
+
+entity House {
+- name : String
+}
+
+entity Location {
+- address : String
+- zipCode : String
+}
+
+entity GPS {
+- latitude : double
+- longitude : double
+}
+
+entity Room {
+- name : String
+- floor : int
+}
+
+entity Dimensions {
+- width : double
+- length : double
+- height : double
+}
+
+entity Device {
+- name : String
+- type : String
+- active : boolean
+}
+
+entity Sensor {
+- id : int
+- type: SensorType
+- value : Value
+}
+
+entity Actuator {
+- id : int
+- state : boolean
+- type : ActuatorType
+}
+
+entity SensorType {
+- name : String
+- measuringUnit : String
+}
+
+entity ActuatorType {
+- name: String
+}
+
+
+House "1" *-- "*" Room : contains
+House "1" *-- "1" Location : has
+Location "1" *-- "1" GPS : has
+Room "1" *-- "*" Device : contains
+Room "1" *-- "1" Dimensions : has
+Device "1" *-- "1..*" Sensor :  contains
+Device "1" *-- "*" Actuator : contains
+Sensor "*" -- "1" SensorType :  is
+Actuator "*" -- "1" ActuatorType : is
+
+@enduml

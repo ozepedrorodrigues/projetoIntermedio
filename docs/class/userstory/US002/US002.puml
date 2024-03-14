@@ -1,0 +1,112 @@
+@startuml
+
+title US005
+
+/'
+As an Administrator, I want to add a new room to the house, in order to
+configure it (name, house floor and dimensions).
+'/
+
+
+title US002
+
+class AddRoomController {
+  - house : House
+  - roomMapper : RoomMapper
+  + AddRoomController(...)
+  + addNewRoomToHouse(...) : RoomDTO
+}
+
+class RoomMapper {
+  + RoomMapper()
+  + roomToDTO(...) : RoomDTO
+}
+
+class RoomFactoryImp {
+  + RoomFactoryImp(...)
+  + createRoom(...) : Room
+}
+
+class DimensionFactoryImp {
+  + DimensionFactoryImp()
+  + createDimensions(...) : Dimensions
+}
+
+interface RoomFactory {
+  + createRoom(...) : Room
+}
+interface DimensionFactory {
+  + createDimensions(...) : Dimensions
+}
+interface DeviceFactory {
+}
+
+class DeviceFactoryImp {
+  + DeviceFactoryImp(...)
+}
+
+
+class House {
+    - rooms : List<Room>
+    roomFactory : RoomFactory
+  + House(...)
+  + addRoom(...) : boolean
+}
+
+class Room {
+  - name : String
+  - floor : int
+  - dimensions : Dimensions
+  - deviceFactory : DeviceFactory
+  - dimensionsFactory : DimensionFactory
+  + Room(...)
+  + getName() : String
+  + getFloor() : int
+  + getDimensions() : Dimensions
+}
+
+class Dimensions {
+  - width : double
+  - length : double
+  - height : double
+
+  + Dimensions(...)
+  + getWidth() : double
+  + getLength() : double
+  + getHeight() : double
+}
+
+class RoomDTO {
+  - name : String
+  - floor : int
+  - width : double
+  - length : double
+  - height : double
+
+  + RoomDTO(...)
+  + getName() : String
+  + getFloor() : int
+  + getWidth() : double
+  + getLength() : double
+  + getHeight() : double
+}
+
+AddRoomController .down.> RoomMapper : uses
+AddRoomController ..> RoomDTO : uses
+AddRoomController .right.> House : uses
+RoomMapper .left.> RoomDTO : create
+RoomMapper .down.> Room : uses
+RoomFactory <|.. RoomFactoryImp : implements
+RoomFactoryImp ..> Room : creates
+House "1" *--"*" Room : contains
+House .right.> RoomFactory : uses
+Room "1" *-- "1" Dimensions : contains
+Room "1" *-right- "1" DeviceFactory: contains
+Room .left.> DimensionFactory : uses
+DimensionFactory <|.. DimensionFactoryImp : implements
+DimensionFactoryImp .right.> Dimensions : creates
+DeviceFactory <|.down. DeviceFactoryImp : implements
+
+
+
+@enduml

@@ -1,0 +1,48 @@
+@startuml
+
+title US010
+
+/'
+As Product Owner, I want the system to have a type of sensor that measures
+temperature (C).
+'/
+
+interface Sensor {
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+class SensorOfTemperature {
+    - id : int
+    + SensorOfTemperature()
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+interface Value {
+    + valueToString() : String
+}
+
+class TemperatureValue {
+    - temperatureValue : double
+    + temperatureValue(double)
+    + valueToString() : String
+}
+
+enum SensorType {
+    - sensorType : String
+    - measureUnit : String
+    + SensorType(...)
+    + getSensorType() : String
+}
+
+Sensor <|.. SensorOfTemperature : " implements       "
+Value <|.. TemperatureValue : " implements"
+SensorOfTemperature "1  " *-- "1    " TemperatureValue :  "  has"
+SensorOfTemperature "1  " o-- "1  " SensorType :  "  has"
+
+@enduml

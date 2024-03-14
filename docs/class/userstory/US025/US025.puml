@@ -1,0 +1,50 @@
+@startuml
+
+title US025
+
+/'
+As Product Owner, I want the system to have a type of sensor that gives the
+power consumption in a given instant (W).
+'/
+
+interface Sensor {
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+class SensorOfAveragePowerConsumption {
+    - id : int
+    - type : SensorType
+    - value : Value
+    + SensorOfAveragePowerConsumption()
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+interface Value {
+    + valueToString() : String
+}
+
+class AveragePowerConsumptionValue {
+    - averagePowerConsumptionValue : double
+    + PowerConsumptionValue(double)
+    + valueToString() : String
+}
+
+enum SensorType {
+    - type : SensorType
+    + SensorType(...)
+    + getSensorType() : String
+}
+
+SensorOfAveragePowerConsumption ..|> Sensor : " implements       "
+AveragePowerConsumptionValue ..|> Value : " implements"
+SensorOfAveragePowerConsumption "1  " *-- "1    " AveragePowerConsumptionValue :  "  has"
+SensorOfAveragePowerConsumption "1  " o-- "1  " SensorType :  "  has"
+
+
+@enduml

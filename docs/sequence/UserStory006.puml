@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+title US006
+/'
+As a Room Owner [or Power User, or Administrator], I want to get a list of all
+devices in a room, so that I can configure them.
+'/
+
+Participant "GetDeviceList:GetDeviceListController" as A
+Participant "GetRoomList:GetRoomListController" as G
+Participant "House:House" as H
+Participant "room:Room" as R
+Participant "deviceMapper:DeviceMapper" as M
+
+[o->A : getRooms()
+activate A
+A->G : getRooms()
+activate G
+ref over G : (UserStory003 for more details)
+G-->A : roomsDTO
+deactivate G
+[o<--A : roomsDTO
+deactivate A
+[o->A : getDevicesInRoom(roomName)
+activate A
+A->H : getRoomByName(roomName)
+activate H
+H-->A: room
+deactivate H
+A->R : getDevicesInRoom()
+activate R
+R-->A: devicesInRoom
+deactivate R
+A->M : devicesToDTO(device, roomName)
+activate M
+M-->A : roomDevicesDTO
+deactivate M
+[o<--A : roomDevicesDTO
+deactivate A
+
+@enduml

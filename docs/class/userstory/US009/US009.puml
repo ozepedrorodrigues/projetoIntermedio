@@ -1,0 +1,65 @@
+@startuml
+
+title US009
+
+/'
+As a Power User [or Administrator], I want to get a list of all devices in a house,
+grouped by device functionality types. It must include device location.
+'/
+
+
+class GetDevicesByFunctionalityController{
+- deviceGroupMapper: DeviceGroupMapper
+- house: House
++ GetDevicesByFunctionalityController(...)
++ getDevicesByFunctionality(...): Map<String, List<DeviceDTO>>
+-validHouse(...): boolean
+-validDeviceGroupMapper(...): boolean
+}
+
+class DeviceGroupMapper{
++groupDevicesByFunctionality(...): Map<String, List<DeviceDTO>
+}
+
+class DeviceDTO{
+- name: String
+- type: String
+- roomName: String
++DeviceDTO(...)
++getName(): String
++getType(): String
++getRoomName(): String
+}
+
+class House{
+- rooms: List<Room>
++ getRooms(): List<Room>
++ getDevicesByRoom(...): Map<String,List<Device>>
+}
+
+class Room{
++getRoomName(): String
++getDevicesInRoom(): List<Device>
+}
+
+class Device{
++getFunctionalities(): List<String>
+}
+
+enum SensorType{
++values(): SensorType[]
+}
+
+GetDevicesByFunctionalityController"1" ..>"1" DeviceGroupMapper: uses
+GetDevicesByFunctionalityController"1" ..>"1" House: uses
+GetDevicesByFunctionalityController"1" ..>"*" DeviceDTO: uses
+GetDevicesByFunctionalityController"1" ..>"1" SensorType: uses
+GetDevicesByFunctionalityController"1" ..>"*" Device: uses
+
+DeviceGroupMapper "1" ..> "*" DeviceDTO: <creates>
+
+House "1" *-- "List<Room>" Room: contains
+Room "1" *-- "List<Device>"Device: contains
+
+
+@enduml
