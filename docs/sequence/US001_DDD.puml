@@ -3,6 +3,8 @@
 
 autonumber
 
+title US001
+
 participant "locationController:DefineHouseLocationController" as LC
 participant "mapper:LocationMapper" as M
 participant "gpsMapper:GpsMapper" as G
@@ -12,12 +14,11 @@ participant "address:Address" as AD
 participant "location:Location" as L
 participant "houseRepo:HouseRepo" as HF
 participant "house:House" as H
-participant "locationDTO:LocationDTO" as DTO
 participant "gpsDTO:GpsDTO" as GPSDTO
 participant "addressDTO:AddressDTO" as ADTO
+participant "locationDTO:LocationDTO" as DTO
 
 [o-> LC : defineHouseLocation(locationDTO)
-
 activate LC
 LC->M : toLocation(locationDTO)
 activate M

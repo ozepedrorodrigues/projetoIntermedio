@@ -3,60 +3,30 @@
 
 autonumber
 
-title US002
+title US003
 
-participant "addRoomController:AddRoomController" as ARC
+participant "getRoomsController:GetRoomsController" as GRC
+participant "roomRepository:RoomRepository" as RR
 participant "roomMapper:RoomMapper" as RM
 participant "houseNameMapper:HouseNameMapper" as HNM
 participant "roomNameMapper:RoomNameMapper" as RNM
-participant "houseName:HouseName" as HN
-participant "roomName:RoomName" as RN
 participant "floorMapper:FloorMapper" as FM
-participant "floor:Floor" as F
 participant "dimensionMapper:DimensionMapper" as DM
-participant "dimension:Dimension" as D
-participant "roomFactory:RoomFactory" as RF
-participant "room:Room" as R
-participant "roomRepo:RoomRepository" as RR
 participant "houseNameDTO:HouseNameDTO" as HND
 participant "roomName:RoomNameDTO" as RDT
 participant "floorDTO:FloorDTO" as FD
 participant "dimensionDTO:DimensionDTO" as DD
 participant "roomDTO:RoomDTO" as RD
 
-[o-> ARC : addRoom(roomDTO)
-activate ARC
-ARC -> HNM : toHouseName(roomDTO)
-activate HNM
-HNM --> HN** : <create>(houseName)
-HNM --> ARC : houseName
-deactivate HNM
-ARC -> RNM : toRoomName(roomDTO)
-activate RNM
-RNM --> RN** : <create>(roomName)
-RNM --> ARC : roomName
-deactivate RNM
-ARC -> FM : toFloor(roomDTO)
-activate FM
-FM --> F** : <create>(floor)
-FM --> ARC : floor
-deactivate FM
-ARC -> DM : toDimension(roomDTO)
-activate DM
-DM --> D** : <create>(width, height, length)
-DM --> ARC : dimension
-deactivate DM
-ARC -> RF : createRoom(houseName, roomName, floor, dimension)
-activate RF
-RF --> R** : <create>(houseName, roomName, floor, dimension)
-RF --> ARC : room
-deactivate RF
-ARC -> RR : save(room)
+[o-> GRC: getRooms()
+activate GRC
+GRC -> RR: getRooms()
 activate RR
-RR --> ARC : room
+RR --> GRC: rooms
 deactivate RR
-ARC -> RM : toRoomDTO(room)
+GRC -> RM : toRoomsDTO(rooms)
 activate RM
+loop FOR EACH ROOM
 RM -> HNM : toHouseNameDTO(houseName)
 activate HNM
 HNM --> HND** : <create>(houseName)
@@ -78,9 +48,10 @@ DM --> DD** : <create>(width, height, length)
 DM --> RM : dimensionDTO
 deactivate DM
 RM --> RD** : <create>(houseNameDTO, roomNameDTO, floorDTO, dimensionDTO)
-RM --> ARC : roomsDTO
+end
+RM --> GRC : roomsDTO
 deactivate RM
-[o<-- ARC : roomsDTO
-deactivate ARC
+[o<-- GRC : roomsDTO
+deactivate GRC
 
 @enduml
