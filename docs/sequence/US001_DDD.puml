@@ -5,6 +5,10 @@ autonumber
 
 title US001
 
+/'
+As an Administrator, I want to configure the location of the house.
+'/
+
 participant "locationController:DefineHouseLocationController" as LC
 participant "mapper:LocationMapper" as M
 participant "gpsMapper:GpsMapper" as G

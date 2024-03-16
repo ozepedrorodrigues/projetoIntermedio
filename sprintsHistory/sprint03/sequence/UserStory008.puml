@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+title US008
+
+/'
+As a Power User [or Administrator], I want to deactivate a device, so that it is no
+longer used. Nevertheless, it should be possible to access its configuration and
+activity log.
+'/
+
+participant "_deactivateDevice:DeactivateDeviceController" as C1
+participant "_getRoomList:GetRoomListController" as C2
+participant "_getDeviceList:GetDeviceListController" as C3
+participant "_house:House" as H
+participant "_room:Room" as R
+participant "_device:Device" as D
+participant "_mapperToDeviceDTO:MapperToDeviceDTO" as M1
+participant "_deviceDTO:DeviceDTO" as D2
+
+
+[o->C1 : getRooms()
+activate C1
+C1->C2 : getRooms()
+activate C2
+ref over C2 : (UserStory3.puml for more details)
+C2-->C1 : roomsDTO
+deactivate C2
+[o<--C1 : roomsDTO
+deactivate C1
+[o->C1 : getDevices()
+activate C1
+C1->C3 : getDevices()
+activate C3
+ref over C3 : (UserStory6.puml for more details)
+C3-->C1 : devicesDTO
+deactivate C3
+[o<--C1 : devicesDTO
+deactivate C1
+
+[o->C1: deactivateDevice(String _deviceName)
+activate C1
+C1->R: getDeviceByName(_deviceName)
+activate R
+R-->C1: _device
+deactivate R
+C1->D: deactivate()
+activate D
+D-->C1: true
+deactivate D
+C1->M1: mapToDeviceDTO(_device)
+activate M1
+M1-->D2**: create(_device)
+M1-->C1: _deviceDTO
+deactivate M1
+[o<--C1: _deviceDTO
+deactivate C1
+
+@enduml

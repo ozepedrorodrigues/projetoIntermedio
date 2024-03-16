@@ -1,0 +1,49 @@
+@startuml
+
+@startuml
+
+left to right direction
+
+actor Administrator as admin
+actor "Power User" as pu
+actor "Room Owner" as ro
+
+package "Smart Home System"{
+
+usecase UC1 as "US1/UC1: To configure the location of the house"
+usecase UC2 as "US2/UC2: To add a new room to the house"
+usecase UC3 as "US3/UC3: To list existing rooms"
+usecase UC4 as "US4/UC4: To define a sensor type"
+usecase UC5 as "US5/UC5: To add a new device to a room"
+usecase UC6 as "US6/UC6: To list devices in room"
+usecase UC7 as "US7/UC7: To add a sensor to an existing device"
+usecase UC8 as "US8/UC8: To deactivate a device"
+usecase UC9 as "US9/UC9: To get list of devices by functionality types"
+usecase UC12 as "US12/UC12: To add an actuator to an existing device"
+
+admin ...> UC1
+admin ...> UC2
+admin ...> UC3
+admin ...> UC4
+admin ...> UC12
+
+pu ..> UC5
+ro ..> UC6
+pu ..> UC7
+pu ..> UC8
+pu ..> UC9
+pu ..> UC12
+
+UC5 ..> UC3 : <include>
+UC6 ..> UC3 : <include>
+UC7 ..> UC6 : <include>
+UC8 ..> UC6  : <include>
+UC12 ..> UC6 : <include>
+
+}
+
+@enduml
+
+
+
+@enduml

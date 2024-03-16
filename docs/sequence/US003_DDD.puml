@@ -5,6 +5,10 @@ autonumber
 
 title US003
 
+/'
+As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
+'/
+
 participant "getRoomsController:GetRoomsController" as GRC
 participant "roomRepository:RoomRepository" as RR
 participant "roomMapper:RoomMapper" as RM

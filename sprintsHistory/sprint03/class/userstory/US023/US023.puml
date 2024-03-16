@@ -1,0 +1,51 @@
+@startuml
+
+title US023
+
+/'
+As Product Owner, I want the system to have a type of sensor that gives the solar
+irradiance (W/m2).
+'/
+
+interface Sensor {
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+class SensorOfSolarIrradiance {
+    - id : int
+    - type : SensorType
+    - value : Value
+    + SensorOfSolarIrradiance()
+    + getId() : int
+    + generateId(int) : int
+    + getType() : SensorType
+    + getValue() : Value
+}
+
+interface Value {
+    + valueToString() : String
+}
+
+class SolarIrradianceValue {
+    - solarIrradianceValue : double
+    + SolarIrradianceValue(double solarIrradianceValeu)
+    + valueToString() : String
+}
+
+enum SensorType {
+    - sensorType : String
+    - measureUnit : String
+    + SensorType(...)
+    + getSensorType() : String
+}
+
+SensorOfSolarIrradiance ..|> Sensor : " implements       "
+SolarIrradianceValue ..|> Value : " implements"
+SensorOfSolarIrradiance "1  " *-- "1    " SolarIrradianceValue :  "  has"
+SensorOfSolarIrradiance "1  " o-- "1  " SensorType :  "  has"
+
+
+@enduml

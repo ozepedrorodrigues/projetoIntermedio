@@ -1,0 +1,83 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title US007
+
+autonumber
+
+/'
+As a Power User [or Administrator], I want to add a sensor to an existing device in
+a room. The sensor must be of a model of an existing type of sensor.
+'/
+
+participant "_addSensorToDeviceController:AddSensorToDeviceController" as C7
+participant "_getRoomList:GetRoomListController" as C
+participant "_getDeviceList:GetDeviceListController" as D
+participant "_house:House" as H
+participant "_catalogue:Catalogue" as CAT
+participant "_room:Room" as R
+participant "_device:Device" as D1
+participant "_sensorFactory:SensorFactory" as F
+participant "_sensor:Sensor" as S1
+participant "_sensorMapper:SensorMapper" as S3
+participant "_sensorDTO:SensorDTO" as S2
+
+
+[o->C7 : getRooms()
+activate C7
+C7->C : getRooms()
+activate C
+ref over C : (UserStory3.puml for more details)
+C-->C7 : _roomsDTO
+deactivate C
+[o<--C7 : _roomsDTO
+deactivate C7
+
+[o->C7 : getDevices()
+activate C7
+C7->D : getDevices()
+activate D
+ref over D : (UserStory6.puml for more details)
+D-->C7 : _devicesDTO
+deactivate D
+[o<--C7 : _devicesDTO
+deactivate C7
+
+[o->C7: getSensorModel()
+activate C7
+C7->CAT : getSensorsCatalogue()
+activate CAT
+CAT-->C7 : _sensorsModels
+deactivate CAT
+[o<--C7 : _sensorsModels
+
+[o->C7: addSensorToExistingDevice(_deviceDTO, _sensorModel)
+C7->H : getRoomByName(_roomName)
+activate H
+H-->C7 : _room
+deactivate H
+
+C7->R : getDeviceByName(_deviceName)
+activate R
+R-->C7 : _device
+deactivate R
+
+C7->D1 : addSensor(_sensorModel)
+activate D1
+D1-> F : createSensor(_sensorClassName)
+activate F
+F -> S1 ** : createSensor(_sesnsorClassName)
+F -> D1 : _sensor
+deactivate F
+D1 -> D1 : sensors.add(_sensor)
+D1 -> D1 : functionalities.add(_sensorTypes)
+D1 -> C7 : _sensor
+deactivate D1
+C7 -> S3 : _getSensorDTO(_sensor)
+activate S3
+S3 -> S2** : _createSensorDTO(_id, _sensorTypes)
+S3 --> C7 : _sensorDTO
+deactivate S3
+[o<--C7 : _sensorDTO
+deactivate C7
+@enduml
