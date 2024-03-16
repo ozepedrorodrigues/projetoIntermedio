@@ -4,25 +4,60 @@
 autonumber
 
 participant "locationController:DefineHouseLocationController" as LC
+participant "mapper:LocationMapper" as M
+participant "gpsMapper:GpsMapper" as G
+participant "gps:Gps" as GPS
+participant "addressMapper:AddressMapper" as A
+participant "address:Address" as AD
+participant "location:Location" as L
 participant "houseRepo:HouseRepo" as HF
 participant "house:House" as H
+participant "locationDTO:LocationDTO" as DTO
+participant "gpsDTO:GpsDTO" as GPSDTO
+participant "addressDTO:AddressDTO" as ADTO
 
-[o-> LC : defineHouseLocation(location, HouseID)
+[o-> LC : defineHouseLocation(locationDTO)
+
 activate LC
-LC -> HF: getHouseById(houseID)
+LC->M : createLocation(locationDTO)
+activate M
+M->G : createGps(gpsDTO)
+activate G
+G-->GPS** : <create>(latitude,longitude)
+G-->M : gps
+deactivate G
+M->A : createAddress(addressDTO)
+activate A
+A-->AD** : <create>(street,number,city,zipcode)
+A-->M : address
+deactivate A
+M-->L** : <create>(address,gps)
+M-->LC : location
+deactivate M
+LC->HF : getHouse()
 activate HF
-HF --> LC: house
+HF-->LC : house
 deactivate HF
-LC -> H : defineLocation(location)
+LC->H : defineLocation(location)
 activate H
-H -> H: this.location = location
-H --> LC: location
+H-->LC : location
 deactivate H
-[o<--LC: location
+LC -> M : mapToDTO(location)
+activate M
+M->G : createGpsDTO(gps)
+activate G
+G-->GPSDTO** : <create>(latitude,longitude)
+G-->M : gpsDTO
+deactivate G
+M->A : createAddressDTO(address)
+activate A
+A-->ADTO** : <create>(street,number,city,zipcode)
+A-->M : addressDTO
+deactivate A
+M-->DTO** : <create>(addressDTO,gpsDTO)
+M-->LC : locationDTO
+deactivate M
+[o<-- LC : locationDTO
 deactivate LC
-
-
-
-
 
 @enduml
