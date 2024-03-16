@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "getDeviceList:GetDeviceListController" as A
+participant "getRoomList:GetRoomListController" as G
+participant "devicesRepository:DevicesRepository" as DR
+participant "deviceMapper:DeviceMapper" as M
+participant "deviceNameMapper:DeviceNameMapper" as DNM
+participant "deviceTypeMapper:DeviceTypeMapper" as DTM
+participant "type:Type" as T
+participant "statusMapper:StatusMapper" as SM
+participant "status:Status" as S
+participant "roomNameMapper:RoomNameMapper" as RNM
+participant "roomName:RoomName" as RN
+participant "deviceFactory:DeviceFactory" as DF
+participant "device:Device" as D
+participant "deviceRepository:DeviceRepository" as DR
+participant "deviceNameDTO:DeviceNameDTO" as DNDTO
+participant "typeDTO:TypeDTO" as TDTO
+participant "statusDTO:StatusDTO" as SDTO
+participant "roomNameDTO:RoomNameDTO" as RNDTO
+participant "deviceDTO:DeviceDTO" as DTO
+
+
+[o->A : getRooms()
+activate A
+A->G : getRooms()
+activate G
+ref over G : (UserStory003 for more details)
+G-->A : roomsDTO
+deactivate G
+[o<--A : roomsDTO
+deactivate A
+
+[o->A : getDevicesByRoomName(roomNameDTO)
+activate A
+A -> RNM : toRoomName(roomNameDTO)
+activate RNM
+RNM --> RN** : <create> (roomNameDTO)
+RNM --> A : roomName
+deactivate RNM
+
+
+A -> DR : getDevicesByRoomName(roomName)
+activate DR
+DR --> A : devices
+deactivate DR
+
+A -> M : toDevicesDTO(devices)
+activate M
+loop FOR EACH DEVICE
+M -> DNM : toDeviceNameDTO(deviceName)
+activate DNM
+DNM --> DNDTO** : <create> (deviceName)
+DNM --> M : deviceNameDTO
+deactivate DNM
+M -> DTM : toTypeDTO(type)
+activate DTM
+DTM --> TDTO** : <create> (type)
+DTM --> M : typeDTO
+deactivate DTM
+M -> SM : toStatusDTO(status)
+activate SM
+SM --> SDTO** : <create> (status)
+SM --> M : statusDTO
+deactivate SM
+M -> RNM : toRoomNameDTO(roomName)
+activate RNM
+RNM --> RNDTO** : <create> (roomName)
+RNM --> M : roomNameDTO
+deactivate RNM
+M --> DTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+end
+M --> A : devicesDTO
+deactivate M
+[o<--A : devicesDTO
+deactivate A
+
+
+
+
+
+
+
+
+@enduml

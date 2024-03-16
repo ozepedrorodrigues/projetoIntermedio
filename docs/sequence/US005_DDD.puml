@@ -1,0 +1,106 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "addDeviceController:AddDeviceToRoomController" as ADC
+participant "getRoomListController:GetRoomListController" as G
+participant "deviceMapper:DeviceMapper" as M
+participant "deviceNameMapper:DeviceNameMapper" as DNM
+participant "deviceName:DeviceName" as DN
+participant "deviceTypeMapper:DeviceTypeMapper" as DTM
+participant "type:Type" as T
+participant "statusMapper:StatusMapper" as SM
+participant "status:Status" as S
+participant "roomNameMapper:RoomNameMapper" as RNM
+participant "roomName:RoomName" as RN
+participant "deviceFactory:DeviceFactory" as DF
+participant "device:Device" as D
+participant "deviceRepository:DeviceRepository" as DR
+participant "deviceNameDTO:DeviceNameDTO" as DNDTO
+participant "typeDTO:TypeDTO" as TDTO
+participant "statusDTO:StatusDTO" as SDTO
+participant "roomNameDTO:RoomNameDTO" as RNDTO
+participant "deviceDTO:DeviceDTO" as DTO
+
+[o->ADC : getRooms()
+activate ADC
+ADC->G : getRooms()
+activate G
+ref over G : (UserStory003 for more details)
+G-->ADC : roomsDTO
+deactivate G
+[o<--ADC : roomsDTO
+
+
+[o->ADC : addDeviceToRoom(deviceDTO, roomNameDTO)
+ADC -> DNM : toDeviceName(deviceDTO)
+activate DNM
+DNM --> DN** : <create> (deviceName)
+DNM --> ADC : deviceNameDTO
+deactivate DNM
+ADC -> DTM : toType(deviceDTO)
+activate DTM
+DTM --> T** : <create> (type)
+DTM --> ADC : type
+deactivate DTM
+ADC -> SM : toStatus(deviceDTO)
+activate SM
+SM --> S** : <create> (status)
+SM --> ADC : status
+deactivate SM
+ADC -> RNM : toRoomName(roomNameDTO)
+activate RNM
+RNM --> RN** : <create> (roomName)
+RNM --> ADC : roomName
+deactivate RNM
+ADC -> DF : createDevice(deviceName, type, status, roomName)
+activate DF
+DF --> D** : <create> (deviceName, type, status, roomName)
+DF --> ADC : device
+deactivate DF
+ADC -> DR : save(device)
+activate DR
+DR --> ADC : device
+deactivate DR
+
+ADC -> M : toDeviceDTO(device)
+activate M
+M -> DNM : toDeviceNameDTO(deviceName)
+activate DNM
+DNM --> DNDTO** : <create> (deviceName)
+DNM --> M : deviceNameDTO
+deactivate DNM
+M -> DTM : toTypeDTO(type)
+activate DTM
+DTM --> TDTO** : <create> (type)
+DTM --> M : typeDTO
+deactivate DTM
+M -> SM : toStatusDTO(status)
+activate SM
+SM --> SDTO** : <create> (status)
+SM --> M : statusDTO
+deactivate SM
+M -> RNM : toRoomNameDTO(roomName)
+activate RNM
+RNM --> RNDTO** : <create> (roomName)
+RNM --> M : roomNameDTO
+deactivate RNM
+M --> DTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+M --> ADC : deviceDTO
+deactivate M
+[o<--ADC : deviceDTO
+deactivate ADC
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml
