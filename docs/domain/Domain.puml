@@ -7,8 +7,6 @@ entity House {
 - houseName : HouseName
 }
 Object Location {
-- address : Address
-- zipCode : ZipCode
 }
 Object GPS {
 - latitude : Latitude
@@ -18,19 +16,17 @@ object Address {
 - street : Street
 - number : Number
 - city : City
-}
+- zipCode: ZipCode
 }
 
-
-object HouseId {
-- id : HouseId
 }
+
 
 package "Room Ag" {
 entity Room {
 - name : RoomName
 - floor : Floor
-- houseID : houseID
+- houseName : HouseName
 }
 object Dimensions {
 - width : Width
@@ -39,68 +35,57 @@ object Dimensions {
 }
 }
 
-object RoomId {
-- id : RoomId
-}
-
 
 package "Device Ag" {
 entity Device {
 - name : DeviceName
 - type : DeviceType
 - active : Active
-- RoomID : RoomID
+- roomName : RoomName
 }
-}
-
-
-object DeviceId {
-- id : DeviceId
 }
 
 
 package "Sensor Ag" {
 entity Sensor {
-- id : sensorId
-- deviceId : DeviceId
-- type: SensorType
+- id : SensorId
+- deviceName : DeviceName
 - value : Value
 }
 Object SensorType {
 - name : String
 - measuringUnit : String
 }
+
 }
 
 package "Actuator Ag" {
 entity Actuator {
 - id : ActuatorId
-- deviceId : DeviceId
+- deviceName : DeviceName
 - state : State
-- type : ActuatorType
 }
+
 Object ActuatorType {
 - name: String
 }
+
 }
 
-House --  HouseId
-Room -- HouseId
-DeviceId -- Device
-DeviceId -- Sensor
-DeviceId -- Actuator
-Device -- RoomId
-Room -- RoomId
+House "1" <-- "1"  Room
+Room "1" <-- "1" Device
+Device "1" <-- "1" Sensor
+Device "1" <-- "1" Actuator
 
-House -- Location
-Location -- Address
-Location -- GPS
+House "1" <--"1" Location
+Location "1"<--"1" Address
+Location "1"<-- "1" GPS
 
-Room -- Dimensions
+Room "1"<--"1" Dimensions
 
-Sensor -- SensorType
+Sensor"1" <-- "1"SensorType
 
-Actuator -- ActuatorType
+Actuator "1" <-- "1" ActuatorType
 
 
 
