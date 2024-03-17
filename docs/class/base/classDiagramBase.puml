@@ -2,126 +2,155 @@
 
 title CLASS DIAGRAM (G6))
 
+package "House Ag."{
 class House {
-  - locationFactory: LocationFactory
-  - roomFactory : RoomFactory
   + House (...)
-  + addRoom(...) : Room
-  + getRoomByName(...) : Room
-  + getRooms() : List<Room>
   + getLocation() : Location
   + defineLocation(...) : boolean
-  + getDevicesGroupedByRoom() : Map<String, List<Device>>
-  -validLocationFactory(...):boolean
-  -validRoomFactory(...):boolean
-  -validRoomName(...):boolean
-}
-
-class Catalogue {
-  - actuatorClassList : List<String>
-  - sensorClassList : List<String>
-  +Catalogue(...)
-  + getSensorsCatalogue() : List<String>
-  + getActuatorsCatalogue() : List<String>
 }
 
 class Location {
-  - address : String
-  - zipCode : String
-
   + Location(...)
   + getAddress() : String
-  + getZipCode() : String
   + getGPSLocation() : GPS
-  -validAddress(...) : boolean
-  -validZipCode(...) : boolean
-  -validGPSFactory(...) : boolean
 }
 
-class GPS {
-  - latitude : double
-  - longitude : double
-  + GPSLocation(...)
-  + getLatitude() : double
-  + getLongitude() : double
-  -validLongitude(...):boolean
-  -validLatitude(...):boolean
+class Address{
+ - street: Street
+ - zipCode:ZipCode
+ - city: City
+ - number: Number
+ + Address(...)
+ + getStreet(): Street
+ + getZipCode(): ZipCode
+ + getCity(): City
+ + getNumber(): Number
 }
 
+class GPS{
+    - latitude: Latitude
+    - longitude: Longitude
+    + GPS(...)
+    + getLatitude(): Latitude
+    + getLongitude(): Longitude
+  }
+  }
+
+
+class HouseName{
+- houseName: String
++ HouseName(...)
++ getHouseName(): String
+}
+
+
+
+
+package "Room Ag."{
 class Room {
-  - name : String
-  - floor : int
-  - dimensionsFactory : DimensionsFactory
-  - deviceFactory : DeviceFactory
   + Room(...)
-  + getName() : String
-  + getFloor() : int
+  + getName() : RoomName
+  + getFloor() : Floor
   + getDimensions() : Dimensions
-  + addNewDevice(...) : Device
-  + getDevicesInRoom() : List<Device>
-  + getDeviceByName(...) : Device
-  -validName(...) : boolean
-  -validDimensionsFactory(...) : boolean
-  -validDeviceFactory(...) : boolean
-  -validDeviceName(...) : boolean
 }
 
 class Dimensions {
-  - width : double
-  - length : double
-  - height : double
-
+  - width : Width
+  - length : Length
+  - height : Height
   + Dimensions(...)
-  + getWidth() : double
-  + getLength() : double
-  + getHeight() : double
-  -validWidth(...) : boolean
-  -validLength(...) : boolean
-  -validHeight(...) : boolean
+  + getWidth() : Width
+  + getLength() : Length
+  + getHeight() : Height
 }
 
-class Device {
-  - name : String
-  - type : String
-  - active : boolean
-  - functionalities : HashSet<String>
-  - sensorFactory: SensorFactory
-  - actuatorFactory: ActuatorFactory
-  + Device(...)
-  + getName() : String
-  + getType() : String
-  + addSensor(...) : Sensor
-  + addActuator(...) : Actuator
-  + deactivate() : boolean
-  + getDeviceSensors() : List<Sensor>
-  + getFunctionalities() : HashSet<String>
-  -validClassName(...):boolean
-  -validName(...) : boolean
-  -validType(...) : boolean
-  -validFactories(...):boolean
+class Floor{
+ - floor: int
+ + Floor(...)
+ + getFloor(): int
 }
+
+}
+
+class RoomName{
+- roomName: String
++ RoomName(...)
++ getRoomName(): String
+}
+
+package "Device Ag."{
+class Device {
+  + Device(...)
+  + getName() : DeviceName
+  + getRoomName() : RoomName
+  + getType() : DeviceType
+  + deactivate() : Status
+}
+
+
+class DeviceType{
+- type: String
++ DeviceType(...)
++ getType(): String
+    }
+
+class Status{
+- active: boolean
++ Status(...)
++ isActive(): boolean
+}
+}
+class DeviceName{
+- deviceName: String
++ DeviceName(...)
++ getDeviceName(): String
+    }
+
+package "Sensor Ag."{
 
 interface Sensor {
-  + getType() : String
-  + getValue() : String
-  + getId() : int
-  + setId(int) : int
+  + getType() : SensorType
+  + getValue() : Value
+  + getDeviceName() : DeviceName
+  + getId() : SensorId
 }
 
-interface Actuator{
-    +getType(): ActuatorType
-    +isActive(): boolean
-    +activate():void
-    +deactivate(): void
-    +getId():int
-    +setId(int): int
+enum SensorType{
++ getSensorType(): String
 }
 
-
-interface Value {
+interface Value{
   + valueToString() : String
 }
 
+class SensorId{
+- id: int
++ SensorId(...)
++ getId(): int}
+
+
+}
+}
+
+package "Actuator Ag."{
+interface Actuator{
+    +getType(): ActuatorType
+    +operate(): void
+    +getId():int
+    +generateId(): ActuatorId
+}
+enum ActuatorType{
+}
+
+class ActuatorId{
+- id: int
++ ActuatorId(...)
++ getId(): int
+}
+
+}
+
+package "Utils"{
 class IdGenerator{
 - static sensorId:int
 - static actuatorId:int
@@ -131,17 +160,45 @@ class IdGenerator{
 + static resetActuatorId: void
 }
 
-House "1" *-- "1" Location : contains
-House "1" *-- "List<Room>" Room : contains
 
+class Catalogue {
+  - actuatorClassList : List<String>
+  - sensorClassList : List<String>
+  +Catalogue(...)
+  + getSensorsCatalogue() : List<String>
+  + getActuatorsCatalogue() : List<String>
+}
+
+}
+
+
+
+
+
+House "1" *-- "1" Location : contains
+House "1" *-- "1" HouseName : contains
+Location "1" *-- "1" Address : contains
 Location "1" *-- "1" GPS : contains
 
-Room "1" *-- "List<Device>" Device : contains
+Room "1" *-- "1" RoomName : contains
+Room "1" --> "1" HouseName : knows
+Room "1" *-- "1" Floor : contains
 Room "1" *-- "1" Dimensions : contains
 
-Device "1" *-- "List<Sensor>" Sensor :  contains
-Device "1" *-- "List<Actuator>" Actuator :  contains
-Device "*" ..> "1" IdGenerator : uses
-Sensor "1" ..> "*" Value : uses
+Device "1" *-- "1" DeviceName : contains
+Device "1" --> "1" RoomName : knows
+Device "1" *-- "1" DeviceType : contains
+Device "1" *-- "1" Status : contains
+
+Sensor "1" *-- "1" SensorType : has
+Sensor "1" *-- "1" Value : contains
+Sensor "1" --> "1" DeviceName : knows
+Sensor "1" *-- "1" SensorId : contains
+
+Actuator "1" *-- "1" ActuatorType : has
+Actuator "1" *-- "1" ActuatorId : contains
+Actuator "1" --> "1" DeviceName : knows
+
+
 
 @enduml

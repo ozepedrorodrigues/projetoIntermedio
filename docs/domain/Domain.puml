@@ -62,7 +62,6 @@ Object SensorType {
 package "Actuator Ag" {
 entity Actuator {
 - id : ActuatorId
-- deviceName : DeviceName
 - state : State
 }
 

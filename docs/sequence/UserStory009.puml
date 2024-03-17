@@ -10,37 +10,39 @@ grouped by device functionality types. It must include device location.
 '/
 
 participant "_getDevices:GetListOfDevicesByFunctionalityController" as C
-participant ":House" as H
-participant "devicesByRoom:Map<String, List<Device>>" as DBR
 participant "SensorType" as ST
-participant ":Room" as R
-participant "mapper:MapperToGroupDeviceDTO" as M
-participant "devicesPerFunctionality:Hashmap" as HM
+participant "mapFunctionalities:HashMap<Functionality, List<Device>>" as M
+participant "deviceRepository:DeviceRepository" as DR
+participant "mapperDevice:MapperDevice" as MD
+participant "mapFunctionalitiesDTO:HashMap<Functionality, List<DeviceDTO>>" as MDTO
 
-
-[o-> C : getDeviceByFunctionality()
+[o-> C : getDevicesByFunctionality()
 activate C
-C -> H : getDevicesGroupedByRoom()
-activate H
-H-->DBR** : create()
-H --> C : devicesByRoom
-deactivate H
-C->ST : values()
+C-> ST : values()
 activate ST
 ST --> C : sensorTypes
 deactivate ST
-C -> M : groupDevicesByFunctionality(devicesByRoom, sensorTypes)
-activate M
-M-->HM** : create(functionalities, devicesByRoom)
-M --> C : devicesPerFunctionality
+C --> M** : <create>(sensorTypes)
+C-> DR : getDevicesByFunctionality(mapFunctionalities)
+activate DR
+
+loop [for device in deviceRepository]
+    loop [for functionality in device.getFunctionalities()]
+        DR -> M : get(functionality).add(device)
+        activate M
+    end loop
+    deactivate M
+end loop
 deactivate M
-[o<-- C : devicesPerFunctionality
+DR --> C : mapFunctionalities
+deactivate DR
+C -> MD : deviceToDTO(mapFunctionalities)
+activate MD
+MD --> MDTO** : <create>(mapFunctionalities)
+MD--> C : mapFunctionalitiesDTO
+deactivate MD
+[o<--C : mapFunctionalitiesDTO
 deactivate C
-
-
-note left #LightBlue
-Assuming success
-end note
 
 @enduml
 
