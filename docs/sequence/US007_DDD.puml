@@ -72,15 +72,15 @@ deactivate CAT
 [o<--C7 : sensorModels
 deactivate C7
 
-[o->C7: addSensorToDevice(deviceDTO, sensorModel)
+[o->C7: addSensorToDevice(sensorDTO, sensorModel)
 activate C7
-C7 -> S4 : toSensorId(deviceDTO)
+C7 -> S4 : toSensorId(sensorDTO)
 activate S4
 S4 --> SID** : <create>(sensorId)
 
 S4 --> C7 : sensorId
 deactivate S4
-C7 -> DN1 : toDeviceName(deviceDTO)
+C7 -> DN1 : toDeviceName(sensorDTO)
 activate DN1
 DN1 --> D7** : <create>(deviceName)
 DN1 --> C7 : deviceName
@@ -89,7 +89,7 @@ deactivate DN1
 
 C7 -> F : createSensor(sensorModel, sensorId, deviceName)
 activate F
-F --> S1** : createSensor(sensorModel, sensorId, deviceName)
+F --> S1** : createSensor(sensorModel, sensorId, deviceName, value)
 F --> C7 : sensor
 deactivate F
 C7 -> SR : save(sensor)

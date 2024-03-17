@@ -30,9 +30,8 @@ participant "actuatorTypeDTO:ActuatorTypeDTO" as S5
 participant "deviceNameMapper:DeviceNameMapper" as DN1
 participant "deviceName:DeviceName" as D7
 participant "deviceNameDTO:DeviceNameDTO" as DN
-
 participant "stateMapper:StateMapper" as S7
-participant "state:State" as S8
+participant "stateDTO:StateDTO" as S8
 
 
 [o->C7 : getRooms()
@@ -50,9 +49,9 @@ activate C7
 C7->D : getDevices()
 activate D
 ref over D : (UserStory6.puml for more details)
-D-->C7 : _devicesDTO
+D-->C7 : devicesDTO
 deactivate D
-[o<--C7 : _devicesDTO
+[o<--C7 : devicesDTO
 deactivate C7
 
 [o->C7 : getActuatorTypes()
@@ -75,24 +74,27 @@ deactivate CAT
 [o<--C7 : actuatorModels
 deactivate C7
 
-[o->C7: addActuatorToDevice(deviceDTO, actuatorModel)
+[o->C7: addActuatorToDevice(actuatorDTO, actuatorModel)
 activate C7
-C7 -> S4 : toActuatorId(deviceDTO)
+C7 -> S4 : toActuatorId(actuatorDTO)
 activate S4
 S4 --> SID** : <create>(actuatorId)
 
 S4 --> C7 : actuatorId
 deactivate S4
-C7 -> DN1 : toDeviceName(deviceDTO)
+C7 -> DN1 : toDeviceName(actuatorDTO)
 activate DN1
 DN1 --> D7** : <create>(deviceName)
 DN1 --> C7 : deviceName
 deactivate DN1
 
 
+
 C7 -> F : createActuator(actuatorModel, actuatorId, deviceName)
 activate F
-F --> S1** : createActuator(actuatorModel, actuatorId, deviceName)
+
+
+F --> S1** : createActuator(actuatorModel, actuatorId, deviceName, state)
 F --> C7 : actuator
 deactivate F
 C7 -> SR : save(actuator)
@@ -117,7 +119,12 @@ activate DN1
 DN1 --> DN** : <create>(deviceName)
 DN1 --> S3 : deviceNameDTO
 deactivate DN1
-S3 --> S2** : <create>(actuatorIdDTO, actuatorTypeDTO, stateDTO, deviceNameDTO)
+S3 -> S7 : stateToDTO(state)
+activate S7
+S7 --> S8** : <create>(state)
+S7 --> S3 : stateDTO
+deactivate S7
+S3 --> S2** : <create>(actuatorIdDTO, actuatorTypeDTO, deviceNameDTO, stateDTO)
 S3 --> C7 : actuatorDTO
 deactivate S3
 [o<-- C7 : actuatorDTO
