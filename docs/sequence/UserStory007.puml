@@ -23,6 +23,7 @@ participant "_sensorMapper:SensorMapper" as S3
 participant "_sensorDTO:SensorDTO" as S2
 
 
+
 [o->C7 : getRooms()
 activate C7
 C7->C : getRooms()
@@ -79,5 +80,8 @@ S3 -> S2** : _createSensorDTO(_id, _sensorTypes)
 S3 --> C7 : _sensorDTO
 deactivate S3
 [o<--C7 : _sensorDTO
+
+
+
 deactivate C7
 @enduml

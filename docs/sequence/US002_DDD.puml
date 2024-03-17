@@ -5,6 +5,8 @@ autonumber
 
 title US002
 
+/'As an Administrator, I want to add a new room to the house, in order to
+  configure it (name, house floor and dimensions).'/
 /'
 As an Administrator, I want to add a new room to the house, in order to
 configure it (name, house floor and dimensions).
@@ -83,9 +85,9 @@ DM --> DD** : <create>(width, height, length)
 DM --> RM : dimensionDTO
 deactivate DM
 RM --> RD** : <create>(houseNameDTO, roomNameDTO, floorDTO, dimensionDTO)
-RM --> ARC : roomsDTO
+RM --> ARC : roomDTO
 deactivate RM
-[o<-- ARC : roomsDTO
+[o<-- ARC : roomDTO
 deactivate ARC
 
 @enduml

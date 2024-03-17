@@ -11,6 +11,7 @@ longer used. Nevertheless, it should be possible to access its configuration and
 activity log.
 '/
 
+
 participant "deactivateDevice:DeactivateDeviceController" as C1
 participant "getRoomList:GetRoomListController" as C2
 participant "getDeviceList:GetDeviceListController" as C3

@@ -1,6 +1,11 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title US005
+
+/'
+As a Power User [or Administrator], I want to add a new device to a room, in order to configure it.
+'/
 autonumber
 
 participant "addDeviceController:AddDeviceToRoomController" as ADC
@@ -31,9 +36,10 @@ ref over G : (UserStory003 for more details)
 G-->ADC : roomsDTO
 deactivate G
 [o<--ADC : roomsDTO
+deactivate ADC
 
-
-[o->ADC : addDeviceToRoom(deviceDTO, roomNameDTO)
+[o->ADC : addDeviceToRoom(deviceDTO)
+activate ADC
 ADC -> DNM : toDeviceName(deviceDTO)
 activate DNM
 DNM --> DN** : <create> (deviceName)

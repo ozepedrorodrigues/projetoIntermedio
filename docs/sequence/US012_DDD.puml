@@ -1,0 +1,129 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title US007
+
+autonumber
+
+/'
+As a Power User [or Administrator], I want to add a sensor to an existing device in
+a room. The sensor must be of a model of an existing type of sensor.
+'/
+
+participant "addActuatorToDeviceController:AddActuatorToDeviceController" as C7
+participant "getRoomList:GetRoomListController" as C
+participant "getDeviceList:GetDeviceListController" as D
+participant "actuatorType:ActuatorType" as ST
+participant "catalogue:Catalogue" as CAT
+participant "actuatorFactory:ActuatorFactory" as F
+participant "actuator:Actuator" as S1
+participant "actuatorRepository:ActuatorRepository" as SR
+participant "actuatorMapper:ActuatorMapper" as S3
+participant "actuatorDTO:ActuatorDTO" as S2
+
+
+participant "actuatorIdMapper:ActuatorIdMapper" as S4
+participant "actuatorId:ActuatorId" as SID
+participant "actuatorIdDTO:ActuatorIdDTO" as id
+participant "actuatorTypesMapper:ActuatorTypesMapper" as S6
+participant "actuatorTypeDTO:ActuatorTypeDTO" as S5
+participant "deviceNameMapper:DeviceNameMapper" as DN1
+participant "deviceName:DeviceName" as D7
+participant "deviceNameDTO:DeviceNameDTO" as DN
+
+participant "stateMapper:StateMapper" as S7
+participant "state:State" as S8
+
+
+[o->C7 : getRooms()
+activate C7
+C7->C : getRooms()
+activate C
+ref over C : (UserStory3.puml for more details)
+C-->C7 : _roomsDTO
+deactivate C
+[o<--C7 : _roomsDTO
+deactivate C7
+
+[o->C7 : getDevices()
+activate C7
+C7->D : getDevices()
+activate D
+ref over D : (UserStory6.puml for more details)
+D-->C7 : _devicesDTO
+deactivate D
+[o<--C7 : _devicesDTO
+deactivate C7
+
+[o->C7 : getActuatorTypes()
+activate C7
+C7 -> ST : values()
+activate ST
+ST --> C7 : actuatorTypes
+deactivate ST
+[o<--C7 : actuatorTypes
+deactivate C7
+
+
+
+[o->C7: getActuatorModelByType(type)
+activate C7
+C7->CAT : getActuatorModelByType(type)
+activate CAT
+CAT-->C7 : actuatorModels
+deactivate CAT
+[o<--C7 : actuatorModels
+deactivate C7
+
+[o->C7: addActuatorToDevice(deviceDTO, actuatorModel)
+activate C7
+C7 -> S4 : toActuatorId(deviceDTO)
+activate S4
+S4 --> SID** : <create>(actuatorId)
+
+S4 --> C7 : actuatorId
+deactivate S4
+C7 -> DN1 : toDeviceName(deviceDTO)
+activate DN1
+DN1 --> D7** : <create>(deviceName)
+DN1 --> C7 : deviceName
+deactivate DN1
+
+
+C7 -> F : createActuator(actuatorModel, actuatorId, deviceName)
+activate F
+F --> S1** : createActuator(actuatorModel, actuatorId, deviceName)
+F --> C7 : actuator
+deactivate F
+C7 -> SR : save(actuator)
+activate SR
+SR --> C7 : actuator
+deactivate SR
+
+C7 -> S3 : actuatorToDTO(actuator)
+activate S3
+S3 -> S4 : actuatorIdToDTO(actuatorId)
+activate S4
+S4 --> id** : <create>(actuatorId)
+S4 --> S3 : actuatorIdDTO
+deactivate S4
+S3 -> S6 : actuatorTypeToDTO(actuatorType)
+activate S6
+S6 --> S5** : <create>(actuatorType)
+S6 --> S3 : actuatorTypeDTO
+deactivate S6
+S3 -> DN1 : deviceNameToDTO(deviceName)
+activate DN1
+DN1 --> DN** : <create>(deviceName)
+DN1 --> S3 : deviceNameDTO
+deactivate DN1
+S3 --> S2** : <create>(actuatorIdDTO, actuatorTypeDTO, stateDTO, deviceNameDTO)
+S3 --> C7 : actuatorDTO
+deactivate S3
+[o<-- C7 : actuatorDTO
+
+
+
+
+deactivate C7
+@enduml

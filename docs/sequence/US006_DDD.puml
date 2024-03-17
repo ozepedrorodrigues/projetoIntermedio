@@ -1,6 +1,13 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title US006
+
+/'
+As a Room Owner [or Power User, or Administrator], I want to get a list of all
+devices in a room, so that I can configure them.
+'/
+
 autonumber
 
 participant "getDeviceList:GetDeviceListController" as A
@@ -72,6 +79,7 @@ RNM --> RNDTO** : <create> (roomName)
 RNM --> M : roomNameDTO
 deactivate RNM
 M --> DTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+M -> M : devicesDTO.add(deviceDTO)
 end
 M --> A : devicesDTO
 deactivate M

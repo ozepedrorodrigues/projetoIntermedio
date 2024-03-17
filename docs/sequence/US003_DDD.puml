@@ -8,6 +8,9 @@ title US003
 /'
 As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
 '/
+/'
+As an Administrator, I want to have a list of existing rooms, so that I can choose one to edit it.
+'/
 
 participant "getRoomsController:GetRoomsController" as GRC
 participant "roomRepository:RoomRepository" as RR
@@ -21,6 +24,8 @@ participant "roomName:RoomNameDTO" as RDT
 participant "floorDTO:FloorDTO" as FD
 participant "dimensionDTO:DimensionDTO" as DD
 participant "roomDTO:RoomDTO" as RD
+
+
 
 [o-> GRC: getRooms()
 activate GRC
@@ -52,6 +57,7 @@ DM --> DD** : <create>(width, height, length)
 DM --> RM : dimensionDTO
 deactivate DM
 RM --> RD** : <create>(houseNameDTO, roomNameDTO, floorDTO, dimensionDTO)
+RM -> RM : roomsDTO.add(roomDTO)
 end
 RM --> GRC : roomsDTO
 deactivate RM
