@@ -112,13 +112,17 @@ loop for SensorType in mapFunctionalities:
         RNM --> M4 : roomNameDTO
         deactivate RNM
         M4 --> DDTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
-       M4 ->DDTOs : add(deviceDTO)
+        M4 ->DDTOs : add(deviceDTO)
+        activate DDTOs
+        deactivate DDTOs
+
         deactivate M
     end loop
     M4 --> M2 : put(sensorTypeDTO, deviceDTOs)
     activate M2
     deactivate M2
 end loop
+
 M1 --> C : mapFunctionalitiesDTO
 
 
