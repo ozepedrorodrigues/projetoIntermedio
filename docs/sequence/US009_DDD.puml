@@ -84,38 +84,38 @@ loop for SensorType in mapFunctionalities:
     deactivate M
     M1 -->DDTOs** : <create>()
     loop for Device in devices:
-        C -> M : toDeviceDTO(device)
-        activate M
-        M --> IDM : toDeviceIdDTO(deviceId)
+        M1 -> M4 : toDeviceDTO(device)
+        activate M4
+        M4 -> IDM : toDeviceIdDTO(deviceId)
         activate IDM
         IDM --> IDD** : <create> (deviceId)
-        IDM --> M : deviceIdDTO
+        IDM --> M4 : deviceIdDTO
         deactivate IDM
-        M -> DNM : toDeviceNameDTO(deviceName)
+        M4 -> DNM : toDeviceNameDTO(deviceName)
         activate DNM
         DNM --> DNDTO** : <create> (deviceName)
-        DNM --> M : deviceNameDTO
+        DNM --> M4 : deviceNameDTO
         deactivate DNM
-        M -> DTM : toTypeDTO(type)
+        M4 -> DTM : toTypeDTO(type)
         activate DTM
         DTM --> TDTO** : <create> (type)
-        DTM --> M : typeDTO
+        DTM --> M4 : typeDTO
         deactivate DTM
-        M -> SM : toStatusDTO(status)
+        M4 -> SM : toStatusDTO(status)
         activate SM
         SM --> SDTO** : <create> (status)
-        SM --> M : statusDTO
+        SM --> M4 : statusDTO
         deactivate SM
-        M -> RNM : toRoomNameDTO(roomName)
+        M4 -> RNM : toRoomNameDTO(roomName)
         activate RNM
         RNM --> RNDTO** : <create> (roomName)
-        RNM --> M : roomNameDTO
+        RNM --> M4 : roomNameDTO
         deactivate RNM
-        M --> DDTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
-       M ->DDTOs : add(deviceDTO)
+        M4 --> DDTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+       M4 ->DDTOs : add(deviceDTO)
         deactivate M
     end loop
-    M1 --> M2 : put(sensorTypeDTO, deviceDTOs)
+    M4 --> M2 : put(sensorTypeDTO, deviceDTOs)
     activate M2
     deactivate M2
 end loop
