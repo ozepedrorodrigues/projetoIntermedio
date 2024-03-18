@@ -14,6 +14,7 @@ participant "getDeviceList:GetDeviceListController" as A
 participant "getRoomList:GetRoomListController" as G
 participant "devicesRepository:DevicesRepository" as DR
 participant "deviceMapper:DeviceMapper" as M
+participant "deviceIdMapper:DeviceIdMapper" as DIM
 participant "deviceNameMapper:DeviceNameMapper" as DNM
 participant "deviceTypeMapper:DeviceTypeMapper" as DTM
 participant "type:Type" as T
@@ -24,6 +25,7 @@ participant "roomName:RoomName" as RN
 participant "deviceFactory:DeviceFactory" as DF
 participant "device:Device" as D
 participant "deviceRepository:DeviceRepository" as DR
+participant "deviceIdDTO:DeviceIdDTO" as DIDTO
 participant "deviceNameDTO:DeviceNameDTO" as DNDTO
 participant "typeDTO:TypeDTO" as TDTO
 participant "statusDTO:StatusDTO" as SDTO
@@ -58,6 +60,11 @@ deactivate DR
 A -> M : toDevicesDTO(devices)
 activate M
 loop FOR EACH DEVICE
+M -> DIM : toDeviceIdDTO(deviceId)
+activate DIM
+DIM --> DIDTO** : <create> (deviceId)
+DIM --> M : deviceIdDTO
+deactivate DIM
 M -> DNM : toDeviceNameDTO(deviceName)
 activate DNM
 DNM --> DNDTO** : <create> (deviceName)

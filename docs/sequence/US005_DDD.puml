@@ -11,6 +11,7 @@ autonumber
 participant "addDeviceController:AddDeviceToRoomController" as ADC
 participant "getRoomListController:GetRoomListController" as G
 participant "deviceMapper:DeviceMapper" as M
+participant "deviceIdMapper:DeviceIdMapper" as IDM
 participant "deviceNameMapper:DeviceNameMapper" as DNM
 participant "deviceName:DeviceName" as DN
 participant "deviceTypeMapper:DeviceTypeMapper" as DTM
@@ -22,6 +23,7 @@ participant "roomName:RoomName" as RN
 participant "deviceFactory:DeviceFactory" as DF
 participant "device:Device" as D
 participant "deviceRepository:DeviceRepository" as DR
+participant "deviceIdDTO:DeviceIdDTO" as IDD
 participant "deviceNameDTO:DeviceNameDTO" as DNDTO
 participant "typeDTO:TypeDTO" as TDTO
 participant "statusDTO:StatusDTO" as SDTO
@@ -72,6 +74,11 @@ deactivate DR
 
 ADC -> M : toDeviceDTO(device)
 activate M
+M --> IDM : toDeviceIdDTO(deviceId)
+activate IDM
+IDM --> IDD** : <create> (deviceId)
+IDM --> M : deviceIdDTO
+deactivate IDM
 M -> DNM : toDeviceNameDTO(deviceName)
 activate DNM
 DNM --> DNDTO** : <create> (deviceName)

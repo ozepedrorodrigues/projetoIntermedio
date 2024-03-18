@@ -1,0 +1,99 @@
+@startuml
+
+title US009
+autonumber
+
+/'
+As a Power User [or Administrator], I want to get a list of all devices in a house,
+grouped by device functionality types. It must include device location.'/
+
+participant "_getDevices:GetListOfDevicesByFunctionalityController" as C
+participant "devicesBySensorType:DevicesBySensorType" as U
+participant "SensorType" as ST
+participant "mapFunctionalities:HashMap<SensorType, Set<Device>>" as M
+participant "sensorRepository:SensorRepository" as SR
+participant "deviceRepository:DeviceRepository" as DR
+participant "sensor: Sensor" as S
+participant "mapperDevicesBySensorType:DevicesBySensorTypeMapper" as M1
+participant "mapFunctionalitiesDTO:HashMap<SensorTypeDTO,Set<DeviceDTO>>" as M2
+participant "sensorTypeDTOMapper:SensorTypeDTOMapper" as M3
+participant "sensorTypeDTO:SensorTypeDTO" as STDTO
+participant "deviceDTOMapper:DeviceDTOMapper" as M4
+participant "deviceDTO:DeviceDTO" as DDTO
+participant "deviceDTOs:Set<DeviceDTO>" as DDTOs
+
+
+
+
+[o-> C : getDevicesBySensorType()
+activate C
+C->U : getDevicesBySensorType()
+activate U
+U-> ST : values()
+activate ST
+ST --> U : sensorTypes
+deactivate ST
+U --> M** : <create>(sensorTypes)
+U -> SR : findAll()
+activate SR
+SR --> U : sensors
+deactivate SR
+loop for Sensor in sensors:
+    U -> S : getDeviceId()
+    activate S
+    S --> U : deviceId
+    deactivate S
+    U -> DR : findById(deviceId)
+    activate DR
+    DR --> U : device
+    deactivate DR
+    U -> S : getSensorType()
+    activate S
+    S --> U : sensorType
+    deactivate S
+    U -> M : get(sensorType).add(device)
+    activate M
+end loop
+deactivate M
+U --> C : mapFunctionalities
+deactivate U
+C -> M1 : mapToDTO(mapFunctionalities)
+activate M1
+M1 --> M2** : <create>()
+loop for SensorType in mapFunctionalities:
+    M1 -> M3 : mapToDTO(SensorType)
+    activate M3
+    M3 --> STDTO** : <create>(SensorType)
+    M3 --> M1: sensorTypeDTO
+    deactivate M3
+    M1 -> M : get(SensorType)
+    activate M
+    M --> M1 : devices
+    deactivate M
+    M1 -->DDTOs** : <create>()
+    loop for Device in devices:
+        M1 -> M4 : mapToDTO(Device)
+        activate M4
+        M4 --> DDTO** : <create>(Device)
+        M4 --> M1 : deviceDTO
+        deactivate M4
+        M1->DDTOs : add(deviceDTO)
+        activate DDTOs
+        deactivate DDTOs
+    end loop
+    M1 --> M2 : put(sensorTypeDTO, deviceDTOs)
+    activate M2
+    deactivate M2
+end loop
+M1 --> C : mapFunctionalitiesDTO
+
+
+
+
+
+
+
+
+@enduml
+
+@enduml

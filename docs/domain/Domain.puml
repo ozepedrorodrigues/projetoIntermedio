@@ -38,6 +38,7 @@ object Dimensions {
 
 package "Device Ag" {
 entity Device {
+- deviceId: DeviceId
 - name : DeviceName
 - type : DeviceType
 - active : Active
@@ -49,7 +50,7 @@ entity Device {
 package "Sensor Ag" {
 entity Sensor {
 - id : SensorId
-- deviceName : DeviceName
+- deviceId : DeviceId
 - value : Value
 }
 Object SensorType {
@@ -62,6 +63,7 @@ Object SensorType {
 package "Actuator Ag" {
 entity Actuator {
 - id : ActuatorId
+- deviceId : DeviceId
 - state : State
 }
 

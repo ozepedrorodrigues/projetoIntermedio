@@ -27,9 +27,9 @@ participant "sensorId:SensorId" as SID
 participant "sensorIdDTO:SensorIdDTO" as id
 participant "sensorTypesMapper:SensorTypesMapper" as S6
 participant "sensorTypeDTO:SensorTypeDTO" as S5
-participant "deviceNameMapper:DeviceNameMapper" as DN1
-participant "deviceName:DeviceName" as D7
-participant "deviceNameDTO:DeviceNameDTO" as DN
+participant "deviceIdMapper:DeviceIdMapper" as DN1
+participant "deviceId:DeviceId" as D7
+participant "deviceIdDTO:DeviceIdDTO" as DN
 
 
 [o->C7 : getRooms()
@@ -80,16 +80,16 @@ S4 --> SID** : <create>(sensorId)
 
 S4 --> C7 : sensorId
 deactivate S4
-C7 -> DN1 : toDeviceName(sensorDTO)
+C7 -> DN1 : toDeviceId(sensorDTO)
 activate DN1
-DN1 --> D7** : <create>(deviceName)
-DN1 --> C7 : deviceName
+DN1 --> D7** : <create>(deviceId)
+DN1 --> C7 : deviceId
 deactivate DN1
 
 
-C7 -> F : createSensor(sensorModel, sensorId, deviceName)
+C7 -> F : createSensor(sensorModel, sensorId, deviceId)
 activate F
-F --> S1** : createSensor(sensorModel, sensorId, deviceName, value)
+F --> S1** : createSensor(sensorModel, sensorId, deviceId, value)
 F --> C7 : sensor
 deactivate F
 C7 -> SR : save(sensor)
@@ -109,12 +109,12 @@ activate S6
 S6 --> S5** : <create>(sensorType)
 S6 --> S3 : sensorTypeDTO
 deactivate S6
-S3 -> DN1 : deviceNameToDTO(deviceName)
+S3 -> DN1 : deviceIdToDTO(deviceId)
 activate DN1
-DN1 --> DN** : <create>(deviceName)
-DN1 --> S3 : deviceNameDTO
+DN1 --> DN** : <create>(deviceId)
+DN1 --> S3 : deviceIdDTO
 deactivate DN1
-S3 --> S2** : <create>(sensorIdDTO, sensorTypeDTO, deviceNameDTO)
+S3 --> S2** : <create>(sensorIdDTO, sensorTypeDTO, deviceIdDTO)
 S3 --> C7 : sensorDTO
 deactivate S3
 [o<-- C7 : sensorDTO

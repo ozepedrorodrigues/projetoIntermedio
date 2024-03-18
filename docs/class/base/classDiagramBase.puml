@@ -81,11 +81,13 @@ class RoomName{
 package "Device Ag."{
 class Device {
   + Device(...)
+  + getId() : DeviceId
   + getName() : DeviceName
   + getRoomName() : RoomName
   + getType() : DeviceType
   + deactivate() : Status
 }
+
 
 
 class DeviceType{
@@ -94,17 +96,25 @@ class DeviceType{
 + getType(): String
     }
 
+    class DeviceName{
+    - deviceName: String
+    + DeviceName(...)
+    + getDeviceName(): String
+        }
+
 class Status{
 - active: boolean
 + Status(...)
 + isActive(): boolean
 }
 }
-class DeviceName{
-- deviceName: String
-+ DeviceName(...)
-+ getDeviceName(): String
-    }
+
+class DeviceId{
+- id: int
++ DeviceId(...)
++ getId(): int
+}
+
 
 package "Sensor Ag."{
 
@@ -154,10 +164,13 @@ package "Utils"{
 class IdGenerator{
 - static sensorId:int
 - static actuatorId:int
+- static deviceId:int
 + static generateSensorId:int
 + static generateActuatorId:int
++ static generateDeviceId:int
 + static resetSensorId: void
 + static resetActuatorId: void
++ static resetDeviceId: void
 }
 
 
@@ -189,15 +202,16 @@ Device "1" *-- "1" DeviceName : contains
 Device "1" --> "1" RoomName : knows
 Device "1" *-- "1" DeviceType : contains
 Device "1" *-- "1" Status : contains
+Device "1" *-- "1" DeviceId : contains
 
 Sensor "1" *-- "1" SensorType : has
 Sensor "1" *-- "1" Value : contains
-Sensor "1" --> "1" DeviceName : knows
+Sensor "1" --> "1" DeviceId : knows
 Sensor "1" *-- "1" SensorId : contains
 
 Actuator "1" *-- "1" ActuatorType : has
 Actuator "1" *-- "1" ActuatorId : contains
-Actuator "1" --> "1" DeviceName : knows
+Actuator "1" --> "1" DeviceId : knows
 
 
 

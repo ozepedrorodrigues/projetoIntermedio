@@ -27,9 +27,9 @@ participant "actuatorId:ActuatorId" as SID
 participant "actuatorIdDTO:ActuatorIdDTO" as id
 participant "actuatorTypesMapper:ActuatorTypesMapper" as S6
 participant "actuatorTypeDTO:ActuatorTypeDTO" as S5
-participant "deviceNameMapper:DeviceNameMapper" as DN1
-participant "deviceName:DeviceName" as D7
-participant "deviceNameDTO:DeviceNameDTO" as DN
+participant "deviceIdMapper:DeviceIdMapper" as DN1
+participant "deviceId:DeviceId" as D7
+participant "deviceIdDTO:DeviceIdDTO" as DN
 participant "stateMapper:StateMapper" as S7
 participant "stateDTO:StateDTO" as S8
 
@@ -82,19 +82,19 @@ S4 --> SID** : <create>(actuatorId)
 
 S4 --> C7 : actuatorId
 deactivate S4
-C7 -> DN1 : toDeviceName(actuatorDTO)
+C7 -> DN1 : toDeviceId(actuatorDTO)
 activate DN1
-DN1 --> D7** : <create>(deviceName)
-DN1 --> C7 : deviceName
+DN1 --> D7** : <create>(deviceId)
+DN1 --> C7 : deviceId
 deactivate DN1
 
 
 
-C7 -> F : createActuator(actuatorModel, actuatorId, deviceName)
+C7 -> F : createActuator(actuatorModel, actuatorId, deviceId)
 activate F
 
 
-F --> S1** : createActuator(actuatorModel, actuatorId, deviceName, state)
+F --> S1** : createActuator(actuatorModel, actuatorId, deviceId, state)
 F --> C7 : actuator
 deactivate F
 C7 -> SR : save(actuator)
@@ -114,17 +114,17 @@ activate S6
 S6 --> S5** : <create>(actuatorType)
 S6 --> S3 : actuatorTypeDTO
 deactivate S6
-S3 -> DN1 : deviceNameToDTO(deviceName)
+S3 -> DN1 : deviceIdToDTO(deviceId)
 activate DN1
-DN1 --> DN** : <create>(deviceName)
-DN1 --> S3 : deviceNameDTO
+DN1 --> DN** : <create>(deviceId)
+DN1 --> S3 : deviceIdDTO
 deactivate DN1
 S3 -> S7 : stateToDTO(state)
 activate S7
 S7 --> S8** : <create>(state)
 S7 --> S3 : stateDTO
 deactivate S7
-S3 --> S2** : <create>(actuatorIdDTO, actuatorTypeDTO, deviceNameDTO, stateDTO)
+S3 --> S2** : <create>(actuatorIdDTO, actuatorTypeDTO, deviceIdDTO, stateDTO)
 S3 --> C7 : actuatorDTO
 deactivate S3
 [o<-- C7 : actuatorDTO

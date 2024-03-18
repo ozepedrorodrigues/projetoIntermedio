@@ -18,20 +18,21 @@ participant "getDeviceList:GetDeviceListController" as C3
 participant "house:House" as H
 participant "room:Room" as R
 participant "mapperToDeviceDTO:MapperToDeviceDTO" as M1
-participant "deviceNameMapper:DeviceNameMapper" as M2
+participant "deviceIdMapper:DeviceIdMapper" as M2
+participant "deviceNameMapper:DeviceNameMapper" as M3
 participant "deviceDTO:DeviceDTO" as D2
 participant "deviceRepository:DeviceRepository" as DR
 participant "device:Device" as D
-participant "deviceName:DeviceName" as DN
+participant "deviceId:DeviceId" as DN
 
-participant "deviceNameDTO:DeviceNameDTO" as DNDTO
+participant "deviceIdDTO:DeviceIdDTO" as DNDTO
+participant "deviceNameDTO:DeviceNameDTO" as DNDTO1
 participant "deviceTypeMapper:DeviceTypeMapper" as DTM
 participant "typeDTO:TypeDTO" as TDTO
 participant "statusMapper:StatusMapper" as SM
 participant "statusDTO:StatusDTO" as SDTO
 participant "roomNameMapper:RoomNameMapper" as RNM
 participant "roomNameDTO:RoomNameDTO" as RNDTO
-participant "deviceDTO:DeviceDTO" as DTO
 
 [o->C1 : getRooms()
 activate C1
@@ -53,14 +54,14 @@ deactivate C3
 deactivate C1
 
 
-[o->C1 : deactivateDevice(deviceNameDTO)
+[o->C1 : deactivateDevice(deviceIdDTO)
 activate C1
-C1 -> M2 : toDeviceName(deviceNameDTO)
+C1 -> M2 : toDeviceId(deviceIdDTO)
 activate M2
-M2 --> DN** : <create> (deviceName)
-M2 --> C1 : deviceName
+M2 --> DN** : <create> (deviceId)
+M2 --> C1 : deviceId
 deactivate M2
-C1 -> DR : getDeviceByName(deviceName)
+C1 -> DR : getDeviceById(deviceId)
 activate DR
 DR --> C1 : device
 deactivate DR
@@ -71,11 +72,16 @@ deactivate D
 
 C1 -> M1 : toDeviceDTO(device)
 activate M1
-M1 -> M2 : toDeviceNameDTO(deviceName)
+M1 -> M2 : toDeviceIdDTO(deviceId)
 activate M2
-M2 --> DNDTO** : <create> (deviceName)
-M2 --> M1 : deviceNameDTO
+M2 --> DNDTO** : <create> (deviceId)
+M2 --> M1 : deviceIdDTO
 deactivate M2
+M1-> M3 : toDeviceNameDTO(deviceName)
+activate M3
+M3 --> DNDTO1** : <create> (deviceName)
+M3 --> M1 : deviceNameDTO
+deactivate M3
 M1 -> DTM : toTypeDTO(type)
 activate DTM
 DTM --> TDTO** : <create> (type)
@@ -91,7 +97,7 @@ activate RNM
 RNM --> RNDTO** : <create> (roomName)
 RNM --> M1 : roomNameDTO
 deactivate RNM
-M1 --> DTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+M1 --> D2** : <create> (deviceIdDTO, typeDTO, statusDTO, roomNameDTO)
 M1 --> C1 : deviceDTO
 deactivate M1
 [o<--C1 : deviceDTO
