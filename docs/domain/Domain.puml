@@ -41,7 +41,7 @@ entity Device {
 - deviceId: DeviceId
 - name : DeviceName
 - type : DeviceType
-- active : Active
+- state : State
 - roomName : RoomName
 }
 }
