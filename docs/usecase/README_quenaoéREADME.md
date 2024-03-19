@@ -20,6 +20,7 @@
 5. [Implementation](#implementation)
 6. [Observations](#observations)
 
+
 # 1. Requirements
 _As an Administrator, I want to configure the location of the house._
 
