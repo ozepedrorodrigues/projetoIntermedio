@@ -4,21 +4,21 @@
 
 # Table of Contents
 
+# Table of Contents
 1. [Requirements](#requirements)
-2. [Dependency of other user stories](#dependency-of-other-user-stories)
-3. [Analysis](#analysis)
+    - [Dependency of other user stories](#dependency-of-other-user-stories)
+2. [Analysis](#analysis)
     - [Relevant domain model excerpt](#relevant-domain-model-excerpt)
-4. [Design](#design)
+3. [Design](#design)
     - [Class diagram](#class-diagram)
     - [Sequence diagram](#sequence-diagram)
     - [Applied design patterns and principles](#applied-design-patterns-and-principles)
-5. [Tests](#tests)
+4. [Tests](#tests)
     - [Tests of acceptance](#tests-of-acceptance)
     - [Unit tests](#unit-tests)
     - [Integration tests](#integration-tests)
-6. [Implementation](#implementation)
-7. [Observations](#observations)
-
+5. [Implementation](#implementation)
+6. [Observations](#observations)
 
 # 1. Requirements
 _As an Administrator, I want to configure the location of the house._
