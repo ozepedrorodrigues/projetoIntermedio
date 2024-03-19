@@ -1,6 +1,6 @@
 # US001 - Configure the location of the house
 
-----
+
 
 # Table of Contents
 1. **[Requirements](#1-requirements)**
@@ -23,9 +23,6 @@
     4.3 [Integration tests](#43-integration-tests)
 5. **[Implementation](#5-implementation)**
 6. **[Observations](#observations)**
-
-
------
 
 
 
