@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+title US002
+
+/'
+As an Administrator, I want to add a new room to the house, in order to
+configure it.
+'/
+
+participant "addRoomController:AddRoomController" as ARC
+participant "roomFactory:RoomFactory" as RF
+participant "room:Room" as R
+participant "roomRepo:RoomRepository" as RR
+participant "roomMapper:RoomMapper" as RM
+participant "roomDTO:RoomDTO" as RD
+
+[o-> ARC : addRoom(roomDTO)
+activate ARC
+
+ARC -> RF : createRoom(roomDTO)
+activate RF
+note right of RF
+  The room factory is responsible for creating:
+  houseName, roomName, floor, width,
+  length, height and dimensions value objects
+end note
+RF --> R** : <create>(houseName, roomName, floor, dimensions)
+RF --> ARC : room
+deactivate RF
+ARC -> RR : save(room)
+activate RR
+RR --> ARC : room
+deactivate RR
+ARC -> RM : toRoomDTO(room)
+activate RM
+RM --> RD** : <create>(houseName, roomName, floor, height, width, length)
+RM --> ARC : roomDTO
+deactivate RM
+[o<-- ARC : roomDTO
+deactivate ARC
+
+@enduml
