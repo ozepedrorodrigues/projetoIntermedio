@@ -1,9 +1,5 @@
 # US001 - Configure the location of the house
 
-
-
-# Table of Contents
-
 # Table of Contents
 1. [Requirements](#requirements)
     - [Dependency of other user stories](#dependency-of-other-user-stories)
@@ -19,7 +15,6 @@
     - [Integration tests](#integration-tests)
 5. [Implementation](#implementation)
 6. [Observations](#observations)
-
 
 # 1. Requirements
 _As an Administrator, I want to configure the location of the house._
@@ -53,7 +48,6 @@ As mentioned in the requirement, the location is composed by the following attri
 | Latitude  | The latitude must be composed by numbers. |
 | Longitude | The longitude must be composed by numbers. |
 
-
 ## Relevant domain model excerpt
 
 Below is the relevant domain model excerpt for this user story:
@@ -67,9 +61,7 @@ Below is the relevant domain model excerpt for this user story:
 
 Below is the class diagram for this user story:
 
-
 ![US001-US001.png](..%2Fclass%2Fuserstory%2FUS001%2FUS001-US001.png)
-
 
 ## Sequence diagram
 
@@ -118,8 +110,6 @@ Below is the sequence diagram for this user story:
   - **When** the administrator wants to configure the location of the house.
   - **Then** the system must store the location of the house.
   - **And** the system must confirm the location of the house was stored.
-
-
 
 ## Unit tests
 
