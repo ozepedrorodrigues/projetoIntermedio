@@ -16,8 +16,8 @@ participant "deviceNameMapper:DeviceNameMapper" as DNM
 participant "deviceName:DeviceName" as DN
 participant "deviceTypeMapper:DeviceTypeMapper" as DTM
 participant "type:Type" as T
-participant "statusMapper:StatusMapper" as SM
-participant "status:Status" as S
+participant "stateMapper:StateMapper" as SM
+participant "state:State" as S
 participant "roomNameMapper:RoomNameMapper" as RNM
 participant "roomName:RoomName" as RN
 participant "deviceFactory:DeviceFactory" as DF
@@ -26,7 +26,7 @@ participant "deviceRepository:DeviceRepository" as DR
 participant "deviceIdDTO:DeviceIdDTO" as IDD
 participant "deviceNameDTO:DeviceNameDTO" as DNDTO
 participant "typeDTO:TypeDTO" as TDTO
-participant "statusDTO:StatusDTO" as SDTO
+participant "stateDTO:StateDTO" as SDTO
 participant "roomNameDTO:RoomNameDTO" as RNDTO
 participant "deviceDTO:DeviceDTO" as DTO
 
@@ -52,19 +52,19 @@ activate DTM
 DTM --> T** : <create> (type)
 DTM --> ADC : type
 deactivate DTM
-ADC -> SM : toStatus(deviceDTO)
+ADC -> SM : toState(deviceDTO)
 activate SM
-SM --> S** : <create> (status)
-SM --> ADC : status
+SM --> S** : <create> (state)
+SM --> ADC : state
 deactivate SM
 ADC -> RNM : toRoomName(roomNameDTO)
 activate RNM
 RNM --> RN** : <create> (roomName)
 RNM --> ADC : roomName
 deactivate RNM
-ADC -> DF : createDevice(deviceName, type, status, roomName)
+ADC -> DF : createDevice(deviceName, type, state, roomName)
 activate DF
-DF --> D** : <create> (deviceName, type, status, roomName)
+DF --> D** : <create> (deviceName, type, state, roomName)
 DF --> ADC : device
 deactivate DF
 ADC -> DR : save(device)
@@ -89,17 +89,17 @@ activate DTM
 DTM --> TDTO** : <create> (type)
 DTM --> M : typeDTO
 deactivate DTM
-M -> SM : toStatusDTO(status)
+M -> SM : toStateDTO(state)
 activate SM
-SM --> SDTO** : <create> (status)
-SM --> M : statusDTO
+SM --> SDTO** : <create> (state)
+SM --> M : stateDTO
 deactivate SM
 M -> RNM : toRoomNameDTO(roomName)
 activate RNM
 RNM --> RNDTO** : <create> (roomName)
 RNM --> M : roomNameDTO
 deactivate RNM
-M --> DTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+M --> DTO** : <create> (deviceNameDTO, typeDTO, stateDTO, roomNameDTO)
 M --> ADC : deviceDTO
 deactivate M
 [o<--ADC : deviceDTO

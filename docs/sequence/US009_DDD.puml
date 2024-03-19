@@ -21,6 +21,18 @@ participant "sensorTypeDTO:SensorTypeDTO" as STDTO
 participant "deviceDTOMapper:DeviceDTOMapper" as M4
 participant "deviceDTO:DeviceDTO" as DDTO
 participant "deviceDTOs:Set<DeviceDTO>" as DDTOs
+participant "deviceIdMapper:DeviceIdMapper" as IDM
+participant "deviceNameMapper:DeviceNameMapper" as DNM
+participant "deviceTypeMapper:DeviceTypeMapper" as DTM
+participant "statusMapper:StatusMapper" as SM
+participant "roomNameMapper:RoomNameMapper" as RNM
+participant "deviceIdDTO:DeviceIdDTO" as IDD
+participant "deviceNameDTO:DeviceNameDTO" as DNDTO
+participant "typeDTO:TypeDTO" as TDTO
+participant "statusDTO:StatusDTO" as SDTO
+participant "roomNameDTO:RoomNameDTO" as RNDTO
+
+
 
 
 
@@ -72,19 +84,45 @@ loop for SensorType in mapFunctionalities:
     deactivate M
     M1 -->DDTOs** : <create>()
     loop for Device in devices:
-        M1 -> M4 : mapToDTO(Device)
+        M1 -> M4 : toDeviceDTO(device)
         activate M4
-        M4 --> DDTO** : <create>(Device)
-        M4 --> M1 : deviceDTO
-        deactivate M4
-        M1->DDTOs : add(deviceDTO)
+        M4 -> IDM : toDeviceIdDTO(deviceId)
+        activate IDM
+        IDM --> IDD** : <create> (deviceId)
+        IDM --> M4 : deviceIdDTO
+        deactivate IDM
+        M4 -> DNM : toDeviceNameDTO(deviceName)
+        activate DNM
+        DNM --> DNDTO** : <create> (deviceName)
+        DNM --> M4 : deviceNameDTO
+        deactivate DNM
+        M4 -> DTM : toTypeDTO(type)
+        activate DTM
+        DTM --> TDTO** : <create> (type)
+        DTM --> M4 : typeDTO
+        deactivate DTM
+        M4 -> SM : toStatusDTO(status)
+        activate SM
+        SM --> SDTO** : <create> (status)
+        SM --> M4 : statusDTO
+        deactivate SM
+        M4 -> RNM : toRoomNameDTO(roomName)
+        activate RNM
+        RNM --> RNDTO** : <create> (roomName)
+        RNM --> M4 : roomNameDTO
+        deactivate RNM
+        M4 --> DDTO** : <create> (deviceNameDTO, typeDTO, statusDTO, roomNameDTO)
+        M4 ->DDTOs : add(deviceDTO)
         activate DDTOs
         deactivate DDTOs
+
+        deactivate M
     end loop
-    M1 --> M2 : put(sensorTypeDTO, deviceDTOs)
+    M4 --> M2 : put(sensorTypeDTO, deviceDTOs)
     activate M2
     deactivate M2
 end loop
+
 M1 --> C : mapFunctionalitiesDTO
 
 
