@@ -1,4 +1,32 @@
-# US001 - Configure the location of the house_
+# US001 - Configure the location of the house
+
+----
+
+# Table of Contents
+1. **[Requirements](#1-requirements)**
+
+    1.1 [Dependency of other user stories](#11-dependency-of-other-user-stories)
+2. **[Analysis](#2-analysis)**
+3. **[Design](#3-design)**
+
+    3.1 [Class diagram](#31-class-diagram)
+    
+    3.2 [Sequence diagram](#32-sequence-diagram)
+
+    3.3 [Applied design patterns and principles](#33-applied-design-patterns-and-principles)
+4. **[Tests](#4-tests)**
+
+    4.1 [Tests of acceptance](#41-tests-of-acceptance)
+
+    4.2 [Unit tests](#42-unit-tests)
+
+    4.3 [Integration tests](#43-integration-tests)
+5. **[Implementation](#5-implementation)**
+6. **[Observations](#observations)**
+
+
+-----
+
 
 
 # 1. Requirements
@@ -10,7 +38,7 @@ Location is composed by the following attributes:
 - GPS (latitude, longitude)
 (...)
 
-## 1.2 Dependency of other user stories
+## 1.1. Dependency of other user stories
 None
 
 # 2. Analysis
@@ -34,7 +62,7 @@ As mentioned in the requirement, the location is composed by the following attri
 | Longitude | The longitude must be composed by numbers. |
 
 
-## 2.1 Relevant domain model excerpt
+## 2.1. Relevant domain model excerpt
 
 Below is the relevant domain model excerpt for this user story:
 
@@ -51,13 +79,13 @@ Below is the class diagram for this user story:
 ![US001-US001.png](..%2Fclass%2Fuserstory%2FUS001%2FUS001-US001.png)
 
 
-## 3.2 Sequence diagram
+## 3.2. Sequence diagram
 
 Below is the sequence diagram for this user story:
 
 **_(image of the sequence diagram)_**
 
-## 3.3 Applied design patterns and principles
+## 3.3. Applied design patterns and principles
 
 * Controller - The class LocationController has the responsibility to control the location of the house.
 * Information Expert - The class Location has the responsibility to store the address and GPS of the house.
@@ -73,7 +101,7 @@ Below is the sequence diagram for this user story:
 
 # 4. Tests
 
-## 4.1 Tests of acceptance
+## 4.1. Tests of acceptance
 
 - **Scenario 1:** The administrator wants to configure the location of the house for the first time
   - **When** the administrator wants to configure the location of the house.
@@ -101,13 +129,13 @@ Below is the sequence diagram for this user story:
 
 
 
-## 4.2 Unit tests
+## 4.2. Unit tests
 
 ```java
 //tests
 ```
 
-## 4.3 Integration tests
+## 4.3. Integration tests
 
 ```java
 //tests
@@ -119,6 +147,6 @@ The main challenges of the implementation of this user story were:
 1. Define the attributes of the location
 2. (...)
 
-# Observations
+# 6. Observations
 
 * The location of the house is a fundamental requirement for the system.
