@@ -34,8 +34,6 @@ const RoomDetails = ({ room, onBack }) => {
         </div>
         {roomDetails && (
             <div className="room-details-info">
-              <p><strong>House Name:</strong> {roomDetails.houseName}</p>
-              <p><strong>Room Name:</strong> {roomDetails.roomName}</p>
               <p><strong>Floor:</strong> {roomDetails.floor}</p>
               <p><strong>Height:</strong> {roomDetails.height}m</p>
               <p><strong>Width:</strong> {roomDetails.width}m</p>

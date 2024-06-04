@@ -31,7 +31,7 @@ const TemperatureCard = () => {
     }, []); // Empty dependency array ensures this runs only once when the component mounts
 
     const getTemperatureColor = (temp) => {
-        if (temp === null) return '#ffffff'; // Default color if temperature is not yet available
+        if (temp === null) return '#c2c2c2'; // Default color if temperature is not yet available
         return temp > 30 ? '#FF6347' : temp > 15 ? '#FFD700' : '#1E90FF';
     };
 
