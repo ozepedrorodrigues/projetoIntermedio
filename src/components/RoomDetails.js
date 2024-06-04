@@ -1,72 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './RoomDetails.css';
 
 const RoomDetails = ({ room, onBack }) => {
-  const [devices, setDevices] = useState(room.devices);
-  const [showAddDeviceForm, setShowAddDeviceForm] = useState(false);
-  const [newDeviceName, setNewDeviceName] = useState('');
-  const [newDeviceType, setNewDeviceType] = useState('');
+  const [roomDetails, setRoomDetails] = useState(null);
 
-  const handleAddDevice = () => {
-    setDevices([
-      ...devices,
-      { name: newDeviceName, type: newDeviceType }
-    ]);
-    setNewDeviceName('');
-    setNewDeviceType('');
-    setShowAddDeviceForm(false);
-  };
+  useEffect(() => {
+    const fetchRoomDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/rooms/${room.roomId}`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setRoomDetails(data);
+        console.log('Room details fetched successfully:', data);
+      } catch (error) {
+        console.error('Error fetching room details:', error);
+      }
+    };
+
+    fetchRoomDetails();
+  }, [room.roomId]);
 
   return (
-    <div className="room-details">
-      <div className="room-details-header">
-        <h2>{room.roomID}</h2>
-        <button className="back-button" onClick={onBack}>
-          Back
-        </button>
-      </div>
-      <div className="room-details-info">
-        <p><strong>Room Name:</strong> {room.name}</p>
-        <p><strong>Length:</strong> {room.length}m</p>
-        <p><strong>Height:</strong> {room.height}m</p>
-        <p><strong>Width:</strong> {room.width}m</p>
-        <p><strong>Floor:</strong> {room.floor}</p>
-        <div className="device-list">
-          <h3>Devices:</h3>
-          {devices.map((device, index) => (
-            <div key={index} className="device-item">
-              <span>{device.name}</span>
-              <button className="view-more-button">View More</button>
-            </div>
-          ))}
-          <button className="add-device-button" onClick={() => setShowAddDeviceForm(!showAddDeviceForm)}>
-            {showAddDeviceForm ? 'Cancel' : 'Add Device'}
+      <div className="room-details">
+        <div className="room-details-header">
+          <h2>{roomDetails ? roomDetails.roomName : 'Loading...'}</h2>
+          <button className="back-button" onClick={onBack}>
+            Back
           </button>
-          {showAddDeviceForm && (
-            <div className="add-device-form">
-              <input
-                type="text"
-                placeholder="Device Name"
-                value={newDeviceName}
-                onChange={(e) => setNewDeviceName(e.target.value)}
-              />
-              <select
-                value={newDeviceType}
-                onChange={(e) => setNewDeviceType(e.target.value)}
-              >
-                <option value="">Select Type</option>
-                <option value="Lamp">Lamp</option>
-                <option value="TV">TV</option>
-                <option value="Air Conditioner">Air Conditioner</option>
-                <option value="Heater">Heater</option>
-                <option value="Fan">Fan</option>
-              </select>
-              <button className="save-device-button" onClick={handleAddDevice}>Save</button>
-            </div>
-          )}
         </div>
+        {roomDetails && (
+            <div className="room-details-info">
+              <p><strong>House Name:</strong> {roomDetails.houseName}</p>
+              <p><strong>Room Name:</strong> {roomDetails.roomName}</p>
+              <p><strong>Floor:</strong> {roomDetails.floor}</p>
+              <p><strong>Height:</strong> {roomDetails.height}m</p>
+              <p><strong>Width:</strong> {roomDetails.width}m</p>
+              <p><strong>Length:</strong> {roomDetails.length}m</p>
+            </div>
+        )}
       </div>
-    </div>
   );
 };
 
