@@ -1,0 +1,142 @@
+ 
+  .device-details-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .device-details-header h2 {
+	margin: 0;
+  }
+  
+  .device-details-info p {
+	margin: 5px 0;
+  }
+  
+  .deactivate-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-left: 10px;
+  }
+  
+  .deactivate-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .deactivate-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .sensor-list, .actuator-list {
+	margin-top: 20px;
+  }
+  
+  .sensor-item, .actuator-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
+	padding: 10px;
+	margin: 10px 0;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .current-value-button, .operate-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .current-value-button:hover, .operate-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .current-value-button:active, .operate-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .add-sensor-button, .add-actuator-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 20px;
+  }
+  
+  .add-sensor-button:hover, .add-actuator-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .add-sensor-button:active, .add-actuator-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .add-sensor-form, .add-actuator-form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+  }
+  
+  .add-sensor-form select, .add-sensor-form input, .add-actuator-form select, .add-actuator-form input {
+	padding: 10px;
+	margin: 5px 0;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+  }
+  
+  .save-sensor-button, .save-actuator-button, .save-slider-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 10px;
+  }
+  
+  .save-sensor-button:hover, .save-actuator-button:hover, .save-slider-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .save-sensor-button:active, .save-actuator-button:active, .save-slider-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .slider-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .slider-container input[type="range"] {
+	width: 100%;
+	margin: 10px 0;
+  }
+  

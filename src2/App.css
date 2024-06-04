@@ -1,0 +1,184 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.header {
+  width: 100%;
+  background-image: linear-gradient(to right, #577a7a, #29373a);
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+
+h1 {
+  font-weight: 700;
+  margin: 0;
+}
+
+.cards-container {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.left-card {
+  flex: 1.5;
+  margin-right: 20px;
+}
+
+.right-cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.left-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.main-card {
+  background-color: #e0e0e0;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.rooms-button {
+  background-color: #7198d1;
+  color: white;
+  padding: 30px 60px;
+  font-size: 2em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.rooms-button:hover {
+  background-color: #4c74af;
+  transform: translateY(-3px);
+}
+
+.rooms-button:active {
+  background-color: #4c74af;
+  transform: translateY(0);
+}
+
+.room-view {
+  width: 100%;
+  margin-top: 60px;
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.room-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.back-button {
+  background-color: #ff6347;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #ff4500;
+  transform: translateY(-3px);
+}
+
+.back-button:active {
+  background-color: #e03e00;
+  transform: translateY(0);
+}
+
+.room-list-container {
+  background-color: #e0e0e0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.room-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-item {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-more-button {
+  background-color: #4c74af;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-more-button:hover {
+  background-color: #4c74af;
+  transform: translateY(-3px);
+}
+
+.view-more-button:active {
+  background-color: #4c74af;
+  transform: translateY(0);
+}
