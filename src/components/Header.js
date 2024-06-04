@@ -1,9 +1,9 @@
 import React from "react";
 import "./Header.css";
-import {FaHome} from "react-icons/fa";
+import {GiMushroomHouse} from "react-icons/gi";
 
 export const Header = ({ onClick }) => {
-    const Icon = FaHome;
+    const Icon = GiMushroomHouse;
 
     return (
         <div className={"header"}>
