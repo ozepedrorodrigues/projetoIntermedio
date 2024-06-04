@@ -8,7 +8,7 @@ const RoomList = ({ rooms, onRoomSelect }) => {
         {rooms.map((room) => (
           <div key={room.roomID} className="room-item">
             <span>{room.name}</span>
-            <button className="view-more-button" onClick={() => onRoomSelect(room)}>View More</button>
+            <button className="room-view-more-button" onClick={() => onRoomSelect(room)}>View More</button>
           </div>
         ))}
       </div>
