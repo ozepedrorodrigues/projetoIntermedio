@@ -4,6 +4,8 @@ import './TemperatureCard.css';
 
 const TemperatureCard = () => {
     const [temperature, setTemperature] = useState(null);
+    const [timeoutId, setTimeoutId] = useState(null);
+    const [intervalId, setIntervalId] = useState(null);
 
     useEffect(() => {
         const fetchTemperature = async () => {
@@ -26,8 +28,34 @@ const TemperatureCard = () => {
                 console.error('Error fetching temperature:', error);
             }
         };
-
         fetchTemperature();
+        // Calculate the milliseconds until next 15-minute mark
+        const now = new Date();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const milliseconds = now.getMilliseconds();
+        const msUntilNextQuarterHour = ((15 - (minutes % 15)) * 60 * 1000) - (seconds * 1000) - milliseconds;
+
+        // Set a timeout until the next 15-minute mark
+        const timeout = setTimeout(() => {
+            // Fetch the temperature immediately at the next 15-minute mark
+            fetchTemperature();
+
+            // Then set an interval to fetch the temperature every 15 minutes
+            const interval = setInterval(fetchTemperature, 15 * 60 * 1000);
+
+            // Save the intervalId in the state so it can be cleared later
+            setIntervalId(interval);
+        }, msUntilNextQuarterHour);
+
+        // Save the timeoutId in the state so it can be cleared later
+        setTimeoutId(timeout);
+
+        // This function will be called when the component unmounts
+        return () => {
+            clearTimeout(timeoutId);
+            clearInterval(intervalId);
+        };
     }, []); // Empty dependency array ensures this runs only once when the component mounts
 
     const getTemperatureColor = (temp) => {
