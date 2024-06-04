@@ -1,0 +1,96 @@
+.room-details {
+	background-color: #e0e0e0;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 20px;
+	width: 100%;
+  }
+  
+  .room-details-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .room-details-header h2 {
+	margin: 0;
+  }
+  
+  .room-details-info p {
+	margin: 5px 0;
+  }
+  
+  .device-list {
+	margin-top: 20px;
+  }
+  
+  .device-item {
+	padding: 10px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+  }
+  
+  .add-device-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 10px;
+  }
+  
+  .add-device-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .add-device-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .add-device-form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+  }
+  
+  .add-device-form input,
+  .add-device-form select {
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+  }
+  
+  .save-device-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .save-device-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .save-device-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
