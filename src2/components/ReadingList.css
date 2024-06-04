@@ -1,0 +1,66 @@
+.readings-list {
+	padding: 20px;
+  }
+  
+  .readings-list-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+  }
+  
+  .readings-list-info p {
+	margin: 5px 0;
+  }
+  
+  .readings-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+  }
+  
+  .readings-table th, .readings-table td {
+	padding: 15px;
+	border: 1px solid #ddd;
+	text-align: left;
+  }
+  
+  .readings-table th {
+	background-color: #4c74af;
+	color: white;
+	font-weight: bold;
+  }
+  
+  .reading-item {
+	background-color: #f9f9f9;
+  }
+  
+  .reading-item:nth-child(even) {
+	background-color: #f2f2f2;
+  }
+  
+  .reading-item:hover {
+	background-color: #e0e0e0;
+  }
+  
+  .back-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .back-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  

@@ -1,4 +1,4 @@
- 
+
   .device-details-header {
 	display: flex;
 	justify-content: space-between;
@@ -49,27 +49,34 @@
 	margin: 10px 0;
 	border-radius: 10px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	min-height: 35px; /* Garantir que os sensores tenham a mesma altura que os atuadores */
   }
   
   .current-value-button, .operate-button {
-	background-color: #7198d1;
+	background-color: #ccc; /* Botão cinza por padrão */
 	color: white;
 	padding: 10px;
 	border: none;
 	border-radius: 10px;
-	cursor: pointer;
+	cursor: not-allowed; /* Cursor não permitido */
 	transition: background-color 0.3s ease, transform 0.3s ease;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .current-value-button:hover, .operate-button:hover {
+  .operate-button:not(.disabled):hover {
 	background-color: #4c74af;
 	transform: translateY(-3px);
+	cursor: pointer;
   }
   
-  .current-value-button:active, .operate-button:active {
+  .current-value-button:active, .operate-button:active:not(.disabled) {
 	background-color: #4c74af;
 	transform: translateY(0);
+  }
+  
+  .operate-button:not(.disabled) {
+	background-color: #7198d1;
+	cursor: pointer;
   }
   
   .add-sensor-button, .add-actuator-button {
@@ -131,12 +138,118 @@
   
   .slider-container {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
+	width: 40%;
+	min-width: 300px;
+  }
+  
+  .slider-wrapper {
+	position: relative;
+	flex-grow: 1;
+  }
+  
+  .slider-wrapper .slider-value {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #fff;
+	padding: 2px 5px;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	white-space: nowrap;
   }
   
   .slider-container input[type="range"] {
 	width: 100%;
 	margin: 10px 0;
+  }
+  
+  .slider-icon {
+	width: 24px;
+	height: 24px;
+	margin: 0 10px;
+  }
+  
+  .popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	}
+	to {
+	  opacity: 1;
+	}
+  }
+  
+  .popup-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+  .device-details p {
+	margin: 5px 0; /* Ajustar a margem para diminuir o espaçamento */
+  }
+  
+  .get-readings-button, .submit-readings-button, .cancel-readings-button {
+	background-color: #7198d1;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin-top: 10px; /* Ajustar a margem superior para melhor espaçamento */
+  }
+  
+  .get-readings-button:hover, .submit-readings-button:hover, .cancel-readings-button:hover {
+	background-color: #4c74af;
+	transform: translateY(-3px);
+  }
+  
+  .get-readings-button:active, .submit-readings-button:active, .cancel-readings-button:active {
+	background-color: #4c74af;
+	transform: translateY(0);
+  }
+  
+  .get-readings-button.disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+	transition: background-color 0.3s ease, transform 0.3s ease; /* Adicionar animação para o botão desativado */
+  }
+  
+  .readings-form {
+	display: flex;
+	align-items: center; /* Alinha itens no centro verticalmente */
+	margin-top: 10px;
+  }
+  
+  .readings-form label {
+	margin-right: 10px; /* Espaço entre os labels */
+  }
+  
+  .readings-form input {
+	padding: 10px;
+	margin: 0 10px; /* Espaço horizontal entre os inputs */
+	border-radius: 5px;
+	border: 1px solid #ccc;
+  }
+  
+  .readings-form .submit-readings-button {
+	margin-right: 10px; /* Espaço entre os botões submit e cancel */
   }
   
