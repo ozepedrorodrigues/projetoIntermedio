@@ -5,6 +5,7 @@ import TemperatureCard from './components/TemperatureCard';
 import RoomDetails from './components/RoomDetails';
 import RoomView from './components/RoomView';
 import RoomsButton from './components/RoomsButton';
+import {Header} from "./components/Header";
 
 const App = () => {
   const [showRooms, setShowRooms] = useState(false);
@@ -69,9 +70,7 @@ const App = () => {
 
   return (
       <div className="home-container">
-        <header className="header">
-          <h1>SmartHome System</h1>
-        </header>
+        <Header />
         <div className="cards-container">
           {showRooms ? (
               selectedRoom ? (
