@@ -38,3 +38,5 @@ N
 src2/components/RoomDetails.js,8\5\854dc159f1b827d5ab8220c4f785ed85e518df81
 K
 src/components/RoomList.css,5\5\55958784c35cfd9eafbe3f61794c4242e5641bed
+O
+src2/components/RoomDetails.css,0\0\00b91edd480807b62f89e907ee5043feaec48436

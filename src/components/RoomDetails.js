@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './RoomDetails.css';
 import DeviceDetails from "../../src/components/DeviceDetails";
 
-const RoomDetails = ({room, onBack}) => {
+const RoomDetails = ({ room, onBack }) => {
 
-
-    // Device
     const [selectedDevice, setSelectedDevice] = useState(null);
     const [devices, setDevices] = useState([]);
     const [showAddDeviceForm, setShowAddDeviceForm] = useState(false);
@@ -48,9 +46,8 @@ const RoomDetails = ({room, onBack}) => {
 
     const handleDeviceBack = () => {
         setSelectedDevice(null);
+        fetchDevicesForRoom(); // Re-fetch devices when navigating back
     };
-
-    // Device Types
 
     const fetchDeviceTypes = async () => {
         try {
@@ -65,7 +62,7 @@ const RoomDetails = ({room, onBack}) => {
             if (Array.isArray(data)) {
                 const deviceTypes = data.map(deviceTypeDTO => deviceTypeDTO.deviceTypeName);
                 console.log('Device types fetched successfully:', deviceTypes);
-                setDeviceTypes(deviceTypes); // assuming you want to update the state with the fetched device types
+                setDeviceTypes(deviceTypes);
             } else {
                 console.error('Unexpected response format:', data);
             }
@@ -78,13 +75,8 @@ const RoomDetails = ({room, onBack}) => {
         fetchDeviceTypes();
     }, []);
 
-
-
-    // devices
-
     const fetchDevicesForRoom = async () => {
         try {
-            // Use the roomId from the room prop to fetch devices for this room
             const response = await fetch(`http://localhost:8080/devices/room/${room.roomId}`);
 
             if (!response.ok) {
@@ -93,7 +85,6 @@ const RoomDetails = ({room, onBack}) => {
 
             const data = await response.json();
 
-            // Assuming the response directly contains the devices array without _embedded
             if (Array.isArray(data)) {
                 const detailedDevices = await Promise.all(data.map(async (device) => {
                     const deviceDetailsResponse = await fetch(`http://localhost:8080/devices/${device.deviceId}`);
@@ -103,7 +94,7 @@ const RoomDetails = ({room, onBack}) => {
                     }
 
                     const deviceDetailsData = await deviceDetailsResponse.json();
-                    return {...device,...deviceDetailsData}; // Merge device with its details
+                    return { ...device, ...deviceDetailsData };
                 }));
 
                 setDevices(detailedDevices);
@@ -116,13 +107,9 @@ const RoomDetails = ({room, onBack}) => {
         }
     };
 
-    // Call fetchDevicesForRoom when the component mounts or when the room prop changes
     useEffect(() => {
         fetchDevicesForRoom();
     }, [room]);
-
-
-
 
     return (
         <div className="room-details">
